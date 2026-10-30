@@ -90,6 +90,12 @@ _S8_SIM128 = os.environ.get("FNX_S8_SIM128", "0") == "1"
 #   即精确模拟"专家权重降到 3-bit"的误差。能省 300 MiB/层（45 层 ≈ 13 GiB），
 #   够把 48 层全部图捕获 + 全部注意力预反量化（潜在 ~70-80 ms）。
 _SIM3 = os.environ.get("FNX_SIM_EXP3", "0") == "1"
+#   ★ 第 34 轮按 msProf 的优化：把 offset-binary 的 `-8` 折进 scale 那一次乘
+#   （`(n'-8)*s = addcmul(-8s, n', s)`）。
+#   ⚠️ **默认关闭**：实测这条路会让单次 /fnx/loss 从 ~30 s 拖到 >105 s 仍未完成，
+#   怀疑 `addcmul` 在 [k,N,S,1]×[k,N,S,64] 这种广播形态上走了慢路径（待查）。
+#   保留代码与开关，方便以后用 msProf 单独看这个 op；生产用 0。
+_FOLD8 = os.environ.get("FNX_DEQ_FOLD8", "0") == "1"
 _SMALL_NAMES = ("a_down", "a_up", "m_down", "m_up", "a_inj", "m_inj",
                 "sh_gate", "sh_up", "sh_down", "sh_gate2", "gate_w")
 _ATTN_NAMES = ("w_qkv", "w_z", "w_b", "w_a", "w_out", "w_q", "w_k", "w_v", "w_o")
@@ -352,21 +358,32 @@ class ExpQ:
         return o
 
     def _deq_v2(self, idx):
-        """v2 打包 [E,N,K/2] -> (wlo, whi)，各是连续的 [k,N,K/2]，scale 已还原。"""
+        """v2 打包 [E,N,K/2] -> (wlo, whi)，各是连续的 [k,N,K/2]，scale 已还原。
+
+        第 34 轮按 msProf 的两处优化（都只减 kernel 数，不改数值语义）：
+          1) `torch.div(pb, 16, rounding_mode="floor")` 代替 `floor(pb*0.0625)`
+             —— 原来是"乘 + floor"两个 kernel，现在一个；
+          2) offset-binary 的 `-8` 不再单独做一趟 16.4M 元素的减法，
+             而是用 `addcmul(-8s, n', s)` 把 `(n'-8)*s` 合成**一个** kernel。
+        """
         p = self.qv2.index_select(0, idx)
         k, N = p.shape[0], p.shape[1]
         S = self.K // 128
         pb = p.to(torch.bfloat16)                     # 0..255，bf16 尾数精确
+        # ⚠️ 第 34 轮实测：`torch.div(pb, 16.0, rounding_mode="floor")` 比
+        #   `torch.floor(pb * 0.0625)` **慢得多**（单个 /fnx/loss 从 30 s 拖到 >100 s 未完），
+        #   所以虽然 msProf 里它是两个 kernel、这里是两个，实测仍是原来这条快。已回退。
         hi = torch.floor(pb * 0.0625)                 # floor(byte/16)
         lo = pb - hi * 16.0
-        if self.v2ob:
-            # offset-binary：值 = n' - 8，一步到位
-            lo = lo - 8.0
-            hi = hi - 8.0
-        else:
+        fold8 = _FOLD8 and self.v2ob and not _S8_SIM128 and not _SIM3
+        if not self.v2ob:
             # 二进制补码：值 = (n ^ 8) - 8 = ((n+8) % 16) - 8
             lo = torch.remainder(lo + 8.0, 16.0) - 8.0
             hi = torch.remainder(hi + 8.0, 16.0) - 8.0
+        elif not fold8:
+            # offset-binary：值 = n' - 8
+            lo = lo - 8.0
+            hi = hi - 8.0
         if _SIM3:
             # ★★ 3-bit 专家可行性实验（第 32 轮追加）：
             #   4-bit 每组 16 个电平、步长 s；3-bit 在同动态范围下只有 8 个电平、步长 2s。
@@ -393,8 +410,15 @@ class ExpQ:
             # g64 布局：每 128 个 k 两个 scale（v2 块的 lo/hi 各一个）
             sv = se.view(k, N, S, 2)
             s_lo, s_hi = sv[..., 0:1], sv[..., 1:2]
-        wlo = (lo.view(k, N, S, 64) * s_lo).reshape(k, N, S * 64)
-        whi = (hi.view(k, N, S, 64) * s_hi).reshape(k, N, S * 64)
+        lo64 = lo.view(k, N, S, 64)
+        hi64 = hi.view(k, N, S, 64)
+        if fold8:
+            # 优化 2：w = (n' - 8) * s = n'*s + (-8s)，一次 addcmul 完成
+            wlo = torch.addcmul(-8.0 * s_lo, lo64, s_lo).reshape(k, N, S * 64)
+            whi = torch.addcmul(-8.0 * s_hi, hi64, s_hi).reshape(k, N, S * 64)
+        else:
+            wlo = (lo64 * s_lo).reshape(k, N, S * 64)
+            whi = (hi64 * s_hi).reshape(k, N, S * 64)
         return wlo, whi
 
     def matmul(self, xb, idx):
