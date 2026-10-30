@@ -98,6 +98,10 @@ _SIM3 = os.environ.get("FNX_SIM_EXP3", "0") == "1"
 _FOLD8 = os.environ.get("FNX_DEQ_FOLD8", "0") == "1"
 #   第 36 轮：4-bit 重新量化的裁剪系数（仅 repack 时生效）。1.0 = 不裁剪（基线）。
 _Q4_CLIP = float(os.environ.get("FNX_Q4_CLIP", "1.0"))
+#   ★ 第 38 轮：把"共用同一个输入"的稠密投影沿 N 拼成一个权重（qkv+z、b+a），
+#   一次算子调用全出，层内再切片。动机是 profile 里 WeightQuantBatchmatmul 变成
+#   最大单项（16 ms/步 / 315 次调用，平均 0.05 ms —— 成本在发射不在算）。
+_DENSE_CAT = os.environ.get("FNX_DENSE_CAT", "1") == "1"
 _SMALL_NAMES = ("a_down", "a_up", "m_down", "m_up", "a_inj", "m_inj",
                 "sh_gate", "sh_up", "sh_down", "sh_gate2", "gate_w")
 _ATTN_NAMES = ("w_qkv", "w_z", "w_b", "w_a", "w_out", "w_q", "w_k", "w_v", "w_o")
@@ -237,12 +241,76 @@ class QW:
 
 
 def lin(x, w):
-    """w 可以是 bf16 Tensor、QW（按需反量化），或 Raw（已反量化的包装器）。"""
+    """w 可以是 bf16 Tensor、QW（按需反量化）、DenseW8（Cube 内融合反量化）或 Raw。"""
     if isinstance(w, QW):
+        return w(x)
+    if isinstance(w, DenseW8):
         return w(x)
     if isinstance(w, Raw):
         return _fl(x, w.w)
     return _fl(x, w)
+
+class DenseW8:
+    """稠密 int8 权重的 Cube 融合路径（aclnn `npu_weight_quant_batchmatmul`，W8 per-group）。
+
+    第 38 轮实测（真实 L12，gs=128，M=1）：
+      (a) 现状 `QW(x)`：每 token 把整块 int8 反量化成 bf16 再 linear —— **0.953 ms/层**
+          （45 层 = 42.9 ms/token；profile 里就是那 24 ms 的 Mul+Cast 大头）
+      (b) 装载期预反量化 + 纯 bf16 linear —— 0.158 ms/层，但要 **+55 MiB/层**（45 层 +2.5 GiB，装不下）
+      (c) 本类：int8 常驻 + bf16 scale，反量化在 Cube 内 —— **0.263 ms/层**，**不占额外显存**
+    数值与 (a) **逐位一致**（rel 0.00e+00：scale 是 fp16 直接转 bf16，int8 值精确）。
+
+    scale 在装载期一次性转置成 `[G,N]` bf16（每个权重只有几十 KB），所以每 token 没有
+    scale 拼接开销——这一点和专家（512 个专家、必须现场拼）根本不同。
+    """
+    __slots__ = ("w8t", "sc", "gs", "K", "N")
+
+    def __init__(self, q, s, K=None):
+        gs = q.shape[-1] // s.shape[-1]
+        kk = q.shape[-1] if K is None else K
+        if kk % gs:                       # 有尾部 pad 且不整除组：不接这条路
+            raise ValueError(f"DenseW8: K={kk} 不是 gs={gs} 的整数倍")
+        g = kk // gs
+        self.w8t = q[:, :kk].t().contiguous()                 # [K,N] int8
+        self.sc = s[:, :g].t().contiguous().to(torch.bfloat16)  # [G,N] bf16
+        self.gs = gs
+        self.K = kk
+        self.N = self.w8t.shape[1]
+
+    def deq_w(self):
+        """一次性反量化（供 FNX_DEQ_SMALL 这类装载期预反量化用）。"""
+        w = self.w8t.to(torch.bfloat16) * self.sc.repeat_interleave(self.gs, dim=0)
+        return w.t().contiguous()                             # [N,K]
+
+    def __call__(self, x):
+        # 算子只吃 2 维 x（实测 3 维直接 161002: x's dim should be in range [2, 2]），
+        # 而层里传进来的是 [b,1,H]；reshape 成 [b*1,H] 再还原，数值等价、无拷贝。
+        sh = x.shape
+        if x.dtype != torch.bfloat16:
+            x = x.to(torch.bfloat16)
+        x2 = x if x.dim() == 2 else x.reshape(-1, sh[-1])
+        y = torch_npu.npu_weight_quant_batchmatmul(
+            x2, self.w8t, self.sc, antiquant_group_size=self.gs)
+        return y if x.dim() <= 2 else y.view(*sh[:-1], self.N)
+
+    @staticmethod
+    def merge(parts):
+        """把**共用同一个输入**的几个投影沿 N 拼成一个权重，一次算子调用全出。
+
+        实测动因（第 38 轮 profile）：r38 之后 `WeightQuantBatchmatmul` 变成最大单项
+        16 ms/步，共 315 次调用 —— 平均每次只有 0.05 ms，**成本在发射不在算**。
+        qkv 与 z 用的是同一个 h，拼成 [K, 10240+6144] 后一次调用即可（层内再切片，
+        切片是对激活做，几十 KB，代价可忽略）。
+        """
+        assert parts and all(p is not None for p in parts)
+        gs = parts[0].gs
+        assert all(p.gs == gs and p.K == parts[0].K for p in parts), "组大小/K 不一致，不能拼"
+        w = torch.cat([p.w8t for p in parts], dim=1)          # [K, ΣN]
+        sc = torch.cat([p.sc for p in parts], dim=1)          # [G, ΣN]
+        o = DenseW8.__new__(DenseW8)
+        o.w8t, o.sc, o.gs, o.K, o.N = w, sc, gs, parts[0].K, w.shape[1]
+        return o
+
 
 class Raw:
     """已反量化好的 bf16 权重 [N,K]。"""
@@ -684,18 +752,49 @@ class FnLayer:
         else:
             self.n_predeq_attn = 0
 
+        # ★★ 第 38 轮：把共用同一输入的稠密投影拼成一次算子调用（省发射，约 −3 ms/token）
+        #   拼完必须把原件置 None：否则同一份权重在显存里放两遍（+55 MiB/层）。
+        self.w_qkvz = None
+        self.w_ab = None
+        self.n_cat = 0
+        if _DENSE_CAT:
+            names = ("w_qkv", "w_z")
+            ws = [getattr(self, n, None) for n in names]
+            if all(isinstance(w, DenseW8) for w in ws):
+                self.w_qkvz = DenseW8.merge(ws)
+                for n in names:
+                    setattr(self, n, None)
+            names = ("w_b", "w_a")
+            ws = [getattr(self, n, None) for n in names]
+            if all(isinstance(w, DenseW8) for w in ws):
+                self.w_ab = DenseW8.merge(ws)
+                for n in names:
+                    setattr(self, n, None)
+            if self.w_qkvz is not None or self.w_ab is not None:
+                self.n_cat = int(self.w_qkvz is not None) + int(self.w_ab is not None)
+
     # ---------- DeltaNet 单步 ----------
     def _deltanet(self, h):
         b = h.shape[0]
-        mq = lin(h, self.w_qkv).view(b, CONV_DIM)
+        if self.w_qkvz is not None:
+            qz = lin(h, self.w_qkvz)[:, 0]                 # [b, CONV+VAL]，切片是视图
+            mq = qz[:, :CONV_DIM]
+            z = torch.sigmoid(qz[:, CONV_DIM:].float()).view(b, NVH, HVD)
+        else:
+            mq = lin(h, self.w_qkv).view(b, CONV_DIM)
+            z = torch.sigmoid(lin(h, self.w_z).view(b, NVH, HVD).float())
         buf = torch.cat([self.conv, mq.unsqueeze(-1)], dim=-1)              # [b,D,4]
         y = (buf * self.conv_w.unsqueeze(0)).sum(-1)
         y = F.silu(y)
         self.conv.copy_(buf[..., 1:])
         q, k, v = torch.split(y, [KEY_DIM, KEY_DIM, VAL_DIM], dim=-1)
-        z = lin(h, self.w_z).view(b, NVH, HVD)
-        beta = torch.sigmoid(lin(h, self.w_b)).view(b, NVH, 1)
-        a = lin(h, self.w_a)
+        if self.w_ab is not None:
+            ba = lin(h, self.w_ab)[:, 0]                   # [b, NVH+NVH]
+            beta = torch.sigmoid(ba[:, :NVH]).view(b, NVH, 1)
+            a = ba[:, NVH:]
+        else:
+            beta = torch.sigmoid(lin(h, self.w_b)).view(b, NVH, 1)
+            a = lin(h, self.w_a)
         g = (-torch.exp(self.A_log) * F.softplus(a.float() + self.dt_bias)).view(b, NVH)
 
         rep = NVH // NKH
@@ -714,7 +813,7 @@ class FnLayer:
         xf = o.float()
         xf = xf * torch.rsqrt(xf.pow(2).mean(-1, keepdim=True) + EPS)
         xf = self.dn_norm_w * xf.to(torch.bfloat16)
-        xf = xf * torch.sigmoid(z.float())          # output_gate_type = "sigmoid"（不是 silu）
+        xf = xf * z                             # output_gate_type = "sigmoid"（不是 silu）
         return lin(xf.to(torch.bfloat16).view(b, VAL_DIM), self.w_out)
 
     # ---------- QSA（稠密 causal，≤2048 上下文与参考一致） ----------

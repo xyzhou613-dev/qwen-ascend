@@ -123,8 +123,19 @@ def load_layer(path, layer_idx, device):
                 w = w[..., : w.shape[-1] - pad].contiguous()
             res[name] = w
         else:
-            # 稠密线性层：int8 常驻，调用时才反量化（省一半 HBM）
-            res[name] = E.QW(q, s, K=q.shape[-1] - pad)
+            # 稠密线性层：int8 常驻。
+            # ★ 第 38 轮：`FNX_DENSE_W8=1` 时走 aclnn W8 per-group（Cube 内反量化），
+            #   实测 0.953 → 0.263 ms/层，数值与旧路径**逐位一致**，且不占 bf16 副本。
+            kk = q.shape[-1] - pad
+            if os.environ.get("FNX_DENSE_W8") == "1":
+                gs_ = q.shape[-1] // s.shape[-1]
+                if kk % gs_ == 0:
+                    try:
+                        res[name] = E.DenseW8(q, s, K=kk)
+                        continue
+                    except Exception as _e:  # noqa: BLE001
+                        print(f"[dense_w8] {name} 退回 QW: {_e}", flush=True)
+            res[name] = E.QW(q, s, K=kk)
     del sd, g
     return res
 

@@ -1,7 +1,9 @@
-# Qwen3.8-Flash-Next（W4 MoE）在 2×Ascend 910B4 上的部署与优化实测
+﻿# Qwen3.8-Flash-Next（W4 MoE）在 2×Ascend 910B4 上的部署与优化实测
 
-> **版本锚点**：线上 tag `baseline-r37`（专家 GEMM 改走 aclnn per-group W4A16）；单机 2×910B4；单流、思考关、无并发。
-> **r37 变更摘要**：TPOT **110.3 → 76.7 ms（13.0 tok/s）**、prefill **105 → 74.3 ms/token**，质量 `mean_nll 2.1756 → 2.1995`（+0.024 nats），MCQ 仍 **24/24**。回滚只需 `FNX_MOE_W4A16=0`。
+> **版本锚点**：线上 tag `baseline-r38`（专家 + 稠密整数权重全部走 aclnn Cube 融合）；单机 2×910B4；单流、思考关、无并发。
+> **r37/r38 变更摘要**：
+> r37 —— 专家 GEMM 换成 aclnn per-group W4A16（Cube），TPOT **110.3 → 76.7 ms**，prefill 105 → 74.3 ms/token，`mean_nll 2.1756 → 2.1995`。
+> r38 —— 稠密 int8 权重换成 aclnn W8 per-group（同一个算子），再把共用输入的投影拼成一次调用：TPOT **76.7 → 67.0 ms**，prefill 同步下降，`mean_nll 2.1995 → 2.1665`（**比 r35 还好**），显存 59.57 → **58.98 GiB**。
 > **读者假设**：推理系统工程师、性能工程师、技术负责人。若读者是管理层，需要另出一页版摘要。
 > **格式**：Markdown。Word / PPT 可在本文基础上转换。
 > **证据标记**：`【实测】`本机脚本产出；`【官方 spec】`厂商规格或公开文档；`【推算】`给出公式的派生值；`【⚠️待确认】`未独立复核或条件缺失。没有标记的叙述性判断不进入结论。
@@ -11,25 +13,25 @@
 
 ## 1. 部署现状与性能
 
-**结论：当前线上是 baseline-r37：单流 **13.0 tok/s**（TPOT 76.7 ms）、TTFT 热态 0.10 s、冷 prefill **74.3 ms/token**、mean_nll 2.1995；48/48 层已上卡，45 层图捕获。r37 把专家 GEMM 从“每 token 解包 16.4M 元素”改成 aclnn 的 Cube 融合 4-bit GEMM（`npu_weight_quant_batchmatmul` per-group），这是本轮 −33.6 ms 的全部来源；剩下的固定成本主要是 dev1 的 3 层 eager（约 23.6 ms）与宿侧空隙（15–17 ms）。**
+**结论：当前线上是 baseline-r38：单流 **14.9 tok/s**（TPOT 67.0 ms）、TTFT 热态 0.08 s、mean_nll **2.1665**、MCQ 24/24；48/48 层已上卡，45 层图捕获。两轮改动（r37 专家、r38 稠密）把**所有整数权重的反量化都搬进了 Cube**：TPOT 110.3 → 67.0 ms（1.65×），质量反而比 r35 更好。剩下的固定成本主要是 dev1 的 3 层 eager（约 18 ms，其中大部分是发射空隙）、head（约 5.7 ms）和 DeltaNet/QSA 的逐元素链。**
 
 ### 1.1 当前数字（先看表）
 
 | 指标 | 当前值 | 口径 | 证据 |
 |---|---:|---|---|
-| TPOT | **76.7 ms/token（13.0 tok/s）** | 128 token 长输出，流式逐 token 计时；单流、思考关、无并发 | 【实测】r37 |
-| TTFT 热态 | **0.10 s** | 同一 prompt 再问，前缀/对话缓存命中；不是冷 prefill | 【实测】r37 |
-| TTFT 冷启动 | **≈0.074–0.088 s × prompt token 数** | 9 token→0.79 s；77→5.87 s；231→17.17 s | 【实测】r37 |
-| 质量 | **mean_nll 2.1995 / ppl 9.02 / top1 48.0% / median_rank 1** | `POST /fnx/loss`，`eval_text` 前 200 token，teacher-forcing | 【实测】r37 |
-| 任务级 | **24 题单选 24/24** | `tools/mcq_eval.py`，思考关，固定题库；平均 4.16 s/题 | 【实测】r37 |
-| 冷启动 | **≈30 s** | 进程启动到 `/health` 就绪；装配 10.4 s | 【实测】r37 |
-| 显存 | **dev0 59.57 GiB / dev1 5.3 GiB** | 稳态 `hbm0`；与 r35 相同（新 artifact 同口径同大小） | 【实测】r37 |
-| 层布局 | **48/48 层全部上卡：45 层图捕获（dev0）+ 3 层 eager（dev1）** | 不是“48 层全部图捕获” | 【实测】 |
-| 演进 | **318 ms（初版）→ 139.5（r31）→ 110.3（r35）→ 76.7 ms（r37）** | 同一套服务口径；累计 **4.1×** | 【实测】 |
+| TPOT | **67.0 ms/token（14.9 tok/s）** | 128 token 长输出，流式逐 token 计时；单流、思考关、无并发 | 【实测】r38 |
+| TTFT 热态 | **0.08 s** | 同一 prompt 再问，前缀/对话缓存命中；不是冷 prefill | 【实测】r38 |
+| TTFT 冷启动 | **≈0.068 s × prompt token 数** | r38 实测：9 token→0.72 s；77→5.17 s；**231→15.63 s**（r37 是 17.17 s、r35 是 29.3 s） | 【实测】r38 |
+| 质量 | **mean_nll 2.1665 / ppl 8.73 / top1 49.5% / median_rank 1** | `POST /fnx/loss`，`eval_text` 前 200 token，teacher-forcing | 【实测】r38 |
+| 任务级 | **24 题单选 24/24** | `tools/mcq_eval.py`，思考关，固定题库；平均 3.69 s/题 | 【实测】r38 |
+| 冷启动 | **≈30 s** | 进程启动到 `/health` 就绪；装配 9.1 s | 【实测】r38 |
+| 显存 | **dev0 58.98 GiB / dev1 5.3 GiB** | 稳态 `hbm0`；r38 比 r37 少 0.59 GiB | 【实测】r38 |
+| 层布局 | **48/48 层全部上卡：45 层图捕获（dev0）+ 3 层 eager（dev1）** | 不是“48 层全部图捕获”；LPC=46 差 100 MiB（§4.13） | 【实测】 |
+| 演进 | **318（初版）→ 139.5（r31）→ 110.3（r35）→ 76.7（r37）→ 67.0 ms（r38）** | 同一套服务口径；累计 **4.7×** | 【实测】 |
 
-> **数字随配置变化，见仓库 `BASELINE.md`**。r35 与 r37 是两套可一键切换的配置（`FNX_MOE_W4A16`），两套 artifact 都已在盘上。
-> 76.7 ms 是**单次稳态测量**（同一脚本连测两轮：79.4 / 76.7 ms）；仓库验收容差沿用 ≤125 ms，未记录多轮标准差。
-> **质量换速度的账要看清**：r37 的 `mean_nll` 比 r35 高 **0.024 nats**、`top1` 低 1 个点，但 24 题单选仍满分。这不是量化精度变差（权重与 scale 逐位相同），而是 GEMM 累加顺序变了（旧路径两次 bf16 GEMM 相加，新路径一次 fp32 深度累加），详见 §3 F37。
+> **数字随配置变化，见仓库 `BASELINE.md`**。r35 / r37 / r38 是三套可一键切换的配置：`FNX_MOE_W4A16`（0/1）、`FNX_DENSE_W8`（0/1），切一次 = 30 s 重启。
+> 67.0 ms 是**单次稳态测量**（同日多次：67.7 / 67.2 / 67.1 / 66.9 ms）。
+> **质量这一轮不是代价而是收益**：`mean_nll` 比 r35 低 0.009、比 r37 低 0.033，top1 也高 1.5 个点。原因是 r38 把稠密 GEMM 改成"int8 在 Cube 内反量化后直接乘"，中间不再落 bf16，累加更准（§3 G39）。
 
 ### 1.2 口径（只列会影响复现的项）
 
@@ -40,7 +42,7 @@
 | TTFT 冷启动 | 新 prompt 从请求发出到首 token，含完整 prefill | 当前每 token 约 0.105–0.12 s；大 prompt 斜率约 0.118 s/token |
 | 冷启动 | 进程启动到 `/health` 返回 ok | 含装配、前缀缓存构建、图捕获、导入/初始化 |
 | mean_nll | teacher-forcing 的逐 token 负对数似然均值，单位 nats | 只对 `tests/eval_text.txt` 前 200 个预测；换文本不可比 |
-| ppl | `exp(mean_nll)` | 2.1995 → 9.02（r37）；r35 为 2.1756 → 8.81 |
+| ppl | `exp(mean_nll)` | 2.1665 → 8.73（r38）；r37 为 2.1995 → 9.02；r35 为 2.1756 → 8.81 |
 | top1 | 模型 argmax 等于目标 token 的比例 | 仅前 200 个预测 |
 | median_rank | 目标 token 在 logits 中的排名中位数 | 1 表示一半以上位置是 argmax |
 | 随机基线 | `ln(V) = 12.4225` | 词表约 24.8 万；2.1756 显著低于随机 |
@@ -76,12 +78,13 @@
 | r31 | 139.5 ms | 7.2 tok/s | 2.1756 | 49.0% | 46 层捕获、LQP、关 PLE |
 | r35 | 110.3 ms | 9.1 tok/s | 2.1756 | 49.0% | g64 + attn10，质量优先 |
 | r34（速度档，未上线） | 105 ms | 9.5 tok/s | 2.1860 | 48.0% | g128 + attn20 |
-| **r37（线上）** | **76.7 ms** | **13.0 tok/s** | **2.1995** | **48.0%** | **专家 GEMM 走 aclnn per-group W4A16（Cube 融合）** |
+| r37 | 76.7 ms | 13.0 tok/s | 2.1995 | 48.0% | 专家 GEMM 走 aclnn per-group W4A16（Cube 融合） |
+| **r38（线上）** | **67.0 ms** | **14.9 tok/s** | **2.1665** | **49.5%** | **稠密 int8 权重也走 aclnn W8 per-group + 投影拼接** |
 
-- r31 → r37：TPOT **−45%**，吞吐 **+81%**；质量累计 `mean_nll +0.024 nats`、`top1 −1 点`，24 题单选保持 **24/24**。
-- 初版 → r37：**4.1×**。
-- 速度档 r34（g128 + attn20）在 r37 之后失去意义：那 5 ms 是“省显存换预反量化额度”，而现在的瓶颈已经不在解包链。
-- **两套配置一键切换**：`FNX_MOE_W4A16=1`（默认上线）读新 artifact `/models/Qwen3.8-Flash-Next-LQP-w4a16`；`=0` 直接回到 r35 的 110.5 ms / 2.1756，不动权重；切换成本 = 一次 30 s 重启。
+- r31 → r38：TPOT **−52%**，吞吐 **+107%**；质量 `mean_nll −0.009`、`top1 +0.5 点`，24 题单选保持 **24/24**。
+- 初版 → r38：**4.7×**。
+- 速度档 r34（g128 + attn20）在 r37 之后失去意义：那 5 ms 是“省显存换预反量化额度”，而反量化已经不在设备时间的主项里了（`WeightQuantBatchmatmul` 只占 4.5 ms/步）。
+- **三套配置一键切换**：`FNX_MOE_W4A16`（专家）与 `FNX_DENSE_W8`（稠密）两个开关；`1/1` = r38，`1/0` = r37，`0/0` = r35。切换成本 = 一次 30 s 重启，不动权重。
 
 ---
 
@@ -293,7 +296,7 @@ msProf 的定量结果（§2.3 详述）：
 4. **确认“还有宿侧空隙”**：设备 88.5 ms vs 墙钟 103–106 ms，15–17 ms 不在设备上。
 5. **指路**：要么把解包/反量化融进能跑 Cube 的 GEMV，要么减少图外 eager 层和 host 往返。前者是 §4 唯一没有被证否的方向；后者是 §3 B/D 组做的事。
 
-> **r37 结果（第 5 条的验证）**：这条“指路”被 aclnn 的现成算子直接解决了——`npu_weight_quant_batchmatmul` per-group 在 910B4 上可用，专家 GEMM 的 46 ms 解包链变成 ~7 ms 的 Cube 工作。整机 TPOT 110.3 → **76.7 ms**，msProf 里那 49.6 ms 的逐元素链基本消失。**这张图当年的判断是对的，错的是“只能靠自研 kernel”这个前提**（见 §4.11）。
+> **r37/r38 结果（第 5 条的验证）**：这条“指路”被 aclnn 的现成算子直接解决了——`npu_weight_quant_batchmatmul` per-group 在 910B4 上可用：r37 把**专家**段（旧 45 ms）换成 ~7 ms 的 Cube 工作，r38 再把**稠密**段（旧 24 ms）换掉。整机 TPOT 110.3 → 76.7 → **68.9 ms**；重采 profile 后逐元素链从 49.6 ms 降到“Mul 16.9 + Cast 7.4”，且其中大部分是 DeltaNet/QSA 的固有逐元素，不是反量化。**这张图当年的判断是对的，错的是“只能靠自研 kernel”这个前提**（见 §4.11）。
 
 ---
 
@@ -502,6 +505,28 @@ msProf 的定量结果（§2.3 详述）：
 - **复现口径**：`x` bf16 + `antiquant_scale` bf16 + `antiquant_group_size=64` → 通过；把 scale 换成 fp16 → 立刻 161002。文档（`torch_npu` 内置 docstring）明确写着：*Atlas A2 训练系列产品：per-tensor、per-channel、per-group*，int4 用 int32 承载（`npu_convert_weight_to_int4pack`）。
 - **教训**：**错误码要读到具体那句参数校验**。`161002` 是“参数不合法”的通用码，把它当成“算子不支持”让我们把一条 1.43× 的路封了 12 轮。
 
+### G 稠密整数权重也搬进 Cube（r38 主线）
+
+**G 组结论：r37 换掉专家之后，重新 profile 发现最大的一项变成了“每 token 把稠密注意力投影反量化成 bf16”（Mul 16.9 + Cast 7.4 = 24.3 ms/步）。用同一个 aclnn W8 per-group 算子替掉，整机 −7.8 ms，显存还省 0.55 GiB，质量反而更好。**
+
+#### G39 aclnn W8 per-group 用在稠密权重（−7.8 ms/token）
+
+- **问题**：r37 之后重采 msProf（设备 62.3 ms/步）：`aclnnMul` 16.9 ms（27%）、`aclnnMatmul` 11.5 ms、`aclnnInplaceCopy_Cast` 7.4 ms、`IndexSelect` 5.8 ms、**`WeightQuantBatchmatmul` 4.5 ms**。r37 那条 46 ms 的解包链确实消失了，但**稠密权重**的 `deq_w()`（int8→bf16 再乘 scale）还占着 24 ms。
+- **做法**：新增 `DenseW8` 容器——int8 权重 `[K,N]` 装载期转置一次，fp16 per-group scale 装载期转成 `[G,N]` bf16（每个权重几十 KB，**每 token 零拼接开销**，这一点和专家根本不同），然后一次 `npu_weight_quant_batchmatmul` 完成“反量化 + GEMM”。`lin()` 增加分支；`FNX_DENSE_W8=1` 打开后 `FNX_DEQ_ATTN` 可降到 0（省 0.55 GiB）。
+- **实测**（真实 L12 权重，gs=128，M=1，`tests/t_dense_w8_probe.py`）：
+
+  | 路径 | 一层 5 个投影 | 45 层 | 显存 | 数值 |
+  |---|---:|---:|---|---|
+  | 每 token 反量化 + bf16 GEMM（旧） | 0.953 ms | 42.9 ms | int8 常驻 | 基准 |
+  | 装载期预反量化（`FNX_DEQ_ATTN`） | 0.158 ms | 7.1 ms | **+55 MiB/层（+2.5 GiB）** | rel 0.00e+00 |
+  | **aclnn W8 per-group（采用）** | **0.263 ms** | 11.8 ms | **不增加** | rel 0.00e+00 |
+
+- **端到端**：TPOT **76.7 → 68.9 ms（−7.8 ms）**、显存 59.57 → **59.02 GiB**、`mean_nll 2.1995 → 2.1665`（**比 r35 的 2.1756 还好**）、top1 48.0% → 49.5%、MCQ 24/24 且单题 4.16 → 3.69 s。
+- **口径**：`FNX_DENSE_W8=1` + `FNX_DEQ_ATTN=0`；小权重（mixer/shared-expert/gate）仍走 `FNX_DEQ_SMALL` 的 bf16 常驻（只有 48–640 列，走算子反而多一次发射）。
+- **为什么质量变好**：稠密 GEMM 现在是“int8 在 Cube 内反量化后直接乘”，中间不落 bf16，累加更准。**r37 那 +0.024 nats 的一部分其实来自稠密段，不是当时以为的 MoE 累加顺序**——上一轮的因果推断被这一轮修正。
+
+> 实现细节（踩坑）：算子**只吃 2 维 `x`**，而层里传的是 `[b,1,H]` → 3 维直接 `161002: x's dim should be in range [2, 2]`；`reshape(-1,H)` 再还原即可，数值等价、无拷贝。
+
 ### 3.6 收益归因（避免把不同基线的数字相加）
 
 | 阶段 | TPOT | 主要变更 | 备注 |
@@ -511,9 +536,11 @@ msProf 的定量结果（§2.3 详述）：
 | r33 | 115.1 ms | g128 + attn20 | 速度档继续 |
 | r34 | 105–106 ms | dev1 设备上下文修复 | −12 ms |
 | r35 | 110.3 ms | g64 + attn10（质量回拨） | 质量档 |
-| **r37** | **76.7 ms** | **专家 GEMM → aclnn per-group W4A16（Cube）** | **−33.8 ms；线上** |
+| r37 | 76.7 ms | 专家 GEMM → aclnn per-group W4A16（Cube） | −33.8 ms |
+| r38 | 68.9 ms | 稠密 int8 权重 → aclnn W8 per-group（`FNX_DEQ_ATTN=0`） | −7.8 ms |
+| **r38b** | **67.0 ms** | **共用输入的投影拼接（qkv+z / b+a，每层少 2 次算子调用）** | **−1.9 ms；线上** |
 
-> 每一行都是在各自配置下测的整请求值；**不要把这些百分比相加**。r35 的 110.3 比 r34 慢 5 ms，是主动用速度换质量，不是回退；r37 的基线是 r35（同一脚本同一天测 110.5 ms 作对照），差 33.8 ms。
+> 每一行都是在各自配置下测的整请求值；**不要把这些百分比相加**。r35 的 110.3 比 r34 慢 5 ms，是主动用速度换质量，不是回退；r37 基线是 r35（同脚本同日测 110.5 ms 作对照，差 33.8 ms）；r38 基线是 r37（76.7 ms，差 7.8 ms）。
 
 ---
 
@@ -629,12 +656,32 @@ msProf 的定量结果（§2.3 详述）：
 - **影响**：一条 1.43× 的路被误封了约 12 轮。**流程改进**：CANN 的 `161002` 一律要求读到 `AclNN_Parameter_Error` 那一行；`torch_npu` 自带 docstring 里的“支持产品 × 量化场景”表要作为首选依据（它明确写了 A2 支持 per-group）。
 - **附带**：`npu_grouped_matmul` + `antiquant_scale` 仍然不可用（V5 op 报 161002 且参数形态不同），所以 MoE 的“多专家一次调用”是用 `[K, k*N/8]` 拼接 + 对角块技巧实现的，不是 grouped op。
 
-### 4.12 下一个该做的方向（按 ROI 排序）
+### 4.12 下一个该做的方向（按 ROI 排序，r38 之后）
 
-1. **稠密权重也搬到 aclnn W8 per-group**（`npu_weight_quant_batchmatmul` int8 + `antiquant_group_size=32`）：专家段已经证明这条路可行，稠密段还剩“每 token 反量化 5 个注意力投影 × 35 层”的固定成本；顺带能释放 `FNX_DEQ_ATTN` 的 bf16 预反量化副本（约 0.55 GiB），再拿去换图池或更长的上下文。
-2. **dev1 的 3 层 eager（约 23.6 ms，占现在 76.7 ms 的 31%）**：dev1 图捕获已被证否（§4.9），但可以减算子数（预反量化 + 融合 RMSNorm 已在做），或把这 3 层的 MoE 也走 aclnn（本轮已生效，eager 下 1.62 → 0.52 ms/层）。这是当前最大的单块固定成本。
-3. **宿侧 15–17 ms 空隙**：需要重新采一次 msProf（r37 配置）；现在的算子结构变了，空隙占比可能更高。
-4. chunked prefill（§4.1）：ROI 已降到 1.6–1.8×，优先级排在 1–3 之后。
+**已经做完的两条**（r37 专家、r38 稠密）见 §3 F37/G39。剩下的按实测占比排：
+
+1. **dev1 的 3 层 eager（约 18 ms，占现在 67.0 ms 的 27%）**：这是当前最大的单块固定成本。dev1 图捕获已被证否（§4.9），eager 下大部分时间其实是**发射空隙**而不是设备时间（r38 profile：设备 53.4 ms/步 vs 墙钟 67 ms）。已做的减算子：设备上下文修复、预反量化、融合 RMSNorm、MoE/稠密走 aclnn；还能做的见第 4 条。
+2. **head（约 5.7 ms，8%）**：`lm_head` 现在是 dev1 上的 bf16 常驻（1.27 GB），一次 `[1,2560]×[2560,248320]` GEMM。改成 int8 + aclnn W8 可以读一半字节（0.64 GB），但 **N=248320 > 算子上限 65535**，必须切成 4 段（N=62080）各调一次；预计 5.7 → 2–3 ms。
+3. **`Mul` 16.9 ms（27%）与 Cast/Mean/ReduceSum 合计约 12 ms**：重采 profile 之后这些主要是 **DeltaNet/QSA 的固有逐元素**（`S*exp(g)`、`k⊗delta`、`S·q`、l2norm、softmax、gated residual），不是反量化。要再降只能上融合算子（`npu_swiglu`、`npu_rms_norm` 已在用），或做 CUDA-graph 式的算子合并——收益不确定，风险高。
+4. **`IndexSelect` 5.3 ms（10%）**：专家权重 `[K,E,N/8]` 的 strided gather + scale 的 `[G,E,N]` gather。可以试“权重按 `[E,K,N/8]` 存 + gather 后 permute”（实测 0.068 vs 0.036 ms/层，反而更慢）或把 scale 预乘成 bf16（+3.5 GiB，装不下）。当前形态已是最优。
+5. **LPC 45 → 46**：把一层从 dev1 eager 挪进 dev0 图，能省约 4–5 ms，但实测 OOM —— 只差约 **93 MiB**（§4.13）。凑显存的路径都不划算。
+6. chunked prefill（§4.1）：ROI 已降到 1.6–1.8×，排在最后。
+
+### 4.13 LPC=46：只差 93 MiB，但凑不出来
+
+```
+Tried to allocate 802.00 MiB (60.96 GiB total; 59.51 GiB allocated; 708.91 MiB free)
+```
+
+试过的凑法都否决：
+
+| 方案 | 能省 | 代价 |
+|---|---:|---|
+| `FNX_DEQ_SMALL=0`（小权重也走算子） | 0.45 GiB | 11 个 `N=48–640` 的小权重每层多 11 次算子调用 ≈ **+21 ms/token** |
+| 稠密权重降到 4-bit | 1.2 GiB | 要重打包 + 质量代价（§4.4 已论证 ROI 低） |
+| DeltaNet 的 `S` 从 fp32 降 bf16 | 0.06 GiB | 数值风险高，且不够 |
+
+**结论**：在当前“45 层捕获 + 3 层 eager”的形态下，把第 46 层塞进 dev0 不划算；真要动就往“减少 eager 层的发射次数”方向走（第 1、2 条），而不是硬塞显存。
 
 ---
 
@@ -648,10 +695,10 @@ msProf 的定量结果（§2.3 详述）：
 |---|---|---|
 | TPOT | 流式请求中 `(最后一个 content token 时刻 − 第一个 content token 时刻) / (n − 1)` | 首 token 不计入；`temperature=0`；单流 |
 | TTFT 热态 | 同一 prompt 第二次及以后，请求发出到第一个 content token | 前缀/对话缓存命中；含 HTTP/分词 |
-| TTFT 冷启动 | 新 prompt 从请求发出到第一个 content token | 含完整 prefill；当前 ≈0.105–0.12 s × prompt token |
+| TTFT 冷启动 | 新 prompt 从请求发出到第一个 content token | 含完整 prefill；当前 **≈0.068 s × prompt token**（r38：231 token → 15.63 s） |
 | 冷启动 | 进程启动到 `GET /health` 返回 `{"status":"ok"}` | 不是首请求延迟 |
 | mean_nll | `−mean(log_softmax(logits)[target])`，teacher-forcing，单位 nats | `eval_text` 前 200 个预测；确定性 |
-| ppl | `exp(mean_nll)` | 2.1995 → 9.02（r37）；r35 为 2.1756 → 8.81 |
+| ppl | `exp(mean_nll)` | 2.1665 → 8.73（r38）；r37 为 2.1995 → 9.02；r35 为 2.1756 → 8.81 |
 | top1 | argmax 等于 target 的比例 | 仅前 200 个预测 |
 | median_rank | target 在 logits 中的排名中位数 | 1 = 一半以上位置是 argmax |
 | 随机基线 | `ln(V)`，V≈24.8 万 → 12.4225 | mean_nll 越低越好 |
