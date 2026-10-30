@@ -60,7 +60,7 @@ FNX_PORT=8000  FNX_CTX=2048  FNX_BATCH=1
 |---|---|---|
 | `/fnx/loss`（`eval_text` 前 200 token）`mean_nll` | **2.1860** | ±0.02 |
 | 同上 `top1` | 49.00% | ±2.0 个百分点 |
-| 稳态 TPOT（≥96 token 输出） | **115 ms（8.7 tok/s）** | ≤ 135 ms |
+| 稳态 TPOT（≥160 token 输出） | **118 ms（8.5 tok/s）** | ≤ 135 ms |
 | TTFT（热态，重复 prompt） | **0.14 s** | ≤ 0.5 s |
 | 冷启动（装配 + 前缀缓存 + 图捕获） | 31 s | ≤ 90 s |
 | 显存 | dev0 **59.57 GiB** / dev1 **5.27 GiB** | dev0 ≤ 60.4 GiB |

@@ -71,7 +71,7 @@ f2, _ = gen("你好", 8)          # 第二次及以后应命中缓存
 print(f"{tpot:.1f} {f2:.2f}")
 PY
 )"
-chk "TPOT（ms/token）" "${TPOT:-9999}" 115 "a<=135"
+chk "TPOT（ms/token）" "${TPOT:-9999}" 118 "a<=135"
 chk "TTFT 热态（s）"   "${TTFT:-99}"   0.14 "a<=0.5"
 
 # ---- 4. 显存 ----

@@ -86,6 +86,10 @@ _DEQ_ATTN = int(os.environ.get("FNX_DEQ_ATTN", "0"))
 #   够再预反量化 ~15 层注意力投影（~11 ms）。先量质量代价：`FNX_S8_SIM128=1`
 #   在解包时把相邻两个 g64 scale 合并（等效 g128），只影响数值、不改磁盘。
 _S8_SIM128 = os.environ.get("FNX_S8_SIM128", "0") == "1"
+#   ★ 专家 3-bit 可行性实验：把 4-bit 的 q 量化到偶数（= 同动态范围下 8 个电平），
+#   即精确模拟"专家权重降到 3-bit"的误差。能省 300 MiB/层（45 层 ≈ 13 GiB），
+#   够把 48 层全部图捕获 + 全部注意力预反量化（潜在 ~70-80 ms）。
+_SIM3 = os.environ.get("FNX_SIM_EXP3", "0") == "1"
 _SMALL_NAMES = ("a_down", "a_up", "m_down", "m_up", "a_inj", "m_inj",
                 "sh_gate", "sh_up", "sh_down", "sh_gate2", "gate_w")
 _ATTN_NAMES = ("w_qkv", "w_z", "w_b", "w_a", "w_out", "w_q", "w_k", "w_v", "w_o")
@@ -363,6 +367,14 @@ class ExpQ:
             # 二进制补码：值 = (n ^ 8) - 8 = ((n+8) % 16) - 8
             lo = torch.remainder(lo + 8.0, 16.0) - 8.0
             hi = torch.remainder(hi + 8.0, 16.0) - 8.0
+        if _SIM3:
+            # ★★ 3-bit 专家可行性实验（第 32 轮追加）：
+            #   4-bit 每组 16 个电平、步长 s；3-bit 在同动态范围下只有 8 个电平、步长 2s。
+            #   所以把 q 量化到偶数即可**精确模拟 3-bit 的量化误差**（scale 不变）。
+            #   只改数值、不改磁盘布局，用来量"专家降到 3-bit"的质量代价，
+            #   对应能省 300 MiB/层 × 45 ≈ 13 GiB —— 足够把 48 层全捕获 + 全部注意力预反量化。
+            lo = torch.round(lo * 0.5) * 2.0
+            hi = torch.round(hi * 0.5) * 2.0
         se = self.s.index_select(0, idx).to(torch.bfloat16)      # [k,N,G]
         if self.base is not None:
             se = se * self.base.index_select(0, idx).to(torch.bfloat16).unsqueeze(-1)
