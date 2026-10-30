@@ -96,6 +96,8 @@ _SIM3 = os.environ.get("FNX_SIM_EXP3", "0") == "1"
 #   怀疑 `addcmul` 在 [k,N,S,1]×[k,N,S,64] 这种广播形态上走了慢路径（待查）。
 #   保留代码与开关，方便以后用 msProf 单独看这个 op；生产用 0。
 _FOLD8 = os.environ.get("FNX_DEQ_FOLD8", "0") == "1"
+#   第 36 轮：4-bit 重新量化的裁剪系数（仅 repack 时生效）。1.0 = 不裁剪（基线）。
+_Q4_CLIP = float(os.environ.get("FNX_Q4_CLIP", "1.0"))
 _SMALL_NAMES = ("a_down", "a_up", "m_down", "m_up", "a_inj", "m_inj",
                 "sh_gate", "sh_up", "sh_down", "sh_gate2", "gate_w")
 _ATTN_NAMES = ("w_qkv", "w_z", "w_b", "w_a", "w_out", "w_q", "w_k", "w_v", "w_o")
@@ -782,7 +784,12 @@ def merge_scales_g64(q, s, gs_in=32, gs_out=64, to_int8=True, chunk=64):
         m = e1 - e0
         qc = q[e0:e1].float().view(m, N, G, r, gs_in)
         sc = s[e0:e1].float().view(m, N, G, r)
-        ns = sc.amax(-1, keepdim=True).clamp_min(1e-8)
+        # ★★ 第 36 轮：percentile 裁剪开关 `FNX_Q4_CLIP`
+        #   ns 是新组（gs_out 个 k）的量化步长，可表示范围是 ±8·ns。
+        #   取 ns = max(sc)（默认）时，正好覆盖组内最大幅值（不裁剪、步长最粗）；
+        #   取 ns = CLIP·max(sc)（CLIP<1）时，步长变细、代价是削掉 |w| > 8·CLIP·max(sc) 的尾部。
+        #   4-bit 只有 16 个电平，文献里 0.9–0.95 的裁剪通常能降 MSE。必须真重打包才能验。
+        ns = (sc.amax(-1, keepdim=True) * _Q4_CLIP).clamp_min(1e-8)
         qn = torch.round(qc * (sc / ns).unsqueeze(-1)).clamp_(-8, 7).reshape(m, N, K)
         out_q[e0:e1] = qn.to(torch.int8)
         s64[e0:e1] = ns.squeeze(-1).to(torch.float16)
