@@ -1,0 +1,360 @@
+# 内部昇腾算子库注册表（唯一索引）
+# 规则：没有本文件条目的算子视为不存在；没有 perf 基线的算子不得进 backends/
+# 更新：2026-10-28
+
+meta:
+  schema_version: 1
+  machines:
+    - id: 910b4x2-206
+      host: <ascend-host>
+      chips: ["Ascend910B4-1", "Ascend910B4-1"]
+      cann: "9.1.0"
+      driver: "26.1.1"
+      firmware: "7.7.0.10.220"
+      torch_npu: "2.10.0.post4"
+      measured_hbm_read_gbs: 1447      # bench/scripts/bench_compute.py
+      measured_hbm_copy_gbs: 1250
+      measured_peak_bf16_tflops: 241.2
+      measured_p2p_gbs: 14.0
+      measured_hccl_allreduce_gbs: 16.56
+      decode_efficiency_vs_roofline: 0.71   # 27B W8A8 实测 vs 理论
+      # ---- 第 25 轮实测补充（2026-10-28）----
+      hbm_total_per_card_gib: 60.96
+      hbm_free_per_card_gib: 60.61
+      measured_disk_read_gbs: 6.1           # dd iflag=direct /models
+      measured_torch_dequant_gbs: 59.0      # load_q.py bench, experts gs=32, 838.9M 元
+      # 量化产物：int8 容器装 4-bit 值（1 值/字节）→ "W4" 实占 8 bit/权重
+      q4_experts_gib_per_layer: 2.49
+      q4_dense_bf16_gib_per_layer: 0.144
+      q4_total_artifact_gib: 178.0
+      q4_48layer_experts_projected_gib: 119.5
+      q4_48layer_total_required_gib: 128.2  # > 121.9 可用 → 装不下，差 6.3 GiB
+      q4_true4bit_packed_gib_per_card: 36.9  # 打包后每卡占用（可行解）
+      # ---- 第 26 轮实测补充（2026-10-29）：48/48 显存已实测通过 ----
+      packed_bytes_per_layer: 1492877600   # p4 1258291200 + s4 157286400 + 稠密 77300000，来自 QP manifest
+      packed_gib_per_layer: 1.3904
+      mem48_layers_resident_gib: 33.37     # 24 层/卡
+      mem48_free_after_gib: 23.53          # 实测（两卡一致）
+      mem48_temp_alloc_1560mib: PASS       # 第 25 轮 §13.2 触发 OOM 的那次临时分配，本轮成功
+      mem48_verdict: PASS                  # 再叠 lm_head 0.59 + workspace 2.0 后仍余 19.97 GiB
+      allocator_overhead_gib: 3.7          # 实测：理论余量 27.24 → 实际 23.53，allocator/driver 真实开销
+
+ops:
+  # ============ 已实现/已测 ============
+  - name: reference_qwen4exp_eager
+    version: 0.1.0
+    category: reference
+    status: alpha
+    desc: "transformers 5.21 的 Qwen4Exp 参考实现在 NPU 上跑通（Phase A 基线，用于数值对齐）"
+    hardware:
+      - chip: Ascend910B4
+        cann: "9.1.0"
+        mem_tier: [HBM]
+        units: [Cube, Vector]
+    dtypes: {in: [fp32, bf16], acc: [fp32], out: [fp32, bf16]}
+    tolerance:
+      fp32: {max_abs_diff: 7.6e-05, rel: 1.7e-04, note: "1.69M 缩放模型，argmax 一致"}
+      bf16: {max_abs_diff: 1.27e-02, mean_abs_diff: 3.7e-04, note: "argmax 一致"}
+    perf:
+      machine: 910b4x2-206
+      measured_at: 2026-10-28
+      note: "实测为 naive 参考实现，非优化版；用于量化'不做 kernel 有多慢'"
+      cases:
+        - {params: 1.54e9, T: 1, latency_ms: 30.88, effective_gbs: 99.6, roofline_pct: 7}
+        - {params: 1.54e9, T: 128, latency_ms: 251.8, effective_gbs: 12.2}
+        - {params: 1.54e9, T: 512, latency_ms: 955.3, effective_gbs: 3.2}
+    known_issues:
+      - "use_cache=True 会因 DynamicCache 不建 indexer KV 而报错 → 用 use_cache=False"
+      - "cache_implementation=static 报 KeyError: 'indexed_attention'"
+      - "chunk_gated_delta_rule / causal_conv1d 走 Python 参考实现，长序列 O(T) 循环"
+    upstream: {transformers: ">=5.21.0"}
+    skill: skills/ascend-qwen4exp-bringup
+
+  # ============ 待开发（Phase B/D） ============
+  - name: delta_net_decode_step
+    version: 0.1.0
+    category: linear_attention
+    status: alpha                # 已实现 + 精度验证 + 有性能数据
+    desc: "Gated DeltaNet 单 token 递推（T=1 decode 路径），Triton 实现；对应上游 fused_recurrent_gated_delta_rule"
+    hardware:
+      - chip: Ascend910B4
+        cann: "9.1.0"
+        mem_tier: [HBM]
+        units: [Vector]
+        ub_limit: "192 KiB（BV=64 时通过；BV=128 溢出）"
+    dtypes: {in: [fp32], acc: [fp32], out: [fp32]}
+    tolerance:
+      fp32_vs_ref: {rel: 4.6e-07, o_abs: 2.7e-05, S_abs: 2.4e-06, shape: "H=48,K=128,V=128"}
+    perf:
+      machine: 910b4x2-206
+      measured_at: 2026-10-28
+      cases:
+        - {shape: "H=48 K=128 V=128", latency_ms: 0.169, torch_ref_ms: 0.292, speedup: 1.7}
+      note: "36 层合计 6.1 ms/token；launch 开销 0.102 ms 占绝对多数，roofline 仅 4 µs"
+    known_issues:
+      - "UB 溢出：[128,128] fp32 瓦片需 1,589,248 bit，可用 1,572,864 bit（差 2 KB）→ 必须 BV=64"
+      - "衰减顺序：必须先 S*=exp(g) 再算 kv（写反会导致 o_diff≈2.6）"
+      - "Triton on Ascend 单次启动 0.102 ms（torch 小算子 0.029 ms）→ T=1 场景不建议用 Triton 小算子"
+    skill: skills/ascend-perf-triage
+
+  # ============ 第 26 轮新增：AscendC 直调链路 + W4A16 GEMV（Vector 版） ============
+  - name: ascendc_kernel_direct_launch
+    version: 0.1.0
+    category: toolchain
+    status: alpha
+    desc: "AscendC 单文件直调（host main + aicore kernel 同一 .cpp，bisheng -xcce + <<<>>>），跳过 op 包/msopgen"
+    hardware: [{chip: Ascend910B4, cann: "9.1.0", units: [Vector]}]
+    perf: {machine: 910b4x2-206, measured_at: 2026-10-29, note: "编译约 8s，可快速迭代"}
+    known_issues:
+      - "头文件必须用新树 /usr/local/Ascend/cann/aarch64-linux/asc/{include,impl} 并加 -I$LT/asc（impl/utils/sys_macros.h 才可解）"
+      - "必须链接 -lruntime -lascendcl -lstdc++ -lgcc_s，否则 rtFunctionRegister / operator new 未定义"
+      - "直调内核不自动插同步：阶段之间必须显式 pipe_barrier(PIPE_ALL)；标准 TQue+EnQue/DeQue 写法反而会丢算子（实测少了 Adds）"
+      - "barrier 不能放在 if 里：条件不成立时同步也消失，结果从第 5 个循环开始漂（实测）"
+      - "dav-c220 上 Cast(int8→half) 按 0..255 无符号重解释（不符号扩展）→ probe2 的 +128 配方在本机是错的"
+      - "< 一个 repeat（fp32=64 lane）的小向量算子会被实现成 0 次重复 → 静默 no-op（scale 完全不生效，y 大 300 倍）"
+      # ---- 第 27 轮 §36 实测 ----
+      - "★ rtKernelLaunch 在 torch.npu.graph 捕获范围内会被记进 NPUGraph：同一初始状态 eager vs replay 比 h1，maxabs=0.000e+00（实测 46 层）"
+      - "★ 裸 acl 发射不受 ASCEND_LAUNCH_BLOCKING 保护，故障延后到下一个 torch 同步点才爆 → 需要自己的 FNX_KERNEL_SYNC 开关在 launch 后同步"
+      - "★ 跨设备指针不会报错而是 aicore 507015 或静默读垃圾 → 发射前必须校验 p4/s4T/x/y/idx/dbg 与 stream 全部同设备"
+    skill: skills/ascend-perf-triage
+
+  - name: w4_gemv_vector_m1
+    version: 0.1.0
+    category: moe
+    status: alpha
+    desc: "W4A16 GEMV（Vector 版，M1 正确性版）：直调一图一算，读真 4-bit 打包权重 + g32 scale"
+    source: backend/ascendc/direct/w4gemv_m1.cpp
+    hardware: [{chip: Ascend910B4, units: [Vector], ub_limit: "68 KiB"}]
+    shape: {group_size: 32, tile: "32 行 x 64 打包字节（=128 k = 4 组）", selftest_cases: "gate_up 1280x2560 / down 2560x640"}
+    tolerance:
+      vs_host_reference: {rel_mean: "0.0000%", max_abs: 5.921e-08, rows_over_tol: "0/1280 与 0/2560"}   # 2026-10-29 L00 expert 7
+      vs_numpy_contract: {multi_gate_up_rel_mean: "0.0000%", multi_gate_up_rel_max: "0.0003%", multi_down_rel_mean: "0.0000%", multi_down_rel_max: "0.0001%", gate: "tools/cmp_w4gemv.py multi_*", note: "第三方独立 einsum 参考，B=10 全 PASS"}
+      vs_golden_bf16: {note: "0.2563% / 0.2554%，与 numpy 契约重算的数字完全相同 → 差异全来自 y_ref 存成 bf16"}
+    perf:
+      machine: 910b4x2-206
+      measured_at: 2026-10-29
+      cases:
+        - {case: gate_up_proj, params: 3.28e6, cores: 1, latency_ms: 2.43, throughput_g_wps: 1.35}
+        - {case: down_proj, params: 1.64e6, cores: 1, latency_ms: 1.28, throughput_g_wps: 1.28}
+        - {case: gate_up_proj, workers: 40, blockDim: 20, latency_ms: 0.083, note: "14.6x vs 2-worker 基线 1.213ms"}
+        - {case: down_proj, workers: 40, blockDim: 20, latency_ms: 0.045}
+        - {case: multi_gate_up_proj, experts: 10, workers: 40, grouped_launch_ms: 0.593, separate_10_launch_ms: 0.81, g_wps: 55.3, max_abs: 6.210e-08, note: "minimal barrier set 0x16"}
+        - {case: multi_down_proj, experts: 10, workers: 40, grouped_launch_ms: 0.316, separate_10_launch_ms: 0.47, max_abs: 1.536e-08}
+      note: "多核实测：每 blockDim 下 max_abs 完全相同（5.921e-08 / 1.460e-08）→ 切分不改结果；固定 launch 开销 ≈10us，有效算力 ≈43 G 权重/s（grouped 后 55.3）；每层全部 10 专家 = 0.909 ms。★★第 27 轮端到端实测（46 层双卡、图捕获开、打点关）：kernel ON 稳态 72.17 ms/token，kernel OFF 57.20 ms/token → **端到端慢 26.2%**。原因：两边都进图后 Python 开销同时消失，torch 的 gather_deq+bmm 走 Cube（反推 ≈26.8 ms/token），本 kernel 只走 Vector（46×0.909=41.8 ms/token）→ torch 反而快 1.56 倍。旧的 21.8ms/1.16x 结论都是**无捕获**口径，不能再用。真实价值是内存：46 层时 hbm 57.26/56.62 GiB → 33.67/33.03 GiB，省 23.6 GiB/卡。"
+    known_issues:
+      - "WholeReduceSum 实测：每 repeat 归约成一个值，repeatTime 单位是行，dstRepStride 单位是元素（不是 32B block）"
+      - "adv Broadcast<float,2,axis=0> 在 dav-c220 有实现、是 numpy 语义 → 不需要宿主预展开 x 的偶/奇 lane"
+      - "s4 必须转置成 [K/32][N] 才能让固定 g 取 [BN] 是连续 64B；否则列读取退化成逐元素"
+      - "4 个 g32 组用 4 个 bitmap 掩码（0xFFFF<<16q）分别归约，lo/hi 各一次再相加"
+      - "多核：总 worker = GetBlockNum() * GetTaskRation()（910B4 每 AIC 2 个 AIV），worker 号 = GetBlockIdx()（0..2N-1）"
+      - "barrier 最小必需集实测 = 0x16（[2] sh 写后读、[4] Cast->MulAddDst、[16] 归约->Add）；去掉 [1]/[8] 仍 0.0000%，去掉 [4] 变 37.3%，去掉 [16] 变 1.59% → 可当回归哨兵"
+      - "barrier 不是瓶颈：去掉 40% 只快 3.6%（纠正此前的 60-75% 估计）"
+      - "pipe_barrier(PIPE_V) 不可用：编译过但运行抛 aicore 异常（507015）→ dav-c220 上只能全 PIPE_ALL"
+      - "每 quad 原本是 5 道 barrier（不是 4 道）；漏一道 [16] 就会 rel 1.59%"
+      - "grouped 模式：tile 空间 = nExp*(N/BN)，每个 tile 用一次除法算出 p4Base/s4Base/xBase/yBase 四个专家基址，不要复制循环体"
+      - "★Python 可调用：w4gemv_lib.cpp（#define main 屏蔽 main + include 源文件 + extern C 发射函数）编成 .so，ctypes 调用，开销仅 2.7-5.8%（0.608/0.331 ms vs 直调 0.592/0.313）"
+      - "编 .so 必须在容器内（宿主 GLIBC 2.38 vs 容器 2.35，否则 OSError: version GLIBC_2.38 not found）"
+      - "Python 侧传 stream：torch.npu.current_stream().npu_stream → ctypes.c_void_p；张量用 data_ptr()"
+      - "接进 model.py 还差：s4T 转置要在装配期做（不然每 token 现转吃掉收益）、真路由的 10 专家基址收集（当前按 expertIdx*stride 线性寻址）、10×N 加权求和回写"
+      - "★专家索引表已加（kernel 参数 idxg, int32[nExp]）：p4 按真实专家号寻址、s4/x/y 按槽位；逆序索引验证 maxerr 1.1e-07 → 路由不再需要每 token device gather"
+      - "算索引表参考时注意：p4 按 perm 取、s4/x 按槽位取，参考是 w4[perm]·s4[槽位]·x[槽位]，写成 wf[perm] 会误判 FAIL"
+      - "★s4T 转置代价实测：装配期一次性 0.02 s（全模型 7.03 GiB）；每 token 现转 4.70 ms = kernel 专家段 21.8 ms 的 21.6% → 必须装配期做，或离线把 QP 的 s4 直接存成 [K/gs][N] 转置布局"
+      # ---- 第 27 轮 §36 实测（跨卡 + 真实 g64 scale）----
+      - "★★ 507015 真凶是**三处设备没对齐**，缺一处就炸：(1) run() 里 torch.npu.current_stream() 无参取的是当前设备(默认npu:0)的流，dev1 的层指针是 dev1 而流是 dev0 → 必须 current_stream(_ydev)；(2) W4GemvOp._dbg 写死 device='npu:0' → 改按设备懒分配；(3) ExpQ.qv2/s4t 用 .npu()（=当前设备）→ 改 .to(self.s.device)。修完 2+2 与 46/46 层全部 http=200、0 错误"
+      - "★★ 裸 acl 发射**不受** ASCEND_LAUNCH_BLOCKING 保护：故障会在下一个 torch 同步点（model.py:220 self.pos0.add_(1)）才爆，现场全毁 → 调测时置 FNX_KERNEL_SYNC=1，在 launch 之后立刻 torch.npu.synchronize(dev)"
+      - "★★ 加硬门禁：run() 里 p4/s4t/ids 与 x/y 设备不一致立刻 raise（宁可一句中文，也不要等到无关的同步点炸）"
+      - "★★ rtKernelLaunch **可以**被 NPUGraph 捕获：capture() 里做快照/eager/还原/replay 自检，h1 maxabs=0.000e+00 逐位一致（此前为排 507015 一直用 FNX_NO_CAPTURE=1 绕开捕获，属于过度规避）"
+      - "★★ kernel 硬编码 GS=32（scale 布局 [K/32][N]）：线上 FNX_EXP_G=64 时 s8 只有 K/64 行 → 越界读 → y 全 NaN（nan_k=241/359）。修法：沿 k repeat_interleave(2) 精确还原 g32 视图（无损），并断言 s4t.shape[1]==K//32"
+      - "★★ 线上 g64 的 scale 存成 int8 + 每行 fp16 base，真实 scale = s8*base：ExpQ 只在 __init__ 里建 kernel 权重，而 load.py 是构造**之后**才 eq.base=base → 漏乘 base，量级最多差 127 倍 → 逐层放大到 NaN。修法：ExpQ(..., base=None) 构造时直接传"
+      - "★★ 门禁数据口径必须和线上一致：t_kernel_vs_torch.py 用的是 packed safetensors 里的 fp16 s4（gs=32、无 base），对上面两个 bug 完全免疫（一直 PASS）→ 新增 tests/t_base_scale.py 走 merge_scales_g64+ExpQ(base) 真实链路，修后 0.347%/0.356%（bf16 噪声级）"
+      - "★ 内存收益（46 层实测装配日志）：kernel OFF 时 hbm0/hbm1 = 57.26/56.62 GiB（每卡每层 2.49 GiB，int8 容器全留）；kernel ON = 32.00/31.34 GiB（1.39 GiB/层）→ 省 25 GiB/卡"
+      - "★ 打点代价：moe-dbg 里 idx[0].tolist() 会同步，46层×3次=138 次/token → prefill 从 3.24 s 涨到 22.45 s、稳态 464.6 ms/token → 打点一律用 FNX_MOE_DBG/FNX_HEAD_DBG 开关，默认关"
+      # ---- 第 28 轮 §1–§7 实测（质量口径 + 量化误差分解 + PACK=1 的坑）----
+      - "★★ 质量口径必须先建：POST /fnx/loss（teacher-forced NLL）。46 层生产配置实测 mean_nll=12.4880(120tok)/12.6859(400tok)，而 ln(V=248320)=12.4225 → 比均匀随机还差；top1=0.83%、median_rank=97299（随机≈124160）→ 有微弱真信号但严重损伤。没有这个指标，'http=200 + 输出是 token 沙拉' 根本判不出对错"
+      - "★★ 平移扫描排除词表错位：target±3 的 NLL 里 d=0 最优（12.4880 vs ≥12.94）→ E.VOCAB=248320 与 tokenizer 248077 不一致**不是**原因"
+      - "★★ merge_scales_g64 的精度代价拆解：g64 分组+重新取整贡献 4.81%，scale 存成 int8+base 只贡献 0.28%（L00/L10/L45 × gate_up/down，tools/qerr_ab.py，纯 host 可复现）→ 省 2.55 GiB/卡 的代价几乎全在'组放粗'上，应优先用 FNX_EXP_G=32"
+      - "★★ FNX_PACK=1 的 4bit 打包在显存上很成功（48 层 34.14/33.50 GiB，npu-smi 60%，对比 PACK=0 G=64 的 63291MB/96.6%），但 gather_deq 里 torch.stack([lo,hi],dim=-1) 是步长2交织，NPU 退化成逐元素 → 单个 /fnx/loss 20 token 就 >300s 无响应、进程 91% CPU、全局 LOCK 被占死后 /health 也不响应。修法：改两次半长 GEMM（bmm(x_even,lo^T)+bmm(x_odd,hi^T)），lo/hi 各自连续，步长2只作用在激活上"
+      - "★ 新配置不要直接上层数：先在 4 层试通，再逐级加。且一次只改一个变量（本轮一次改 pack/gs/层数三样，结果归因困难）"
+      - "★ 截断模型不能当质量判据：8 层截断后接最终 mixer+lm_head 本来就会失配，其绝对 loss 无意义；只能用于 A/B（如单卡 vs 跨卡，两者都是随机 → 排除跨卡）"
+      # ---- 第 28 轮 §10–§13 实测（两个立项假设都被证伪 + 实现正确性终验）----
+      - "★★★ 立项假设之一『scale 量化过狠』被证伪：40 层只改 FNX_EXP_G=32 vs 64（PACK=0/torch/同文本），权重误差 4.95%→~2%，mean_nll 12.7437 → 12.7605，**无任何改善**（噪声内）"
+      - "★★★ 立项假设之二『缺最后 2 层』被证伪：48/48 全量（kernel 模式，hbm 37.66/37.02 GiB，错误 0）mean_nll=12.5084/12.5711，对照 46 层 12.4880 → **补满 2 层毫无帮助**，生成仍是 token 沙拉"
+      - "★★★ 实现正确性终验（正面结论）：四类层全部对拍通过 —— L0 linear 0.116%、L2 ple 0.124%、**L3 indexed_attention(QSA) 0.024%**、L4 linear 0.151%（QSA 此前从未验证过，因 t_b_layer 的 Raw 兼容 bug 直接崩）；端到端逐级对拍（T=1/pos=0，参考 bf16 vs 我们 QP）入口 0.713% → 层0 2.756% → 层1 3.882% → mixer 3.798% → logits 3.701%，top5 同一组词 → 3.7% 就是 QP 量化的应有代价"
+      - "★★ 对拍脚手架本身最容易出错（假警报三个来源，务必先看 missing/unexpected）：(a) 手写加性因果掩码会被 QSA indexer 当 bool 掩码 → 假报 409%，必须用 transformers.masking_utils.create_causal_mask/create_recurrent_attention_mask；(b) 参考模块属性名必须与 checkpoint 键名一致（self.mixer vs hyper_connection_mixer.* → 权重没 load、参考侧随机初始化 → 假报 404%）；(c) 参考侧不能构造 PLE 层（会初始化 51 GB ngram 表 → 进程挂死 >240 s），需 cfg.ple_layer_ids=[]"
+      - "★★ 唯一剩下的嫌疑是 PLE/ngram 路径：它是宿主侧 int64 重写的哈希查询（model.ngram_ids），参考实现因 51 GB 表无法实例化 → 端到端对拍里两侧都把 PLE 关掉了，**这条路径从未与任何参考实现比对过**；PLE_LAYER=1 注入极靠前；消融显示去掉 PLE 反而让 loss 变好（12.83→12.60）→ 喂进去的 ngram 特征是有害的而非无效的"
+      - "★ 冷启动瓶颈是磁盘 I/O 不是代码：40 层装配冷态 394.0 s vs 热态（page cache 命中）16.6 s，差 24 倍。调参重启按热态 20 s 估，生产冷启动要优化预读/存储布局"
+      - "★ 不要再用小层数推结论：8/40/46/48 层的 mean_nll 全在 12.49–12.74，层数在这条 model 上不是有效变量"
+      # ---- 第 28 轮 §17–§19 实测（PLE 排除 + 历史有效 + QSA@pos>0 成为唯一嫌疑）----
+      - "★★ PLE/ngram 也排除：46 层同脚本 200 token，FNX_NO_PLE=1 → 12.6094 vs 生产基线 12.6110（差 0.0016=噪声）。那个宿主侧 int64 自写的 ngram 哈希查询不是元凶。新增开关 FNX_NO_PLE / FNX_NO_NGRAM（默认关）"
+      - "★★ 历史上下文是有效的（新增 POST /fnx/selfcheck）：先生成 n 个 greedy token，再对有历史 / 每步重置无历史两种方式 teacher-force —— 有历史 8.8878/9.4509 vs 无历史 12.1244/11.9370，改善 +2.5~3.2 nats → KV 缓存与递归状态工作正常"
+      - "★★ 但模型对自己刚贪心选出的 token NLL 仍高达 8.9（正常应≈0）→ 不是'没用历史'而是'预测能力极弱'"
+      - "★★★ 唯一剩下的嫌疑：QSA(indexed_attention) 在 pos>0。12/48 层是 QSA；而 t_b_layer.py 只测 pos=0，此时 top-k 选 key 是平凡的（仅 1 个候选）→ 'indexer 选 key' 这套逻辑从未在真有历史时被验证过。若它在 pos>0 选错 key，每 4 层污染一次残差流，且所有 pos=0 测试都抓不到 —— 与'历史只值 2.5 nats、复述自己也只有 8.9'完全吻合"
+      - "★ 下一轮唯一任务：pos>0 的单层 QSA 对拍。先确认 create_causal_mask 返回值不是 None（允许跳过时返回 None 会让注意力变双向，这是 t_e2e.py T>1 假报 146% 的来源），再让参考侧整段 prefill 取第 4 个位置、我们侧逐 token step 到 pos=3，两侧都要带真实 KV 历史"
+      # ---- 第 29 轮 §19–§25：把这条模型真正跑到可用（12.61→3.19 / 318→125 ms）----
+      - "★★★★ dev1 的 NPUGraph **完全不可用**：`tests/t_dev1_capture.py` 用最平凡的 `out=x*2+1` 验证 —— dev0 对照 rel 0.0000%，dev1 三种形态（set_device(1) / current_device=0 / capture_error_mode=global）全是 rel 100.0000%（replay 后输出仍为零）。与模型/层/跨卡中转/stream 无关，是平台限制。→ 910 上只能把尽量多层塞进 dev0"
+      - "★★★★ 参考实现 + **我们同一批 QP 权重** 跑 48 层 = 5.6706（bf16 = 5.4437，量化只花 0.23 nats）；我们修前 12.51 → **根因是图捕获把 dev1 那半边丢了，不是量化、不是实现**"
+      - "★★ 参考实现的 NLL-深度曲线：0–38 层 ≈12.4（平的），39 层 10.96、45 层 7.91、48 层 5.44 → **模型的信号几乎全在最后 10 层**。之前所有 ≤40 层的 A/B 都是盲测。做法：层主序 + 逐层流式（一次一层），绕开 336 GB 内存"
+      - "★★ PLE（n-gram 查表）**有害**：关掉后 mean_nll 3.7594→3.1797、top1 37%→48%。线上 FNX_NO_PLE=1"
+      - "★★★ 910B4 上**整数位运算极慢**（16.4M 元素）：uint8>>4 7.3 ms、int16^8-8 18.2 ms、int16→bf16 12.9 ms；而 bf16 算术 0.03–0.09 ms/算子。**任何解包/位操作都必须先转 bf16 再算** —— 这条同时解释了历史上两次 FNX_PACK 失败"
+      - "★★ **永远不要物化交织权重**：v2 的块状跨步切片写要 63.6 ms（比容器路径慢 225×）。正确做法：解出 lo/hi 两个**连续**数组 + 两次 GEMM（`_split_halves`/`_gemm2`），把奇偶切片挪到只有几十 KB 的**激活**上。数值 rel 0.163%（bf16 噪声级）"
+      - "★★ **int8 容器不能进显存**：打包装载时若同时持有 容器(2.34 GiB)+qv2(1.17)，每层多 1.56 GiB 峰值 → 实测**第 37 层 OOM**（allocated 49.19 / reserved 59.52 / free 1.08）。改成宿主侧打包、只传 qv2 → 1.31 GiB/层，dev0 可装 **44 层**"
+      - "★★ LQP artifact（v2 + **offset-binary** 打包 + g64 尺度，`tools/repack_v2.py`）：等价性逐位验证 wlo/whi rel 0.000000%、max 0.000e+00。冷启动 **818 → 46 s**（跳过 merge + 运行时打包），TPOT **168.5 → 125.3 ms**（解包符号还原从 6 个算子降到 2 个）"
+      - "★ offset-binary 约定：nibble n' = value + 8（0..15），解包 `value = n' - 8`；运行时打包则是二进制补码 `n = value & 0xF`、还原 `(n^8)-8`。**两种编码的字节不同，必须靠 `tools/check_lqp.py` 做数值等价门禁**"
+      - "★ 单卡 torch 可用显存只有 **60.96 GiB**（npu-smi 报 64 GiB）；打包后每层 1.31 GiB → **44 层是上限**，46 层（60.3 GiB + 图池）装不下 → **910 上不可能整模型全捕获**"
+      - "★ 自制对照脚本要先自证：`t_pipeline_diff.py` 在\"跨卡 + capture()\"组合下报 54% 差异，但生产路径用同样的 g0-only 捕获与全 eager 逐位相同 → **判正确性以生产路径的 `/fnx/loss` 为准**"
+      - "★★ 当前线上（第 29 轮终态）：`LPC=44 NLAYERS=46 PACKED_TORCH=1 NO_PLE=1` + LQP artifact；mean_nll=3.1874、top1=48.5%、**TPOT=125.29 ms/token**、冷启动 46 s、错误 0、输出连贯中文"
+      # ---- 第 28 轮 §21 最终判定：参考实现自己也是乱码 → 根因不在推理代码 ----
+      - "★★★★ 全栈对照（tests/t_stack8.py，参考放 CPU 以绕开 aclnnNonzero 的 507035）：4 层 参考 12.2966 / 我们 12.2818（logits 差 7.61%）；8 层 参考 12.2415 / 我们 12.2469（差 11.90%）；ln(V)=12.4225 → **我们的实现是忠实的，参考实现自己在这个深度也不可用**。深度几乎不带来改善（参考 4→8 层只 −0.055 nats；我们 8/40/46/48 层全在 12.49–12.74）"
+      - "★★★★ 因此『输出乱码』的根因**不在推理代码**：两个独立实现在同样输入上给出同样的不可用结果。旁证是这份 artifact 内部自相矛盾 —— config.json 写 ple_layer_ids=[2]，但 PLE 权重实际在 layers.1（L01 有 13 个 ple.* 键，L02 为 0）"
+      - "★★ 参考侧跑 NPU 不可行：Qwen4Exp 参考 MoE 的 aclnnNonzero 在 dav-c220 上稳定报 vector core 异常 507035 → 参考实现必须放 CPU（宿主 218 GB 内存，8 层 bf16 约 40 GB）"
+      - "★★ 参考侧 7 个脚手架坑：手写因果掩码被 QSA 当 bool 掩码（假报 409%）；模块属性名须与 checkpoint 键名一致否则权重静默不加载（假报 404%）；不能构造 PLE 层（51 GB 表挂死）；DynamicCache 必须 DynamicCache(config=cfg)；indexer 需要全部位置的 cos/sin；NPU 上 nonzero 会 507035；长脚本必须 python -u 否则超时被杀看不到输出"
+    skill: skills/ascend-roofline-planning
+
+  - name: graph_safe_block
+    version: 0.1.0
+    category: runtime
+    status: alpha
+    desc: "手写 graph-safe 单层块（DeltaNet + MoE），可被 torch.npu.NPUGraph 捕获"
+    hardware: [{chip: Ascend910B4, units: [Cube, Vector]}]
+    perf:
+      machine: 910b4x2-206
+      measured_at: 2026-10-28
+      cases:
+        - {layers: 8, eager_ms: 13.25, graph_ms: 2.86, speedup: 4.63, per_layer_graph_ms: 0.36}
+    known_issues:
+      - "replay 会原地更新 DeltaNet 递归状态 buffer，连续 replay 出 NaN → 每请求必须重置状态"
+      - "capture_error_mode 必须 relaxed（有 H2D 拷贝时）"
+      # 第 25 轮实测（2026-10-28）：用真实 W4/W8 权重 + 真实 48 层结构复验
+      - "8 层真实权重：eager 38.692 ms → NPUGraph 11.835 ms/token（单层 4.837→1.479 ms），3.27x，输出 max_abs=0 逐位一致"
+      - "RMSNormGated 的激活是 config.output_gate_type = sigmoid，不是 silu；写错会让 DeltaNet 单层误差从 0.37% 涨到 117%"
+      - "conv_mask 必须是 [B,T] 二维；给 3 维会被 apply_mask_to_padding_states 的 [:, :, None] 扩成 4 维并炸掉 DeltaNet"
+      - "config 后处理会把 full_attention 改名 indexed_attention，按字符串分发必须两个都认"
+      - "单层数值对齐：layer0(DeltaNet+MoE) impl 0.116%、净量化 1.465%；layer3(QSA+MoE) impl 0.024%、净量化 2.34%（对齐 transformers 5.21 参考层）"
+    skill: skills/ascend-perf-triage
+
+  - name: ngram_embedding_gather
+    version: 0.0.1
+    category: custom
+    status: draft
+    desc: "n-gram 表（51B 参数）驻留 DDR，按 token 批量 gather 后送入 NPU add；layer 2 专用"
+    target_perf: {bytes_per_token: "~15 KB", latency_budget_us: 100, pct_of_tpot_budget: 0.25}
+    hardware: [{chip: Ascend910B4, mem_tier: [DDR, HBM], units: [Vector], needs: [aclrtMallocHost, aclrtMemcpyAsync]}]
+    shape: {ngram_size: 3, table_rows: 20000000, dim: 2560}
+    known_issues: ["需实测 openEuler 锁页上限（RLIMIT_MEMLOCK / vm.max_map_count）"]
+    skill: skills/ascend-host-tiering
+
+  - name: qsa_block_sparse_attention
+    version: 0.0.1
+    category: attention
+    status: draft
+    desc: "Qwen Sparse Attention：block 级 top-k 选择 + 稀疏 flash attention"
+    hardware: [{chip: Ascend910B4, units: [Cube, Vector]}]
+    shape: {q_heads: 24, kv_heads: 2, head_dim: 256, block: 128, budget_tokens: 2048}
+    known_issues: ["S 非 128 整数倍需 padding"]
+    upstream: {aten_op: "torch_npu.npu_fusion_attention（改造）"}
+
+  - name: qsa_indexer
+    version: 0.0.1
+    category: attention
+    status: draft
+    desc: "QSA 打分与选块（MQA 4Q/1K，compress_ratio=4，budget=2048）"
+    hardware: [{chip: Ascend910B4, units: [Cube, Vector]}]
+    shape: {n_heads: 4, kv_heads: 1, head_dim: 128, compress_ratio: 4}
+
+  - name: gated_deltanet_chunk_scan
+    version: 0.0.1
+    category: linear_attention
+    status: draft
+    desc: "Gated DeltaNet 分块并行扫描 + conv4（48 层中 36 层的主力算子）"
+    hardware: [{chip: Ascend910B4, units: [Cube, Vector]}]
+    shape: {qk_heads: 16, v_heads: 48, head_dim: 128, conv_kernel: 4}
+    known_issues: ["torch 版走 solve_triangular，NPU internal format 不友好"]
+    upstream: {reuse: "qwen3_next 的 Ascend 实现"}
+
+  - name: moe_gating_topk_10of512
+    version: 0.0.1
+    category: moe
+    status: draft
+    desc: "512 专家选 10 + 1 shared；decode 小 T 延迟关键路径"
+    hardware: [{chip: Ascend910B4, units: [Vector]}]
+    shape: {num_experts: 512, top_k: 10}
+    upstream: {aten_op: "torch_npu.npu_moe_gating_top_k"}
+
+  # ============ 第 26 轮新增：Cube 数据通路「起步」已编译验证 ============
+  - name: cube_dataflow_bringup
+    version: 0.1.0
+    category: toolchain
+    status: alpha
+    desc: "直调内核里跑通 Cube(矩阵单元) 数据链路：GM→UB→L1→L0A/L0B→Mmad→L0C→Fixpipe→GM（编译级已验证）"
+    source: backend/ascendc/direct/t5_cube_compile.cpp
+    hardware: [{chip: Ascend910B4, cann: "9.1.0", units: [Cube, Vector]}]
+    perf: {machine: 910b4x2-206, measured_at: 2026-10-29, note: "编译级验证通过（-c，169,928 B .o）；运行期抛 aicore 异常 507015，见 known_issues"}
+    known_issues:
+      - "★直调模式走不通 Cube（4 组实验全 507015）：TQue / TBuf+Get / if ASCEND_IS_AIC / AIC 直接 GM->L1 都失败 → 根因是 TPipe::InitBuffer 对 A1/B1/A2/B2/CO1 的分区在直调下没有框架配置，且 InitBuffer 在 AIV/AIC 守卫之外"
+      - "结论：Cube 必须走 op 框架的 MIX 模式（ASCEND_IS_AIV/AIC + CrossCoreSetFlag/WaitFlag + 框架管理 L1/L0），或用高层 Matmul + 宿主 GetTiling；直调抄近路不成立"
+      - "★路线 A（高层 Matmul 框架外直调）也已排除：编译通过（头文件 bmm_tiling.h、命名空间 matmul_tiling、GetInstance 返回指针），但链接 libtiling_api.a 时缺 optiling::TilingDef::SaveToBuffer / CheckAlignAndGenPlaceHolder，这些符号在普通 CANN 运行库里没有（devlib/lib64/cann/lib64 的 .so 全扫无命中）→ 只在 op 包 build.sh 里才接得上"
+      - "→ M2 唯一可行路线 = op 包 + MIX 内核（模板 /root/ascend-dev/ascendc/w4_gemv/）；三处（运行期/链接期/符号来源）都验证过直调不可行"
+      - "链接 libplatform.so 还需要 -lunified_dlog（CheckLogLevel）与 -lc_sec（memcpy_s），这两个是框架外链接的第一步坑"
+      - "TQue<TPosition::A1/B1/A2/B2/CO1> 在直调内核里可分配（编译过）"
+      - "UB->L1 用普通 DataCopy 即可（编译过，运行期仍被上面的问题挡住）"
+      - "L1->L0A/L0B 用 LoadData + LoadData2DParamsV2{mStartPosition,kStartPosition,mStep,kStep,srcStride,dstStride,ifTranspose,sid}"
+      - "L0C 可直接 Fixpipe 到 GM（Fixpipe(GlobalTensor, L0C, FixpipeParamsV220{nSize,mSize,srcStride,dstStride,reluEn})）"
+      - "MmadParams(m,n,k,isBias,fmOffset,enSsparse,enWinogradA,enWinogradB)；GEMV 要按 M=16 补零只取第 0 行"
+      - "对比：Vector 侧（TQue<VECIN>、UB->UB、pipe_barrier）在直调模式下完全正常，直调只对 Cube 无效"
+    skill: skills/ascend-roofline-planning
+
+  - name: grouped_gemm_w4a8
+    version: 0.0.1
+    category: moe
+    status: draft
+    desc: "W4 专家分组 GEMM：三平面布局（低比特码/高比特码/组 scale），反量化在 Vector"
+    hardware: [{chip: Ascend910B4, units: [Cube, Vector]}]
+    shape: {k_align: 128, entry_align_bytes: 256, group_size: 128}
+    target_perf: {decode_latency_ms: "<= 2.1（W4 roofline）"}
+    known_issues:
+      - "910B4 无 FP8/FP4，只能 INT4/INT8"
+      - "小 M 需改 GEMV 专路"
+      # 第 25 轮实测（2026-10-28）—— 本算子已从"优化项"升级为 P0 阻塞项
+      - "CANN 9.1.0 无可直接使用的 per-group W4A16 算子：npu_weight_quant_batchmatmul 只接受 per-channel [1,N] scale，per-group([N,K/gs]) 一律 error code 16；npu_grouped_matmul(antiquant_scale=[...]) 报 aclnnGroupedMatmulV5 161002"
+      - "纯 torch 反量化地板：deq 仅 59 GB/s（HBM 峰值 1447），且把 0.5 B/权重膨胀成 2 B（+4x 写 +4x 读）→ 每层多 196 MB/token = 每 token 多 9.4 GB"
+      - "实测代价：8 层端到端 TPOT 13.10 ms/token → 外推 48 层 78.6 ms（目标 3.5 ms，差 23x）。融合 kernel 是达成 3.5 ms 的唯一手段"
+      - "量化产物当前是 int8 容器（1 值/字节，实占 8 bit/权重）→ 48 层需 128.2 GiB > 121.9 可用，装不下；必须先 repack 成真 4-bit（每卡 36.9 GiB）。但真 4-bit 的纯 torch 解包慢 150x（84 ms vs 0.55 ms/张量），只能由本 kernel 承担"
+    skill: skills/ascend-roofline-planning
+
+  - name: gated_residual_fused
+    version: 0.0.1
+    category: elementwise
+    status: draft
+    desc: "4 分支 gated residual（rank 320）+ sigmoid 读门控/标量写门控 融合"
+    hardware: [{chip: Ascend910B4, units: [Vector]}]
+    shape: {branches: 4, rank: 320}
+
+  - name: rmsnorm_rope_qk_norm_fused
+    version: 0.0.1
+    category: elementwise
+    status: draft
+    desc: "RMSNorm + partial RoPE 0.25（mrope interleaved）+ QK norm 三合一"
+    hardware: [{chip: Ascend910B4, units: [Vector]}]
+    shape: {rope_dim: 64, mrope_section: [11, 11, 10]}
+
+  - name: kv_quant_int8_g64
+    version: 0.0.1
+    category: quant
+    status: draft
+    desc: "group-wise INT8 KV 量化/反量化 + paged 布局（24 KB→12 KB/token）"
+    hardware: [{chip: Ascend910B4, units: [Vector]}]
+    shape: {group_size: 64, kv_heads: 2, head_dim: 256, full_attn_layers: 12}
+
+  - name: mtp_speculative
+    version: 0.0.1
+    category: custom
+    status: draft
+    desc: "模型自带 1 层 MTP 的 draft/verify 调度，目标 decode 1.5–2×"
+    hardware: [{chip: Ascend910B4}]
+    target_perf: {acceptance_rate: ">=0.6", speedup: "1.5~2.0x"}
+
+# ============ 质量门禁 ============
+gates:
+  L1_available: {require: ["精度对 CPU 参考通过", "3 个 shape 跑通"], verify: ci/precision_gate.py}
+  L2_qualified: {require: ["mem_floor_pct >= 60%（访存型）或 tflops_peak_pct >= 70%（计算型）"], verify: "msprof 报告 + 评审"}
+  L3_excellent: {require: ["T=1/4/8/64 与 T=1024 全部达标", "30 天无回归 > 5%"], verify: "性能评审会"}

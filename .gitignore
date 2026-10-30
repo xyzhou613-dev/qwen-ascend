@@ -1,0 +1,25 @@
+# 权重与产物（不在仓库里，见 BASELINE.md §2）
+/models/
+*.safetensors
+*.bin
+*.pt
+*.ckpt
+*.LQP
+
+# 运行日志/状态
+*.log
+*.log.prev
+last_restart
+logs/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# 编辑器/系统
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

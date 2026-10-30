@@ -1,0 +1,13 @@
+# 依赖清单（基线 baseline-r31 实测版本）
+#
+# ⚠️ torch / torch_npu 通常由 Ascend 容器镜像自带（quay.io/ascend/vllm-ascend:v0.23.0
+#    自带 torch_npu 2.10.0.post4）。脚本只在缺失时才安装，避免把镜像里的加速版 torch 覆盖成 CPU 版。
+#
+# 在新机器上安装：见 scripts/10_env.sh（可选 PIP_INDEX_URL 指定镜像源）
+torch==2.10.0
+torch_npu==2.10.0.post4
+transformers==5.21.0
+safetensors==0.8.0
+fastapi==0.123.10
+uvicorn==0.52.3
+numpy==1.26.4

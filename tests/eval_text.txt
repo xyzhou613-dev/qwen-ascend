@@ -1,0 +1,7 @@
+昇腾处理器面向大规模深度学习训练与推理场景，其软件栈以 CANN 为核心，向上提供框架适配层，向下管理芯片的算力与内存资源。在实际部署中，最容易被低估的环节往往不是算子本身的峰值性能，而是数据在设备之间搬运所带来的固定开销。一次跨设备的张量拷贝，看起来只有几兆字节，但当它出现在每个时间步的关键路径上时，累积起来的延迟可能远远超过计算本身。因此，性能优化应当先把每一段耗时的来源拆开，再决定优化哪一段，而不是凭直觉去改写最显眼的那段代码。
+
+现代混合专家模型把参数规模推到新的量级。以稀疏激活为例，一个拥有数百个专家的模型，在单个时间步只会激活其中很小的一部分，于是权重的读取量由激活专家的数量决定，而非全部参数量。这带来一个重要的结论：推理的瓶颈从算力转向了内存带宽，衡量指标也应该从每秒浮点运算次数，换成每秒能够读入多少字节的有效权重。若模型权重量化到四位，每字节可以承载两个权重值，带宽利用率还需要额外考虑解包与反量化所引入的指令开销。
+
+量化本身是一门关于误差分配的学问。分组量化把连续的若干维参数划为一组，组内共享一个缩放因子，组越小精度越高，但存储缩放因子所需的额外空间也越大。把组从三十二扩大到六十四，看起来只是缩放因子的数量减半，实际却意味着组内参数的动态范围被强行压缩，离群值会把同一组内的其余参数推向更粗的量化步长。本文后面会看到，这一步对权重相对误差的贡献，比把缩放因子从半精度压成八位整数要大将近二十倍，这是一个非常反直觉但可以被精确测量的结论。
+
+The engineering lesson is simple and slightly uncomfortable: measurements beat intuition, and the order in which you measure decides how much time you waste. Every guess about where the time goes should be replaced by a counter, a timestamp, or a checksum, because a wrong guess is not merely useless, it actively consumes the budget you needed for the real fix. When a system produces plausible but incorrect output, the most valuable single instrument is a numeric fingerprint that changes when the computation changes, so that correctness can be checked without depending on the readability of the output.

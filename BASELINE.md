@@ -1,0 +1,90 @@
+# 基线 `baseline-r31`（可复现性锚点）
+
+本文件定义"基线"到底是什么：**配置、权重、版本、指标、验收判据**。
+在新机器上复现后，`scripts/40_verify.sh` 会把实测值与本文件对比，全部在容差内才打印 `BASELINE OK`。
+
+---
+
+## 1. 配置（等价于环境变量）
+
+```bash
+# 模型布局
+FNX_LPC=46                 # dev0 图捕获层数
+FNX_NLAYERS=48             # 总层数（必须 48，少 2 层 mean_nll 从 2.18 退化到 3.19）
+FNX_HEAD_DEV=              # 空 = auto：head/lm_head 放 dev1（腾出 646 MiB 让 dev0 多捕 1 层）
+# 量化与打包
+FNX_PACK=0  FNX_EXP_G=64  FNX_MOE_KERNEL=0  FNX_NO_PLE=1  FNX_PACKED_TORCH=1
+FNX_LQP=/models/Qwen3.8-Flash-Next-LQP      # 4-bit 打包 artifact（存在即用）
+# 服务行为
+FNX_PREFIX_CACHE=1  FNX_CONV_CACHE=4  FNX_ENABLE_THINKING=0  FNX_PROF=0
+FNX_PORT=8000  FNX_CTX=2048  FNX_BATCH=1
+```
+
+布局：**dev0 = 46 层图捕获（59.54 GiB）**，**dev1 = 2 层 eager + lm_head/mixer（3.19 GiB）**。
+停止符 = `{248044 <|endoftext|>, 248046 <|im_end|>}`。
+
+## 2. 权重（不在仓库里）
+
+| 目录 | 体积 | 作用 |
+|---|---|---|
+| `/models/Qwen3.8-Flash-Next` | 336 G | 原始 bf16 checkpoint（tokenizer、config、以及参考实现对照用） |
+| `/models/Qwen3.8-Flash-Next-Q` | 178 G | int8 容器（逐层稠密 + 专家 q4/s4） |
+| `/models/Qwen3.8-Flash-Next-QP` | 64 G | 4-bit 打包专家（中间产物） |
+| `/models/Qwen3.8-Flash-Next-LQP` | 59 G | **线上直接读的 artifact**（v2 布局 + offset-binary + s8/base，48 层） |
+
+`LQP` 可由 `tools/repack_v2.py` 从 `Q` 目录生成（48 层约 860 s，可续跑，原子替换），
+生成后必须跑 `tools/check_lqp.py`（与运行时打包逐位等价，`0.000e+00`）才能用。
+
+## 3. 版本矩阵
+
+| 项 | 版本 |
+|---|---|
+| OS / 内核 | openEuler 24.03 (LTS-SP4) / 6.6.0-159.4.3.154.oe2403sp4.aarch64 |
+| 加速卡 | 2 × Ascend 910B4（910B4-1，每卡 64 GiB HBM） |
+| 驱动 / npu-smi | 26.1.1（ascendhal 7.35.23） |
+| CANN | 9.1.0（`/usr/local/Ascend/cann-9.1.0`） |
+| 容器镜像 | `quay.io/ascend/vllm-ascend:v0.23.0`（`--network host --ipc host`，5 个 davinci 设备） |
+| Docker | 18.09.0 |
+| Python | 3.12.13 |
+| torch / torch_npu | 2.10.0+cpu / 2.10.0.post4 |
+| transformers / safetensors | 5.21.0 / 0.8.0 |
+| fastapi / uvicorn / numpy | 0.123.10 / 0.52.3 / 1.26.4 |
+
+## 4. 验收判据（`scripts/40_verify.sh` 自动比对）
+
+| 指标 | 基线值 | 容差 |
+|---|---|---|
+| `/fnx/loss`（`eval_text` 前 200 token）`mean_nll` | **2.1756** | ±0.02 |
+| 同上 `top1` | 49.00% | ±2.0 个百分点 |
+| 稳态 TPOT（≥64 token 输出） | 143–151 ms（6.6–7.0 tok/s） | ≤ 175 ms |
+| TTFT（热态，重复 prompt） | 0.16 s | ≤ 0.5 s |
+| 冷启动（装配 + 图捕获 + 前缀缓存） | 30 s | ≤ 90 s |
+| 显存 | dev0 59.54 GiB / dev1 3.19 GiB | dev0 ≤ 60.4 GiB |
+| 24 题单选题准确率 | 24/24 | ≥ 22/24 |
+
+**质量口径注意**：`mean_nll` 用的是 `eval_text.txt`（仓库 `tests/` 里的评测文本，
+`scripts/20_weights.sh` 会检查它在 `/root/ascend-dev/eval_text.txt`）。
+换文本必须重新标定，否则数字不可比。
+
+## 5. 关键实测结论（复现时可能踩到的坑）
+
+1. **dev1 图捕获不可用**（平凡链都失败）⇒ 图只能捕在 dev0，`FNX_LPC` 受显存限制。
+2. **PLE（n-gram 查表）有害** ⇒ `FNX_NO_PLE=1`（关掉后 `mean_nll` 3.76 → 3.18、top1 37% → 48%）。
+3. **int8 容器不能进显存**（峰值多 1.56 GiB/层 → 37 层就 OOM）⇒ 宿主侧打包。
+4. **解包必须用 bf16 算术**（整数位运算每 16.4M 元素慢 7–18 ms）。
+5. **停止符必须是 `<|im_end|>`**；否则模型越过轮尾继续编造下一轮模板。
+6. **`async def` 里做同步生成会堵死事件循环** ⇒ 生成必须放线程（否则看护会误判并重启）。
+7. **`enable_thinking=False`**：同一组问题 50.7 s → 22.6 s，且不再漏 `</think>`。
+
+## 6. 测量脚本（都能单独跑）
+
+| 脚本 | 用途 |
+|---|---|
+| `tests/t_profile_req.py` | 复刻 `generate()` 逐段计时（定位固定开销） |
+| `tests/t_prefix_cache.py` | 前缀缓存等价性（maxdiff 必须 0.000e+00） |
+| `tests/t_prefill_split.py` | prefill 成本拆分（attention / MoE / 反量化地板） |
+| `tests/t_batch_micro.py` | int8 GEMM 的批无关性微基准 |
+| `tests/t_head_ab.py` | int8 head vs bf16 head（已证否） |
+| `tests/t_ref_eval.py` | 参考 bf16 在同一文本上的逐 token NLL（配对比较） |
+| `tools/mcq_eval.py` | 24 题单选题任务级评测 |
+| `tools/compare_ref.py` | 与参考 bf16 做逐 token 配对比较 |
