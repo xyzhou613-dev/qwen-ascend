@@ -28,6 +28,10 @@ from fnx import engine as E
 from fnx.load import QDIR
 
 OUT = os.environ.get("FNX_LQP", "/models/Qwen3.8-Flash-Next-LQP")
+# ★ scale 组大小：64（基线，37.5 MiB/层）或 128（减半，18.8 MiB/层）。
+#   第 32 轮实测：g128 的 mean_nll 与 g64 差别在噪声内（2.1657 vs 2.1756），
+#   省下的 18.8 MiB/层 × 45 层 ≈ 846 MiB 可再预反量化 ~15 层注意力投影（约 −11 ms）。
+GS_OUT = int(os.environ.get("FNX_LQP_GS", "64"))
 PROJS = ("gate_up_proj", "down_proj")
 CHUNK = 64
 
@@ -77,7 +81,7 @@ def main():
                 q4 = f.get_tensor(kq[0])
                 s4 = f.get_tensor(ks[0])
                 gs_in = q4.shape[-1] // s4.shape[-1]
-                q2, s8, base = E.merge_scales_g64(q4, s4, gs_in=gs_in, gs_out=64)
+                q2, s8, base = E.merge_scales_g64(q4, s4, gs_in=gs_in, gs_out=GS_OUT)
                 packed = pack_v2_ob(q2.numpy())
                 del q2
                 sd[f"mlp.experts.{proj}.v2o"] = torch.from_numpy(packed)
@@ -96,7 +100,7 @@ def main():
         del sd
 
     print(f"\n全部完成，用时 {time.time()-t_all:.0f}s", flush=True)
-    json.dump({"layers": f"{lo_}-{hi_}", "layout": "v2-offset-binary",
+    json.dump({"layers": f"{lo_}-{hi_}", "layout": "v2-offset-binary", "gs": GS_OUT,
                "keys": [f"mlp.experts.{p}.{x}" for p in PROJS for x in ("v2o", "s8", "base")]},
               open(os.path.join(OUT, "manifest.json"), "w"), indent=1)
 

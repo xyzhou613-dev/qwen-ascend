@@ -82,6 +82,10 @@ _DEQ_HEAD = os.environ.get("FNX_DEQ_HEAD", "0") == "1"
 #   但反量化成 bf16 要 +55 MiB/层 —— dev0 没这么多余量。所以按"层数预算"开放：
 #   `FNX_DEQ_ATTN=<n>` = dev0 上前 n 层做预反量化（dev1 的层永远做，那里显存富余）。
 _DEQ_ATTN = int(os.environ.get("FNX_DEQ_ATTN", "0"))
+#   scale 组从 g64 翻到 g128 可省 18.8 MiB/层（45 层约 0.85 GiB），
+#   够再预反量化 ~15 层注意力投影（~11 ms）。先量质量代价：`FNX_S8_SIM128=1`
+#   在解包时把相邻两个 g64 scale 合并（等效 g128），只影响数值、不改磁盘。
+_S8_SIM128 = os.environ.get("FNX_S8_SIM128", "0") == "1"
 _SMALL_NAMES = ("a_down", "a_up", "m_down", "m_up", "a_inj", "m_inj",
                 "sh_gate", "sh_up", "sh_down", "sh_gate2", "gate_w")
 _ATTN_NAMES = ("w_qkv", "w_z", "w_b", "w_a", "w_out", "w_q", "w_k", "w_v", "w_o")
@@ -330,9 +334,10 @@ class ExpQ:
         o.q_off = None
         o.s = s8.to(dev)
         o.base = base.to(dev)
-        o.gs = 64
         o.N = qv2.shape[1]
         o.K = qv2.shape[2] * 2
+        # ★ gs 从 artifact 推断（不再写死 64）：g64 时 G=K/64，g128 时 G=K/128
+        o.gs = o.K // s8.shape[-1]
         o.packed = True
         o.qv2 = qv2.to(dev)
         o.s4t = None
@@ -361,9 +366,23 @@ class ExpQ:
         se = self.s.index_select(0, idx).to(torch.bfloat16)      # [k,N,G]
         if self.base is not None:
             se = se * self.base.index_select(0, idx).to(torch.bfloat16).unsqueeze(-1)
-        sv = se.view(k, N, S, 2)                      # gs=64 -> 每 128 个 k 两个组
-        wlo = (lo.view(k, N, S, 64) * sv[..., 0:1]).reshape(k, N, S * 64)
-        whi = (hi.view(k, N, S, 64) * sv[..., 1:2]).reshape(k, N, S * 64)
+        if _S8_SIM128:
+            # ★ 实验用：把相邻两个 g64 scale 合并成一个（等效 g128）。
+            #   注意必须在**乘 base 之后**做算平均（此时已经是真实 scale，浮点），
+            #   千万不要再 round —— 早先手滑加了 round_()，等于把权重取整，
+            #   mean_nll 直接炸到 8.12（这本身也说明 q*scale 的精度对结果极其敏感）。
+            se = se.mean(dim=-1, keepdim=True).expand_as(se).contiguous()
+        G = se.shape[-1]
+        if G == S:
+            # ★ g128 布局：每 128 个 k 只有 1 个 scale（第 32 轮，省 18.8 MiB/层）
+            sv = se.view(k, N, S, 1)
+            s_lo = s_hi = sv
+        else:
+            # g64 布局：每 128 个 k 两个 scale（v2 块的 lo/hi 各一个）
+            sv = se.view(k, N, S, 2)
+            s_lo, s_hi = sv[..., 0:1], sv[..., 1:2]
+        wlo = (lo.view(k, N, S, 64) * s_lo).reshape(k, N, S * 64)
+        whi = (hi.view(k, N, S, 64) * s_hi).reshape(k, N, S * 64)
         return wlo, whi
 
     def matmul(self, xb, idx):

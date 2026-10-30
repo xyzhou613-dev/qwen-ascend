@@ -12,7 +12,12 @@ CTN=${CTN:-fnx}
 MDL=${MDL:-/models}
 LOG=$RUN/logs/server.log
 PY="$RUN/venv/bin/python"
-[ -n "${LQP:-}" ] || LQP=$MDL/Qwen3.8-Flash-Next-LQP
+# 优先用 g128 版 artifact（scale 减半，省 19 MiB/层，可多预反量化 10 层注意力）
+if [ -z "${LQP:-}" ]; then
+  if [ -d "$MDL/Qwen3.8-Flash-Next-LQP-g128" ]; then LQP=$MDL/Qwen3.8-Flash-Next-LQP-g128
+  else LQP=$MDL/Qwen3.8-Flash-Next-LQP; fi
+fi
+echo "  artifact: $LQP"
 mkdir -p "$RUN/logs"
 
 echo "== 30 部署 =="
@@ -20,7 +25,7 @@ echo "== 30 部署 =="
 # ---------- 1. 生产启动脚本 ----------
 cat > "$RUN/p275.sh" <<EOF
 #!/bin/bash
-# 生产启动脚本 —— 基线 baseline-r31（48 层：dev0 46 图捕获 + dev1 2 eager + head）
+# 生产启动脚本 —— 基线 baseline-r33（48 层：dev0 45 图捕获 + dev1 3 eager + head，三级预反量化）
 set -u
 LOG=$LOG
 STAMP=$RUN/logs/last_restart
@@ -42,7 +47,7 @@ docker exec -d $CTN bash -lc "cd $RUN/fnx && \\
   FNX_PACK=0 FNX_EXP_G=64 FNX_MOE_KERNEL=0 FNX_NO_PLE=1 FNX_PACKED_TORCH=1 \\
   FNX_LPC=45 FNX_NLAYERS=48 FNX_PORT=8000 FNX_BATCH=1 \\
   FNX_PREFIX_CACHE=1 FNX_CONV_CACHE=4 FNX_PROF=0 FNX_ENABLE_THINKING=0 \\
-  FNX_DEQ_SMALL=1 FNX_DEQ_HEAD=1 FNX_DEQ_ATTN=10 \\
+  FNX_DEQ_SMALL=1 FNX_DEQ_HEAD=1 FNX_DEQ_ATTN=20 \\
   FNX_LQP=$LQP \\
   $PY -m fnx.server > \$LOG 2>&1"
 H=""

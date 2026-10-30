@@ -9,7 +9,7 @@ set -u
 RUN=${RUN:-/root/ascend-dev}
 CTN=${CTN:-fnx}
 MDL=${MDL:-/models}
-LQP=${LQP:-$MDL/Qwen3.8-Flash-Next-LQP}
+LQP=${LQP:-$MDL/Qwen3.8-Flash-Next-LQP-g128}   # g128：scale 减半，省 19 MiB/层
 PY="$RUN/venv/bin/python"
 MODE=${1:-auto}      # auto | build | skip
 
@@ -29,7 +29,7 @@ fi
 
 echo "  开始生成 LQP artifact（48 层，约 860 s，可续跑；输出 $LQP）"
 docker exec "$CTN" bash -lc "cd $RUN/fnx && FNX_QDIR=$MDL/Qwen3.8-Flash-Next-Q \
-    FNX_LQP=$LQP $PY -u tools/repack_v2.py" || {
+    FNX_LQP=$LQP FNX_LQP_GS=128 $PY -u tools/repack_v2.py" || {
   echo "  ✗ 生成失败（可重跑本脚本续跑：已完成层不会重做）"; exit 1; }
 
 echo "  等价性门禁：check_lqp.py（必须 0.000e+00）"
