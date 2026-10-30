@@ -79,12 +79,6 @@ class Engine:
         self.m = FnModel(P=P, lpc=_lpc, dev0="npu:0", dev1="npu:1", nlayers=_nl,
                          with_head=True, verbose=True)
         print(f"[fnx] 装配 {time.time()-t:.1f}s", flush=True)
-        if os.environ.get("FNX_NO_CAPTURE") == "1":
-            print("[fnx] FNX_NO_CAPTURE=1 -> 跳过图捕获（全部 eager）", flush=True)
-        else:
-            t = time.time()
-            self.m.capture()
-            print(f"[fnx] 图捕获 {time.time()-t:.1f}s", flush=True)
         from transformers import AutoTokenizer
         self.tok = AutoTokenizer.from_pretrained(
             os.environ.get("FNX_SRCDIR", "/models/Qwen3.8-Flash-Next"))
@@ -122,11 +116,24 @@ class Engine:
         self.conv_used = []
         self.conv_tick = 0
         self.conv_n = int(os.environ.get("FNX_CONV_CACHE", "4"))
+
+        # ★★ 顺序很重要（第31轮实测）：**先建前缀缓存、再图捕获**。
+        #   前缀缓存的构建需要 ~20 MB 的临时状态克隆；如果放在图捕获之后，
+        #   显存贴边时（deq 之后 dev0 只剩几十 MB）会 OOM，而这个异常以前只在
+        #   __init__ 里被吞掉、每请求重试 → 请求全部 500（流式表现为"空回答"）。
+        #   放到捕获之前，图池还没占显存，构建成功率高得多。
         if os.environ.get("FNX_PREFIX_CACHE", "1") == "1":
             try:
                 self._build_prefix(self.tpl_default)
-            except Exception as ex:      # 前缀缓存失败绝不能挡住服务
+            except Exception as ex:      # 构建失败也要永久降级，不能每请求重试
                 print(f"[fnx] 前缀缓存失败（关闭）: {ex!r}", flush=True)
+                self.prefix_variants[self._tpl_key(self.tpl_default)] = ([], None)
+        if os.environ.get("FNX_NO_CAPTURE") == "1":
+            print("[fnx] FNX_NO_CAPTURE=1 -> 跳过图捕获（全部 eager）", flush=True)
+        else:
+            t = time.time()
+            self.m.capture()
+            print(f"[fnx] 图捕获 {time.time()-t:.1f}s", flush=True)
         for _d in (0, 1):
             try:
                 print(f"[fnx] hbm{_d}: alloc={torch.npu.memory_allocated(_d)/2**30:.2f} GiB "
@@ -203,7 +210,14 @@ class Engine:
         """
         best_n, best_st = 0, None
         if os.environ.get("FNX_PREFIX_CACHE", "1") == "1":
-            pids, pst = self._build_prefix(tpl_kw)
+            # ★ 构建失败必须**永久降级**：实测显存贴边时前缀缓存会 OOM，
+            #   若不记下来，每个请求都会重试一次 → 全部 500（流式表现为"空回答"）。
+            try:
+                pids, pst = self._build_prefix(tpl_kw)
+            except Exception as ex:      # noqa: BLE001
+                print(f"[fnx] 前缀缓存构建失败 → 永久降级为无缓存: {ex!r}", flush=True)
+                self.prefix_variants[self._tpl_key(tpl_kw)] = ([], None)
+                pids, pst = [], None
             if pids and pst is not None and len(prompt_ids) > len(pids) \
                     and prompt_ids[:len(pids)] == pids:
                 best_n, best_st = len(pids), pst

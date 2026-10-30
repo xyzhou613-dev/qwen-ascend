@@ -68,7 +68,16 @@ class FnModel:
         self.head_dev = head_dev
         (self.emb_q, self.emb_s), lm_head, mx = load_nonlayer(dev0, head_dev,
                                                               with_lmhead=with_head)
-        self.lm_head = lm_head
+        # ★ 装载期预反量化 lm_head（606 MiB int8 → 1.18 GiB bf16）：每 token 只算一次 GEMM，
+        #   不再分 16 块重复反量化（实测该路径 7.51 ms/token）。值逐位相同。
+        #   dev1 空闲显存充足，这一步不占 dev0。
+        if E._DEQ_HEAD and hasattr(lm_head, "deq_w"):
+            _t = time.time()
+            self.lm_head = E.Raw(lm_head.deq_w())
+            del lm_head
+            self._log(f"lm_head 预反量化 {time.time()-_t:.1f}s")
+        else:
+            self.lm_head = lm_head
         self.mix_norm = mx["hc_norm.weight"]
         self.mix_down = mx["input_mix_weight_down.weight"]
         self.mix_up = mx["input_mix_weight_up.weight"]

@@ -9,18 +9,22 @@
 
 ```bash
 # 模型布局
-FNX_LPC=46                 # dev0 图捕获层数
+FNX_LPC=45                 # dev0 图捕获层数（留一层显存给"预反量化"换速度）
 FNX_NLAYERS=48             # 总层数（必须 48，少 2 层 mean_nll 从 2.18 退化到 3.19）
-FNX_HEAD_DEV=              # 空 = auto：head/lm_head 放 dev1（腾出 646 MiB 让 dev0 多捕 1 层）
+FNX_HEAD_DEV=              # 空 = auto：head/lm_head 放 dev1（dev1 显存富余）
 # 量化与打包
 FNX_PACK=0  FNX_EXP_G=64  FNX_MOE_KERNEL=0  FNX_NO_PLE=1  FNX_PACKED_TORCH=1
 FNX_LQP=/models/Qwen3.8-Flash-Next-LQP      # 4-bit 打包 artifact（存在即用）
+# 装载期预反量化（第 32 轮，数值逐位不变，只是不再每 token 重算）
+FNX_DEQ_SMALL=1            # 每层 11 个小权重（mixer/shared-expert/gate）→ bf16 常驻
+FNX_DEQ_HEAD=1             # lm_head（606 MiB int8）→ bf16 常驻（放在 dev1）
+FNX_DEQ_ATTN=10            # 前 10 层的注意力投影 → bf16（dev0 显存上限；>10 会 OOM）
 # 服务行为
 FNX_PREFIX_CACHE=1  FNX_CONV_CACHE=4  FNX_ENABLE_THINKING=0  FNX_PROF=0
 FNX_PORT=8000  FNX_CTX=2048  FNX_BATCH=1
 ```
 
-布局：**dev0 = 46 层图捕获（59.54 GiB）**，**dev1 = 2 层 eager + lm_head/mixer（3.19 GiB）**。
+布局：**dev0 = 45 层图捕获（59.57 GiB）**，**dev1 = 3 层 eager + lm_head(bf16)/mixer（5.27 GiB）**。
 停止符 = `{248044 <|endoftext|>, 248046 <|im_end|>}`。
 
 ## 2. 权重（不在仓库里）
@@ -56,10 +60,10 @@ FNX_PORT=8000  FNX_CTX=2048  FNX_BATCH=1
 |---|---|---|
 | `/fnx/loss`（`eval_text` 前 200 token）`mean_nll` | **2.1756** | ±0.02 |
 | 同上 `top1` | 49.00% | ±2.0 个百分点 |
-| 稳态 TPOT（≥64 token 输出） | 143–151 ms（6.6–7.0 tok/s） | ≤ 175 ms |
-| TTFT（热态，重复 prompt） | 0.16 s | ≤ 0.5 s |
-| 冷启动（装配 + 图捕获 + 前缀缓存） | 30 s | ≤ 90 s |
-| 显存 | dev0 59.54 GiB / dev1 3.19 GiB | dev0 ≤ 60.4 GiB |
+| 稳态 TPOT（≥96 token 输出） | **121 ms（8.3 tok/s）** | ≤ 140 ms |
+| TTFT（热态，重复 prompt） | **0.14 s** | ≤ 0.5 s |
+| 冷启动（装配 + 前缀缓存 + 图捕获） | 31 s | ≤ 90 s |
+| 显存 | dev0 **59.57 GiB** / dev1 **5.27 GiB** | dev0 ≤ 60.4 GiB |
 | 24 题单选题准确率 | 24/24 | ≥ 22/24 |
 
 **质量口径注意**：`mean_nll` 用的是 `eval_text.txt`（仓库 `tests/` 里的评测文本，

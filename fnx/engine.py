@@ -68,6 +68,24 @@ FULL_TYPES = ("full_attention", "indexed_attention")
 #   注意：**图捕获按固定 B**，所以 B 在进程生命周期内不可变；B=1 时行为与改造前完全一致。
 B = int(os.environ.get("FNX_BATCH", "1"))
 
+# ★★ 装载期预反量化（第31轮提速主线）：
+#   实测（第 30 轮 §16 反量化地板 + tests/t_batch_micro.py）：int8 权重一次调用 0.20 ms，
+#   其中纯 bf16 matmul 只占 0.04 ms ⇒ **0.16 ms 是"把这块 int8 反量化成 bf16"的固定开销，
+#   与权重多大无关**。所以每层 11 个小权重（mixer / shared-expert / gate，只占稠密字节 26%）
+#   吃掉了 69% 的稠密开销 —— 它们最亏。
+#   做法：装载期一次性 `deq_w()` 成 bf16 常驻（`Raw`），每 token 直接 GEMM。
+#   数值与原路径**逐位相同**（反量化本来就只是 q×scale），只是不再每 token 重算。
+#   显存代价：小权重 +10 MiB/层；lm_head +0.6 GiB（放在 dev1，那里空得很）。
+_DEQ_SMALL = os.environ.get("FNX_DEQ_SMALL", "0") == "1"
+_DEQ_HEAD = os.environ.get("FNX_DEQ_HEAD", "0") == "1"
+#   ★ 注意力投影（w_qkv / w_z / w_out，int8 共 55 MiB/层）是剩下最大的一块反量化开销，
+#   但反量化成 bf16 要 +55 MiB/层 —— dev0 没这么多余量。所以按"层数预算"开放：
+#   `FNX_DEQ_ATTN=<n>` = dev0 上前 n 层做预反量化（dev1 的层永远做，那里显存富余）。
+_DEQ_ATTN = int(os.environ.get("FNX_DEQ_ATTN", "0"))
+_SMALL_NAMES = ("a_down", "a_up", "m_down", "m_up", "a_inj", "m_inj",
+                "sh_gate", "sh_up", "sh_down", "sh_gate2", "gate_w")
+_ATTN_NAMES = ("w_qkv", "w_z", "w_b", "w_a", "w_out", "w_q", "w_k", "w_v", "w_o")
+
 
 
 # ---------------- 基础算子 ----------------
@@ -526,6 +544,31 @@ class FnLayer:
         self.sh_up = W[p + "shared_expert.up_proj.weight"]
         self.sh_down = W[p + "shared_expert.down_proj.weight"]
         self.sh_gate2 = W[p + "shared_expert_gate.weight"]
+
+        # ★ 装载期预反量化：把这些小权重一次性变成 bf16 常驻（数值逐位相同）
+        if _DEQ_SMALL:
+            n = 0
+            for nm in _SMALL_NAMES:
+                Wx = getattr(self, nm, None)
+                if Wx is not None and hasattr(Wx, "deq_w"):
+                    setattr(self, nm, Raw(Wx.deq_w()))
+                    n += 1
+            self.n_predeq = n
+        else:
+            self.n_predeq = 0
+
+        # ★ 注意力投影预反量化（按层数预算；dev1 的层永远做，显存富余）
+        on_dev1 = str(device).endswith("1")
+        if _DEQ_ATTN > 0 and (on_dev1 or idx < _DEQ_ATTN):
+            n = 0
+            for nm in _ATTN_NAMES:
+                Wx = getattr(self, nm, None)
+                if Wx is not None and hasattr(Wx, "deq_w"):
+                    setattr(self, nm, Raw(Wx.deq_w()))
+                    n += 1
+            self.n_predeq_attn = n
+        else:
+            self.n_predeq_attn = 0
 
     # ---------- DeltaNet 单步 ----------
     def _deltanet(self, h):

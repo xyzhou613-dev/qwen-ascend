@@ -71,8 +71,8 @@ f2, _ = gen("你好", 8)          # 第二次及以后应命中缓存
 print(f"{tpot:.1f} {f2:.2f}")
 PY
 )"
-chk "TPOT（ms/token）" "${TPOT:-9999}" 147 "a<=175"
-chk "TTFT 热态（s）"   "${TTFT:-99}"   0.16 "a<=0.5"
+chk "TPOT（ms/token）" "${TPOT:-9999}" 121 "a<=140"
+chk "TTFT 热态（s）"   "${TTFT:-99}"   0.14 "a<=0.5"
 
 # ---- 4. 显存 ----
 MEM=$(python3 - "$RUN" <<'PY'
@@ -86,7 +86,7 @@ m = re.findall(r"hbm0: alloc=([0-9.]+) GiB", log)
 print(m[-1] if m else "999")
 PY
 )
-chk "dev0 显存（GiB）" "${MEM:-999}" 59.54 "a<=60.4"
+chk "dev0 显存（GiB）" "${MEM:-999}" 59.57 "a<=60.4"
 
 # ---- 5. 24 题 MCQ（可选）----
 if [ $QUICK -eq 0 ]; then
