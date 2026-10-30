@@ -75,10 +75,13 @@ chk "TPOT（ms/token）" "${TPOT:-9999}" 147 "a<=175"
 chk "TTFT 热态（s）"   "${TTFT:-99}"   0.16 "a<=0.5"
 
 # ---- 4. 显存 ----
-MEM=$(python3 - <<'PY'
-import json, urllib.request
-log = open("/root/ascend-dev/logs/server.log", encoding="utf-8", errors="ignore").read()
-import re
+MEM=$(python3 - "$RUN" <<'PY'
+import re, sys
+run = sys.argv[1]
+try:
+    log = open(f"{run}/logs/server.log", encoding="utf-8", errors="ignore").read()
+except OSError:
+    print("999"); raise SystemExit
 m = re.findall(r"hbm0: alloc=([0-9.]+) GiB", log)
 print(m[-1] if m else "999")
 PY
