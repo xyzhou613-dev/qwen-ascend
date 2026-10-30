@@ -25,11 +25,13 @@ echo "== 30 部署 =="
 # ---------- 1. 生产启动脚本 ----------
 cat > "$RUN/p275.sh" <<EOF
 #!/bin/bash
-# 生产启动脚本 —— 基线 baseline-r33（48 层：dev0 45 图捕获 + dev1 3 eager + head，三级预反量化）
+# 生产启动脚本 —— 基线 baseline-r37（48 层：dev0 45 图捕获 + dev1 3 eager + head，
+#   三级预反量化 + 专家 GEMM 走 aclnn per-group W4A16）
 set -u
 LOG=$LOG
 STAMP=$RUN/logs/last_restart
 WD=\${WD:-1}
+W4A16=\${W4A16:-1}
 pkill -f watchdog.sh 2>/dev/null || true
 sleep 1
 docker exec $CTN bash -lc "pkill -f '[p]ython -m fnx.server' || true"
@@ -49,6 +51,8 @@ docker exec -d $CTN bash -lc "cd $RUN/fnx && \\
   FNX_PREFIX_CACHE=1 FNX_CONV_CACHE=4 FNX_PROF=0 FNX_ENABLE_THINKING=0 \\
   FNX_DEQ_SMALL=1 FNX_DEQ_HEAD=1 FNX_DEQ_ATTN=10 \\
   FNX_LQP=$LQP \\
+  FNX_MOE_W4A16=\$W4A16 \\
+  FNX_W4A16_DIR=$MDL/Qwen3.8-Flash-Next-LQP-w4a16 \\
   $PY -m fnx.server > \$LOG 2>&1"
 H=""
 for i in \$(seq 1 30); do

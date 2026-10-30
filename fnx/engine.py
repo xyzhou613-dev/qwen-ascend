@@ -475,6 +475,63 @@ class ExpQ:
         return (w * s.to(torch.bfloat16).unsqueeze(-1)).reshape(k, N, self.K)
 
 
+class ExpW4:
+    """专家权重：aclnn per-group W4A16（`npu_weight_quant_batchmatmul`）专用容器。
+
+    为什么值得：msProf 显示 88.5 ms/step 的设备时间里 46 ms（56%）是 4-bit 解包的
+    **Vector 逐元素链**（Mul 25.8 + Cast 9.2 + Subs 5.0 + Sub 4.3 + Floor 1.9），
+    而 HBM 只跑到约 95 GB/s（等效 2% 带宽利用率）—— 卡在 Vector 吞吐，不在带宽。
+
+    关键实测（第 37 轮，自包含探针 backend/remote/p32{2,5,6}_*.py）：
+      * CANN 9.1 的 aclnnWeightQuantBatchMatmulV2 **支持 Atlas A2（910B4）per-group**，
+        weight 用 `npu_convert_weight_to_int4pack` 的 int32 容器，scale 形状 (K/gs, N)，
+        **必须与 x 同为 bf16**（传 fp16 报 161002 “x's dtype must be same as antiquantScale's”）。
+        历史结论“只吃 per-channel”是把这个 dtype 不匹配当成了不支持。
+      * 数值：与 bf16 反量化+bmm 的参考 rel 8.8e-3（bf16 舍入级）。
+      * 图捕获：replay vs eager rel 0.000e+00，换专家 ids 后仍一致。
+      * 时序（E=512，真实分布）：gu 拼接一次调用 0.043 ms（16.4 MB 权重），
+        dn 对角法 0.054 ms；加权重/scales 拼接合计 ≈ 0.32 ms/层。
+
+    存储口径（offline repack，见 tools/repack_w4a16.py）：
+      w4  int32 [K,E,N/8]（转置：index_select(dim=1) 后即 [K,k,N/8] 连续，省一次 permute）
+      s8t int8  [G,E,N]  （= 原 s8 的转置，逐位不变）
+      base bf16 [E,N]    （原 fp16 基准转 bf16，只为喂算子）
+    """
+    __slots__ = ("w4", "s8t", "base", "K", "N", "E", "G", "gs", "_dg")
+
+    def __init__(self, w4, s8t, base, gs):
+        self.w4 = w4              # [K,E,N/8] int32
+        self.s8t = s8t            # [G,E,N] int8
+        self.base = base          # [E,N] bf16
+        self.K, self.E = w4.shape[0], w4.shape[1]
+        self.N = w4.shape[2] * 8
+        self.G = s8t.shape[0]
+        self.gs = gs
+        # 对角下标常驻（图捕获期不要新建 arange，避免多一次分配）
+        self._dg = torch.arange(TOPK, dtype=torch.int64, device=w4.device)
+
+    def _wcat(self, ids):
+        p = torch.index_select(self.w4, 1, ids)                 # [K,k,N/8] 连续
+        return p.reshape(self.K, p.shape[1] * (self.N // 8))
+
+    def _scat(self, ids):
+        sc = torch.index_select(self.s8t, 1, ids)               # [G,k,N] int8
+        bs = torch.index_select(self.base, 0, ids).unsqueeze(0)  # [1,k,N] bf16
+        return (sc.to(torch.bfloat16) * bs).reshape(self.G, -1)
+
+    def apply(self, x, ids):
+        """x [M,K] bf16（M=1 或 k），ids [k] -> [M, k*N]。"""
+        return torch_npu.npu_weight_quant_batchmatmul(
+            x, self._wcat(ids), self._scat(ids), antiquant_group_size=self.gs)
+
+    def apply_diag(self, x, ids):
+        """k 行各用 ids 里对应的专家：一次调用算 k×k 块，只取对角 -> [k,N]。"""
+        k = x.shape[0]
+        assert k == TOPK, k
+        y = self.apply(x, ids)                                  # [k, k*N]
+        return y.view(k, k, self.N)[self._dg, self._dg]
+
+
 _STG = {}
 
 
@@ -716,6 +773,20 @@ class FnLayer:
         probs = torch.softmax(logits.float(), dim=-1)
         w, idx = torch.topk(probs, TOPK, dim=-1)                 # [b,10]
         w = (w / w.sum(dim=-1, keepdim=True)).to(torch.bfloat16)
+
+        if isinstance(self.exp_gu, ExpW4):
+            # ★★ 第 37 轮：aclnn per-group W4A16（解包/乘 scale/GEMM 全在 AI Core 内）
+            #   实测（真实形状，E=512 分布，图内 replay）0.32 ms/层 vs torch 解包路径 1.0 ms。
+            #   gu：10 个专家权重沿 N 拼成一次调用（单序列只有一行 x，天然共用）；
+            #   dn：10 行各用不同专家 -> 同样一次调用，取 [k,k,N] 的对角块
+            #       （Cube 富余，多算的 10x 只要 0.011 ms，比 10 次单专家调用 0.467 ms 便宜 8 倍）。
+            if b != 1:
+                raise RuntimeError("FNX_MOE_W4A16 只支持 FNX_BATCH=1（第 37 轮）")
+            y = self.exp_gu.apply(x2.to(torch.bfloat16), idx[0]).view(TOPK, 2 * MI)
+            act = (F.silu(y[:, :MI].float()) * y[:, MI:].float()).to(torch.bfloat16)
+            y2 = self.exp_dn.apply_diag(act, idx[0])
+            y2 = (y2 * w[0].unsqueeze(-1)).sum(dim=0, keepdim=True)
+            return (y2 + sh).view(1, 1, H)
 
         if b > 1:
             # ★ 批量：把 b×TOPK 个 (token,专家) 行摊平成一次 gather + 两次 GEMM。

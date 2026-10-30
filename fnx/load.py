@@ -54,6 +54,22 @@ def load_layer(path, layer_idx, device):
             # 否则设备上要同时放 int8 容器(2.34) + qv2(1.17)，峰值多 1.56 GiB/层，
             # 单卡只能装 37 层（实测 OOM）；宿主打包后可装 44 层。
             _packed = os.environ.get("FNX_PACKED_TORCH") == "1"
+            # ★★ 第 37 轮：aclnn per-group W4A16 路径（默认关）。
+            #   离线 repack 出来的是 [K,E,N/8] int32（int4pack）+ [G,E,N] int8 scale
+            #   + [E,N] bf16 base，见 tools/repack_w4a16.py。
+            _w4dir = os.environ.get("FNX_W4A16_DIR",
+                                    "/models/Qwen3.8-Flash-Next-LQP-w4a16")
+            _w4f = os.path.join(_w4dir, f"L{layer_idx:02d}.w4.safetensors")
+            if os.environ.get("FNX_MOE_W4A16") == "1" and os.path.exists(_w4f):
+                from safetensors.torch import load_file as _lf
+                _w = _lf(_w4f)
+                try:
+                    res[name] = E.ExpW4(_w[name + ".w4"].to(device),
+                                        _w[name + ".s8t"].to(device),
+                                        _w[name + ".base"].to(device), 64)
+                finally:
+                    del _w
+                continue
             # ★ 优先读离线 artifact（LQP）：v2 + offset-binary 打包 + 尺度都在里面，
             # 跳过 merge_scales_g64 与运行时打包 → 冷启动从 13.6 分钟回到 ~7.6 分钟。
             _lqp = os.path.join(os.environ.get("FNX_LQP",

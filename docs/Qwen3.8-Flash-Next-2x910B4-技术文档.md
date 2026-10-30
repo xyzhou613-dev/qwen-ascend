@@ -1,0 +1,899 @@
+# Qwen3.8-Flash-Next（W4 MoE）在 2×Ascend 910B4 上的部署与优化实测
+
+> **版本锚点**：线上 tag `baseline-r37`（专家 GEMM 改走 aclnn per-group W4A16）；单机 2×910B4；单流、思考关、无并发。
+> **r37 变更摘要**：TPOT **110.3 → 76.7 ms（13.0 tok/s）**、prefill **105 → 74.3 ms/token**，质量 `mean_nll 2.1756 → 2.1995`（+0.024 nats），MCQ 仍 **24/24**。回滚只需 `FNX_MOE_W4A16=0`。
+> **读者假设**：推理系统工程师、性能工程师、技术负责人。若读者是管理层，需要另出一页版摘要。
+> **格式**：Markdown。Word / PPT 可在本文基础上转换。
+> **证据标记**：`【实测】`本机脚本产出；`【官方 spec】`厂商规格或公开文档；`【推算】`给出公式的派生值；`【⚠️待确认】`未独立复核或条件缺失。没有标记的叙述性判断不进入结论。
+> **对比边界**：Strata 的 40/50 系数字未独立复核。本文不据此下“谁更快”的单一结论，只并列条件（§2.2）。
+
+---
+
+## 1. 部署现状与性能
+
+**结论：当前线上是 baseline-r37：单流 **13.0 tok/s**（TPOT 76.7 ms）、TTFT 热态 0.10 s、冷 prefill **74.3 ms/token**、mean_nll 2.1995；48/48 层已上卡，45 层图捕获。r37 把专家 GEMM 从“每 token 解包 16.4M 元素”改成 aclnn 的 Cube 融合 4-bit GEMM（`npu_weight_quant_batchmatmul` per-group），这是本轮 −33.6 ms 的全部来源；剩下的固定成本主要是 dev1 的 3 层 eager（约 23.6 ms）与宿侧空隙（15–17 ms）。**
+
+### 1.1 当前数字（先看表）
+
+| 指标 | 当前值 | 口径 | 证据 |
+|---|---:|---|---|
+| TPOT | **76.7 ms/token（13.0 tok/s）** | 128 token 长输出，流式逐 token 计时；单流、思考关、无并发 | 【实测】r37 |
+| TTFT 热态 | **0.10 s** | 同一 prompt 再问，前缀/对话缓存命中；不是冷 prefill | 【实测】r37 |
+| TTFT 冷启动 | **≈0.074–0.088 s × prompt token 数** | 9 token→0.79 s；77→5.87 s；231→17.17 s | 【实测】r37 |
+| 质量 | **mean_nll 2.1995 / ppl 9.02 / top1 48.0% / median_rank 1** | `POST /fnx/loss`，`eval_text` 前 200 token，teacher-forcing | 【实测】r37 |
+| 任务级 | **24 题单选 24/24** | `tools/mcq_eval.py`，思考关，固定题库；平均 4.16 s/题 | 【实测】r37 |
+| 冷启动 | **≈30 s** | 进程启动到 `/health` 就绪；装配 10.4 s | 【实测】r37 |
+| 显存 | **dev0 59.57 GiB / dev1 5.3 GiB** | 稳态 `hbm0`；与 r35 相同（新 artifact 同口径同大小） | 【实测】r37 |
+| 层布局 | **48/48 层全部上卡：45 层图捕获（dev0）+ 3 层 eager（dev1）** | 不是“48 层全部图捕获” | 【实测】 |
+| 演进 | **318 ms（初版）→ 139.5（r31）→ 110.3（r35）→ 76.7 ms（r37）** | 同一套服务口径；累计 **4.1×** | 【实测】 |
+
+> **数字随配置变化，见仓库 `BASELINE.md`**。r35 与 r37 是两套可一键切换的配置（`FNX_MOE_W4A16`），两套 artifact 都已在盘上。
+> 76.7 ms 是**单次稳态测量**（同一脚本连测两轮：79.4 / 76.7 ms）；仓库验收容差沿用 ≤125 ms，未记录多轮标准差。
+> **质量换速度的账要看清**：r37 的 `mean_nll` 比 r35 高 **0.024 nats**、`top1` 低 1 个点，但 24 题单选仍满分。这不是量化精度变差（权重与 scale 逐位相同），而是 GEMM 累加顺序变了（旧路径两次 bf16 GEMM 相加，新路径一次 fp32 深度累加），详见 §3 F37。
+
+### 1.2 口径（只列会影响复现的项）
+
+| 项 | 定义 | 备注 |
+|---|---|---|
+| TPOT | `(总耗时 − 首 token 时刻) / (n − 1)`，从流式 SSE 的 content token 计时 | 首 token 不计入 TPOT；工具见 `scripts/40_verify.sh` |
+| TTFT 热态 | 同一 prompt 第二次及以后，请求发出到首 token | 命中前缀/对话状态快照，不走完整 prefill |
+| TTFT 冷启动 | 新 prompt 从请求发出到首 token，含完整 prefill | 当前每 token 约 0.105–0.12 s；大 prompt 斜率约 0.118 s/token |
+| 冷启动 | 进程启动到 `/health` 返回 ok | 含装配、前缀缓存构建、图捕获、导入/初始化 |
+| mean_nll | teacher-forcing 的逐 token 负对数似然均值，单位 nats | 只对 `tests/eval_text.txt` 前 200 个预测；换文本不可比 |
+| ppl | `exp(mean_nll)` | 2.1995 → 9.02（r37）；r35 为 2.1756 → 8.81 |
+| top1 | 模型 argmax 等于目标 token 的比例 | 仅前 200 个预测 |
+| median_rank | 目标 token 在 logits 中的排名中位数 | 1 表示一半以上位置是 argmax |
+| 随机基线 | `ln(V) = 12.4225` | 词表约 24.8 万；2.1756 显著低于随机 |
+
+**冷启动 30 s 的分项**：
+
+| 阶段 | 时间 | 说明 |
+|---|---:|---|
+| 装配 | 10.0 s | 读 LQP、建层、放权重 |
+| 前缀缓存 | 1.6 s | 模板静态前缀 eager 跑一遍并快照 |
+| 图捕获 | 1–2 s | dev0 的 45 层 |
+| 导入/初始化及其它 | ≈16–17 s | 由总时长减去上列分项得到，未单独计时【推算】 |
+| **合计** | **30 s** | 到 `/health` 就绪 |
+
+> 历史轮次记录为 31 s；当前 30 s。1 s 的差异来自前缀缓存构建顺序与计时起止点，不影响结论。
+
+**质量背景：量化不是这份文本上的主要误差来源。**
+
+同一段 `eval_text`、同一 12 个预测的配对口径：
+
+| 口径 | 参考 bf16 | 线上 W4 | 差 |
+|---|---:|---:|---:|
+| mean_nll（12 token） | 3.6911 | 3.9558 | 均值 +0.2648 nats；**中位 +0.0528 nats** |
+| top1（同段文本） | 33.3% | — | 参考本身也只有 1/3 |
+
+均值被 2 个离群点（+1.44、+1.04 nats）拉开；中位差只有 +0.05 nats。结论只成立在这段难文本上：**这份 checkpoint 本身在这里就弱，W4 不是主要矛盾**。不要把它外推成“模型通用能力”。这是 12 token 配对口径，不能与 200 token 的 2.1756 直接比；它只用于量化归因。
+
+### 1.3 演进与两个配置档
+
+| 配置 | TPOT | 吞吐 | mean_nll | top1 | 说明 |
+|---|---:|---:|---:|---:|---|
+| 初版 | 318 ms | 3.1 tok/s | — | — | int8 容器、跨卡图捕获 bug、PLE 开 |
+| r31 | 139.5 ms | 7.2 tok/s | 2.1756 | 49.0% | 46 层捕获、LQP、关 PLE |
+| r35 | 110.3 ms | 9.1 tok/s | 2.1756 | 49.0% | g64 + attn10，质量优先 |
+| r34（速度档，未上线） | 105 ms | 9.5 tok/s | 2.1860 | 48.0% | g128 + attn20 |
+| **r37（线上）** | **76.7 ms** | **13.0 tok/s** | **2.1995** | **48.0%** | **专家 GEMM 走 aclnn per-group W4A16（Cube 融合）** |
+
+- r31 → r37：TPOT **−45%**，吞吐 **+81%**；质量累计 `mean_nll +0.024 nats`、`top1 −1 点`，24 题单选保持 **24/24**。
+- 初版 → r37：**4.1×**。
+- 速度档 r34（g128 + attn20）在 r37 之后失去意义：那 5 ms 是“省显存换预反量化额度”，而现在的瓶颈已经不在解包链。
+- **两套配置一键切换**：`FNX_MOE_W4A16=1`（默认上线）读新 artifact `/models/Qwen3.8-Flash-Next-LQP-w4a16`；`=0` 直接回到 r35 的 110.5 ms / 2.1756，不动权重；切换成本 = 一次 30 s 重启。
+
+---
+
+## 2. 硬件起点与瓶颈分析
+
+**结论：本机不是“算力不够”。按三层拆开看，容量墙决定执行形态（48 层必须拆成 45 捕获 + 3 eager），Vector 单元决定每 token 成本（r35 以前解包/反量化占设备时间 56%），软件栈成熟度决定能否把这些成本藏起来（dev1 不能捕获、自研 kernel 直调拿不到 Cube、宿侧还有 15–17 ms 空隙）。r37 的新证据是：**同一块卡上，用 aclnn 的 per-group W4A16 就能把那条 Vector 解包链整体搬到 Cube**，因此“Vector 吞吐墙”是可绕开的，只是要先于自研 kernel 找到现成算子（§3 F37）。**
+
+### 2.1 本机硬件清单
+
+| 类别 | 项 | 值 | 证据/口径 |
+|---|---|---|---|
+| 模型 | 架构/规模 | **Qwen3.8-Flash-Next，约 121G 参数，48 层，W4 MoE** | 【实测】权重与配置 |
+| 加速卡 | 型号/数量 | **2 × Ascend 910B4-1** | 【实测】`npu-smi` |
+| 显存 | 标称 / torch 可用 | 每卡 **64 GiB** / 单卡 **60.96 GiB** | 【实测】`torch.npu.mem_get_info` |
+| 显存 | 双卡合计可用 | **121.9 GiB** | 【实测】 |
+| 算力 | AI Core / 频率 | 20 / 芯片；1.65 GHz | 【官方 spec】 |
+| 算力 | bf16 MatMul | **241 TFLOPS**（4096³），约峰值 89% | 【实测】 |
+| 带宽 | HBM 连续读 / 拷贝 | **1447 GB/s** / 1250 GB/s | 【实测】 |
+| 精度 | 硬件支持 | FP16/BF16/INT8（Cube）；**无 FP8/FP4** | 【官方 spec】 |
+| 互联 | HCCS / P2P | **无 HCCS；生产路径不用 P2P**，跨卡张量经宿主中转 | 【实测】生产路径 |
+| 互联 | PCIe 链路 | 卡能力 Gen5 32 GT/s ×16；平台 **降级到 Gen4 ×16** | 【实测】`lspci` |
+| 互联 | 主机→设备有效带宽 | **21.4–22.4 GB/s**（分段 pinned） | 【实测】`tools/h2d_bench.py` |
+| 互联 | 跨卡中转 | **0.10 ms/token**（当前 hidden 规模） | 【实测】第 30 轮拆分 |
+| CPU | 型号/核数 | 鲲鹏 920，64 核，2 NUMA | 【实测】 |
+| 内存 | 主机 RAM | 219 GiB 可用；7/8 条 DDR4-3200 | 【实测】 |
+| CPU 指令集 | 加速能力 | **无 AVX-512、无 SVE** | 【实测】 |
+| OS | 发行版/内核 | openEuler 24.03 LTS-SP4 / 6.6 | 【实测】 |
+| 软件 | CANN / 驱动 / Docker | 9.1.0 / 26.1.1 / 18.09 | 【实测】 |
+| 运行时 | torch / torch_npu | 2.10.0+cpu / 2.10.0.post4 | 【实测】 |
+| 运行时 | transformers / fastapi / uvicorn / numpy | 5.21.0 / 0.123.10 / 0.52.3 / 1.26.4 | 【实测】 |
+| 权重 | 原始 bf16 / int8 容器 / 4-bit 打包 / LQP | **336G / 178G / 64G / 59G** | 【实测】磁盘 |
+
+**三个直接后果**：
+
+1. **单卡 60.96 GiB 装不下整模型 4-bit 常驻。** 专家本体 48×1.21 = **58.08 GiB**，再加稠密、KV/递归状态与图池，README 口径约 **62.9 GiB**。所以 48 层必须拆：dev0 45 层捕获，dev1 3 层 eager。
+2. **“两卡 128 GiB”不等于“一个 128 GiB 池”。** 无 HCCS，生产路径也不用 P2P；且 NPUGraph 只能在 dev0 重放，跨卡层不能进同一张图。跨卡中转本身只有 0.10 ms/token，不是主瓶颈；真正的代价是 **dev1 的 3 层无法图捕获**。
+3. **不能照搬 Strata 的 CPU 分担。** 本机 aarch64 无 AVX-512/SVE；宿主侧 `index_select` 后再 H2D 只有 **0.74 GB/s**，而按专家连续 blob 的分段 H2D 能到 **21.4 GB/s**。CPU 算专家在本机不成立，宿主只能做打包/中转。
+
+### 2.2 为什么达不到 Strata 在 40/50 系上的速度
+
+**结论：差距不能被归因成“昇腾算力差”。Strata 的 40/50 系数字是“消费卡装不下、靠专家缓存/主机分层/CPU 分担”的执行形态；本机是“48 层全部常驻 HBM、双卡层切分、无 MTP”的另一种形态。两者条件不同，必须并列看。**
+
+#### 2.2.1 先把对比规则钉死
+
+截至本文，**Strata 的具体测试条件没有独立复核**；本文也没有在 NVIDIA 机器上复跑 Strata，没有其原始测试日志。下面这张表是“已知/未知”，不是“核实结果”：
+
+| 需要核实的字段 | 我们掌握的情况 | 状态 |
+|---|---|---|
+| 硬件型号、显存 | 文档自报 RTX 5070 12 GB、Ryzen 5 7600、64 GB DDR5、Windows | 【⚠️待确认】未独立复核 |
+| 量化格式 | IQ3_S；另有 Q2_0 档 | 【⚠️待确认】不是本机 W4 |
+| 并发数 | 表注为单请求、256 generated；是否单流未逐项确认 | 【⚠️待确认】 |
+| 上下文长度 | 1K prompt 档；总 context 未逐项确认 | 【⚠️待确认】 |
+| 多卡/并行 | 单 GPU；专家缓存 + pinned host + CPU 分担（文档自述） | 【⚠️待确认】 |
+| 投机解码 | MTP 开（文档自报，平均 2.4–3.2 token/趟） | 【⚠️待确认】 |
+| 引擎/版本 | 文档标注 engine 0.1.26 | 【⚠️待确认】 |
+| 40 系同模型数据 | **没有找到**同模型、同量化、同上下文的可用自报值 | 【⚠️待确认】 |
+
+> 因此本文**不采用**“RTX 4090 48 GB 的 40.2 tok/s”这类数字：那是 DeepSeek-V4.1-Flash 的另一套模型/量化/上下文，拼在一起会制造假对比。
+
+**条件并列表（同一模型，但仍不是同一执行路径）**：
+
+| 条件 | Strata 文档自报（全部【⚠️待确认】） | 本机（【实测】） |
+|---|---|---|
+| 卡 | RTX 5070 12 GB（50 系） | 2 × 910B4，64 GiB/卡 |
+| 模型 | Qwen3.8-Flash-Next | Qwen3.8-Flash-Next |
+| 量化 | IQ3_S | 自研 W4 g64 + offset-binary |
+| 权重驻留 | expert cache + pinned host；未命中专家由 CPU 算 | **48/48 层全部在 HBM**，不流式读权重 |
+| 并行 | 单 GPU | 双卡层切分；45 层捕获 + 3 层 eager |
+| 并发 | 单请求（按表注推断） | 单流、无并发 |
+| prompt / 输出 | 1K / 256 | 冷 TTFT 用 26/248/808；TPOT 用 160 输出 |
+| MTP | 开 | **没有 MTP 路径** |
+| 解码速度 | **52.4 tok/s**（IQ3_S，1K prompt） | **9.1 tok/s**（110.3 ms/token） |
+
+> **不要用 52.4 ÷ 9.1 = 5.7× 下结论。** 这张表只说明“条件差多少”，不说明“硬件差多少”。下一节拆三层。
+> 另注：5070 是 50 系里 **12 GB** 的档位，比 24–32 GiB 更紧；它能在 12 GB 上跑出这个数字，说明 Strata 的 offload/CPU 分担软件栈很成熟，不代表本机 2×64 GiB 常驻路径可以直接对比。
+
+#### 2.2.2 第一层：显存容量墙
+
+| 项 | GiB | 说明 |
+|---|---:|---|
+| 48 层专家本体 | **58.08** | 48 × 1.21 GiB；不含稠密、状态、图池 |
+| 稠密 + KV/递归状态 + 图池 | ≈4.8 | README 的 62.9 GiB 总口径减去专家 |
+| 整模型 4-bit 常驻 | **≈62.9** | 单卡 60.96 GiB 装不下 |
+| 24 GB 消费卡：只装专家能装几层 | **19.8 层** | 24 ÷ 1.21【推算】；实际还要让位给稠密/状态 |
+| 32 GB 消费卡：只装专家能装几层 | **26.4 层** | 32 ÷ 1.21【推算】；实际更少 |
+| 本机 dev0 稳态 | **59.57** | 45 层捕获 |
+| 本机 dev1 稳态 | **5.2–5.27** | 3 层 eager + head/mixer |
+
+这张表说明的是**执行形态**，不只是“能不能跑”：
+
+- 24–32 GiB 的 40/50 系卡，**无法把 58–63 GiB 的 4-bit 模型整体常驻**。即便把 4090 改装到 48 GiB，62.9 GiB 仍装不下；24/32 GiB 只能靠 offload。Strata 的选择是 expert cache + pinned host + CPU 算未命中专家；它的 52.4 tok/s 是这条路径的数字，不是“全常驻”的数字。
+- 本机的选择是**全常驻**：48 层都上卡，代价是单卡放不下 48 层捕获，必须把 3 层放到 dev1 走 eager。这 3 层不在图里，单层执行约 7.85 ms（修设备上下文后）；3 层约 24 ms，加 head 约 5.66 ms。它们不是“算不动”，是“进不了同一张图”。
+- **不能把权重搬回主机绕开容量墙。** 按当前每 token 约 8.4 GiB 的权重读取量【推算】，即使只走 21.4 GB/s 的分段 H2D，纯搬运也要 **≈420 ms/token**；只搬专家 1.2 GiB 也要 ≈60 ms。更关键的是 offload 层必须 eager，会进一步破坏图捕获。这个方向不是“省显存换速度”，而是“用 PCIe 换掉图”。
+- **本机也没有 Strata 的 CPU 分担逃生门。** 鲲鹏 920 无 AVX-512/SVE；实测宿主 `index_select` 后 H2D 只有 0.74 GB/s。让 CPU 算专家，会把 PCIe/宿主内存变成新的主瓶颈。
+
+所以容量墙的第一性影响不是 OOM，而是：**它决定了“哪些层能进图、哪些层只能 eager”，从而直接决定每 token 的调度开销。**
+
+#### 2.2.3 第二层：算子吞吐，瓶颈在 Vector 不在 Cube
+
+msProf 的定量结果（§2.3 详述）：
+
+- 解包 + 反量化的逐元素链：**49.6 ms/step，占设备时间 56%**；
+- 真正的矩阵乘（MatMul + BatchMatMul + 转置/切片）：**23.3 ms/step，占 26%**；
+- 有效权重带宽：**≈95 GiB/s**，而本机 HBM 实测读带宽 **1447 GB/s**；即使打七折，仍有 **≥10×** 余量。
+
+这组数字排除了两个常见误判：
+
+1. **不是 HBM 带宽受限。** 95 GiB/s 离 1.45 TB/s 很远；增加带宽或换 HBM 不会自动变快。
+2. **不是 Cube 矩阵算力受限。** 241 TFLOPS 是给大矩阵准备的；当前是 B=1 的 GEMV，且大量时间花在逐元素 `Mul/Sub/Cast/Floor` 上。把这些算子堆在 Vector 单元上，Cube 再快也吃不到。
+
+本机的 4-bit 是**存储压缩**，不是计算加速：权重以 4-bit 存放，但每 token 要解包成 bf16 再做 GEMM。CUDA 侧有成熟的 dequant 融合 GEMM 模板，可以把这一步折进 MMA/GEMM 的流水线；本机当前只能走 torch 逐算子链，于是“省下的字节”变成了“多出来的逐元素指令”。这就是 56% 的来源。
+
+#### 2.2.4 第三层：软件栈成熟度
+
+| 能力 | 本机实测 | 后果 |
+|---|---|---|
+| 图捕获 | **只能在 dev0**；dev1 连 `out=x*2+1` 都 replay 出全零（rel 100%） | 3 层只能 eager；48 层全捕获不可能 |
+| 自定义融合 | AscendC 直调**只能跑 Vector，Cube 不可用**；同一图捕获口径下 kernel 41.8 ms vs torch 26.8 ms | 不能把“解包 + scale + GEMM”融成一个 Cube kernel |
+| 与 LQP 兼容 | kernel 分支要 `s4t`，LQP artifact 不构造它；补 `s4t` 约 +127 MiB/层 × 45 ≈ 5.6 GiB | dev0 余量不足 1 GiB，装不下 |
+| 宿侧调度 | 设备 88.5 ms/step vs 墙钟 103–106 ms | 每 token **15–17 ms** 是 Python/调度/跨卡空隙 |
+| 投机解码 | 本部署没有 MTP 路径 | Strata 自报 MTP 1.6–1.8×【⚠️待确认】；本机没有这张牌 |
+| 量化生态 | 自研 W4 布局 + torch 反量化；本机没有可用的 marlin/grouped-GEMM 等价物 | 逐元素链无法被模板 kernel 吃掉 |
+
+这些不是“态度问题”，是**当前这套 CANN + torch_npu + 自研后端能表达的计算图**。要补上，至少需要三件事之一：设备级图捕获、能跑 Cube 的融合 4-bit GEMV、或更低的宿侧发射开销。三者都不是环境变量开关。
+
+#### 2.2.5 合起来怎么读
+
+| 观察 | 数字 | 归属 | 能否靠调参解决 |
+|---|---:|---|---|
+| dev1 3 层 eager | 约 24–36 ms（口径见 §2.3） | 容量墙 → 图边界 | 否；要显存或跨设备图 |
+| 解包/反量化链 | 49.6 ms/step（设备时间） | Vector 吞吐 | 否；要融合 kernel |
+| 宿侧空隙 | 15–17 ms/token | 软件栈/发射 | 部分；减少 host 往返 |
+| 质量档回拨 | 105 → 110.3 ms | 质量选择 | 是；切 g128/attn20 |
+| PCIe Gen4 | 21.4–22.4 GB/s；跨卡 0.10 ms | 互联 | 当前不是主瓶颈 |
+
+这些行**不是互斥分项，不能相加**：它们是不同镜头。可以下的结论是：
+
+> 在本机“全常驻、无 MTP、单流”的条件下，110.3 ms/token 的主要成本是 **Vector 逐元素链 + 3 层 eager + 宿侧空隙**；Strata 的 52.4 tok/s 是“消费卡装不下 → 专家缓存/CPU 分担 + MTP”的另一条执行路径。把两个 tok/s 直接相除，既解释不了差距，也指导不了优化。
+
+### 2.3 定量判读：msProf 数据
+
+**结论：设备时间 88.5 ms/step 中，解包+反量化占 56%，GEMM 只占 26%；有效带宽只有 95 GiB/s，离 HBM 墙 ≥10×。瓶颈落在 Vector 单元的逐元素吞吐，不在 Cube 的矩阵算力，也不在 HBM 带宽。**
+
+#### 2.3.1 采集与总账
+
+- 采集：`torch_npu.profiler`（CPU+NPU，captured 路径），warmup 1 + active 3 步；导出 `kernel_details.csv` 后按算子聚合 Task Duration。
+- 总设备时间：**265.48 ms / 3 步 = 88.5 ms/step**。
+- 同一时刻墙钟：**103–106 ms** ⇒ 每 token 还有 **15–17 ms** 宿侧空隙（Python 调度、跨卡中转、`.item()` 同步等）。
+- 口径警告：msProf 采于 **r34 速度档**（当时墙钟 103–106 ms）。r35 通过 g64/attn10 把质量换回来，端到端 110.3 ms，**未重新采样**。下表的绝对时间和占比用于定位瓶颈，不应逐毫秒对齐 r35。
+
+#### 2.3.2 算子分布
+
+| 算子（aclnn） | ms/step | 占比 | 主要来源 | 归类 |
+|---|---:|---:|---|---|
+| **Mul**（逐元素乘） | **25.8** | **29.1%** | `_deq_v2` 的 `lo*s_lo`/`hi*s_hi`；inject、DeltaNet 的若干乘 | 反量化 |
+| MatMul | 14.2 | 16.0% | 稠密 GEMM + head | GEMM |
+| **Cast → bf16** | **9.2** | **10.4%** | `pb.to(bf16)`、`se/base.to(bf16)`、`xf.to(bf16)` | 反量化 |
+| Subs（标量减） | 5.0 | 5.7% | offset-binary 的 `lo-8`/`hi-8` | 反量化 |
+| Sub | 4.3 | 4.9% | `pb - hi*16`、`kc*(1-onehot)` | 反量化/其它 |
+| BatchMatMul | 4.2 | 4.8% | 专家两次 GEMM | GEMM |
+| IndexSelect（gather） | 3.7 | 4.2% | 专家 slab gather + embedding | 其它 |
+| Muls（标量乘） | 3.4 | 3.8% | `pb*0.0625` 等 | 反量化 |
+| ReduceSum | 2.3 | 2.6% | `(buf*conv_w).sum` 等 | 其它 |
+| Transpose | 2.0 | 2.2% | `deq_w` 的 reshape 转置 | GEMM |
+| **Floor** | **1.9** | **2.1%** | `floor(pb*0.0625)` | 反量化 |
+| Matmul_Slice / InplaceCopy_Slice | 1.7 / 1.2 | 3.2% | `deq_w` 切片 | GEMM |
+| Mean | 1.5 | 1.7% | gated residual / dn_norm | 其它 |
+| Add | 1.3 | 1.5% | — | 其它 |
+| RepeatInterleave | 0.9 | 1.0% | DeltaNet 的 q/k 复制 | 其它 |
+
+**归类合计**：
+
+- 解包 + 反量化：`25.8 + 9.2 + 5.0 + 4.3 + 3.4 + 1.9 ≈ **49.6 ms（56.0%）**`。
+- 真正的矩阵乘：`14.2 + 4.2 + 2.0 + 1.7 + 1.2 ≈ **23.3 ms（26.3%）**`。
+- 其它（gather/reduction/mean 等）：约 15.6 ms（17.6%）。
+
+> 归类是人工按“这段代码在做什么”划的；`Sub 4.3` 里有一部分是 attention 的 one-hot 运算，不是纯反量化。**结论看数量级，不看小数点。**
+
+#### 2.3.3 带宽核算：不是带宽墙
+
+每 token 需要读的权重量【推算】：
+
+- 稠密权重（反量化后 bf16）：≈**7.2 GiB**；
+- 专家数据：≈**1.2 GiB**；
+- 合计：≈**8.4 GiB/token**。
+
+| 口径 | 计算 | 结果 |
+|---|---|---:|
+| 设备时间口径 | 8.4 GiB ÷ 88.5 ms | **≈94.9 GiB/s（≈102 GB/s）** |
+| 端到端 TPOT 口径 | 8.4 GiB ÷ 110.3 ms | ≈76.2 GiB/s |
+| 本机 HBM 实测读带宽 | — | **1447 GB/s（≈1.35 TiB/s）** |
+| 占实测读带宽 | 102 ÷ 1447 | **≈7%** |
+| 余量 | 1.35 TiB/s ÷ 94.9 GiB/s | **≈14×**（打七折仍 ≥10×） |
+
+> 8.4 GiB 是按模型结构估的，不是 profiler 计数器；它的用途是判断“是否接近带宽墙”，不是精确带宽报表。结论是：**不接近**。
+
+#### 2.3.4 单层与跨卡
+
+- dev0 eager 单层：**8.11 ms**。
+- dev1 eager 单层：**13.74 ms**；修设备上下文后 **7.85 ms**。
+- dev1 head：**8.74 → 5.66 ms**（同一修复）。
+- 3 层 dev1 eager 按 7.85 ms/层算约 **23.6 ms**；加 head 5.66 ms 约 **29.2 ms**。r32 的旧估计为 ~36 ms（修复前）。这两个数都说明：**它不是小数，但也不是 110 ms 的全部**。
+
+#### 2.3.5 这张图排除了什么
+
+1. **排除“HBM 带宽是主瓶颈”**：有效 95 GiB/s，离 1.45 TB/s 有 ≥10× 余量。
+2. **排除“Cube 矩阵算力是主瓶颈”**：MatMul+BatchMatMul 只有 18.4 ms，加转置/切片才 23.3 ms。
+3. **确认“Vector 逐元素链是主瓶颈”**：Mul 单项 25.8 ms，加 Cast/Subs/Sub/Muls/Floor 共 49.6 ms。
+4. **确认“还有宿侧空隙”**：设备 88.5 ms vs 墙钟 103–106 ms，15–17 ms 不在设备上。
+5. **指路**：要么把解包/反量化融进能跑 Cube 的 GEMV，要么减少图外 eager 层和 host 往返。前者是 §4 唯一没有被证否的方向；后者是 §3 B/D 组做的事。
+
+> **r37 结果（第 5 条的验证）**：这条“指路”被 aclnn 的现成算子直接解决了——`npu_weight_quant_batchmatmul` per-group 在 910B4 上可用，专家 GEMM 的 46 ms 解包链变成 ~7 ms 的 Cube 工作。整机 TPOT 110.3 → **76.7 ms**，msProf 里那 49.6 ms 的逐元素链基本消失。**这张图当年的判断是对的，错的是“只能靠自研 kernel”这个前提**（见 §4.11）。
+
+---
+
+## 3. 我们做过的优化
+
+**结论：四轮优化把 TPOT 从 318 ms 降到 110.3 ms（2.9×）。真正改变执行形态的是 A 组（4-bit 打包/LQP/装载期预反量化）、B 组（dev0 图捕获 + head 搬 dev1 + 设备上下文）和 C 组（停止符/关思考/关 PLE）；D 组主要改善感知与稳定性，E 组已就绪但收益不足。**
+
+**读法**：每条只回答四件事——问题、做法、实测数字、口径。**不要跨条相加**：每条 A/B 的基线不同，最后只以整请求实测为准。所有“单层/单算子”数字都已注明，不要当成整请求收益。
+
+### A 内存与量化
+
+**A 组结论：把权重压到 4-bit、把反量化从每 token 挪到装载期，是显存和速度的共同主线；代价是解包链落在 Vector 上。**
+
+#### A1 专家权重 v2 布局 4-bit 打包 + offset-binary
+
+- **问题**：int8 容器口径每层 2.49 GiB（含专家容器与同层其它权重），48 层放不下；专家权重是每层 1.21 GiB 里 94% 的大头。
+- **做法**：v2 布局把每字节装 2 个 nibble；offset-binary 存 `n' = q + 8`，解包只需 `n' − 8`，不再用二进制补码的 `(n ^ 8) − 8`。
+- **实测**：从整层 2.49 GiB 的 int8 容器，降到 4-bit 专家 **1.21 GiB/层**；LQP 整层 1.31 GiB（含 dense 77 MiB 与 scale）；解包链比二进制补码**少 4 个算子**（lo/hi 各少 2 个）；artifact 与运行时打包逐位等价 `0.000e+00`。
+- **口径**：48 层；`.v2o` 1200 MiB/层；等价性由 `tools/check_lqp.py` 门禁；质量保持 2.1756。
+
+#### A2 int8 容器不进显存（宿主侧打包）
+
+- **问题**：打包时若同时放 int8 容器（专家 q 部分 2.34 GiB）与 qv2（1.17 GiB），设备峰值多 **1.56 GiB/层**；37 层就 OOM（allocated 49.19 / reserved 59.52 / free 1.08 GiB）。
+- **做法**：在宿主侧完成 int8 容器到 v2 的打包；设备只出现打包后的 qv2，不再把 int8 容器作为瞬态常驻。
+- **实测**：可装层数 **37 → 44 层**；每层设备占用 **2.73 → 1.31 GiB**。
+- **口径**：当时代码/布局；后续 A5/A6 再把捕获层数抬到 45。不是“44 层就是最终上限”。
+
+#### A3 解包只用 bf16 算术
+
+- **问题**：NPU 上整数位运算极慢；4-bit 解包若走移位/掩码/异或，成本会吃掉量化收益。
+- **做法**：先把字节转 bf16，再用 `floor(pb*0.0625)`、`pb − hi*16`、`−8` 这些 bf16 算术完成拆半字节与 offset-binary 还原。
+- **实测**（16.4M 元素）：`uint8 >> 4` **7.3 ms**、`int16 ^ 8 − 8` **18.2 ms**；bf16 算术 **0.03–0.09 ms/算子**。差距 **81×–607×**。
+- **口径**：单算子微基准，设备侧；16.4M = 10 专家 × 1280 × 1280。不是说所有整数操作都这么慢，而是这条解包链上的整数路径不可用。
+
+#### A4 永不物化交织权重
+
+- **问题**：v2 的权重在 K 方向是 lo/hi 交错的；若把解包结果写成一个大交织权重，NPU 上块状跨步写退化到 **63.6 ms**。
+- **做法**：解出 `lo`、`hi` 两个连续数组，下游做两次 GEMM；切片只作用在**激活**上（`[10,1,K]`，几十 KB），不作用在权重上。
+- **实测**：同一 16.4M 元素的解包+GEMM 组合 **63.6 → 2.0 ms（31.8×）**。
+- **口径**：单层、单 token；比较的是“物化交织权重”与“两次 GEMM”两种实现，不是整请求。
+
+#### A5 LQP 离线 artifact
+
+- **问题**：运行时做 v2 打包，冷启动 **818 s**（约 363 s 花在打包），不可复现、不可运维。
+- **做法**：离线生成 LQP artifact（v2 + offset-binary + s8/base，48 层）；每层一个 safetensors，已存在的层跳过，可续跑；生成后必须过 `check_lqp` 逐位等价门禁。
+- **实测**：冷启动 **818 → 46 s**（直接读 artifact）；把前缀缓存放到图捕获之前、再加上后续装配优化后，当前 **30 s**。打包耗时：g64 约 **860 s**，g128 约 **1297 s**（48 层，可续跑）。
+- **口径**：818 s 是运行时打包；46 s 是 LQP 直读；30 s 是当前完整冷启动（含前缀缓存/图捕获）。不要把 30 s 全记在 LQP 一笔账上。artifact 约 59G，是线上直接读的权重。
+
+#### A6 装载期预反量化（三级）
+
+- **问题**：每 token 都把 int8 权重重新反量化一遍。微基准：一次 int8 `E.lin` 0.20 ms，其中纯 bf16 matmul 只 0.04 ms，**0.16 ms 是与 batch 无关的反量化固定开销**。
+- **做法**：装载期一次性把 int8 反量化成 bf16 常驻，分三级开关：每层 11 个小权重（`FNX_DEQ_SMALL`）、`lm_head`（`FNX_DEQ_HEAD`）、前 n 层注意力投影（`FNX_DEQ_ATTN`）。
+- **实测**：每层 11 个小权重 **−15.6 ms**；`lm_head` **−5.5 ms**；前 10 层注意力 **−7.2 ms**（0.72 ms/层）。整请求 TPOT **139.5 → 121.1 ms（−13.2%）**，`mean_nll` **2.1756 逐位不变**。
+- **口径**：三项单独 A/B 合计 −28.3 ms；为腾显存把捕获层数 46→45，边际约 +11.5 ms；最终 121.1 ms 是整请求实测。各 A/B 基线不完全相同，**不要用 139.5 − 28.3 直接算**。
+
+#### A7 专家 scale g64 → g128：质量/速度拨盘
+
+- **问题**：g64 的 scale 每层 41.3 MiB，45 层 1.81 GiB；g128 每层 22.6 MiB，45 层 0.99 GiB，省 **0.82 GiB**，但会带来质量代价。
+- **做法**：同一套代码支持两种 artifact：g128 + attn20（速度优先）与 g64 + attn10（质量优先）；运行时按 artifact 的 scale 列数自动识别，不写死 gs。
+- **实测**：
+
+| 档位 | artifact | `FNX_DEQ_ATTN` | TPOT | mean_nll | top1 | dev0 |
+|---|---|---|---:|---:|---:|---:|
+| A 速度优先（r34） | g128 | 20 | **105 ms（9.5 tok/s）** | 2.1860 | 48.0% | 59.18 GiB |
+| **B 质量优先（r35，线上）** | **g64** | **10** | **110.3 ms（9.1 tok/s）** | **2.1756** | **49.0%** | 59.57 GiB |
+
+- **口径**：两档都跑 48/48 层；差别只在专家 scale 粒度与预反量化层数。5.3 ms ≈ 5.0%（对 105 ms），换 **0.0104 nats + 1 个 top1 点**；任务级 MCQ 两档都 24/24。
+
+### B 图与执行
+
+**B 组结论：图捕获边界决定性能上限。dev1 不能捕获是硬约束；head 搬 dev1 和补设备上下文，是在这个约束下能拿回的最大两块。**
+
+#### B8 NPUGraph 只能在 dev0
+
+- **问题**：最初假设两张卡都能图捕获，实际 dev1 的 replay 输出全零；跨卡层放哪、怎么放，直接决定性能。
+- **做法**：用平凡链 `out = x*2+1` 做四组对照（dev0、dev1 set_device、dev1 current_device=0、dev1 global）；再扫 `FNX_LPC=44/45/46`，看层数与质量/速度的关系。
+- **实测**：dev0 平凡链 `rel 0.0000%`（PASS）；dev1 三种模式全部 `rel 100%`（replay 后仍全零，图根本没执行）。LPC=44/45/46 的 `mean_nll` **完全相同 2.1756**，TPOT 分别为 **166.3 / 154.4 / 142.9 ms**。
+- **口径**：同一模型、同一权重、同一请求口径；结论是“图只能在 dev0”，不是“dev1 的层算得慢”。**层放哪只影响速度，不影响数学**。
+
+#### B9 lm_head + mixer 搬 dev1
+
+- **问题**：int8 `lm_head`（约 646 MiB）常驻 dev0，挤掉了一层图捕获；且 head 在 dev0 时，dev1 的隐藏状态要两次跨卡中转。
+- **做法**：把 `lm_head` + mixer 放到 dev1（`FNX_HEAD_DEV` auto）；dev0 释放 646 MiB，多捕 1 层；head 在 dev1 直接算，跳过两次中转。
+- **实测**：LPC 44→46 + head 搬运，TPOT **166.3 → 142.9 ms**（−14%），质量不变。LPC 扫描给出每层约 **11.5 ms** 的边际；跨卡中转节省约 **3.5 ms**（文档记录）。
+- **口径**：166.3→142.9 是**同轮合并值**，同期还修了停止符；3.5 ms 未做单变量 A/B。不要把 23.4 ms 全归给 head 搬运。
+
+#### B10 补回最后 2 层：48/48 层
+
+- **问题**：46 层时模型质量严重退化（`mean_nll 3.1874`、ppl 24.23），且输出有掉字/续写模板；不是量化问题，是层数不够。
+- **做法**：总层数 46→48；一开始 44 层捕获 + 4 层 dev1 eager，后来优化到 45 捕获 + 3 eager。**“48 层装不下”是误读——装不下的是“48 层全部图捕获”。**
+- **实测**：`mean_nll` **3.1874 → 2.1756**（ppl **24.23 → 8.81**），top1 48%→49%，MCQ 24/24；输出掉字与轮尾续写消失。
+- **口径**：200 token teacher-forcing；48/48 层全部上卡，其中 45 层图捕获、3 层 eager。质量收益远大于速度代价。
+
+#### B11 Fused RMSNorm（必须先转 fp32）
+
+- **问题**：原 `rms_norm` 约 10 个 launch，每层调用 2 次；孤立看是明显可融合点。
+- **做法**：改用 `torch_npu.npu_rms_norm`，把 `(1+w)` 折进 gamma；**输入必须先 `.float()`**。
+- **实测**：单次调用 **307.5 → 187.9 µs（1.64×）**；单层 **12.456 → 12.284 ms（1.4%）**；当时整请求 **343.25 → 334.67 ms（−2.5%）**。
+- **口径**：精度陷阱——直接把 bf16 输入喂进融合算子，QSA 层对拍从 **0.024% 退化到 1.857%（75×）**；先转 fp32 后与原实现逐位一致（rel 0.0000%）。孤立 1.64× 不等于整请求 1.64×。
+
+#### B12 dev1 eager 缺设备上下文
+
+- **问题**：同样 16 次 GEMM，dev1 单层 13.74 ms，dev0 8.11 ms；不是板间差异，而是 `body1()` 在 dev1 执行时 `torch.npu.current_device()` 仍是 0，每个算子都要做一次设备切换。
+- **做法**：用 `with torch.npu.device(...)` 包住 dev1 的 forward 与 head，显式切换设备上下文。
+- **实测**：dev1 单层 **13.58 → 7.85 ms**；head **8.74 → 5.66 ms**；整请求 TPOT **118.0 → 106.0 ms（−12.0 ms，−10.2%）**。`mean_nll / top1 / MCQ` 完全不变。
+- **口径**：只加上下文管理器，没改计算；这是 B 组里最“纯赚”的一项。当前 r35 的 110.3 ms 是质量档，不是这项失效。
+
+#### B13 `async def` 里同步生成会堵死事件循环
+
+- **问题**：`async def chat` 里直接做同步生成，生成期间 `/health` 超时，看护误判并重启，把正在跑的请求连服务一起杀（24 题压测在第 23 题被杀）。
+- **做法**：生成放到 `asyncio.to_thread`；流式请求的锁覆盖**整个生成期**（原实现只包住 `return StreamingResponse(...)`，生成器之后才消费，两个流会同时改同一套递归状态/KV）。
+- **实测**：29 s 长生成期间 `/health` 立即返回；20 请求混合压测 20/20 成功、0 错误；3 个并发请求（2 流式 + 1 非流式）完全串行、输出不乱。
+- **口径**：服务正确性/可用性，不是单 token 性能。它解释了“服务老是被杀”的根因，不改变 TPOT。
+
+### C 数值正确性
+
+**C 组结论：这三项不直接提升算力，但每一项都在“少做无用功”或“少输出垃圾”；其中停止符和关思考同时改善速度与可读性。**
+
+#### C14 停止符是 `<|im_end|>`(248046)，不是 pad(248044)
+
+- **问题**：代码把 `248044`（`<|endoftext|>`/pad）当停止符；真正的对话轮结束符是 `<|im_end|>`(248046)。只停 pad 会让模型越过轮尾，继续编造下一轮模板。
+- **做法**：停止符集合加入 `tokenizer.eos_token_id`（248046）与 `<|endoftext|>`；尾部清理。
+- **实测**：修前「你好」5.29 s，尾部带 `\nuser\nassistant\n<think>`；修后 **3.22–3.45 s**、输出干净。每请求约快 **2 s**。
+- **口径**：短请求、思考关；速度收益来自不再白跑越界模板 token，不是模型变快。
+
+#### C15 PLE（n-gram 查表）有害，关闭
+
+- **问题**：PLE 的 n-gram 查表本来用于补长尾，但在这份 checkpoint/这套实现上引入噪声，输出退化。
+- **做法**：`FNX_NO_PLE=1` 跳过整个 PLE 注入。
+- **实测**：`mean_nll` **3.7594 → 3.1797**，top1 **37% → 48%**。
+- **口径**：同一 200 token 口径；这是当时的配置，后续 48 层把 `mean_nll` 进一步降到 2.1756。PLE 仍保持关闭。
+
+#### C16 `enable_thinking=False`
+
+- **问题**：开思考时，同一组问题的输出被思考过程拉长，延迟高，且 `</think>` 会漏进正文。
+- **做法**：请求/环境默认 `enable_thinking=False`；模板静态前缀从 45 token 降到 3 token。
+- **实测**：同一组 3 个问题 **50.71 → 22.58 s**（319 → 112 token），不再漏 `</think>`。
+- **口径**：3 个固定问题，不是通用质量评测；任务级 24 题 MCQ 在思考关下 24/24。
+
+### D 服务与感知
+
+**D 组结论：不改变单 token 算力，但把“重复 prefill”和“不知道在等什么”这两件事消掉；这是单用户交互体验提升最大的一组。**
+
+#### D17 前缀缓存（模板静态前缀 45 token）
+
+- **问题**：聊天模板的静态前缀 45 token，每请求都重跑；按当时的 130 ms/token 算，光这一段就 **5.7 s**。
+- **做法**：模板渲染时用哨兵切出静态前缀；eager 跑一遍，把递归状态快照到主机（约 151.9 MiB）；后续请求 `load_state` 覆盖，代替 reset + 45 步 prefill。每个模板变体独立缓存；构建失败写哨兵，永久降级为无缓存，不能让每个请求都 500。
+- **实测**：「你好」8 token 输出，**7.79 → 2.03 s**；同一 prompt 再问 TTFT **0.12 s**；缓存前后首 logits `maxdiff = 0.000e+00`（3 个 prompt 全 0）。
+- **口径**：命中缓存时才有效；冷启动要把前缀缓存建在图捕获之前，否则图池会挤爆显存。当前 45 token 是 `xhigh` 模板；`enable_thinking=False` 下只有 3 token。
+
+#### D18 对话缓存（LRU 4 槽，状态快照放主机内存）
+
+- **问题**：多轮对话每轮都把整段历史重跑；第 3 轮要 67 步 prefill。
+- **做法**：按“prefill 结束点”做 key（`prompt[:-1]`），LRU 4 槽，主机内存保存状态快照。key 不能用生成结束状态：模板历史是 `assistant\n<think>` + 内容，生成前缀多一个换行，会一次都命中不了。
+- **实测**：3 轮对话第 3 轮 **10.23 → 5.24 s**；prefill 步数 **67 → 28**；答案逐字不变。
+- **口径**：多轮、同一对话；不是跨会话共享。LRU 4 槽是当前配置，早期验证用 2 槽。
+
+#### D19 流式 prefill 进度与 `est_prefill_s`
+
+- **问题**：长 prompt 冷启动时客户端只看到“没有首 token”，无法区分“在算”与“挂了”。
+- **做法**：流式过程中发 SSE 注释行 `: prefill i/N`；非流式响应带 `fnx_stats.est_prefill_s = n_prefill × 0.143`。
+- **实测**：180 token prompt 实测 9 条进度（22/180 → 44/180 → … → 180/180），首 token **24.66 s**，速率 **136 ms/token**（第 30 轮口径；当前约 110 ms/token，因此首 token 会更早）；47 步 → 预估 6.72 s，总耗时 9.13 s（其中 24 个输出 token 约 2.4 s，对得上）。
+- **口径**：感知优化，不减少计算。估算常数仍是 **0.143 s/token**（早期标定）；r35 已到 0.1103 s/token，因此当前估算偏保守【推算】。
+
+#### D20 systemd 托管 / 看护 / 日志轮转 / 单实例
+
+- **问题**：服务在 30 s 装配窗口被看护误判重启；“`pgrep -f` 匹配自己”造成假残留/重复实例；`rm server.log` 丢崩溃现场；主机重启后服务消失。
+- **做法**：`fnx.service`（`Restart=always`，`TimeoutStartSec=600`）；看护 20 s 探活、连续 3 次失败才重启、刚重启过有 **150 s 宽限期**、进程还活着时放宽到 15 次；`mkdir` 锁防并发重启；日志轮转；单实例检查。
+- **实测**：20 个混合请求 **20/20 成功、0 错误**；29 s 长生成期间 `/health` 立即返回；看护未误重启；主机重启后 systemd 拉起。
+- **口径**：运维验收，不是性能优化；它保证前面的性能数字在无人值守时仍成立。
+
+### E 已就绪未启用
+
+#### E21 批处理 `FNX_BATCH`
+
+- **问题**：单用户 decode 是 B=1 的 GEMV，理论上可以用多请求 batch 摊薄权重读取。
+- **做法**：engine/model/server 全链路加批维，`step_pad` / `row_logits` / `zero_row`；`FNX_BATCH` 默认 1，保留开关。
+- **实测**：B=1 与改造前**逐位相同**（`mean_nll 2.1756`）；B=2 每步 **196–203 ms**，相对 B=1 142.9 ms 只有 **1.43×** 吞吐，且单请求延迟 **+38%**；B=4 在 46 层捕获下直接 OOM（`_deq_v2` 为 40 个专家行要 126 MB，只剩 2.63 MiB）；要跑 B=4 需把 LPC 降到 45，对所有请求 **+12 ms/步**。
+- **口径**：当前是单用户交互场景，B=2 会让唯一用户变慢；不上生产。**触发条件**：真有 ≥3 个并发客户端时再接连续批处理调度器；B≥4 还要先牺牲一层捕获。
+
+### F 专家 GEMM 走 Cube 融合（r37 主线）
+
+**F 组结论：把“每 token 解包 16.4M 元素 + 两次 bf16 GEMM”换成一次 aclnn per-group W4A16 调用，单层专家段 1.62 → 0.32 ms，整机 TPOT 110.3 → 76.7 ms。这条路被本项目自己的文档误判为“CANN 9.1 没有 per-group W4A16 算子”，实际可用。**
+
+#### F37 aclnn `npu_weight_quant_batchmatmul` per-group W4A16（−33.6 ms/token）
+
+- **问题**：§2.3 的 msProf 已经指出 88.5 ms 设备时间里 49.6 ms（56%）是 4-bit 解包+反量化的 Vector 逐元素链；专家段独占 45 ms 左右（45 层 × 1.0 ms）。自研 AscendC 融合 kernel 试过——只能跑 Vector，41.8 ms 反而慢于 torch 的 26.8 ms，被证否（§4.2）。于是“能不能不写 kernel”成了关键问题。
+- **做法**：
+  1. **用现成 aclnn 算子**：`torch_npu.npu_weight_quant_batchmatmul(x, weight_int4, antiquant_scale, antiquant_group_size=64)`。它把“解包 + 乘 scale + GEMM”放在 AI Core 内完成，走 Cube。
+  2. **权重容器换成 `npu_convert_weight_to_int4pack` 的 int32 布局**，并**离线转置成 `[K,E,N/8]`**：这样 `index_select(dim=1)` 出来就是 `[K,k,N/8]` 连续，可直接 `reshape` 成 `[K, k*N/8]` 喂算子，省掉一次 16.4 MB 的 permute（实测 0.068 → 0.036 ms/层）。
+  3. **gu 用“沿 N 拼接”把 10 个专家合成一次调用**：单序列只有一行 `x`，10 个专家的输出天然是 `[1, 10×1280]`，一次 GEMM 全出（0.043 ms）。
+  4. **dn 用“对角块”技巧**：dn 的 10 行各用不同专家，无法共享权重，于是把 10 个专家沿 N 拼成 `[640, 25600]`、把 10 行 `x` 堆成 `M=10`，一次调用得到 `[10, 25600]`，只取对角块 → `[10, 2560]`。多算 10× 的 Cube 工作只要 0.011 ms，**比 10 次单专家调用（0.467 ms）便宜 8 倍**。
+  5. **scale 拼接口径**：artifact 存 `[G,E,N]` int8（与原 s8 逐位相同，只是转置）+ `[E,N]` bf16 base，每次调用现场拼 `[G, k*N]`（3 个算子、约 1 MB）。
+- **实测**（自包含探针 `backend/remote/p32{2,5,6}_*.py`，真实形状 K=2560→N=1280、K=640→N=2560，E=512 的真实分布，避免小 artifact 落进 L2 造成假快）：
+  - 数值：与旧路径（bf16 反量化 + bmm）**gu rel 2.17e-3 / dn rel 1.63e-3**，bf16 舍入级。
+  - 图捕获：replay vs eager **rel 0.000e+00**；换一组专家 ids 后仍 **0.000e+00**；连续 replay 输出有限。
+  - 单层专家段（**图内 replay**）：**0.32 ms vs 旧 1.0 ms**；Eager 下 1.62 → 0.52 ms（3.1×）。
+  - 整机（同一脚本 A/B，128 token 流式）：**110.5 → 76.7 ms**（−30.6%），prefill **105 → 74.3 ms/token**，231 token prompt 首 token **29.3 → 17.2 s**。
+- **口径**：production 配置 `FNX_MOE_W4A16=1` + artifact `/models/Qwen3.8-Flash-Next-LQP-w4a16`（48 层 × 1.21 GiB，与原 LQP 同大小，**不增加显存**）；只支持 `FNX_BATCH=1`。
+- **质量代价**：`mean_nll 2.1756 → 2.1995`（+0.024 nats）、`top1 49.0% → 48.0%`、**MCQ 24/24 不变**。原因是累加顺序变了（旧：两次 bf16 GEMM 相加；新：一次 fp32 深度累加），不是量化变差——权重与 scale 逐位相同。**回滚开关 `FNX_MOE_W4A16=0` 可精确回到 2.1756 / 110.5 ms。**
+
+#### F38 per-group W4A16 的“文档陷阱”（为什么以前以为不可用）
+
+- **历史结论**（第 25 轮）：`npu_weight_quant_batchmatmul` “只吃 per-channel”，per-group 报 `161002`。
+- **真实原因**：**`antiquant_scale` 的 dtype 必须与 `x` 相同**。我们当时用 bf16 的 `x` 配了 fp16 的 scale，acl 直接回 `161002 / x's dtype must be same as antiquantScale's dtype`，被当成“不支持 per-group”。
+- **复现口径**：`x` bf16 + `antiquant_scale` bf16 + `antiquant_group_size=64` → 通过；把 scale 换成 fp16 → 立刻 161002。文档（`torch_npu` 内置 docstring）明确写着：*Atlas A2 训练系列产品：per-tensor、per-channel、per-group*，int4 用 int32 承载（`npu_convert_weight_to_int4pack`）。
+- **教训**：**错误码要读到具体那句参数校验**。`161002` 是“参数不合法”的通用码，把它当成“算子不支持”让我们把一条 1.43× 的路封了 12 轮。
+
+### 3.6 收益归因（避免把不同基线的数字相加）
+
+| 阶段 | TPOT | 主要变更 | 备注 |
+|---|---:|---|---|
+| r31 | 139.5 ms | 46 层捕获、LQP、关 PLE | 基线 |
+| r32 | 121.1 ms | 三级预反量化 + LPC 46→45 | −13.2% |
+| r33 | 115.1 ms | g128 + attn20 | 速度档继续 |
+| r34 | 105–106 ms | dev1 设备上下文修复 | −12 ms |
+| r35 | 110.3 ms | g64 + attn10（质量回拨） | 质量档 |
+| **r37** | **76.7 ms** | **专家 GEMM → aclnn per-group W4A16（Cube）** | **−33.8 ms；线上** |
+
+> 每一行都是在各自配置下测的整请求值；**不要把这些百分比相加**。r35 的 110.3 比 r34 慢 5 ms，是主动用速度换质量，不是回退；r37 的基线是 r35（同一脚本同一天测 110.5 ms 作对照），差 33.8 ms。
+
+---
+
+## 4. 已证否的方向
+
+**结论：以下是试过并被否掉的方向，绝大多数有实测否定或成本否定；chunked prefill 是成本否决（未实施）。注意 §4.11 是一条**被推翻的否定**——“CANN 没有 per-group W4A16”是误判，r37 正是靠它拿到 1.43×。**
+
+| 方向 | 类型 | 关键数字 | 结论 |
+|---|---|---|---|
+| chunked prefill | 成本否决（未实施） | 分块摊薄实测：稠密 31.9×、MoE 仅 1.54×；整机推算 2.5–2.9× | 暂不做（见 §4.1） |
+| AscendC 自研融合 kernel | 实测否定 | 41.8 vs 26.8 ms；+5.6 GiB；直调 Cube 不可用 | 不做（但 aclnn 路线已成功，§3 F37） |
+| 专家 3-bit | 实现否定 | 质量 +0.19 nats；解包 7–18 ms/16.4M | 不做 |
+| 稠密权重 4-bit | 收益不足 | 只省 1.8 GiB；换不回 3 层 eager | 不做 |
+| bf16 head | 实测否定 | −0.0009 nats；+1.18 GiB | 不做 |
+| `div(rounding_mode="floor")` | 实测否定 | 252 MiB 临时内存（8×）；请求被拖死 | 不做 |
+| `addcmul` 广播融合 | 实测否定 | 0.122 vs 0.084/0.060 ms | 不做 |
+| 分组点积（scale 折进 GEMM） | 实测否定 | einsum +113%；bmm +76% | 不做 |
+| dev1 图捕获 | 实测否定 | 平凡链 rel 100% 失败 | 不做 |
+| ~~per-group W4A16 算子~~ | **误判，已推翻** | 真因是 scale dtype 不匹配（161002） | **已上线，1.43×** |
+
+### 4.1 chunked prefill：成本否决，且收益已被 r37 削掉一半
+
+- **数字（第 36 轮补测，真实权重）**：分块摊薄只在**稠密/投影**上有效——T=1 时 7.954 ms/token，T=32 时 **0.249 ms/token（31.9×）**，整块时间恒定约 8 ms；但 **MoE 只能摊到 1.54×**（T=32：0.996 vs 1.532 ms，因为每 token 都要读自己那 10 个专家，只有去重收益）。按当时的时间分布推算整机 **2.6–3×**（prefill 105 → 35–40 ms/token）。
+- **r37 之后这条推算作废一半**：MoE 段从 45 ms 降到 ~7 ms，"可摊薄的大头"已经不在 MoE 上了。现在再算：可摊薄部分（稠密/投影 + 残存 MoE）≈ 45 ms → 1.5 ms，不可摊薄部分（3 层 dev1 eager 23.6 + head 5.7 + 宿侧 15 + DeltaNet 逐 token 递推）≈ 45 ms 不变 ⇒ 整机上限约 **1.6–1.8×**，而工程成本（分块 attention + 分组 MoE + 数值重验 + 按固定 T 再捕一份图，dev0 图池只剩约 900 MiB）没变。
+- **失败/不做原因**：投入产出比在 r37 之后更不成立；且 NPUGraph 只能按固定形状捕获，分块 prefill 需要另捕一份 T-token 图，显存与图池都不宽裕。
+- **替代**：前缀缓存 + 对话缓存消掉重复 prefill；SSE 进度 + `est_prefill_s` 把剩余成本暴露给调用方。**如果**将来出现“长 prompt、多用户”的真实需求，再按第 30 轮 §16.5 的验收门槛重开（logits maxdiff ≤1e-3、`mean_nll` 差 ≤0.05 nats、B=16 ≥2.5×、图池装得下）；届时优先做的不是 chunked prefill，而是**把稠密权重也搬到 aclnn W8 per-group**（见 §4.12）。
+
+### 4.2 AscendC 融合 kernel：三项证据同时否决
+
+- **数字**：精度不是问题——`gate_up_proj` rel 0.197%、`down_proj` rel 0.198%。问题是：
+  1. 同一图捕获口径下，kernel **41.8 ms vs torch 26.8 ms**；AscendC 直调只能跑 Vector，Cube 不可用（4 组 Cube 实验全部 507015）。
+  2. 与 LQP artifact 不兼容：`ExpQ.from_packed` 只设 `qv2`，不构造 `s4t`；kernel 分支要 `s4t`。
+  3. 补 `s4t`（g32 fp16 转置 scale）要 **+127 MiB/层 × 45 ≈ 5.6 GiB**；dev0 余量不足 1 GiB。
+- **失败原因**：Vector-only 更慢 + 内存装不下 + 与线上 artifact 不兼容，三件事独立成立。
+- **为什么不再尝试**：除非 CANN/bisheng 允许直调 Cube，或 aclnn 自定义算子接口能带 Cube；否则融合 kernel 仍然只能跑 Vector，无法突破 §2.3 的 Vector 吞吐墙。
+- **替代**：torch 路径 + LQP artifact；把优化预算放在预反量化、图捕获和 head 布点。
+
+### 4.3 专家 3-bit：质量可谈，实现过不去
+
+- **数字**：质量代价 **+0.19 nats**（`mean_nll 2.1860 → 2.3793`），top1 50%、MCQ 仍 **24/24**；单看质量不是不能打。
+- **失败原因**：真省内存必须位打包（16 个值挤进 6 字节）；3-bit 的值在 24 bit 组里不按字节对齐，无法用 bf16 的“除以 2 的幂 + 取余”拆出，只能移位/掩码。NPU 上 `uint8>>4` **7.3 ms**、`int16^8−8` **18.2 ms**（16.4M 元素），解包会从 ~2 ms 涨回 60 ms+，把收益全吃掉。
+- **为什么不再尝试**：没有 kernel 逃生门——融合 3-bit GEMV 又回到 4.2 的 Cube 不可用问题。
+- **替代**：4-bit g64/g128 拨盘；质量优先选 g64，速度优先选 g128。
+
+### 4.4 稠密权重 4-bit：只省 1.8 GiB，换不回布局
+
+- **数字**：稠密权重每层 77 MiB，压到 4-bit 最多省 **1.8 GiB**（48 层合计）。当前 dev1 还有 3 层 eager；把 3 层全收回 dev0 需要约 **3 × 1.29 = 3.9 GiB**，1.8 GiB 不够。即使只换 1 层捕获，边际也只有约 **12 ms**，却要让全模型稠密权重降精度。
+- **失败原因**：省下的显存不足以改变层布局；收益/风险不如把同样的显存花在预反量化上。
+- **为什么不再尝试**：这不是“再压一点”的问题，是“压完仍不够跨过 3 层门槛”。
+- **替代**：45 层捕获 + 三级预反量化；稠密保持 int8/bf16 现状。
+
+### 4.5 bf16 head：−0.0009 nats，没有信号
+
+- **数字**：把 int8 `lm_head` 换成原始 bf16，`mean_nll` 只降 **0.0009 nats**，top1 反而降 0.5 个点；显存 +1.18 GiB。
+- **失败原因**：质量收益在噪声/无意义量级，显存代价会挤掉预反量化或图捕获。
+- **为什么不再尝试**：head 不是质量瓶颈；量化误差的主因在专家 g64 分组，不在 head 材质。
+- **替代**：int8 head + `FNX_DEQ_HEAD=1`（装载期反量化）放 dev1。
+
+### 4.6 `torch.div(..., rounding_mode="floor")`：8× 临时内存
+
+- **数字**：同形状输入 32 MB，`div(rounding_mode="floor")` 要 **252 MiB 临时内存（8×）**；在只剩 0.9 GiB 的服务里，分配器被推到边界反复重试，单个 `/fnx/loss` 从 30 s 变成 **>100 s 未完成**。`floor_divide` 同样 252 MiB。
+- **失败原因**：不是“慢一点”，是内存炸点；msProf 里少一个 kernel，换来 8× 临时内存。
+- **为什么不再尝试**：服务常驻显存贴边，任何 8× 临时分配都不可接受。
+- **替代**：`floor(pb*0.0625)` 保持生产。`pb.div(16.0).floor_()` 实测 0.078 ms（−20%）确实更快，但只值约 **0.4 ms/token（0.4%）**，低于 3% 门槛，不进生产。
+
+### 4.7 `addcmul` 广播融合：比它要替换的原语更慢
+
+- **数字**：`addcmul(-8s, n', s)` **0.122 ms**；`mul` 0.084 ms、`sub` 0.060 ms。比单个原语分别慢 **45% / 103%**（项目早期口径记为 34–100%，结论不变）。
+- **失败原因**：把 `(n'−8)*s` 从两个 kernel 合成一个，但广播 `addcmul` 本身更贵；kernel 数减少不等于墙钟减少。
+- **为什么不再尝试**：这条已经被 `tools/op_bench.py` 在真实形状上判死；除非算子实现变了，否则不重开。
+- **替代**：保留 `(lo−8)*s` 的两步；`_FOLD8` 默认关。
+
+### 4.8 分组点积（把 scale 折进 GEMM）：更慢
+
+- **数字**：真实形状（k=10, N=1280, K=2560, G=20×64）：
+  - 生产：物化 w + 一次 bmm **0.117 ms**；
+  - 候选 A：`einsum('kngj,kgj->kng')` **0.218 ms（+113%）**；
+  - 候选 B：batch=k·G=200 的 bmm **0.179 ms（+76%）**；
+  - 两者数值 rel 0.323%。
+- **失败原因**：这块卡上“批量很小的 matvec”（batch 20 或 200）效率远低于“物化 16.4M 元素 + 一次大 bmm”。那 25.8 ms 的 `Mul` 反而买到了 bmm 的高效率。
+- **为什么不再尝试**：省掉 `Mul` 的代价是 bmm 变成低效小批量；除非有融合 kernel 同时解决物化和批量效率，否则不重开。
+- **替代**：当前“物化 + 一次大 bmm”。
+
+### 4.9 dev1 图捕获：平凡链都失败
+
+- **数字**：dev0 平凡链 `rel 0.0000%`；dev1 三种模式全部 `rel 100%`（replay 后输出仍全零）。
+- **失败原因**：这套 910B4 + CANN 组合下，NPUGraph 只能在 `current_device=0` 捕获/重放；与模型、层、跨卡中转、stream、捕获模式无关。
+- **为什么不再尝试**：不是配置问题，是平台限制；没有环境变量可修。
+- **替代**：dev0 捕获 + dev1 eager + B12 的设备上下文修复；把 dev1 层数压到 3。
+
+### 4.10 自研融合 kernel：方向没被证否，但已经不是性价比最高的那条
+
+**能跑 Cube 的融合 4-bit GEMV 依然有价值，只是 r37 用现成 aclnn 算子先拿到了同样的结果。**
+
+自研 kernel 要同时满足四个条件：
+
+1. 解包、乘 scale、GEMM 在 AI Core 内部完成，且**真正用 Cube**，不是 Vector-only；
+2. 直接吃 LQP v2 offset-binary + s8/base，或能在不增加 5.6 GiB 的前提下补出 kernel 要的 `s4t`；
+3. 能被 NPUGraph 捕获（或在 dev0 图内）；
+4. 过两道门禁：真实形状上稳定快 ≥3%，且 `/fnx/loss` 与基线差在容差内。
+
+在“AscendC 直调只能跑 Vector”的链路下，这四条做不到（§4.2）。**但 aclnn 的 per-group W4A16 算子把 1–4 条全部满足了**（它在 AI Core 内、吃 int4pack 容器、能进 NPUGraph、过了门禁）。所以：
+
+> **“110.3 ms/token 是这套配置的实测天花板”这句话在 r37 被推翻。当前实测是 76.7 ms；天花板不是这块卡的通用上限，也不是这份代码的上限——它是“还没找到现成算子”那段时间的上限。**
+
+### 4.11 被推翻的否定：CANN 9.1 其实有 per-group W4A16
+
+- **原结论**（第 25 轮，写进了交接文档）：`npu_weight_quant_batchmatmul` 只吃 per-channel；`npu_grouped_matmul` + antiquant 报 161002 ⇒ “CANN 9.1 没有能直接吃 per-group W4A16 的现成算子”。
+- **真实原因**：`antiquant_scale` 的 dtype 必须与 `x` 相同。用 bf16 的 `x` 配 fp16 的 scale，acl 回的是
+  `161002 / x's dtype must be same as antiquantScale's dtype, actual x's dtype is [DT_BFLOAT16], antiquantScale's dtype is [DT_FLOAT16]`。
+  我们只看了错误码，没读那句参数校验。
+- **复测**（§3 F38）：`x` bf16 + scale bf16 + `antiquant_group_size=64` → 通过，数值与旧路径 rel 2.2e-3；图捕获 rel 0.000e+00。
+- **影响**：一条 1.43× 的路被误封了约 12 轮。**流程改进**：CANN 的 `161002` 一律要求读到 `AclNN_Parameter_Error` 那一行；`torch_npu` 自带 docstring 里的“支持产品 × 量化场景”表要作为首选依据（它明确写了 A2 支持 per-group）。
+- **附带**：`npu_grouped_matmul` + `antiquant_scale` 仍然不可用（V5 op 报 161002 且参数形态不同），所以 MoE 的“多专家一次调用”是用 `[K, k*N/8]` 拼接 + 对角块技巧实现的，不是 grouped op。
+
+### 4.12 下一个该做的方向（按 ROI 排序）
+
+1. **稠密权重也搬到 aclnn W8 per-group**（`npu_weight_quant_batchmatmul` int8 + `antiquant_group_size=32`）：专家段已经证明这条路可行，稠密段还剩“每 token 反量化 5 个注意力投影 × 35 层”的固定成本；顺带能释放 `FNX_DEQ_ATTN` 的 bf16 预反量化副本（约 0.55 GiB），再拿去换图池或更长的上下文。
+2. **dev1 的 3 层 eager（约 23.6 ms，占现在 76.7 ms 的 31%）**：dev1 图捕获已被证否（§4.9），但可以减算子数（预反量化 + 融合 RMSNorm 已在做），或把这 3 层的 MoE 也走 aclnn（本轮已生效，eager 下 1.62 → 0.52 ms/层）。这是当前最大的单块固定成本。
+3. **宿侧 15–17 ms 空隙**：需要重新采一次 msProf（r37 配置）；现在的算子结构变了，空隙占比可能更高。
+4. chunked prefill（§4.1）：ROI 已降到 1.6–1.8×，优先级排在 1–3 之后。
+
+---
+
+## 5. 附录
+
+**结论：口径、复现命令和仓库结构都在这里；复现前先看 §5.4 的配置陷阱。**
+
+### 5.1 口径定义
+
+| 指标 | 精确定义 | 备注 |
+|---|---|---|
+| TPOT | 流式请求中 `(最后一个 content token 时刻 − 第一个 content token 时刻) / (n − 1)` | 首 token 不计入；`temperature=0`；单流 |
+| TTFT 热态 | 同一 prompt 第二次及以后，请求发出到第一个 content token | 前缀/对话缓存命中；含 HTTP/分词 |
+| TTFT 冷启动 | 新 prompt 从请求发出到第一个 content token | 含完整 prefill；当前 ≈0.105–0.12 s × prompt token |
+| 冷启动 | 进程启动到 `GET /health` 返回 `{"status":"ok"}` | 不是首请求延迟 |
+| mean_nll | `−mean(log_softmax(logits)[target])`，teacher-forcing，单位 nats | `eval_text` 前 200 个预测；确定性 |
+| ppl | `exp(mean_nll)` | 2.1995 → 9.02（r37）；r35 为 2.1756 → 8.81 |
+| top1 | argmax 等于 target 的比例 | 仅前 200 个预测 |
+| median_rank | target 在 logits 中的排名中位数 | 1 = 一半以上位置是 argmax |
+| 随机基线 | `ln(V)`，V≈24.8 万 → 12.4225 | mean_nll 越低越好 |
+| 显存 | `torch.npu.memory_allocated(dev)` 稳态值 | 另有 reserved 值；dev0 reserved 约 60.41 GiB |
+| 层布局 | `FnModel.layers0/layers1` 数量 | 45 捕获 + 3 eager = 48/48 上卡 |
+| 有效带宽 | 每 token 权重字节 ÷ 设备时间 | 估算值，不是 profiler 计数器 |
+
+**术语**：
+
+| 缩写 | 含义 |
+|---|---|
+| W4 | 4-bit 权重存储；本机是“4-bit 存储 + bf16 计算”，不是 W4A4 |
+| g64 / g128 | 专家 scale 的分组大小：每 64 / 128 个 K 维共享一个 scale |
+| LQP | 线上直接读的离线 artifact：v2 布局 + offset-binary + s8/base |
+| LPC | `FNX_LPC`，dev0 图捕获层数；当前 45 |
+| NPUGraph | 昇腾图捕获/重放；本机只在 dev0 可用 |
+| Cube / Vector | AI Core 的矩阵单元 / 向量单元；当前瓶颈在 Vector |
+| PLE | n-gram 查表注入；本部署关闭 |
+| MTP | 多 token 预测/投机解码；本部署没有该路径 |
+
+### 5.2 复现命令
+
+以下命令以仓库 `scripts/README.md` 的路径为准；`fnx` 是容器名，`/root/ascend-dev` 是容器内运行目录。**先确认机器与基线同规格**：2×910B4、openEuler 24.03、CANN 9.1.0、驱动 26.1.1、镜像 `quay.io/ascend/vllm-ascend:v0.23.0`、权重在 `/models`。
+
+#### 5.2.1 一条命令部署 + 验收
+
+```bash
+git clone https://github.com/xyzhou613-dev/qwen-ascend.git
+cd qwen-ascend
+git checkout baseline-r37        # 线上锚点；若只跟 main，数字可能已变
+bash scripts/deploy_all.sh
+bash scripts/40_verify.sh --quick     # 跳过 24 题，约 1 分钟
+bash scripts/40_verify.sh             # 全量，含 24 题
+```
+
+验收通过时应打印 `BASELINE OK`。
+
+#### 5.2.2 复现 r37（当前线上：g64 + aclnn per-group W4A16 专家路径）
+
+```bash
+# 0) 首次需要生成新的专家 artifact（离线一次，48 层约 22 分钟）：
+docker exec fnx bash -lc 'cd /root/ascend-dev/fnx && \
+  /root/ascend-dev/venv/bin/python tools/repack_w4a16.py 48'
+# 产物：/models/Qwen3.8-Flash-Next-LQP-w4a16/L??.w4.safetensors（每层 1.21 GiB，与旧 artifact 同大小）
+
+# 1) 用现成脚本起服务（内部已带全部环境变量与质量/速度测量）：
+bash /root/ascend-dev/p327_w4a16.sh        # W4=1 新路径；W4=0 回到 r35 口径做 A/B
+
+# 2) 确认启动脚本里的关键项：
+grep -E 'FNX_LPC|FNX_NLAYERS|FNX_DEQ|FNX_LQP|FNX_MOE_W4A16' /root/ascend-dev/p327_w4a16.sh
+# 期望：FNX_LPC=45 FNX_NLAYERS=48 FNX_DEQ_SMALL=1 FNX_DEQ_HEAD=1 FNX_DEQ_ATTN=10
+#       FNX_LQP=/models/Qwen3.8-Flash-Next-LQP
+#       FNX_MOE_W4A16=1      ← 新路径；=0 即 r35 的 2.1756 / 110.5 ms
+
+# 3) 看冷启动与显存：
+grep -E '装配|前缀缓存|图捕获|hbm0:|hbm1:' /root/ascend-dev/logs/server.log
+```
+
+> **注意**：流式请求必须读到 `[DONE]`。客户端在生成中途断开会让服务端卡死（`/health` 也阻塞），只能用 `kill -9` 恢复。测量脚本一律读满整个流。
+
+#### 5.2.3 质量口径
+
+```bash
+python3 - <<'PY'
+import json, urllib.request
+text = open('/root/ascend-dev/eval_text.txt', encoding='utf-8').read()
+req = urllib.request.Request(
+    'http://127.0.0.1:8000/fnx/loss',
+    data=json.dumps({'text': text, 'max_tokens': 200}).encode(),
+    headers={'Content-Type': 'application/json'})
+d = json.load(urllib.request.urlopen(req, timeout=1800))
+print('mean_nll=', d['mean_nll'], 'ppl=', d['ppl'],
+      'top1=', d['top1_acc'], 'median_rank=', d['median_rank'])
+PY
+```
+
+#### 5.2.4 TPOT / TTFT
+
+```bash
+python3 - <<'PY'
+import json, time, urllib.request
+URL = 'http://127.0.0.1:8000/v1/chat/completions'
+def gen(prompt, mx):
+    body = json.dumps({'messages': [{'role': 'user', 'content': prompt}],
+                       'max_tokens': mx, 'temperature': 0, 'stream': True}).encode()
+    req = urllib.request.Request(URL, data=body,
+                                 headers={'Content-Type': 'application/json'})
+    t0 = time.perf_counter(); first = None; n = 0
+    for line in urllib.request.urlopen(req, timeout=1800):
+        s = line.decode('utf-8', 'ignore').strip()
+        if not s.startswith('data: '):
+            continue
+        p = s[6:]
+        if p == '[DONE]':
+            break
+        d = json.loads(p)
+        if d['choices'][0]['delta'].get('content'):
+            n += 1
+            if first is None:
+                first = time.perf_counter() - t0
+    total = time.perf_counter() - t0
+    return first, (total - first) / max(1, n - 1) * 1000, n
+gen('暖机', 8)
+ttft, tpot, n = gen('请写一段约150字的散文，主题是秋天', 160)
+print(f'TTFT={ttft:.3f}s TPOT={tpot:.1f}ms n={n}')
+PY
+```
+
+#### 5.2.5 算子分布（msProf）
+
+```bash
+# 复现 §2.3 的 r34 口径（g128 + attn20；总设备时间约 88.5 ms/step）
+docker exec -it fnx bash -lc 'cd /root/ascend-dev/fnx && \
+  FNX_PACKED_TORCH=1 FNX_NO_PLE=1 \
+  FNX_LQP=/models/Qwen3.8-Flash-Next-LQP-g128 FNX_DEQ_ATTN=20 \
+  FNX_DEQ_SMALL=1 FNX_DEQ_HEAD=1 \
+  python tests/t_msprof.py'
+
+# 原始数据在容器内 /tmp/prof_fnx/captured/<timestamp>/**/kernel_details.csv
+# 用 tests/t_msprof.py 的 dump_summary 或 Excel 按 Task Duration 聚合
+```
+
+> 要 profile 当前 r35，把 `FNX_LQP` 换成 g64、`FNX_DEQ_ATTN=10`；绝对值会与 88.5 不同，不要混用。
+
+#### 5.2.6 预反量化/分层拆分、算子筛选、任务评测
+
+```bash
+# 单层成本拆分（attention / MoE / 反量化地板）；必须关图捕获
+docker exec -it fnx bash -lc 'cd /root/ascend-dev/fnx && \
+  FNX_NO_CAPTURE=1 FNX_PACKED_TORCH=1 FNX_NO_PLE=1 \
+  FNX_LQP=/models/Qwen3.8-Flash-Next-LQP \
+  python tests/t_prefill_split.py'
+
+# 算子级筛选；判据：稳定快 ≥3% 才动生产
+docker exec -it fnx bash -lc 'cd /root/ascend-dev/fnx && python tools/op_bench.py 20'
+
+# 24 题任务级评测
+python3 tools/mcq_eval.py
+
+# 与参考 bf16 的逐 token 配对比较（需先生成 /tmp/ref_eval12.json）
+python3 tools/compare_ref.py /tmp/ref_eval12.json
+```
+
+#### 5.2.7 重新生成 LQP artifact（可选）
+
+```bash
+# 容器内，纯 CPU，可续跑；已存在的层会跳过
+docker exec -it fnx bash -lc 'cd /root/ascend-dev/fnx && \
+  FNX_LQP=/models/Qwen3.8-Flash-Next-LQP \
+  python tools/repack_v2.py --layers 0-47'
+
+# 必须过逐位等价门禁（期望 0.000e+00）
+docker exec -it fnx bash -lc 'cd /root/ascend-dev/fnx && \
+  FNX_LQP=/models/Qwen3.8-Flash-Next-LQP \
+  python tools/check_lqp.py'
+```
+
+### 5.3 仓库结构
+
+```text
+qwen-ascend/
+├── fnx/                        推理引擎与服务
+│   ├── engine.py               ExpQ / 4-bit 解包 / 预反量化 / MoE / RMSNorm
+│   ├── model.py                FnModel / capture / step / 设备布点
+│   ├── load.py                 LQP 直读 / 宿主侧打包 / 权重装载
+│   ├── server.py               FastAPI / 流式 / 前缀缓存 / /fnx/loss
+│   └── w4gemv_op.py            AscendC W4 GEMV 直调封装（当前不在主链路）
+├── tests/
+│   ├── t_msprof.py             算子分布采集（§2.3）
+│   ├── t_prefill_split.py      prefill 成本拆分
+│   ├── t_prefix_cache.py       前缀缓存等价性
+│   ├── t_dev1_capture.py       dev1 图捕获证否
+│   ├── t_ref_eval.py           参考 bf16 逐 token NLL
+│   └── t_batch_micro.py        批处理微基准
+├── tools/
+│   ├── repack_v2.py            LQP artifact 离线生成
+│   ├── repack_w4a16.py         专家 int4pack artifact 离线生成（r37）
+│   ├── check_lqp.py            逐位等价门禁
+│   ├── op_bench.py             算子级筛选（≥3% 才动生产）
+│   ├── mcq_eval.py             24 题任务评测
+│   └── compare_ref.py          W4 vs 参考 bf16 配对比较
+├── ops/
+│   ├── registry.yaml           算子实现状态
+│   └── scripts/                生产启动、看护、systemd、各轮测量驱动
+├── scripts/
+│   ├── 00_precheck.sh          只读自检
+│   ├── 10_env.sh               容器/venv
+│   ├── 20_weights.sh           权重/LQP
+│   ├── 30_deploy.sh            启动 + systemd
+│   └── 40_verify.sh            对照基线验收
+├── docs/
+│   ├── Qwen3.8-Flash-Next-第29轮实测记录.md
+│   ├── Qwen3.8-Flash-Next-第30轮实测记录.md
+│   ├── Qwen3.8-Flash-Next-第31轮实测记录.md
+│   ├── Qwen3.8-Flash-Next-第32轮实测记录.md
+│   ├── Qwen3.8-Flash-Next-第37轮实测记录.md
+│   ├── 交接文档.md
+│   └── 本文件
+└── BASELINE.md                 配置、权重、版本、指标、验收判据
+```
+
+### 5.4 配置陷阱与文档一致性
+
+| 陷阱 | 现象 | 处理 |
+|---|---|---|
+| `30_deploy.sh` 优先 g128 | 盘上同时有 `-LQP` 与 `-LQP-g128` 时，会落到速度档（105–117 ms、2.1860） | 显式 `LQP=...-LQP`；r37 用 `p327_w4a16.sh`（已写死） |
+| **aclnn W4A16 的 scale dtype** | `x` bf16 + `antiquant_scale` **fp16** → `161002 / x's dtype must be same as antiquantScale's dtype`；很容易误读成“不支持 per-group” | scale 必须与 `x` 同为 bf16；`161002` 要读到 `AclNN_Parameter_Error` 那一行（§4.11） |
+| **流式客户端提前断开** | 服务端卡死：`/health` 也阻塞、NPU 空闲、`SIGTERM` 无效 | 用 `kill -9` 重启；所有测量/客户端脚本必须读满 `[DONE]` |
+| `FNX_MOE_W4A16` 与 batch | 新路径只支持 `FNX_BATCH=1`，`b>1` 直接抛错 | 需要 B>1 时把 `FNX_MOE_W4A16` 关掉（回到旧容器） |
+| 新 artifact 缺层 | `L??.w4.safetensors` 不存在时 `load.py` 会静默回落到旧的 v2 专家路径 | 用 `ls /models/Qwen3.8-Flash-Next-LQP-w4a16 | wc -l` 应为 49（48 层 + manifest） |
+| 标签与内容可能不同步 | 仓库快照的 `BASELINE.md` 标题可能仍是 r31，README 顶部可能仍是 r34 | 以 tag + 本文 §1 表为准；把 `BASELINE.md` 当作口径与容差来源，不当版本号 |
+| `est_prefill_s` 常数 | 代码里仍是 `n_prefill × 0.143`；r37 已到 0.0743 s/token | 估算偏保守约 2×；要精确就按 `FNX_PROF=1` 的实测值更新 |
+| 质量数字的文本依赖 | `mean_nll` 只对 `tests/eval_text.txt` 前 200 token 可比 | 换文本必须重新标定，不能与 2.1995（或 r35 的 2.1756）直接比 |
+| 单次 TPOT | 76.7 ms 是单次稳态测量（同日两轮 79.4 / 76.7） | 验收用 ≤125 ms 容差；报告时注明单次 |
+
+### 5.5 数据来源索引
+
+| 本文内容 | 主要来源 |
+|---|---|
+| 当前性能、质量、显存、层布局 | `BASELINE.md` §4；`docs/Qwen3.8-Flash-Next-第37轮实测记录.md`；线上 r37 实测 |
+| 硬件算力/带宽/PCIe/CPU | 内部基线报告 `bench/910B4x2-基线测试报告.md`（不在本仓库） |
+| msProf 算子分布 | `docs/Qwen3.8-Flash-Next-第32轮实测记录.md` §12–§14；`tests/t_msprof.py` |
+| A 组优化 | 第 29 轮 §20–§25；第 30 轮 §11–§12；第 32 轮 §1–§4、§8 |
+| B 组优化 | 第 29 轮 §17、§23；第 30 轮 §12–§14；第 32 轮 §10–§11 |
+| C 组修正 | 第 29 轮 §22；第 30 轮 §2–§6；第 32 轮 §11 |
+| D 组服务/缓存 | 第 30 轮 §4–§6、§13–§16；第 32 轮 §5、§12.3 |
+| E 组批处理 | 第 31 轮 §0–§6 |
+| 已证否方向 | 第 29 轮 §22–§24；第 30 轮 §16；第 31 轮 §5；第 32 轮 §9–§15；第 37 轮 §1–§4（含推翻 per-group W4A16 的误判） |
+| 参考 bf16 质量对照 | 第 30 轮 §15；`tests/t_ref_eval.py`、`tools/compare_ref.py` |
+| Strata 对比条件 | Strata `docs/DETAILS.md`；公开仓库 `https://github.com/Niko1221/Strata`（全部【⚠️待确认】） |
+
+### 5.6 已知的数据缺口
+
+| 缺口 | 影响 | 处理 |
+|---|---|---|
+| Strata 官方测试条件未复核 | 不能给出“谁更快”的单一结论 | 全文只并列条件；§2.2 全部标【⚠️待确认】 |
+| 40 系同模型自报值缺失 | 无法做 40 系直接对照 | 不引用 4090 的 DeepSeek 数字；只用 50 系 5070 作为条件示例 |
+| TPOT 未记录多轮标准差 | 76.7 的统计置信度未知（同日两轮 79.4 / 76.7） | 验收用容差；报告注明单次 |
+| `est_prefill_s` 常数未随 r37 更新 | 非流式预估偏保守约 2× | 以 `FNX_PROF=1` 实测为准，或把 0.143 改成 0.0743 |
+| LQP 打包耗时 860–1300 s 随 artifact 档位变化 | 冷启动复现时间不同 | g64 约 860 s；g128 约 1297 s；文档写明档位 |
+
+---
+
+*本文只写有实测支撑的内容；未能核实的 Strata 数字、40 系对照和统计置信度均已标为【⚠️待确认】。*
+

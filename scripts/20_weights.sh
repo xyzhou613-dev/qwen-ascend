@@ -37,4 +37,19 @@ docker exec "$CTN" bash -lc "cd $RUN/fnx && FNX_QDIR=$MDL/Qwen3.8-Flash-Next-Q \
     FNX_LQP=$LQP $PY -u tools/check_lqp.py" || {
   echo "  ✗ artifact 与运行时打包不等价，不要上线"; exit 1; }
 
+# ---------- r37：专家 int4pack artifact（aclnn per-group W4A16 用） ----------
+W4DIR=${W4DIR:-$MDL/Qwen3.8-Flash-Next-LQP-w4a16}
+nw=$(ls "$W4DIR" 2>/dev/null | grep -c '^L[0-9].*w4\.safetensors')
+echo "  当前 W4A16 artifact：${nw:-0}/48 层（$W4DIR）"
+if [ "${nw:-0}" -eq 48 ] && [ "$MODE" != "build" ]; then
+  echo "  W4A16 完整，跳过生成"
+elif [ "$MODE" = "skip" ]; then
+  echo "  按要求跳过：服务将用 FNX_MOE_W4A16=0（旧的 torch 解包路径，慢 30%）"
+else
+  echo "  开始生成 int4pack 专家 artifact（48 层，约 22 分钟，可续跑）"
+  docker exec "$CTN" bash -lc "cd $RUN/fnx && FNX_LQP=$LQP FNX_W4A16_DIR=$W4DIR \
+      $PY -u tools/repack_w4a16.py 48" || {
+    echo "  ✗ 生成失败（可重跑本脚本续跑：已完成层不会重做）"; exit 1; }
+fi
+
 echo "  20 完成"

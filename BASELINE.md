@@ -1,4 +1,4 @@
-# 基线 `baseline-r31`（可复现性锚点）
+﻿# 基线 `baseline-r37`（可复现性锚点）
 
 本文件定义"基线"到底是什么：**配置、权重、版本、指标、验收判据**。
 在新机器上复现后，`scripts/40_verify.sh` 会把实测值与本文件对比，全部在容差内才打印 `BASELINE OK`。
@@ -15,6 +15,9 @@ FNX_HEAD_DEV=              # 空 = auto：head/lm_head 放 dev1（dev1 显存富
 # 量化与打包
 FNX_PACK=0  FNX_EXP_G=64  FNX_MOE_KERNEL=0  FNX_NO_PLE=1  FNX_PACKED_TORCH=1
 FNX_LQP=/models/Qwen3.8-Flash-Next-LQP      # 4-bit 打包 artifact（存在即用）
+# r37：专家 GEMM 走 aclnn per-group W4A16（Cube）。=0 回到 r35 口径（110.5 ms / 2.1756）
+FNX_MOE_W4A16=1
+FNX_W4A16_DIR=/models/Qwen3.8-Flash-Next-LQP-w4a16   # tools/repack_w4a16.py 产出
 # 装载期预反量化（第 32 轮，数值逐位不变，只是不再每 token 重算）
 FNX_DEQ_SMALL=1            # 每层 11 个小权重（mixer/shared-expert/gate）→ bf16 常驻
 FNX_DEQ_HEAD=1             # lm_head（606 MiB int8）→ bf16 常驻（放在 dev1）
@@ -34,7 +37,8 @@ FNX_PORT=8000  FNX_CTX=2048  FNX_BATCH=1
 | `/models/Qwen3.8-Flash-Next` | 336 G | 原始 bf16 checkpoint（tokenizer、config、以及参考实现对照用） |
 | `/models/Qwen3.8-Flash-Next-Q` | 178 G | int8 容器（逐层稠密 + 专家 q4/s4） |
 | `/models/Qwen3.8-Flash-Next-QP` | 64 G | 4-bit 打包专家（中间产物） |
-| `/models/Qwen3.8-Flash-Next-LQP` | 59 G | **线上直接读的 artifact**（v2 布局 + offset-binary + s8/base，48 层） |
+| `/models/Qwen3.8-Flash-Next-LQP` | 59 G | 4-bit 专家 artifact（v2 布局 + offset-binary + s8/base，48 层）；稠密与 `FNX_MOE_W4A16=0` 时仍读它 |
+| `/models/Qwen3.8-Flash-Next-LQP-w4a16` | 58 G | **r37 线上读的专家 artifact**（int4pack `[K,E,N/8]` + `[G,E,N]` s8 + bf16 base），由 `tools/repack_w4a16.py` 生成，约 22 分钟 |
 
 `LQP` 可由 `tools/repack_v2.py` 从 `Q` 目录生成（48 层约 860 s，可续跑，原子替换），
 生成后必须跑 `tools/check_lqp.py`（与运行时打包逐位等价，`0.000e+00`）才能用。
@@ -58,12 +62,12 @@ FNX_PORT=8000  FNX_CTX=2048  FNX_BATCH=1
 
 | 指标 | 基线值 | 容差 |
 |---|---|---|
-| `/fnx/loss`（`eval_text` 前 200 token）`mean_nll` | **2.1756** | ±0.02 |
-| 同上 `top1` | 49.00% | ±2.0 个百分点 |
-| 稳态 TPOT（≥160 token 输出） | **110 ms（9.1 tok/s）** | ≤ 125 ms |
-| TTFT（热态，重复 prompt） | **0.12 s** | ≤ 0.5 s |
-| 冷启动（装配 + 前缀缓存 + 图捕获） | 31 s | ≤ 90 s |
-| 显存 | dev0 **59.57 GiB** / dev1 **5.27 GiB** | dev0 ≤ 60.4 GiB |
+| `/fnx/loss`（`eval_text` 前 200 token）`mean_nll` | **2.1995** | ±0.03（r35 为 2.1756，`FNX_MOE_W4A16=0`） |
+| 同上 `top1` | 48.00% | ±2.0 个百分点 |
+| 稳态 TPOT（≥128 token 输出） | **76.7 ms（13.0 tok/s）** | ≤ 95 ms（r35 口径仍 ≤125 ms） |
+| TTFT（热态，重复 prompt） | **0.10 s** | ≤ 0.5 s |
+| 冷启动（装配 + 前缀缓存 + 图捕获） | ≈30 s | ≤ 90 s |
+| 显存 | dev0 **59.57 GiB** / dev1 **5.3 GiB** | dev0 ≤ 60.4 GiB |
 | 24 题单选题准确率 | 24/24 | ≥ 22/24 |
 
 **质量口径注意**：`mean_nll` 用的是 `eval_text.txt`（仓库 `tests/` 里的评测文本，
@@ -79,6 +83,8 @@ FNX_PORT=8000  FNX_CTX=2048  FNX_BATCH=1
 5. **停止符必须是 `<|im_end|>`**；否则模型越过轮尾继续编造下一轮模板。
 6. **`async def` 里做同步生成会堵死事件循环** ⇒ 生成必须放线程（否则看护会误判并重启）。
 7. **`enable_thinking=False`**：同一组问题 50.7 s → 22.6 s，且不再漏 `</think>`。
+8. **aclnn 的 `antiquant_scale` 必须与 `x` 同 dtype**（bf16/bf16）；传 fp16 会报 `161002`，极易误读成"不支持 per-group"（第 37 轮 §1）。
+9. **流式请求必须读满 `[DONE]`**：客户端中途断开会让服务端卡死（`/health` 也阻塞），只能 `kill -9`。
 
 ## 6. 测量脚本（都能单独跑）
 
