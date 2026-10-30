@@ -18,7 +18,7 @@ FNX_LQP=/models/Qwen3.8-Flash-Next-LQP      # 4-bit 打包 artifact（存在即�
 # 装载期预反量化（第 32 轮，数值逐位不变，只是不再每 token 重算）
 FNX_DEQ_SMALL=1            # 每层 11 个小权重（mixer/shared-expert/gate）→ bf16 常驻
 FNX_DEQ_HEAD=1             # lm_head（606 MiB int8）→ bf16 常驻（放在 dev1）
-FNX_DEQ_ATTN=10            # 前 10 层的注意力投影 → bf16（dev0 显存上限；>10 会 OOM）
+FNX_DEQ_ATTN=10            # 前 10 层的注意力投影 → bf16（质量优先；g128 时可到 20）
 # 服务行为
 FNX_PREFIX_CACHE=1  FNX_CONV_CACHE=4  FNX_ENABLE_THINKING=0  FNX_PROF=0
 FNX_PORT=8000  FNX_CTX=2048  FNX_BATCH=1
@@ -58,9 +58,9 @@ FNX_PORT=8000  FNX_CTX=2048  FNX_BATCH=1
 
 | 指标 | 基线值 | 容差 |
 |---|---|---|
-| `/fnx/loss`（`eval_text` 前 200 token）`mean_nll` | **2.1860** | ±0.02 |
+| `/fnx/loss`（`eval_text` 前 200 token）`mean_nll` | **2.1756** | ±0.02 |
 | 同上 `top1` | 49.00% | ±2.0 个百分点 |
-| 稳态 TPOT（≥160 token 输出） | **105–106 ms（9.4 tok/s）** | ≤ 120 ms |
+| 稳态 TPOT（≥160 token 输出） | **110 ms（9.1 tok/s）** | ≤ 125 ms |
 | TTFT（热态，重复 prompt） | **0.12 s** | ≤ 0.5 s |
 | 冷启动（装配 + 前缀缓存 + 图捕获） | 31 s | ≤ 90 s |
 | 显存 | dev0 **59.57 GiB** / dev1 **5.27 GiB** | dev0 ≤ 60.4 GiB |

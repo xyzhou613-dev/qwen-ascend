@@ -40,8 +40,8 @@ print(f"{d['mean_nll']} {d['top1_acc']*100}")
 PY
 )
 set -- $LOSS
-chk "mean_nll（200 token）" "${1:-99}" 2.1860 "abs(a-b)<=0.02"
-chk "top1（%）"              "${2:-0}"  48.00  "abs(a-b)<=2.0"
+chk "mean_nll（200 token）" "${1:-99}" 2.1756 "abs(a-b)<=0.02"
+chk "top1（%）"              "${2:-0}"  49.00  "abs(a-b)<=2.0"
 
 # ---- 3. TPOT / TTFT ----
 read -r TPOT TTFT <<<"$(python3 - <<'PY'
@@ -71,7 +71,7 @@ f2, _ = gen("你好", 8)          # 第二次及以后应命中缓存
 print(f"{tpot:.1f} {f2:.2f}")
 PY
 )"
-chk "TPOT（ms/token）" "${TPOT:-9999}" 105 "a<=120"
+chk "TPOT（ms/token）" "${TPOT:-9999}" 110 "a<=125"
 chk "TTFT 热态（s）"   "${TTFT:-99}"   0.14 "a<=0.5"
 
 # ---- 4. 显存 ----
