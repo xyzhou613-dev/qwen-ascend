@@ -5,14 +5,14 @@
 不依赖 vLLM / MindIE / ATB 图引擎：手写 model forward + `torch_npu` NPUGraph 捕获 + 自研 W4 打包/解包，
 在**单机双卡 128 GiB 显存**里跑完 48 层，OpenAI 兼容 HTTP 服务。
 
-> **当前状态：基线 `baseline-r33`**
-> `mean_nll = 2.1860`（ppl 8.90）/ `top1 = 48.0%` / **TPOT 117–119 ms（8.5 tok/s）**
+> **当前状态：基线 `baseline-r34`**
+> `mean_nll = 2.1860`（ppl 8.90）/ `top1 = 48.0%` / **TPOT 105 ms（9.4 tok/s）**
 > TTFT：热态 **0.14 s**，冷启动 ≈ **0.115 s × prompt token 数**
 > 24 题单选题准确率 **24/24**，冷启动 **31 s**，错误 0
 >
 > 提速主线（第 32 轮）：**装载期预反量化** —— 把"每 token 重做一遍"的 int8→bf16 反量化
 > 改成装载期一次做完（`FNX_DEQ_SMALL/HEAD/ATTN`），再把专家 **scale 组 g64 → g128** 减半
-> 腾出 0.82 GiB 显存。TPOT 139.5 → **118 ms（−15.4%）**，代价是 `mean_nll` +0.010、
+> 腾出 0.82 GiB 显存。TPOT 139.5 → **105 ms（−24%）**，代价是 `mean_nll` +0.010、
 > `top1` −1 点（任务级 MCQ 仍 24/24）。
 > 详见 `docs/Qwen3.8-Flash-Next-第32轮实测记录.md`。
 

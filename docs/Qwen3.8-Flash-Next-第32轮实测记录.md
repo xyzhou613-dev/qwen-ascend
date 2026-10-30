@@ -216,3 +216,86 @@ FNX_LPC=45 FNX_NLAYERS=48 FNX_DEQ_SMALL=1 FNX_DEQ_HEAD=1 FNX_DEQ_ATTN=10
 
 **三条路都卡在同一件事上：dev0 只剩 ~0.9 GiB，而任何一步都需要 GiB 级显存。**
 在没有可用 fused kernel 的前提下，115–120 ms（8.5 tok/s）基本就是这套代码 + 这块卡的天花板。
+
+---
+
+## 10. 追加：AscendC fused kernel 路线 —— 三项证据判定为死路
+
+用户方向：把 MoE 的 gather + 解包 + GEMM 合成一个 AscendC kernel（同时解掉"MoE 55 ms"和"3-bit 不可行"）。
+
+实测三项证据，逐项否决：
+
+### 10.1 精度其实没问题（0.2%）
+
+`tests/t_kernel_feasibility.py` 在真实 L00 权重、bf16 口径下对拍：
+
+| 投影 | N | K | rel_mean | max\|Δ\| |
+|---|---|---|---|---|
+| `gate_up_proj` | 1280 | 2560 | **0.197%** | 0.0020 |
+| `down_proj` | 2560 | 640 | **0.198%** | 0.0009 |
+
+所以第 29 轮那个"同布点 `mean_nll` 差 8.6 nats"**不是单算子精度问题**（0.2% 传不到 8.6 nats），
+更像是当时把"kernel 路径（必须运行时打包）"和"LQP artifact 路径"两个变量混在一起比了。
+
+### 10.2 但它和内存优化的 artifact 不兼容
+
+代码事实（本轮核实）：`ExpQ.from_packed` 只设 `qv2`，**从不构造 `s4t`**；
+而 `_moe` 的 kernel 分支要 `self.exp_gu.s4t`：
+
+```
+from_packed: qv2=(512,1280,1280)  s=(512,1280,20)  gs=128
+s4t = None    ← kernel 分支要的就是这个
+```
+
+kernel 要的是 **g32 fp16 的转置 scale**（`prepare_layer` 的契约），而 artifact 里是 g128 int8 + base。
+
+### 10.3 把 s4t 造出来要多花 5.6 GiB
+
+| | gate_up | down | 合计/层 | 45 层 |
+|---|---|---|---|---|
+| s4t（g32 fp16） | 100 MiB | 50 MiB | **150 MiB** | 6.59 GiB |
+| 现在的 s8+base（g128） | — | — | 22.6 MiB | 0.99 GiB |
+
+⇒ 每层多 **127 MiB**，45 层多 **5.60 GiB**。而 dev0 只剩 **0.9 GiB**。
+要用 kernel 就得放弃约 4 层图捕获（+48 ms/token），而第 29 轮又实测 kernel 进图后**比 torch 慢**
+（41.8 vs 26.8 ms，因为 Cube 直调不可用，只能跑 Vector）。
+
+**结论：kernel 路线在"910B4 + 纯 Vector 直调 + 我们的内存布局"这三个约束下不可行。**
+这也顺带说明 3-bit 专家没有 kernel 逃生门（见 §9.2）。
+
+---
+
+## 11. 追加：真正的大鱼 —— dev1 的 eager 路径没切设备上下文（−12 ms）
+
+排查"dev1 那 3 层 eager 为什么这么贵"时发现的：
+
+| 层 | 整层耗时 | `lin()` 调用次数 |
+|---|---|---|
+| dev0 L00（eager） | **8.11 ms** | 16 |
+| dev1 L45（eager） | **13.74 ms** | 16 |
+
+同样 16 次 GEMM，dev1 慢 5.6 ms。原因不是板间差异，而是：
+
+> **`body1()` 和 `_head_device()` 在 dev1 上执行时，`torch.npu.current_device()` 仍然是 0。**
+> 每个算子都要做一次设备切换 —— 这是纯粹的上下文缺失，不是计算。
+
+修复（`with torch.npu.device(...)` 包住）：
+
+| | 修前 | 修后 | 省 |
+|---|---|---|---|
+| dev1 单层 forward | 13.58 ms | **7.85 ms** | −5.74 ms/层 |
+| head（dev1） | 8.74 ms | **5.66 ms** | −3.07 ms |
+| **整请求 TPOT** | 118.0 ms | **106.0 ms** | **−12.0 ms（−10.2%）** |
+
+`mean_nll / top1 / MCQ` **完全不变**（只加了上下文管理器，没改任何计算）。
+
+### 11.1 本轮累计（r31 → r34）
+
+| | r31 | r34 | 变化 |
+|---|---|---|---|
+| TPOT | 139.5 ms | **105.2–106.0 ms** | **−24%** |
+| 吞吐 | 7.2 tok/s | **9.44 tok/s** | +31% |
+| TTFT 热态 | 0.16 s | **0.12 s** | −25% |
+| 冷启动 TTFT | ≈0.14 s×token | **≈0.105 s×token** | −25% |
+| mean_nll | 2.1756 | 2.1860 | +0.010（来自 g128 scale） |
+| MCQ | 24/24 | 24/24 | — |
