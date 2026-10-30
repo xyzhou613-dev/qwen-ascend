@@ -168,9 +168,13 @@ class FnModel:
     def body1(self):
         if not self.layers1:
             return
-        h = self.h1
-        for L in self.layers1:
-            h = L.forward(h, self.pos1)
+        # ★★ 必须显式切到 dev1 的设备上下文（第 33 轮实测）：
+        #   eager 下当前设备仍是 0，而张量在 dev1 → **每个算子都要做一次设备切换**。
+        #   实测单层 13.58 → 7.85 ms（−5.74 ms/层，3 层 ≈ −17.2 ms/token）。
+        with torch.npu.device(self.dev1):
+            h = self.h1
+            for L in self.layers1:
+                h = L.forward(h, self.pos1)
         self.h1.copy_(h)
 
     def host_lmhead(self, x):
@@ -187,11 +191,15 @@ class FnModel:
         return out
 
     def _head_device(self):
-        """head 的**纯 device 部分**：mixer + lm_head（都在 self.head_dev 上）。"""
+        """head 的**纯 device 部分**：mixer + lm_head（都在 self.head_dev 上）。
+
+        ★ 同样要显式切设备上下文：head 在 dev1 时，未切上下文实测 8.74 → 5.66 ms。
+        """
         h = self.h0 if self.head_dev == self.dev0 else self.h1
         b = h.shape[0]
-        m = E.gated_residual(h, self.mix_norm, self.mix_down, self.mix_up, None)
-        self.logits.copy_(E.lin(m.view(b, E.H), self.lm_head))
+        with torch.npu.device(self.head_dev):
+            m = E.gated_residual(h, self.mix_norm, self.mix_down, self.mix_up, None)
+            self.logits.copy_(E.lin(m.view(b, E.H), self.lm_head))
 
     def head(self):
         _dbg = os.environ.get("FNX_MOE_DBG", "0") == "1"
