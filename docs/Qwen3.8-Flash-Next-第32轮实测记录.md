@@ -299,3 +299,61 @@ kernel 要的是 **g32 fp16 的转置 scale**（`prepare_layer` 的契约），�
 | 冷启动 TTFT | ≈0.14 s×token | **≈0.105 s×token** | −25% |
 | mean_nll | 2.1756 | 2.1860 | +0.010（来自 g128 scale） |
 | MCQ | 24/24 | 24/24 | — |
+
+---
+
+## 12. msProf 实测（第 34 轮）：瓶颈是**反量化的逐元素链**，不是 GEMM
+
+采集方式：`torch_npu.profiler`（CPU+NPU，warmup 1 + active 3 步，captured 路径），
+导出 `kernel_details.csv` 后按算子聚合 Task Duration。
+
+**总设备时间 265.48 ms / 3 步 = 88.5 ms/step**（同一时刻墙钟约 103–106 ms
+⇒ **每 token 有 ~15–17 ms 是宿侧空隙**，不是设备在算）。
+
+| 算子（aclnn） | ms/step | 占比 | 来自哪里 |
+|---|---|---|---|
+| **Mul**（逐元素乘） | **25.8** | **29.1%** | `_deq_v2` 的 `lo*s_lo`/`hi*s_hi`（2×16.4M/层）；`inject`、`_deltanet` 的若干乘 |
+| MatMul | 14.2 | 16.0% | 稠密 GEMM + head |
+| **InplaceCopy→Cast（bf16 转换）** | **9.2** | **10.4%** | `pb.to(bf16)`（16.4M/层）、`se/base.to(bf16)`、`xf.to(bf16)` 等 |
+| Subs（标量减） | 5.0 | 5.7% | `_deq_v2` 的 `lo-8`/`hi-8`（offset-binary 还原） |
+| Sub | 4.3 | 4.9% | `pb - hi*16`、`kc*(1-onehot)` 等 |
+| BatchMatMul | 4.2 | 4.8% | `_gemm2` 的两次专家 GEMM |
+| IndexSelect（gather） | 3.7 | 4.2% | 专家 slab gather + embedding |
+| Muls（标量乘） | 3.4 | 3.8% | `pb*0.0625`、`/math.sqrt` 等 |
+| ReduceSum | 2.3 | 2.6% | `(buf*conv_w).sum`、`(S*k).sum`、`(S*q).sum` |
+| Transpose | 2.0 | 2.2% | `deq_w` 的 reshape 转置 |
+| **Floor** | **1.9** | **2.1%** | `torch.floor(pb*0.0625)`（可合成一步） |
+| Matmul_Slice / InplaceCopy_Slice | 1.7 / 1.2 | 3.2% | `deq_w` 的切片 |
+| Mean | 1.5 | 1.7% | `gated_residual` / `dn_norm` 的 `mean(-1)` |
+| Add | 1.3 | 1.5% | |
+| RepeatInterleave | 0.9 | 1.0% | `_deltanet` 的 q/k 复制 |
+
+### 12.1 关键判读：**反量化链 ≈ 51%，GEMM 只占 26%**
+
+把属于"解包 + 反量化"的算子加起来：
+`Mul 25.8 + Cast 9.2 + Subs 5.0 + Sub 4.3 + Muls 3.4 + Floor 1.9 ≈ **49.6 ms（56%）**`
+（其中 `Sub 4.3` 里有一部分是 attention 的 one-hot 运算）。
+
+真正的矩阵乘（MatMul + BatchMatMul + Transpose + Slice）≈ **23 ms（26%）**。
+
+**这与之前"MoE 55 ms / attention 45 ms / 其它"的消融口径不矛盾，但定位更准**：
+MoE 段里真正贵的是**把 10 个专家的 16.4M 个 4-bit 值解包并乘上 scale**，
+GEMM 本身很快。也就是说：**这块卡的瓶颈是 Vector 单元的逐元素吞吐，不是 Cube 的矩阵算力。**
+
+### 12.2 由此得到三个具体可动的点
+
+1. **`Floor` + `Muls` 可以合成一步**：`torch.floor(pb * 0.0625)` 现在是"乘 0.0625 → floor"两个 kernel，
+   改成 `torch.div(pb, 16, rounding_mode="floor")` 一个 kernel。预计 −1.9 ms（2%）。
+2. **`-8`（offset-binary 还原）的两趟 Subs 可以折进 GEMM**：
+   `Σ_k (n'-8)·s·x = Σ_k n'·s·x − 8·Σ_k s·x`，后一项是 **[N, K/64] 的 scale 矩阵** 和
+   **x 的分组和（[K/64]）之间的小 matvec**（N×40），只有几千个元素。省掉 2×16.4M 的减法，预计 −5 ms。
+3. **`Mul`（25.8 ms，最大头）要想省，必须把 scale 折进 GEMM**：
+   改成"按 64 组的分组点积"——`A[n,g] = Σ_{k∈g} n'[n,k]·x[k]`（`einsum('ngk,gk->ng')`），
+   再 `y[n] = Σ_g s[n,g]·A[n,g]`。这样**不需要物化反量化后的权重**，
+   scale 乘法从 16.4M 个元素降到 N×40 个。**预计 −10~15 ms（10–17%）**，
+   但需要先基准测一下 NPU 上 `einsum` 带 batch(G=40) 的实际效率 —— 可能被 batch 维拖慢。
+
+### 12.3 还有 15–17 ms 的宿侧空隙
+
+设备 88.5 ms vs 墙钟 103–106 ms。这部分是 Python/调度空隙（每 token 约 30 个 host 侧调用 +
+跨卡中转 + `.item()` 同步）。要收它只能靠更少的 host 往返（例如把采样也放进图里，但 dev1 捕获不可用）。
