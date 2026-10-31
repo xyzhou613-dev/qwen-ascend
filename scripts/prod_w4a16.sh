@@ -31,6 +31,7 @@ docker exec -d fnx bash -lc "cd /root/ascend-dev/fnx && \
   FNX_MOE_W4A16=$W4A16 \
   FNX_W4A16_DIR=/models/Qwen3.8-Flash-Next-LQP-w4a16 \
   FNX_DENSE_W8=1 FNX_DENSE_CAT=1 FNX_SMALL_MERGE=1 FNX_DN_RMS=1 FNX_CTX=2048 \
+  FNX_MOE_FAST=${MFAST:-0} \
   /root/ascend-dev/venv/bin/python -m fnx.server > $LOG 2>&1"
 H=""
 for i in $(seq 1 30); do

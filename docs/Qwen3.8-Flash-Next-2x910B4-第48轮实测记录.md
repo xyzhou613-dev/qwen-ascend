@@ -150,6 +150,30 @@ bf16 下两者差 1 ulp，再经 MoE 的 `topk` 边界（专家集合一换就�
    `_scat` 的 cast+mul 合成一步、`silu*mul` 全程留在 bf16、`apply_diag` 里重复的 `_wcat/_scat` 复用，
    目标 911 → ~600 µs（decode 63.7 → ~50 ms，即 20 tok/s），且 prefill 里同样受益。
 
+### 4.3 减算子实测（`FNX_MOE_FAST=1`）：**图内零收益**
+
+按上一条做了三处（算子数每层少 8 个，约 −11 个 kernel/层的量级）：
+
+| 改动 | 原写法 | 新写法 |
+|---|---|---|
+| `silu*mul` | `(silu(y[:, :MI].float()) * y[:, MI:].float()).to(bf16)`（5 算子） | `silu(y[:, :MI]) * y[:, MI:]`（2 算子，全程 bf16） |
+| 路由 | `softmax(512, fp32)` → `topk` → `w/w.sum()`（6 算子） | `topk(raw logits)` → `softmax(10, fp32)`（3 算子，数学等价：softmax 分母在归一化时被约掉） |
+| `apply_diag` 取对角 | `y.view(k,k,N)[dg,dg]`（两次高级索引） | 预计算扁平下标 → 一次 `index_select` |
+| `_scat` | `sc.to(bf16) * bs` | `sc.to(bf16).mul_(bs)`（省一次分配，数值不变） |
+
+**结果：TPOT 63.7–63.9 ms（对照 63.5–63.7），`mean_nll` 2.1648（与基线逐位相同）——零收益。**
+
+**为什么**：这三点在 **eager**（分块/探针）里确实是 30–40 µs/算子的真金白银，但在**图捕获的 decode 路径**里，
+被删掉的都是 Vector 小算子，它们本来就和 Cube 的 WQBM **并行重叠**，删掉不缩短关键路径。
+
+⇒ 这同时否掉了"decode 63.7 ms 是小算子开销"的解释。**图内剩下的杠杆只能是 GEMM 结构本身**（WQBM 15.8 ms/step
+占 31.7%）与内存/带宽，而不是"再少几个 elementwise"。`FNX_MOE_FAST` 保留为开关但**默认 0**（无收益不引入风险）。
+
+---
+
+## 5. 生产验收（本轮结束时的最终实测）
+
+
 ---
 
 ## 5. 生产验收（本轮结束时的最终实测）

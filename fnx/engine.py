@@ -110,6 +110,8 @@ _CHUNK = max(1, int(os.environ.get("FNX_CHUNK", "1")))
 _CAT4 = os.environ.get("FNX_DENSE_CAT4", "0") == "1"       # 第 42 轮实测：4 合 1 不赚，默认关
 _DN_RMS = os.environ.get("FNX_DN_RMS", "1") == "1"       # DeltaNet 输出归一化用融合 rms_norm
 _INJECT_CM = os.environ.get("FNX_INJECT_CM", "0") == "1"   # 第 41 轮实测：addcmul 反而慢 ~0.5 ms，默认关
+# ★ 第 48 轮：`_moe` 内省算子（预估/实测：每次 kernel 约 8 µs，少 8 个 kernel ≈ 3 ms/token）
+_MOE_FAST = os.environ.get("FNX_MOE_FAST", "0") == "1"
 _SM_RAW = os.environ.get("FNX_SMALL_MERGE", "1")
 _SM_MIX = _SM_RAW in ("1", "all", "mix")
 _SM_SH = _SM_RAW in ("1", "all", "sh")
@@ -604,7 +606,7 @@ class ExpW4:
       s8t int8  [G,E,N]  （= 原 s8 的转置，逐位不变）
       base bf16 [E,N]    （原 fp16 基准转 bf16，只为喂算子）
     """
-    __slots__ = ("w4", "s8t", "base", "K", "N", "E", "G", "gs", "_dg")
+    __slots__ = ("w4", "s8t", "base", "K", "N", "E", "G", "gs", "_dg", "_dgf")
 
     def __init__(self, w4, s8t, base, gs):
         self.w4 = w4              # [K,E,N/8] int32
@@ -615,7 +617,15 @@ class ExpW4:
         self.G = s8t.shape[0]
         self.gs = gs
         # 对角下标常驻（图捕获期不要新建 arange，避免多一次分配）
-        self._dg = torch.arange(TOPK, dtype=torch.int64, device=w4.device)
+        dev = w4.device
+        k = TOPK
+        self._dg = torch.arange(k, dtype=torch.int64, device=dev)
+        # ★ 第 48 轮：把 [k,k,N] 的对角取法压成**一次** index_select。
+        #   原写法 `y.view(k,k,N)[dg,dg]` 是两次高级索引（约 2–3 个 kernel），
+        #   在"每次 kernel 约 8 µs"的图里就是白花的 16–24 µs/层。
+        _dk = torch.arange(k, dtype=torch.int64, device=dev)
+        self._dgf = (_dk * (k * self.N) + _dk * self.N).unsqueeze(1) \
+            + torch.arange(self.N, dtype=torch.int64, device=dev).unsqueeze(0)
 
     def _wcat(self, ids):
         p = torch.index_select(self.w4, 1, ids)                 # [K,k,N/8] 连续
@@ -624,7 +634,12 @@ class ExpW4:
     def _scat(self, ids):
         sc = torch.index_select(self.s8t, 1, ids)               # [G,k,N] int8
         bs = torch.index_select(self.base, 0, ids).unsqueeze(0)  # [1,k,N] bf16
-        return (sc.to(torch.bfloat16) * bs).reshape(self.G, -1)
+        s = sc.to(torch.bfloat16)
+        if _MOE_FAST:
+            s.mul_(bs)                       # 原地乘：少一次分配（数值不变）
+        else:
+            s = s * bs
+        return s.reshape(self.G, -1)
 
     def apply(self, x, ids):
         """x [M,K] bf16（M=1 或 k），ids [k] -> [M, k*N]。"""
@@ -636,6 +651,9 @@ class ExpW4:
         k = x.shape[0]
         assert k == TOPK, k
         y = self.apply(x, ids)                                  # [k, k*N]
+        if _MOE_FAST:
+            # 一次 index_select 取到对角（原写法是两次高级索引）
+            return y.view(-1).index_select(0, self._dgf).view(k, self.N)
         return y.view(k, k, self.N)[self._dg, self._dg]
 
 
@@ -1152,9 +1170,17 @@ class FnLayer:
             sh = lin(F.silu(lin(x2, self.sh_gate)) * lin(x2, self.sh_up), self.sh_down)
             sh = torch.sigmoid(lin(x2, self.sh_gate2)) * sh
             logits = lin(x2, self.gate_w)
-        probs = torch.softmax(logits.float(), dim=-1)
-        w, idx = torch.topk(probs, TOPK, dim=-1)                 # [b,10]
-        w = (w / w.sum(dim=-1, keepdim=True)).to(torch.bfloat16)
+        if _MOE_FAST:
+            # ★ 第 48 轮：softmax 的分母在 `w/w.sum()` 里会被约掉，所以可以
+            #   ① 直接在 **原始 logits** 上 topk（少一次 fp32 cast + 512 路 softmax）
+            #   ② 只对这 10 个值做 softmax（等价于"topk 后再归一化"）
+            #   算子数 6 -> 3，数学上与原写法相同（bf16 末位可能差 1 ulp）。
+            w10, idx = torch.topk(logits, TOPK, dim=-1)           # [b,10]
+            w = torch.softmax(w10.float(), dim=-1).to(torch.bfloat16)
+        else:
+            probs = torch.softmax(logits.float(), dim=-1)
+            w, idx = torch.topk(probs, TOPK, dim=-1)                 # [b,10]
+            w = (w / w.sum(dim=-1, keepdim=True)).to(torch.bfloat16)
 
         if isinstance(self.exp_gu, ExpW4):
             # ★★ 第 37 轮：aclnn per-group W4A16（解包/乘 scale/GEMM 全在 AI Core 内）
@@ -1165,7 +1191,11 @@ class FnLayer:
             if b != 1:
                 raise RuntimeError("FNX_MOE_W4A16 只支持 FNX_BATCH=1（第 37 轮）")
             y = self.exp_gu.apply(x2.to(torch.bfloat16), idx[0]).view(TOPK, 2 * MI)
-            act = (F.silu(y[:, :MI].float()) * y[:, MI:].float()).to(torch.bfloat16)
+            if _MOE_FAST:
+                # ★ 第 48 轮：silu*mul 全程留 bf16，省掉 2 次升 fp32 + 1 次回 bf16（3 个 kernel）
+                act = F.silu(y[:, :MI]) * y[:, MI:]
+            else:
+                act = (F.silu(y[:, :MI].float()) * y[:, MI:].float()).to(torch.bfloat16)
             y2 = self.exp_dn.apply_diag(act, idx[0])
             y2 = (y2 * w[0].unsqueeze(-1)).sum(dim=0, keepdim=True)
             return (y2 + sh).view(1, 1, H)
