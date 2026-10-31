@@ -411,9 +411,16 @@ class FnModel:
         pos0 = int(self.pos0[0])
         n = len(ids)
         i = 0
+        if self.emb_chunk.shape[0] < min(T, n):
+            # 装载期按 E._CHUNK 分配；测试/服务里改 E._CHUNK 后按需扩容
+            self.emb_chunk = torch.zeros(min(T, n), 1, E.H,
+                                         dtype=torch.bfloat16, device=self.dev0)
         while i < n:
             m = min(T, n - i)
             toks = [int(x) for x in ids[i:i + m]]
+            if self.emb_chunk.shape[0] < m:
+                self.emb_chunk = torch.zeros(m, 1, E.H, dtype=torch.bfloat16,
+                                             device=self.dev0)
             buf = self.emb_chunk[:m]
             buf.view(-1).copy_(self.embed_rows(toks).view(-1))
             h = buf.repeat(1, 1, E.HC)                     # [m,1,HCH]

@@ -1,14 +1,16 @@
-﻿# qwen-ascend
+# qwen-ascend
 
 **Qwen3.8-Flash-Next（W4 MoE，约 121 G 参数）在 2×Ascend 910B4 上的自研推理后端。**
 
 不依赖 vLLM / MindIE / ATB 图引擎：手写 model forward + `torch_npu` NPUGraph 捕获 + 自研 W4 打包/解包，
 在**单机双卡 128 GiB 显存**里跑完 48 层，OpenAI 兼容 HTTP 服务。
 
-> **当前状态：基线 `baseline-r44`**
-> `mean_nll = 2.1648`（ppl 8.71）/ `top1 = 48.0%` / **TPOT 64.6 ms（15.5 tok/s）**
-> TTFT：热态 **0.08 s**，冷启动 ≈ **0.068 s × prompt token 数**（231 token → 15.6 s）
-> 24 题单选题准确率 **24/24**，冷启动 ≈30 s，错误 0
+> **当前状态：基线 `baseline-r48`**（r48 新增分块 prefill 能力；质量不变，速度有一处待查偏移）
+> `mean_nll = 2.1654`（ppl 8.72）/ `top1 = 48.5%` / 24 题单选题 **24/24**
+> **TPOT 73.6–74.1 ms（13.6 tok/s，本轮实测）** —— r46 记录值为 63.7–64.2 ms，
+> 同一配置下复测不到，差异待查（详见 `docs/…第48轮实测记录.md` §5，已排除热降频/脏状态/宿侧空隙/外部负载）。
+> prefill **61.7–70.7 ms/token**（293 → 16025 token 的 prompt，r47 口径），TTFT 热态 0.09 s，冷启动 ≈30 s
+> 上下文上限 16k（32k 启动 OOM），dev0 显存 59.53 GiB
 >
 > 提速主线（第 37/38 轮）：**把整数权重的反量化全部搬进 Cube** —— 用 CANN 现成的
 > `torch_npu.npu_weight_quant_batchmatmul`（aclnn per-group）替掉"每 token 反量化 + bf16 GEMM"：
@@ -16,6 +18,13 @@
 > 再把共用输入的投影（qkv+z / b+a / mixer down+inj / shared gate+up）拼成一次调用。TPOT 110.3 → **65.8 ms（−40%）**，prefill 105 → **67.7 ms/token**，
 > `mean_nll` 从 2.1756 → r38 的 **2.1665**（中间不再落 bf16，累加更准）→ r39 的 2.1735（拼接改变 GEMM 累加顺序），MCQ 仍 24/24。
 > 四个开关：`FNX_MOE_W4A16` / `FNX_DENSE_W8` / `FNX_DENSE_CAT` / `FNX_SMALL_MERGE`。详见 `docs/…第37/38/39轮实测记录.md`。
+>
+> **第 48 轮（分块 prefill）**：`FnLayer.forward_chunk` + `FnModel.prefill_chunk`（`FNX_CHUNK>1`），
+> 与生产逐 token 路径**逐位等价**（`tests/t_chunk_state.py` 全部 `0.000e+00`）。实测稠密+注意力+递推摊薄 **8.6×**
+> （156 → 18.1 ms/token，T=32 饱和），但 **MoE 恒 ~60 ms/token 不摊薄** ⇒ chunk=128 的 75.8 ms/token
+> 仍比生产 61.7 慢 1.23×，生产 `FNX_CHUNK` **保持 1**。结论：prefill 与 decode 的瓶颈是同一个
+> —— MoE 专家权重读取；下一步是 MoE 并集 + 按专家分组 GEMM。详见 `docs/…第48轮实测记录.md` 与 §4.21。
+
 
 ---
 

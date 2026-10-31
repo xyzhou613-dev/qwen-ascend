@@ -1021,10 +1021,13 @@ class FnLayer:
                       .view(T, NVH))
 
         # 卷积：把 3 列历史拼在左边，再按 4 个位移求和（与逐 token 的滑窗等价）
+        # ★ 必须用 stack + sum(-1) 而不是 4 次逐项相加：逐 token 路径是 `(buf*w).sum(-1)`，
+        #   sum 用成对归约、手写加法是左结合，bf16 下差 1 ulp（实测 y max 7.8e-3），
+        #   再经 MoE topk 边界放大成整句 logits 偏 6.9e-2。改成同一种归约后逐位相等。
         seq = torch.cat([self.conv[0], mq.transpose(0, 1)], dim=-1)      # [D, T+3]
         w = self.conv_w                                                   # [D,4]
-        y = (w[:, 0:1] * seq[:, 0:T] + w[:, 1:2] * seq[:, 1:T + 1]
-             + w[:, 2:3] * seq[:, 2:T + 2] + w[:, 3:4] * seq[:, 3:T + 3])
+        y = torch.stack([w[:, j:j + 1] * seq[:, j:j + T] for j in range(4)],
+                        dim=-1).sum(-1)                                   # [D,T]
         y = F.silu(y).transpose(0, 1)                                     # [T,D]
         self.conv.copy_(seq[:, T:T + 3].unsqueeze(0))
         q, k, v = torch.split(y, [KEY_DIM, KEY_DIM, VAL_DIM], dim=-1)
@@ -1076,6 +1079,7 @@ class FnLayer:
         k = apply_rope(k, cos, sin)
 
         P = self.kv.P
+        PT = pos0 + T                                          # 只需看到本块最后一个位置
         kc, vc = self.kv.k[self.ki], self.kv.v[self.ki]       # [1,KVH,P,HD]
         # 逐行写 pos（分块时一次写 T 行；eager 下 index_copy_ 可用，不必用 one-hot 广播）
         kc[0].index_copy_(1, pos, k.transpose(0, 1).contiguous())
@@ -1084,12 +1088,14 @@ class FnLayer:
         Kr = kc[0].repeat_interleave(NAH // KVH, dim=0).unsqueeze(0)      # [1,NAH,P,HD]
         Vr = vc[0].repeat_interleave(NAH // KVH, dim=0).unsqueeze(0)
         qq = q.transpose(0, 1).unsqueeze(0)                               # [1,NAH,T,HD]
-        att = torch.matmul(qq, Kr.transpose(2, 3)) * (HD ** -0.5)         # [1,NAH,T,P]
+        # ★ 只算前 PT 列：pos0+T 之后的 KV 本来就要被 mask 掉，全算 P=2048 列在 prefill
+        #   早期是纯粹的浪费（pos0=0,T=8 时白算 256 倍）。切片开销为 0（视图）。
+        att = torch.matmul(qq, Kr[:, :, :PT].transpose(2, 3)) * (HD ** -0.5)  # [1,NAH,T,PT]
         qpos = pos.view(1, 1, T, 1)
-        kmask = (torch.arange(P, device=self.dev)[None, None, None, :] <= qpos)
+        kmask = (torch.arange(PT, device=self.dev)[None, None, None, :] <= qpos)
         att = att.masked_fill(~kmask, NEG)
         att = torch.softmax(att.float(), dim=-1).to(torch.bfloat16)
-        o = torch.matmul(att, Vr).squeeze(0)                              # [NAH,T,HD]
+        o = torch.matmul(att, Vr[:, :, :PT]).squeeze(0)                    # [NAH,T,HD]
         o = o.transpose(0, 1).reshape(T, NAH * HD)
         return lin(o * torch.sigmoid(gate.reshape(T, NAH * HD)), self.w_o)
 

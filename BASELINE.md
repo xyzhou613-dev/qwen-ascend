@@ -1,4 +1,4 @@
-﻿# 基线 `baseline-r44`（可复现性锚点）
+# 基线 `baseline-r44`（可复现性锚点）
 
 本文件定义"基线"到底是什么：**配置、权重、版本、指标、验收判据**。
 在新机器上复现后，`scripts/40_verify.sh` 会把实测值与本文件对比，全部在容差内才打印 `BASELINE OK`。
@@ -102,5 +102,28 @@ FNX_PORT=8000  FNX_CTX=2048      # 本机硬上限 16k（32k 启动 OOM），生
 | `tests/t_batch_micro.py` | int8 GEMM 的批无关性微基准 |
 | `tests/t_head_ab.py` | int8 head vs bf16 head（已证否） |
 | `tests/t_ref_eval.py` | 参考 bf16 在同一文本上的逐 token NLL（配对比较） |
+| `tests/t_chunk_state.py` | **分块 prefill 等价性**（非零状态算子级 + 端到端，要求 `0.000e+00`） |
+| `tests/t_chunk_speed.py` | **分块 prefill 吞吐扫描**（含 MoE 置零对照，隔离 MoE 占比） |
 | `tools/mcq_eval.py` | 24 题单选题任务级评测 |
 | `tools/compare_ref.py` | 与参考 bf16 做逐 token 配对比较 |
+
+## 7. 第 48 轮：分块 prefill 的边界（重要，避免重复踩坑）
+
+分块 prefill 已实现，且与生产逐 token 路径**逐位等价**（`tests/t_chunk_state.py` 全部 `0.000e+00`，
+含非零状态算子级与端到端分块=1/4/8）。但**单独上线是负收益**：
+
+| chunk | 全量 ms/token | MoE 置零 | MoE 部分 |
+|---:|---:|---:|---:|
+| 1 | 213.60 | 155.96 | 57.6 |
+| 8 | 93.16 | 33.02 | 60.1 |
+| 32 | 78.37 | 18.11 | 60.3 |
+| 128 | 75.83 | ~16 | ~60 |
+
+- 稠密+注意力+DeltaNet 递推摊薄 **8.6×**（155.96 → 18.11，T=32 饱和）；
+- **MoE 恒 ~60 ms/token，完全不摊薄**（仍是逐 token 调用、每 token 读自己那 10 个专家）；
+- chunk=128 的 75.83 比生产（图捕获逐 token）**61.7 ms/token 慢 1.23×** —— 分块省下的稠密部分在生产路径上本来只有 ~1.7 ms/token。
+
+⇒ prefill 与 decode 的瓶颈是同一件事：**MoE 专家权重读取**。上线顺序必须是
+**MoE 并集 + 按专家分组 GEMM → 分块图捕获 → DeltaNet 32-token 递推**，预期 7–12 ms/token（60–100 tok/s）。
+完成 MoE 分组前 `FNX_CHUNK` **保持 1**。
+
