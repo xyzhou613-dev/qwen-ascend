@@ -10,6 +10,7 @@ import torch
 from multiprocessing.connection import Connection
 from . import engine as E
 from .model import FnModel
+from .index_buckets import capture_index_buckets,decode_graph,chunk_graph
 
 
 @torch.no_grad()
@@ -45,12 +46,12 @@ def main():
         while True:
             op,args=conn.recv()
             if op=='capture':m.capture();value=None
-            elif op=='capture_chunk':m.capture_chunk();value=None
+            elif op=='capture_chunk':m.capture_chunk();capture_index_buckets(m);value=None
             elif op=='prefill':
                 slot,T=args;pos=m._host_pos
                 stage_chunk[:T].copy_(shared[slot,:T]);torch.npu.synchronize(0)
                 short=pos+T<=2048
-                bundle=m.chunk_graphs.get(T)
+                bundle=chunk_graph(m,pos+T,T)
                 if short or bundle is None:
                     h=stage_chunk[:T]
                     for L in m.layers0:
@@ -64,7 +65,7 @@ def main():
             elif op=='step':
                 with_head,=args
                 stage_input.copy_(shared[0,:1]);torch.npu.synchronize(0)
-                graph=m.g0_short if m._host_pos<2048 and m.g0_short is not None else m.g0
+                graph=m.g0_short if m._host_pos<2048 and m.g0_short is not None else decode_graph(m,m._host_pos+1)
                 if graph is not None:graph.replay()
                 else:body()
                 if with_head and not fused_head:m._head_device()

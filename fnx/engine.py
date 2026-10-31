@@ -1233,10 +1233,10 @@ class FnLayer:
         self._record_index_keys(qk[:, 512:], pos)
         cos, sin = rope_cs(pos, self.inv)
         q = apply_rope(q, cos.unsqueeze(1), sin.unsqueeze(1))
-        groups = P // 4
+        groups = min(P, getattr(self, "index_scan_cap", P)) // 4
         starts = torch.arange(groups, device=self.dev, dtype=torch.int64) * 4
         if os.environ.get("FNX_INDEX_CACHE", "0") == "1":
-            keys = self.index_keys.transpose(0, 1)
+            keys = self.index_keys[:groups].transpose(0, 1)
         else:
             pooled = self.index_k[:groups * 4].view(groups, 4, 128).float().mean(1).to(h.dtype)
             keys = rms_norm(pooled, self.index_kn)

@@ -11,6 +11,7 @@ import tempfile
 import torch
 from . import engine as E
 from .model import FnModel
+from .index_buckets import capture_index_buckets,decode_graph
 
 
 class PipelineModel:
@@ -66,7 +67,7 @@ class PipelineModel:
         self.stage0.capture();self._rpc('capture')
 
     def capture_chunk(self):
-        self.stage0.capture_chunk();self._rpc('capture_chunk')
+        self.stage0.capture_chunk();capture_index_buckets(self.stage0);self._rpc('capture_chunk')
 
     @torch.no_grad()
     def prefill_chunk(self,ids):
@@ -87,6 +88,7 @@ class PipelineModel:
     @torch.no_grad()
     def step_pad(self,tok,with_head=True):
         self.finish_prefill()
+        self.stage0.g0=decode_graph(self.stage0,self.stage0._host_pos+1)
         self.stage0.step_pad(tok,with_head=False)
         self.hidden[0,:1].copy_(self.stage0.h0)
         torch.npu.synchronize(0)

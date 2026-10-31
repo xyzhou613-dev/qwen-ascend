@@ -7,6 +7,7 @@ import torch
 import torch.nn.functional as F
 
 from . import engine as E
+from .index_buckets import chunk_graph
 from .load import QDIR, SRCDIR, NgramTable, load_layer, load_nonlayer
 
 MASK64 = (1 << 64) - 1
@@ -295,7 +296,7 @@ class FnModel:
                 self.head()
             torch.npu.synchronize()
             self.g0 = torch.npu.NPUGraph()
-            with torch.npu.device(self.dev0), torch.npu.graph(self.g0, capture_error_mode="relaxed"):
+            with torch.npu.device(self.dev0), torch.npu.graph(self.g0, stream=s, capture_error_mode="relaxed"):
                 self.body0()
             torch.npu.synchronize()
             if E.B == 1 and self.kv0.P > 2048 and any(L.index_enabled for L in self.layers0):
@@ -307,7 +308,7 @@ class FnModel:
                 self.g0_short = torch.npu.NPUGraph()
                 try:
                     with torch.npu.device(self.dev0), torch.npu.graph(
-                            self.g0_short, pool=self.g0.pool(), capture_error_mode="relaxed"):
+                            self.g0_short, stream=s, pool=self.g0.pool(), capture_error_mode="relaxed"):
                         self.body0()
                 finally:
                     for L in self.layers0:
@@ -468,7 +469,7 @@ class FnModel:
         self.pos0.zero_()
         self.gc = None
         with torch.npu.device(self.dev0):
-            stream = torch.npu.Stream()
+            stream = self._gs if os.environ.get("FNX_INDEX_BUCKETS", "0") == "1" else torch.npu.Stream()
             self._chunk_stream = stream
             with torch.npu.stream(stream):
                 for _ in range(2):
@@ -526,7 +527,7 @@ class FnModel:
             eligible = [size for size in sizes if size <= m]
             if eligible:
                 m = max(eligible)
-                bundle = sizes[m]
+                bundle = chunk_graph(self, pos0 + m, m)
             toks = [int(x) for x in ids[i:i + m]]
             if self.emb_chunk.shape[0] < m:
                 self.emb_chunk = torch.zeros(m, 1, E.H, dtype=torch.bfloat16,
