@@ -1,7 +1,14 @@
-# 基线 `baseline-r44`（可复现性锚点）
+# 基线 `baseline-r55`（可复现性锚点）
+
+> **v55（现网部署）**：`FNX_CTX=262144`、48 层按 **24+24** 分给两张卡（每卡一个独立 Python 进程）、
+> 分块图 prefill（4096/512/128）+ 稀疏 QSA indexer + expert-major grouped MoE + FP32 分块 DeltaNet。
+> 256k 新 prompt：prefill **2,246.9 tok/s**、TTFT **117.86 s**、decode **55.97 ms**、检索 **3/3**；
+> 8k：TTFT **6.99 s**；短请求 TPOT **54.1 ms**；`mean_nll 2.1653`、MCQ **24/24**。
+> 完整配置见 §8；r44–r48 的单卡历史口径见 §1–§7（保留作对照与回归）。
 
 本文件定义"基线"到底是什么：**配置、权重、版本、指标、验收判据**。
 在新机器上复现后，`scripts/40_verify.sh` 会把实测值与本文件对比，全部在容差内才打印 `BASELINE OK`。
+
 
 ---
 
@@ -164,5 +171,64 @@ FNX_PORT=8000  FNX_CTX=2048      # 本机硬上限 16k（32k 启动 OOM），生
    与 dev0 58.97 → 59.53 GiB（差值 0.55 GiB 正是 `DEQ_ATTN` 多占的量）的"假回归"。
 2. **`systemctl stop` 不杀容器内的服务进程**（`docker exec -d` 不在 systemd cgroup 里），
    停服务后显存仍被占用；p275.sh 已加显式 `pkill -9 -f '[p]ython -m fnx.server'`。
+
+## 8. 现网基线 `baseline-r55`（双进程流水 + 256k）
+
+来自第 49–55 轮的外部改造，**已并入本仓库**。与 §1 的单卡 45+3 口径是**两套不同的部署形态**。
+
+### 8.1 配置
+
+```bash
+FNX_PIPELINE=1 FNX_PIPELINE_DEVICE1=1 FNX_PIPELINE_SPLIT=24 FNX_LPC=24 FNX_NLAYERS=48
+FNX_CTX=262144
+FNX_CHUNK=4096 FNX_CHUNK_SIZES=4096,512,128 FNX_CHUNK_POOL=private FNX_CHUNK_GRAPH=1
+FNX_INDEXER=1 FNX_QSA_SPARSE=1 FNX_INDEX_CACHE=1 FNX_INDEX_TILE=512 FNX_QSA_TILE=128 FNX_SPARSE_FLASH=1
+FNX_MOE_GROUP=1 FNX_MOE_GROUP_SPLIT=0 FNX_PREFILL_DN=fp32_chunk FNX_DELTA_SOLVER=blockmatmul
+FNX_KV_POSITION_MAJOR=1 FNX_QSA_GQA=1 FNX_CONV_CACHE=1 FNX_CACHE_GPU=1
+FNX_MOE_FAST=1 FNX_MOE_ROUTER_FAST=0 FNX_MOE_ACT_BF16=0 FNX_DN_DECODE_BMM=0
+FNX_GRAPH_G1=0 FNX_GRAPH_HEAD=0  FNX_BATCH=1
+# 其余沿用：FNX_PACK=0 FNX_EXP_G=64 FNX_MOE_KERNEL=0 FNX_NO_PLE=1 FNX_PACKED_TORCH=1
+#             FNX_MOE_W4A16=1 FNX_DENSE_W8=1 FNX_DENSE_CAT=1 FNX_SMALL_MERGE=1 FNX_DN_RMS=1
+#             FNX_DEQ_SMALL=1 FNX_DEQ_HEAD=1 FNX_DEQ_ATTN=48 FNX_LQP=…-LQP FNX_W4A16_DIR=…-w4a16
+# 新增权重目录：/models/Qwen3.8-Flash-Next-LQP-w4a16-em（expert-major，tools/repack_w4_em.py 产出）
+```
+
+启动：`bash scripts/prod_pipeline.sh`（= 现网 `/root/ascend-dev/p275.sh`，含显式杀容器进程）；
+systemd `fnx.service` active/enabled；`/health` 应含
+`ctx=262144, pipeline_stages=2, worker_alive=true, prefill_chunk=4096, chunk_graph=true, qsa_indexer=true, qsa_sparse=true`。
+
+### 8.2 验收判据（现网口径）
+
+| 指标 | 基线值 | 容差 |
+|---|---|---|
+| `/fnx/loss`（200 token）`mean_nll` | **2.1653**（原始 2.164792，r50 后 2.165267） | ≤ 2.1748（+0.01 门限） |
+| `top1` | 48.5% | ±2 个百分点 |
+| 短请求 TPOT（128 token 输出） | **54.1 ms**（其记录 55.97 ms @256k） | ≤ 62 ms |
+| 8k 新 prompt TTFT | **6.99 s** | ≤ 9 s |
+| 256k 新 prompt TTFT | **117.86 s** | ≤ 120 s |
+| 256k 长文三事实检索 | **3/3** | 必须 3/3 |
+| MCQ 24 题 | **24/24**（0.52 s/题） | ≥ 22/24 |
+| 显存 | dev0 **56.0 GB** / dev1 **56.6 GB** | 各 ≤ 60.4 GB |
+| 越界请求 | 返回 400 | — |
+
+### 8.3 回滚
+
+```bash
+bash /root/ascend-dev/r55_rollback.sh     # 回到 r53 执行路径，仍保留 256k 容量
+```
+
+部署前备份：`/root/ascend-dev/r55/predeploy.tgz`；各轮备份 `r49/baseline.tgz … r55/`。
+**注意**：`systemctl stop` 不会杀容器内进程（见 §7.2），回滚前必须显式退出容器里的 Python。
+
+### 8.4 被 r55 推翻/修正的历史结论
+
+1. "分块 prefill 单独上线是负收益"（§7）→ 补**分块图捕获**后转正（r49：2.1×）。
+2. "按专家分组慢 3.7×，别做"（§7.1）→ 那是 **per-expert 小调用 + WQBM** 的结论；
+   **expert-major + GroupedMatmulV5** 下单层 T=128 从 44 ms → **7.5 ms**，分组是正收益（r50）。
+3. "上下文硬上限 16k、>2048 与模型不符"（§4.18）→ 那是**我的稠密注意力实现**的限制；
+   稀疏 QSA indexer + BF16 连续 KV 后 256k 可用，且检索 3/3（r52/53/55）。
+4. "dev1 图捕获不可用，只能 45+3"（§5.1）→ 只对**单进程跨卡**成立；
+   每卡独立进程 24+24 后两卡均衡（56.0/56.6 GB）且 256k 可跑（r54/55）。
+
 
 

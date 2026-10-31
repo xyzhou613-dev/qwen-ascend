@@ -60,13 +60,18 @@ def load_layer(path, layer_idx, device):
             _w4dir = os.environ.get("FNX_W4A16_DIR",
                                     "/models/Qwen3.8-Flash-Next-LQP-w4a16")
             _w4f = os.path.join(_w4dir, f"L{layer_idx:02d}.w4.safetensors")
+            _em = os.environ.get("FNX_MOE_GROUP", "0") == "1"
+            if _em:
+                _w4f = os.path.join(_w4dir + "-em", f"L{layer_idx:02d}.w4.safetensors")
+                if os.environ.get("FNX_MOE_W4A16") == "1" and not os.path.exists(_w4f):
+                    raise FileNotFoundError(f"grouped prefill artifact missing: {_w4f}")
             if os.environ.get("FNX_MOE_W4A16") == "1" and os.path.exists(_w4f):
                 from safetensors.torch import load_file as _lf
                 _w = _lf(_w4f)
                 try:
                     res[name] = E.ExpW4(_w[name + ".w4"].to(device),
                                         _w[name + ".s8t"].to(device),
-                                        _w[name + ".base"].to(device), 64)
+                                        _w[name + ".base"].to(device), 64, expert_major=_em)
                 finally:
                     del _w
                 continue

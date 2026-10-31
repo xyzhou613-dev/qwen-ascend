@@ -18,6 +18,8 @@ import torch
 
 from . import engine as E
 from .model import FnModel
+if os.environ.get("FNX_PIPELINE", "0") == "1":
+    from .pipeline import PipelineModel as FnModel
 
 MODEL_ID = "qwen3.8-flash-next-w4"
 P = int(os.environ.get("FNX_CTX", "2048"))
@@ -135,8 +137,13 @@ class Engine:
         else:
             t = time.time()
             self.m.capture()
+            if _CHUNK > 1 and os.environ.get("FNX_CHUNK_GRAPH", "0") == "1":
+                if int(os.environ.get("FNX_MOE_GROUP_SPLIT", "0")):
+                    print("[fnx] bounded grouped prefill uses eager scheduling; decode graphs stay enabled", flush=True)
+                else:
+                    self.m.capture_chunk()
             print(f"[fnx] 图捕获 {time.time()-t:.1f}s", flush=True)
-        for _d in (0, 1):
+        for _d in range(torch.npu.device_count()):
             try:
                 print(f"[fnx] hbm{_d}: alloc={torch.npu.memory_allocated(_d)/2**30:.2f} GiB "
                       f"reserved={torch.npu.memory_reserved(_d)/2**30:.2f} GiB", flush=True)
@@ -194,7 +201,7 @@ class Engine:
             self.m.reset()
             for x in pids:
                 self.m.step_pad(x, with_head=False)
-            st = self.m.state_to_host(self.m.save_state())
+            st = self.m.save_state(to_host=True)
             mb = self.m.state_bytes(st) / 2 ** 20
         else:
             st, mb = None, 0.0
@@ -247,7 +254,8 @@ class Engine:
             return
         m = self.m
         if len(self.conv_slots) < self.conv_n:
-            self.conv_slots.append(self.m.state_to_host(m.save_state()))
+            gpu_cache = os.environ.get("FNX_CACHE_GPU", "0") == "1"
+            self.conv_slots.append(m.save_state(to_host=not gpu_cache, compact=True))
             self.conv_keys.append(key)
             self.conv_tick += 1
             self.conv_used.append(self.conv_tick)
@@ -264,6 +272,8 @@ class Engine:
     def generate(self, prompt_ids, max_new, temperature=0.0, tpl_kw=None):
         """每请求必须 reset：replay 会原地更新 ΔNet 递归状态与 KV，不重置会发散 NaN。"""
         m = self.m
+        request_start = time.perf_counter()
+        first_token_time = last_token_time = None
         tpl_kw = tpl_kw or {}
         prof = {"n_prompt": len(prompt_ids), "max_new": max_new}
         synth = torch.npu.synchronize if _PROF else None
@@ -292,26 +302,33 @@ class Engine:
         # ★ 第 46 轮：分块 prefill（FNX_CHUNK>1）。一次算 T 个 token，稠密 GEMM 摊薄 ~30×；
         #   DeltaNet 递推与 MoE 仍逐 token（第 ② 步再说）。最后一个 prompt token 不在这里算，
         #   后面用正常 step() 出 logits。
-        if _CHUNK > 1 and n_pre >= _CHUNK:
+        grouped_prefill = os.environ.get("FNX_MOE_GROUP", "0") == "1"
+        if _CHUNK > 1 and (n_pre >= _CHUNK or (grouped_prefill and n_pre >= 8)):
             done = 0
             while done + _CHUNK <= n_pre:
                 m.prefill_chunk(pre[done:done + _CHUNK])
                 done += _CHUNK
                 if n_pre >= 16 and done // every != (done - _CHUNK) // every:
                     yield ("p", done, n_pre)
-            for x in pre[done:]:
-                m.step_pad(int(x), with_head=False)
+            tail = pre[done:]
+            if grouped_prefill and len(tail) >= 8:
+                m.prefill_chunk(tail)
+            else:
+                for x in tail:
+                    m.step_pad(int(x), with_head=False)
         else:
             for i, x in enumerate(pre):
                 m.step_pad(int(x), with_head=False)
                 if n_pre >= 16 and (i + 1) % every == 0:
                     yield ("p", i + 1, n_pre)
-        if synth:
-            synth()
+        # One synchronization per request gives actual prefill wall time even
+        # when detailed per-token profiling is disabled.
+        if hasattr(m, "finish_prefill"):
+            m.finish_prefill()
+        torch.npu.synchronize()
         t_c = time.perf_counter()
-        if synth:
-            # 只有开 PROF 时才有设备真值；否则这里只是入队耗时，标出来会误导
-            prof["prefill_ms"] = round((t_c - t_b) * 1e3, 2)
+        prof["prefill_ms"] = round((t_c - t_b) * 1e3, 2)
+        prof["prefill_tok_s"] = round(n_pre / max(t_c - t_b, 1e-9), 2)
         prof["n_prefill"] = n_pre
         try:
             self._conv_store(prompt_ids, n0)      # 缓存失败绝不能挡住服务
@@ -330,17 +347,23 @@ class Engine:
             if synth:
                 synth()
                 t_e = time.perf_counter()
-            logits = m.row_logits().float().view(-1)
-            if temperature <= 0:
-                nxt = int(logits.argmax(dim=-1).item())
+            if hasattr(m, "sample"):
+                nxt = m.sample(temperature)
             else:
-                probs = torch.softmax(logits / temperature, dim=-1)
-                nxt = int(torch.multinomial(probs, 1).item())
+                logits = m.row_logits().float().view(-1)
+                if temperature <= 0:
+                    nxt = int(logits.argmax(dim=-1).item())
+                else:
+                    probs = torch.softmax(logits / temperature, dim=-1)
+                    nxt = int(torch.multinomial(probs, 1).item())
             if synth:
                 t_f = time.perf_counter()
                 step_ms.append(round((t_e - t_d) * 1e3, 2))
                 samp_ms.append(round((t_f - t_e) * 1e3, 2))
             out.append(nxt)
+            last_token_time = time.perf_counter()
+            if first_token_time is None:
+                first_token_time = last_token_time
             yield ("t", nxt)
             if nxt in self.stop_ids:
                 break
@@ -350,6 +373,9 @@ class Engine:
             prof["step_ms_first"] = step_ms[0]
             prof["samp_ms_avg"] = round(sum(samp_ms) / len(samp_ms), 2)
         # 快照已在 prefill 结束时存（见上方 _conv_store），这里只记录分段耗时
+        if first_token_time is not None:
+            prof["ttft_ms"] = round((first_token_time - request_start) * 1e3, 2)
+            prof["tpot_ms"] = round((last_token_time - first_token_time) * 1e3 / max(1, len(out) - 1), 2)
         self.last_prof = prof
         PROF_LOG.append(prof)
         del PROF_LOG[:-_PROF_MAX]
@@ -386,7 +412,17 @@ def metrics():
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "engine_loaded": "e" in STATE, "ctx": P}
+    model=getattr(STATE.get("e"),"m",None)
+    worker=getattr(model,"process",None)
+    if worker is not None and worker.poll() is not None:
+        return JSONResponse(status_code=503,content={"status":"worker_unavailable","ctx":P})
+    return {"status": "ok", "engine_loaded": "e" in STATE, "ctx": P,
+            "pipeline_stages": 2 if worker is not None else 1,
+            "worker_alive": worker is not None and worker.poll() is None,
+            "prefill_chunk": _CHUNK,
+            "chunk_graph": bool(getattr(getattr(STATE.get("e"), "m", None), "gc", None)),
+            "qsa_indexer": os.environ.get("FNX_INDEXER", "0") == "1",
+            "qsa_sparse": os.environ.get("FNX_QSA_SPARSE", "0") == "1"}
 
 
 @app.get("/fnx/prof")
@@ -427,10 +463,10 @@ async def chat(req: Request):
                     "tokenize_ms": round((time.perf_counter() - t_tk) * 1e3, 2),
                     "n_prompt": len(ids), "tpl": tpl_kw}
 
-    if len(ids) > P:
+    if not ids or max_new < 1 or len(ids) + max_new - 1 > P:
         _metric_add(requests_err=1)
         return JSONResponse(status_code=400, content={
-            "error": f"prompt {len(ids)} tokens > ctx {P}"})
+            "error": f"prompt ({len(ids)}) + max_tokens ({max_new}) - 1 must be <= ctx ({P}); both must be positive"})
     cid = f"chatcmpl-{uuid.uuid4().hex[:24]}"
     created = int(time.time())
     t0 = time.perf_counter()
@@ -457,7 +493,8 @@ async def chat(req: Request):
         _metric_add(queue_ms_sum=qms, tokens_out=len(toks),
                     prefix_hit_tokens=p.get("prefix_hit", 0),
                     prefill_tokens=max(0, p.get("n_prefill", 0)),
-                    tpot_ms_sum=dt / max(1, len(toks)) * 1e3, tpot_n=1)
+                    ttft_ms_sum=p.get("ttft_ms", 0),
+                    tpot_ms_sum=p.get("tpot_ms", 0), tpot_n=1)
         return {
             "id": cid, "object": "chat.completion", "created": created,
             "model": MODEL_ID,
@@ -465,11 +502,11 @@ async def chat(req: Request):
                          "finish_reason": "stop" if (toks and toks[-1] in eng.stop_ids) else "length"}],
             "usage": {"prompt_tokens": len(ids), "completion_tokens": len(toks),
                       "total_tokens": len(ids) + len(toks)},
-            "fnx_stats": {"ttft_ms": None, "seconds": round(dt, 3),
-                          "tpot_ms": round(dt / max(1, len(toks)) * 1e3, 2),
-                          # ★ 让客户端能提前显示"要等多久"：prefill 步数 × 实测 ~143 ms
+            "fnx_stats": {"ttft_ms": round(p.get("ttft_ms", 0) + qms, 2), "seconds": round(dt, 3),
+                          "tpot_ms": p.get("tpot_ms", 0),
                           "n_prefill": p.get("n_prefill", 0),
-                          "est_prefill_s": round(max(0, p.get("n_prefill", 0)) * 0.143, 2)},
+                          "prefill_ms": p.get("prefill_ms", 0),
+                          "prefill_tok_s": p.get("prefill_tok_s", 0)},
         }
 
     def sse():
@@ -509,6 +546,8 @@ async def chat(req: Request):
                               "seconds": round(dt, 3),
                               "tpot_ms": round((dt - (first or 0)) / max(1, n - 1) * 1e3, 2),
                               "tok_decode_ms": round(t_dc * 1e3, 2),
+                              "prefill_ms": p0.get("prefill_ms", 0),
+                              "prefill_tok_s": p0.get("prefill_tok_s", 0),
                               "n_prefill": p0.get("n_prefill", 0)}}
         eng.last_sse = done["fnx_stats"]
         p = eng.last_prof or {}

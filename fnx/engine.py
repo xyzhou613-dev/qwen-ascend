@@ -112,6 +112,8 @@ _DN_RMS = os.environ.get("FNX_DN_RMS", "1") == "1"       # DeltaNet 输出归一
 _INJECT_CM = os.environ.get("FNX_INJECT_CM", "0") == "1"   # 第 41 轮实测：addcmul 反而慢 ~0.5 ms，默认关
 # ★ 第 48 轮：`_moe` 内省算子（预估/实测：每次 kernel 约 8 µs，少 8 个 kernel ≈ 3 ms/token）
 _MOE_FAST = os.environ.get("FNX_MOE_FAST", "0") == "1"
+_MOE_ROUTER_FAST = os.environ.get("FNX_MOE_ROUTER_FAST", "1" if _MOE_FAST else "0") == "1"
+_MOE_ACT_BF16 = os.environ.get("FNX_MOE_ACT_BF16", "1" if _MOE_FAST else "0") == "1"
 _SM_RAW = os.environ.get("FNX_SMALL_MERGE", "1")
 _SM_MIX = _SM_RAW in ("1", "all", "mix")
 _SM_SH = _SM_RAW in ("1", "all", "sh")
@@ -606,13 +608,14 @@ class ExpW4:
       s8t int8  [G,E,N]  （= 原 s8 的转置，逐位不变）
       base bf16 [E,N]    （原 fp16 基准转 bf16，只为喂算子）
     """
-    __slots__ = ("w4", "s8t", "base", "K", "N", "E", "G", "gs", "_dg", "_dgf")
+    __slots__ = ("w4", "s8t", "base", "K", "N", "E", "G", "gs", "_dg", "_dgf", "expert_major")
 
-    def __init__(self, w4, s8t, base, gs):
+    def __init__(self, w4, s8t, base, gs, expert_major=False):
         self.w4 = w4              # [K,E,N/8] int32
         self.s8t = s8t            # [G,E,N] int8
         self.base = base          # [E,N] bf16
-        self.K, self.E = w4.shape[0], w4.shape[1]
+        self.expert_major = expert_major
+        self.K, self.E = (w4.shape[1], w4.shape[0]) if expert_major else (w4.shape[0], w4.shape[1])
         self.N = w4.shape[2] * 8
         self.G = s8t.shape[0]
         self.gs = gs
@@ -628,6 +631,9 @@ class ExpW4:
             + torch.arange(self.N, dtype=torch.int64, device=dev).unsqueeze(0)
 
     def _wcat(self, ids):
+        if self.expert_major:
+            p = self.w4.index_select(0, ids).permute(1, 0, 2).contiguous()
+            return p.reshape(self.K, -1)
         p = torch.index_select(self.w4, 1, ids)                 # [K,k,N/8] 连续
         return p.reshape(self.K, p.shape[1] * (self.N // 8))
 
@@ -653,8 +659,38 @@ class ExpW4:
         y = self.apply(x, ids)                                  # [k, k*N]
         if _MOE_FAST:
             # 一次 index_select 取到对角（原写法是两次高级索引）
-            return y.view(-1).index_select(0, self._dgf).view(k, self.N)
+            return y.view(-1).index_select(0, self._dgf.reshape(-1)).view(k, self.N)
         return y.view(k, k, self.N)[self._dg, self._dg]
+
+    def apply_grouped(self, x, group_ends, host_ends=None):
+        """Rows sorted by expert, one per-group int4 GMM, no Cartesian blocks."""
+        if not self.expert_major:
+            raise RuntimeError("grouped prefill requires the expert-major artifact")
+        if host_ends is not None:
+            # Bound CANN's temporary dequantization workspace. This eager
+            # prefill path reads routing metadata once for both projections.
+            size = int(os.environ.get("FNX_MOE_GROUP_SPLIT", "32"))
+            outputs = []
+            for first in range(0, self.E, size):
+                last = min(first + size, self.E)
+                begin = host_ends[first - 1] if first else 0
+                end = host_ends[last - 1]
+                if end == begin:
+                    continue
+                scales = self.s8t[:, first:last].permute(1, 0, 2).to(torch.bfloat16) * self.base[first:last, None, :]
+                # Slice-based int4 GMM returned wrong results in this build.
+                # Materialize bounded weights/inputs at storage offset zero.
+                weight = self.w4[first:last].clone()
+                inputs = x[begin:end].clone()
+                outputs.append(torch_npu.npu_grouped_matmul(
+                    [inputs], [weight], antiquant_scale=[scales],
+                    group_list=group_ends[first:last] - begin, split_item=3,
+                    group_type=0, output_dtype=torch.bfloat16)[0])
+            return torch.cat(outputs, dim=0)
+        scales = self.s8t.permute(1, 0, 2).to(torch.bfloat16) * self.base[:, None, :]
+        return torch_npu.npu_grouped_matmul(
+            [x], [self.w4], antiquant_scale=[scales], group_list=group_ends,
+            split_item=3, group_type=0, output_dtype=torch.bfloat16)[0]
 
 
 _STG = {}
@@ -697,8 +733,13 @@ def _staging(ids, N, K, dev):
 class KVStore:
     def __init__(self, P, device, n):
         self.P = P
-        self.k = [torch.zeros(B, KVH, P, HD, dtype=torch.bfloat16, device=device) for _ in range(n)]
-        self.v = [torch.zeros(B, KVH, P, HD, dtype=torch.bfloat16, device=device) for _ in range(n)]
+        self.position_major = os.environ.get("FNX_KV_POSITION_MAJOR", "0") == "1"
+        def allocate():
+            if self.position_major:
+                return torch.zeros(B, P, KVH, HD, dtype=torch.bfloat16, device=device).permute(0, 2, 1, 3)
+            return torch.zeros(B, KVH, P, HD, dtype=torch.bfloat16, device=device)
+        self.k = [allocate() for _ in range(n)]
+        self.v = [allocate() for _ in range(n)]
 
 
 def gated_residual(h, hc_norm_w, w_down, w_up, w_inj, n_inj=0):
@@ -741,6 +782,143 @@ def inject(hyper, inj, y):
     return hyper + (y.view(b, 1, 1, H) * inj.unsqueeze(-1)).reshape(b, 1, HCH)
 
 
+def delta_chunk_fp32(q, k, v, log_g, beta, state):
+    """Parallel delta-rule chunk using an fp32 triangular solve.
+
+    q already contains the decode path's rounded 1/sqrt(D) scaling.
+    Preserve the fp32 recurrent state rather than casting it to bf16.
+    """
+    T = q.shape[0]
+    if T > 64 and os.environ.get("FNX_DELTA_BATCH", "0") == "1":
+        return delta_chunk_batched_fp32(q, k, v, log_g, beta, state)
+    if T > 64:
+        outputs = []
+        for begin in range(0, T, 64):
+            end = min(begin + 64, T)
+            out, state = delta_chunk_fp32(q[begin:end], k[begin:end], v[begin:end],
+                                          log_g[begin:end], beta[begin:end], state)
+            outputs.append(out)
+        return torch.cat(outputs, dim=0), state
+    q, k, v = (x.transpose(0, 1).float() for x in (q, k, v))
+    beta = beta.reshape(T, NVH).transpose(0, 1).float()
+    cumul = log_g.transpose(0, 1).cumsum(-1)
+    upper = torch.ones(T, T, dtype=torch.bool, device=q.device).triu(1)
+    decay = (cumul.unsqueeze(-1) - cumul.unsqueeze(-2)).masked_fill(upper, float('-inf')).exp()
+    kb = k * beta.unsqueeze(-1)
+    vb = v * beta.unsqueeze(-1)
+    lower = (torch.bmm(kb, k.transpose(1, 2)) * decay).tril(-1)
+    system = lower + torch.eye(T, dtype=torch.float32, device=q.device)
+    rhs = torch.cat((vb, kb * cumul.exp().unsqueeze(-1)), dim=-1)
+    solver = os.environ.get("FNX_DELTA_SOLVER", "triangular")
+    if solver == "blockmatmul":
+        # Invert 8x8 diagonal blocks, then solve the block-lower system.
+        # Both finite series have at most eight stages of dependency.
+        nb = (T + 7) // 8
+        width = nb * 8
+        lp = F.pad(lower, (0, width - T, 0, width - T))
+        rp = F.pad(rhs, (0, 0, 0, width - T))
+        diagonal = lp.view(NVH, nb, 8, nb, 8).permute(0, 1, 3, 2, 4).reshape(NVH, nb * nb, 8, 8)
+        diagonal = diagonal.index_select(1, torch.arange(nb, device=q.device) * (nb + 1)).reshape(NVH * nb, 8, 8)
+        inv = torch.eye(8, device=q.device).expand(NVH * nb, 8, 8)
+        power = -diagonal
+        for stage in range(3):
+            inv = inv + torch.bmm(power, inv)
+            if stage < 2:
+                power = torch.bmm(power, power)
+        solved = torch.bmm(inv, rp.reshape(NVH * nb, 8, HVD + HKD)).reshape(NVH, width, HVD + HKD)
+        transformed = torch.bmm(inv, lp.reshape(NVH * nb, 8, width)).reshape(NVH, width, width)
+        block_ids = torch.arange(width, device=q.device) // 8
+        across = block_ids[:, None] > block_ids[None, :]
+        power = -transformed.masked_fill(~across, 0)
+        for stage in range((nb - 1).bit_length()):
+            solved = solved + torch.bmm(power, solved)
+            if stage + 1 < (nb - 1).bit_length():
+                power = torch.bmm(power, power)
+        solved = solved[:, :T]
+    elif solver == "matmul":
+        # Forward substitution in 8-row blocks. A global Neumann product
+        # is unstable for strongly correlated real keys (large intermediate
+        # powers cancel). Small local systems bound that amplification.
+        pieces = []
+        for begin in range(0, T, 8):
+            end = min(begin + 8, T)
+            part = rhs[:, begin:end]
+            if begin:
+                part = part - torch.bmm(lower[:, begin:end, :begin], torch.cat(pieces, dim=1))
+            power = -lower[:, begin:end, begin:end]
+            stages = (end - begin - 1).bit_length()
+            for stage in range(stages):
+                part = part + torch.bmm(power, part)
+                if stage + 1 < stages:
+                    power = torch.bmm(power, power)
+            pieces.append(part)
+        solved = torch.cat(pieces, dim=1)
+    else:
+        solved = torch.linalg.solve_triangular(system, rhs, upper=False, unitriangular=True)
+    u, w = solved[..., :HVD], solved[..., HVD:]
+    updates = u - torch.bmm(w, state[0])
+    intra = torch.bmm(q, k.transpose(1, 2)) * decay
+    out = torch.bmm(q * cumul.exp().unsqueeze(-1), state[0]) + torch.bmm(intra, updates)
+    end_keys = k * (cumul[:, -1:] - cumul).exp().unsqueeze(-1)
+    final = state[0] * cumul[:, -1:].exp().unsqueeze(-1) + torch.bmm(end_keys.transpose(1, 2), updates)
+    return out.transpose(0, 1).to(torch.bfloat16), final.unsqueeze(0)
+
+
+def delta_chunk_batched_fp32(q, k, v, log_g, beta, state):
+    """Prepare independent 64-token systems together; keep state recurrence fp32.
+
+    The systems depend on keys/decay, not on the incoming recurrent state.
+    Only the state update and output need a sequential loop over blocks.
+    """
+    T = q.shape[0]
+    blocks = (T + 63) // 64
+    length = blocks * 64
+    def rows(x, dim):
+        x = F.pad(x, (0, 0, 0, 0, 0, length - T))
+        return x.view(blocks, 64, NVH, dim).permute(0, 2, 1, 3).reshape(-1, 64, dim).float()
+    qa, ka, va = (rows(x, d) for x, d in ((q, HKD), (k, HKD), (v, HVD)))
+    ba = F.pad(beta.reshape(T, NVH), (0, 0, 0, length - T))
+    ba = ba.view(blocks, 64, NVH).transpose(1, 2).reshape(-1, 64).float()
+    ga = F.pad(log_g, (0, 0, 0, length - T))
+    cumul = ga.view(blocks, 64, NVH).transpose(1, 2).reshape(-1, 64).cumsum(-1)
+    upper = torch.ones(64, 64, dtype=torch.bool, device=q.device).triu(1)
+    decay = (cumul.unsqueeze(-1) - cumul.unsqueeze(-2)).masked_fill(upper, float('-inf')).exp()
+    kb, vb = ka * ba.unsqueeze(-1), va * ba.unsqueeze(-1)
+    lower = (torch.bmm(kb, ka.transpose(1, 2)) * decay).tril(-1)
+    rhs = torch.cat((vb, kb * cumul.exp().unsqueeze(-1)), -1)
+    heads = blocks * NVH
+    diagonal = lower.view(heads, 8, 8, 8, 8).permute(0, 1, 3, 2, 4).reshape(heads, 64, 8, 8)
+    diagonal = diagonal.index_select(1, torch.arange(8, device=q.device) * 9).reshape(heads * 8, 8, 8)
+    inv = torch.eye(8, device=q.device).expand(heads * 8, 8, 8)
+    power = -diagonal
+    for stage in range(3):
+        inv = inv + torch.bmm(power, inv)
+        if stage < 2:
+            power = torch.bmm(power, power)
+    solved = torch.bmm(inv, rhs.reshape(heads * 8, 8, HVD + HKD)).reshape(heads, 64, HVD + HKD)
+    transformed = torch.bmm(inv, lower.reshape(heads * 8, 8, 64)).reshape(heads, 64, 64)
+    bid = torch.arange(64, device=q.device) // 8
+    power = -transformed.masked_fill(~(bid[:, None] > bid[None, :]), 0)
+    for stage in range(3):
+        solved = solved + torch.bmm(power, solved)
+        if stage < 2:
+            power = torch.bmm(power, power)
+    u = solved[..., :HVD].reshape(blocks, NVH, 64, HVD)
+    w = solved[..., HVD:].reshape(blocks, NVH, 64, HKD)
+    intra = (torch.bmm(qa, ka.transpose(1, 2)) * decay).reshape(blocks, NVH, 64, 64)
+    qe = (qa * cumul.exp().unsqueeze(-1)).reshape(blocks, NVH, 64, HKD)
+    end_keys = (ka * (cumul[:, -1:] - cumul).exp().unsqueeze(-1)).reshape(blocks, NVH, 64, HKD)
+    end_decay = cumul[:, -1:].exp().reshape(blocks, NVH, 1, 1)
+    current = state[0]
+    outputs = []
+    for block in range(blocks):
+        updates = u[block] - torch.bmm(w[block], current)
+        out = torch.bmm(qe[block], current) + torch.bmm(intra[block], updates)
+        current = current * end_decay[block] + torch.bmm(end_keys[block].transpose(1, 2), updates)
+        outputs.append(out.transpose(0, 1))
+    return torch.cat(outputs, 0)[:T].to(torch.bfloat16), current.unsqueeze(0)
+
+
 class FnLayer:
     def __init__(self, idx, ltype, W, device):
         self.idx = idx
@@ -750,6 +928,17 @@ class FnLayer:
         self.ki = 0
         self.inv = inv_freq(device)
         self.use_ple = ltype == "ple"
+        self.index_enabled = os.environ.get("FNX_INDEXER", "0") == "1" and ltype == "full"
+        self.index_k = None
+        self.index_keys = None
+        self.short_qsa = False
+        self._dn_lens = {}
+        if self.index_enabled:
+            if B != 1:
+                raise ValueError("QSA indexer currently requires FNX_BATCH=1")
+            self.index_w = W["self_attn.indexer.index_qk_proj.weight"]
+            self.index_qn = W["self_attn.indexer.q_layernorm.weight"]
+            self.index_kn = W["self_attn.indexer.k_layernorm.weight"]
 
         if ltype in ("linear", "ple"):
             self.S = torch.zeros(B, NVH, HKD, HVD, dtype=torch.float32, device=device)
@@ -948,10 +1137,16 @@ class FnLayer:
         v = v.view(b, NVH, HVD)
 
         S = self.S * torch.exp(g)[..., None, None]                          # 先衰减
-        kv_mem = (S * k.unsqueeze(-1)).sum(dim=-2)
-        delta = (v - kv_mem) * beta
-        S = S + k.unsqueeze(-1) * delta.unsqueeze(-2)
-        o = (S * q.unsqueeze(-1)).sum(dim=-2)
+        if os.environ.get("FNX_DN_DECODE_BMM", "0") == "1":
+            kv_mem = torch.bmm(k.float().reshape(-1, 1, HKD), S.reshape(-1, HKD, HVD)).reshape(b, NVH, HVD)
+            delta = (v - kv_mem) * beta
+            S = torch.addcmul(S, k.float().unsqueeze(-1), delta.unsqueeze(-2))
+            o = torch.bmm(q.float().reshape(-1, 1, HKD), S.reshape(-1, HKD, HVD)).reshape(b, NVH, HVD)
+        else:
+            kv_mem = (S * k.unsqueeze(-1)).sum(dim=-2)
+            delta = (v - kv_mem) * beta
+            S = S + k.unsqueeze(-1) * delta.unsqueeze(-2)
+            o = (S * q.unsqueeze(-1)).sum(dim=-2)
         self.S.copy_(S)
 
         o = o.to(torch.bfloat16)
@@ -968,7 +1163,143 @@ class FnLayer:
             xf = xf * z                             # output_gate_type = "sigmoid"（不是 silu）
         return lin(xf.to(torch.bfloat16).view(b, VAL_DIM), self.w_out)
 
-    # ---------- QSA（稠密 causal，≤2048 上下文与参考一致） ----------
+    def _indexer_mask(self, h, pos):
+        """QSA block selection matching the vendored reference (B=1).
+
+        Four query heads score mean-pooled blocks of four raw keys. Keep the
+        best 512 complete blocks plus the incomplete causal tail. All indices
+        and positions stay on device so this also works in NPUGraph replay.
+        """
+        T = h.shape[0]
+        P = self.kv.P
+        qk = lin(h, self.index_w).reshape(T, 640)
+        q = rms_norm(qk[:, :512].reshape(T, 4, 128), self.index_qn)
+        self.index_k.index_copy_(0, pos, qk[:, 512:].contiguous())
+        cos, sin = rope_cs(pos, self.inv)
+        q = apply_rope(q, cos.unsqueeze(1), sin.unsqueeze(1))
+        groups = P // 4
+        starts = torch.arange(groups, device=self.dev, dtype=torch.int64) * 4
+        pooled = self.index_k[:groups * 4].view(groups, 4, 128).float().mean(1).to(h.dtype)
+        pooled = rms_norm(pooled, self.index_kn)
+        cos, sin = rope_cs(starts, self.inv)
+        keys = apply_rope(pooled, cos, sin)
+        scores = torch.matmul(q.float(), keys.float().transpose(0, 1)).relu().sum(1) / math.sqrt(128)
+        complete = starts[None, :] + 4 <= pos[:, None] + 1
+        scores = scores.masked_fill(~complete, NEG)
+        chosen = scores.topk(min(512, groups), dim=-1).indices
+        blocks = torch.zeros_like(scores, dtype=torch.bool).scatter_(1, chosen, True) & complete
+        # repeat_interleave on bool lowers very poorly on 910B4 (81 ms for
+        # [64,2048]); broadcast each block's four tokens in one materialization.
+        selected = blocks.unsqueeze(-1).expand(T, groups, 4).reshape(T, groups * 4)
+        if P % 4:
+            selected = F.pad(selected, (0, P % 4))
+        columns = torch.arange(P, device=self.dev)[None, :]
+        tail_start = ((pos[:, None] + 1) // 4) * 4
+        tail = (columns >= tail_start) & (columns <= pos[:, None])
+        return selected | tail
+
+    def _indexer_indices(self, h, pos):
+        """Return at most 2048 selected tokens plus three causal tail tokens.
+
+        Score query tiles to bound workspace independently of the context
+        window; never construct a [T,P] token mask or replicate full KV heads.
+        """
+        T, P = h.shape[0], self.kv.P
+        qk = lin(h, self.index_w).reshape(T, 640)
+        q = rms_norm(qk[:, :512].reshape(T, 4, 128), self.index_qn)
+        self._record_index_keys(qk[:, 512:], pos)
+        cos, sin = rope_cs(pos, self.inv)
+        q = apply_rope(q, cos.unsqueeze(1), sin.unsqueeze(1))
+        groups = P // 4
+        starts = torch.arange(groups, device=self.dev, dtype=torch.int64) * 4
+        if os.environ.get("FNX_INDEX_CACHE", "0") == "1":
+            keys = self.index_keys.transpose(0, 1)
+        else:
+            pooled = self.index_k[:groups * 4].view(groups, 4, 128).float().mean(1).to(h.dtype)
+            keys = rms_norm(pooled, self.index_kn)
+            cos, sin = rope_cs(starts, self.inv)
+            keys = apply_rope(keys, cos, sin).float().transpose(0, 1)
+        selected, validity = [], []
+        tile = int(os.environ.get("FNX_INDEX_TILE", "32"))
+        for begin in range(0, T, tile):
+            end = min(begin + tile, T)
+            p = pos[begin:end]
+            scores = torch.matmul(q[begin:end].float().reshape(-1, 128), keys)
+            scores = scores.view(end - begin, 4, groups).relu().sum(1) / math.sqrt(128)
+            complete = starts[None, :] + 4 <= p[:, None] + 1
+            chosen = scores.masked_fill(~complete, NEG).topk(min(512, groups), -1).indices
+            tokens = (chosen[:, :, None] * 4 + torch.arange(4, device=self.dev)).reshape(end - begin, -1)
+            valid = tokens < ((p[:, None] + 1) // 4) * 4
+            tail = ((p[:, None] + 1) // 4) * 4 + torch.arange(3, device=self.dev)
+            tokens = torch.cat((tokens, tail), -1)
+            valid = torch.cat((valid, tail <= p[:, None]), -1)
+            # Physical order reproduces dense attention's accumulation order.
+            ordered = torch.where(valid, tokens, P).float().sort(-1).values.to(torch.int64)
+            selected.append(ordered.clamp_max(P - 1))
+            validity.append(ordered < P)
+        return torch.cat(selected), torch.cat(validity)
+
+    def _record_index_keys(self, raw, pos):
+        self.index_k.index_copy_(0, pos, raw.contiguous())
+        if os.environ.get("FNX_INDEX_CACHE", "0") != "1":
+            return
+        groups = self.kv.P // 4
+        if self.index_keys is None:
+            pooled = self.index_k[:groups * 4].view(groups, 4, 128).float().mean(1).to(raw.dtype)
+            starts = torch.arange(groups, device=self.dev) * 4
+            cos, sin = rope_cs(starts, self.inv)
+            self.index_keys = apply_rope(rms_norm(pooled, self.index_kn), cos, sin).float()
+        # Duplicate group ids write identical values. Incomplete groups are
+        # excluded by the causal mask; recompute them when more raw keys arrive.
+        group_ids = pos // 4
+        rows = (group_ids[:, None] * 4 + torch.arange(4, device=self.dev)).reshape(-1)
+        pooled = self.index_k.index_select(0, rows).view(-1, 4, 128).float().mean(1).to(raw.dtype)
+        cos, sin = rope_cs(group_ids * 4, self.inv)
+        keys = apply_rope(rms_norm(pooled, self.index_kn), cos, sin).float()
+        self.index_keys.index_copy_(0, group_ids, keys)
+
+    def _sparse_qsa_attention(self, h, q, pos, kc, vc):
+        ids, valid = self._indexer_indices(h, pos)
+        outputs = []
+        T, width = ids.shape
+        tile = int(os.environ.get("FNX_QSA_TILE", "32"))
+        fused = os.environ.get("FNX_SPARSE_FLASH", "0") == "1"
+        for begin in range(0, T, tile):
+            end = min(begin + tile, T)
+            n = end - begin
+            rows = ids[begin:end].reshape(-1)
+            if self.kv.position_major:
+                keys = kc[0].transpose(0, 1).index_select(0, rows).view(n, width, KVH, HD)
+                values = vc[0].transpose(0, 1).index_select(0, rows).view(n, width, KVH, HD)
+                if not fused:
+                    keys = keys.permute(0, 2, 1, 3).reshape(n * KVH, width, HD)
+                    values = values.permute(0, 2, 1, 3).reshape(n * KVH, width, HD)
+            else:
+                keys = kc[0].index_select(1, rows).view(KVH, n, width, HD).permute(1, 0, 2, 3).reshape(n * KVH, width, HD)
+                values = vc[0].index_select(1, rows).view(KVH, n, width, HD).permute(1, 0, 2, 3).reshape(n * KVH, width, HD)
+            if fused:
+                if self.kv.position_major:
+                    queries = q[begin:end].reshape(n, 1, NAH, HD).contiguous()
+                    layout = "BSND"
+                else:
+                    queries = q[begin:end].reshape(n, NAH, 1, HD).contiguous()
+                    keys, values = keys.view(n, KVH, width, HD), values.view(n, KVH, width, HD)
+                    layout = "BNSD"
+                out = torch_npu.npu_fused_infer_attention_score(
+                    queries, keys, values, num_heads=NAH, num_key_value_heads=KVH,
+                    input_layout=layout, scale=HD ** -0.5,
+                    atten_mask=(~valid[begin:end])[:, None, None, :])[0]
+                outputs.append(out.reshape(n, NAH, HD))
+                continue
+            queries = q[begin:end].reshape(n * KVH, NAH // KVH, HD)
+            scores = torch.bmm(queries, keys.transpose(1, 2)) * (HD ** -0.5)
+            mask = valid[begin:end, None, None, :].expand(n, KVH, 1, width).reshape(n * KVH, 1, width)
+            weights = torch.softmax(scores.masked_fill(~mask, NEG).float(), -1).to(torch.bfloat16)
+            out = torch.bmm(weights, values).reshape(n, NAH, HD)
+            outputs.append(out)
+        return torch.cat(outputs).reshape(T, NAH * HD)
+
+    # ---------- QSA ----------
     def _qsa(self, h, pos):
         b = h.shape[0]
         cos, sin = rope_cs(pos, self.inv)
@@ -989,15 +1320,35 @@ class FnLayer:
         q = apply_rope(q, cos, sin)
         k = apply_rope(k, cos, sin)
 
-        P = self.kv.P
+        P = min(self.kv.P, 2048) if self.short_qsa else self.kv.P
         # 逐行写各自的 pos（one-hot 形式，图捕获已验证可用；比 index_put 稳）
-        onehot = F.one_hot(pos, P).to(torch.bfloat16).view(b, 1, P, 1)      # [b,1,P,1]
-        kc, vc = self.kv.k[self.ki], self.kv.v[self.ki]
-        kc.copy_(kc * (1.0 - onehot) + k.view(b, KVH, 1, HD) * onehot)
-        vc.copy_(vc * (1.0 - onehot) + v.view(b, KVH, 1, HD) * onehot)
+        kc, vc = self.kv.k[self.ki][:, :, :P], self.kv.v[self.ki][:, :, :P]
+        sparse = os.environ.get("FNX_QSA_SPARSE", "0") == "1" and b == 1
+        if sparse:
+            if self.kv.position_major:
+                kc[0].transpose(0, 1).index_copy_(0, pos, k.contiguous())
+                vc[0].transpose(0, 1).index_copy_(0, pos, v.contiguous())
+            else:
+                kc[0].index_copy_(1, pos, k.transpose(0, 1).contiguous())
+                vc[0].index_copy_(1, pos, v.transpose(0, 1).contiguous())
+        else:
+            onehot = F.one_hot(pos, P).to(torch.bfloat16).view(b, 1, P, 1)
+            kc.copy_(kc * (1.0 - onehot) + k.view(b, KVH, 1, HD) * onehot)
+            vc.copy_(vc * (1.0 - onehot) + v.view(b, KVH, 1, HD) * onehot)
+        if sparse and self.index_enabled and not self.short_qsa:
+            o = self._sparse_qsa_attention(h, q, pos, kc, vc)
+            return lin(o * torch.sigmoid(gate.reshape(b, NAH * HD)), self.w_o)
 
         mask = (torch.arange(P, device=self.dev)[None, :] <= pos.view(b, 1)) \
             .view(b, 1, 1, P)
+        if self.index_enabled:
+            if self.short_qsa:
+                # All visible tokens are selected before the budget boundary.
+                # Still record raw keys, so a later long request can reuse state.
+                qk = lin(h, self.index_w).reshape(b, 640)
+                self._record_index_keys(qk[:, 512:], pos)
+            else:
+                mask = mask & self._indexer_mask(h, pos).view(b, 1, 1, P)
         Kk = kc.repeat_interleave(NAH // KVH, dim=1)                        # [b,NAH,P,HD]
         Vv = vc.repeat_interleave(NAH // KVH, dim=1)
         att = torch.matmul(q.view(b, NAH, 1, HD), Kk.transpose(2, 3)) * (HD ** -0.5)
@@ -1035,8 +1386,8 @@ class FnLayer:
             else:
                 beta = torch.sigmoid(lin(h, self.w_b)).view(T, NVH, 1)
                 a = lin(h, self.w_a)
-        g = torch.exp((-torch.exp(self.A_log) * F.softplus(a.float() + self.dt_bias))
-                      .view(T, NVH))
+        log_g = (-torch.exp(self.A_log) * F.softplus(a.float() + self.dt_bias)).view(T, NVH)
+        g = torch.exp(log_g)
 
         # 卷积：把 3 列历史拼在左边，再按 4 个位移求和（与逐 token 的滑窗等价）
         # ★ 必须用 stack + sum(-1) 而不是 4 次逐项相加：逐 token 路径是 `(buf*w).sum(-1)`，
@@ -1056,17 +1407,31 @@ class FnLayer:
         va = v.view(T, NVH, HVD)
 
         # 递推（顺序依赖，只能逐 token；这里每 token 只有 6 个算子，且没有 GEMM）
-        S = self.S[0]
-        outs = []
-        for t in range(T):
-            St = S * g[t][:, None, None]
-            kv_mem = (St * ka[t].unsqueeze(-1)).sum(dim=-2)
-            delta = (va[t] - kv_mem) * beta[t]
-            St = St + ka[t].unsqueeze(-1) * delta.unsqueeze(-2)
-            outs.append((St * qa[t].unsqueeze(-1)).sum(dim=-2))
-            S = St
-        self.S[0].copy_(S)
-        o = torch.stack(outs, dim=0).to(torch.bfloat16)                   # [T,NVH,HVD]
+        dn_mode = os.environ.get("FNX_PREFILL_DN", "torch")
+        if dn_mode == "fp32_chunk":
+            o, state = delta_chunk_fp32(qa, ka, va, log_g, beta, self.S)
+            self.S.copy_(state)
+        elif dn_mode == "native":
+            if T not in self._dn_lens:
+                self._dn_lens[T] = torch.tensor([T], dtype=torch.int32, device=self.dev)
+            o, state = torch_npu.npu_chunk_gated_delta_rule(
+                qa.contiguous(), ka.contiguous(), va.contiguous(),
+                beta=beta.reshape(T, NVH).to(torch.bfloat16), g=log_g.contiguous(),
+                initial_state=self.S.transpose(-1, -2).to(torch.bfloat16).contiguous(),
+                actual_seq_lengths=self._dn_lens[T], scale=1.0)
+            self.S.copy_(state.transpose(-1, -2))
+        else:
+            S = self.S[0]
+            outs = []
+            for t in range(T):
+                St = S * g[t][:, None, None]
+                kv_mem = (St * ka[t].unsqueeze(-1)).sum(dim=-2)
+                delta = (va[t] - kv_mem) * beta[t]
+                St = St + ka[t].unsqueeze(-1) * delta.unsqueeze(-2)
+                outs.append((St * qa[t].unsqueeze(-1)).sum(dim=-2))
+                S = St
+            self.S[0].copy_(S)
+            o = torch.stack(outs, dim=0).to(torch.bfloat16)
         if _DN_RMS:
             xf = rms_norm(o, self.dn_norm_g).float() * z
         else:
@@ -1078,7 +1443,12 @@ class FnLayer:
 
     def _qsa_chunk(self, h, pos0, T):
         """h: [T,1,H]；pos0 是这 T 个 token 的起始位置。"""
-        pos = torch.arange(pos0, pos0 + T, dtype=torch.int64, device=self.dev)
+        dynamic_pos = torch.is_tensor(pos0)
+        if dynamic_pos:
+            # Device position stays live across graph replays; no .item() in capture.
+            pos = pos0.reshape(-1)[:1] + torch.arange(T, dtype=torch.int64, device=self.dev)
+        else:
+            pos = torch.arange(pos0, pos0 + T, dtype=torch.int64, device=self.dev)
         cos, sin = rope_cs(pos, self.inv)                    # [T, ROPE_DIM]
         cos, sin = cos.unsqueeze(1), sin.unsqueeze(1)         # [T,1,64] 广播到 head
         if self.w_qkvf is not None:
@@ -1096,25 +1466,55 @@ class FnLayer:
         q = apply_rope(q, cos, sin)
         k = apply_rope(k, cos, sin)
 
-        P = self.kv.P
-        PT = pos0 + T                                          # 只需看到本块最后一个位置
-        kc, vc = self.kv.k[self.ki], self.kv.v[self.ki]       # [1,KVH,P,HD]
+        P = min(self.kv.P, 2048) if self.short_qsa else self.kv.P
+        fixed_short = getattr(self, "reference_short", False) and self.short_qsa
+        PT = P if dynamic_pos or fixed_short else pos0 + T
+        kc, vc = self.kv.k[self.ki][:, :, :P], self.kv.v[self.ki][:, :, :P]
         # 逐行写 pos（分块时一次写 T 行；eager 下 index_copy_ 可用，不必用 one-hot 广播）
-        kc[0].index_copy_(1, pos, k.transpose(0, 1).contiguous())
-        vc[0].index_copy_(1, pos, v.transpose(0, 1).contiguous())
+        if self.kv.position_major:
+            kc[0].transpose(0, 1).index_copy_(0, pos, k.contiguous())
+            vc[0].transpose(0, 1).index_copy_(0, pos, v.contiguous())
+        else:
+            kc[0].index_copy_(1, pos, k.transpose(0, 1).contiguous())
+            vc[0].index_copy_(1, pos, v.transpose(0, 1).contiguous())
+        if self.index_enabled and not self.short_qsa and os.environ.get("FNX_QSA_SPARSE", "0") == "1":
+            o = self._sparse_qsa_attention(h, q, pos, kc, vc)
+            return lin(o * torch.sigmoid(gate.reshape(T, NAH * HD)), self.w_o)
 
-        Kr = kc[0].repeat_interleave(NAH // KVH, dim=0).unsqueeze(0)      # [1,NAH,P,HD]
-        Vr = vc[0].repeat_interleave(NAH // KVH, dim=0).unsqueeze(0)
+        grouped_qsa = os.environ.get("FNX_QSA_GQA", "0") == "1"
+        if not grouped_qsa:
+            Kr = kc[0].repeat_interleave(NAH // KVH, dim=0).unsqueeze(0)
+            Vr = vc[0].repeat_interleave(NAH // KVH, dim=0).unsqueeze(0)
         qq = q.transpose(0, 1).unsqueeze(0)                               # [1,NAH,T,HD]
         # ★ 只算前 PT 列：pos0+T 之后的 KV 本来就要被 mask 掉，全算 P=2048 列在 prefill
         #   早期是纯粹的浪费（pos0=0,T=8 时白算 256 倍）。切片开销为 0（视图）。
-        att = torch.matmul(qq, Kr[:, :, :PT].transpose(2, 3)) * (HD ** -0.5)  # [1,NAH,T,PT]
+        if not grouped_qsa:
+            att = torch.matmul(qq, Kr[:, :, :PT].transpose(2, 3)) * (HD ** -0.5)
         qpos = pos.view(1, 1, T, 1)
         kmask = (torch.arange(PT, device=self.dev)[None, None, None, :] <= qpos)
-        att = att.masked_fill(~kmask, NEG)
-        att = torch.softmax(att.float(), dim=-1).to(torch.bfloat16)
-        o = torch.matmul(att, Vr[:, :, :PT]).squeeze(0)                    # [NAH,T,HD]
-        o = o.transpose(0, 1).reshape(T, NAH * HD)
+        if self.index_enabled:
+            if self.short_qsa:
+                qk = lin(h, self.index_w).reshape(T, 640)
+                self._record_index_keys(qk[:, 512:], pos)
+            else:
+                kmask = kmask & self._indexer_mask(h, pos)[None, None, :, :PT]
+        if grouped_qsa:
+            outputs = []
+            for begin in range(0, T, 64):
+                end = min(begin + 64, T)
+                n = end - begin
+                queries = q[begin:end].transpose(0, 1).reshape(KVH, (NAH // KVH) * n, HD)
+                scores = torch.bmm(queries, kc[0, :, :PT].transpose(1, 2)).reshape(1, NAH, n, PT) * (HD ** -0.5)
+                scores = scores.masked_fill(~kmask[:, :, begin:end], NEG)
+                weights = torch.softmax(scores.float(), dim=-1).to(torch.bfloat16)
+                out = torch.bmm(weights.reshape(KVH, (NAH // KVH) * n, PT), vc[0, :, :PT])
+                outputs.append(out.reshape(NAH, n, HD).transpose(0, 1))
+            o = torch.cat(outputs, dim=0).reshape(T, NAH * HD)
+        else:
+            att = att.masked_fill(~kmask, NEG)
+            att = torch.softmax(att.float(), dim=-1).to(torch.bfloat16)
+            o = torch.matmul(att, Vr[:, :, :PT]).squeeze(0)
+            o = o.transpose(0, 1).reshape(T, NAH * HD)
         return lin(o * torch.sigmoid(gate.reshape(T, NAH * HD)), self.w_o)
 
     def forward_chunk(self, h, pos0, T):
@@ -1134,7 +1534,10 @@ class FnLayer:
             mixed, inj = gated_residual(h, self.m_hc_norm, self.m_di, self.m_up, None, n_inj=HC)
         else:
             mixed, inj = gated_residual(h, self.m_hc_norm, self.m_down, self.m_up, self.m_inj)
-        y = torch.cat([self._moe(mixed[t:t + 1]) for t in range(T)], dim=0)
+        if os.environ.get("FNX_MOE_GROUP", "0") == "1" and T > 1:
+            y = self._moe(mixed)
+        else:
+            y = torch.cat([self._moe(mixed[t:t + 1]) for t in range(T)], dim=0)
         return inject(h, inj, y)
 
     # ---------- PLE ----------
@@ -1170,7 +1573,7 @@ class FnLayer:
             sh = lin(F.silu(lin(x2, self.sh_gate)) * lin(x2, self.sh_up), self.sh_down)
             sh = torch.sigmoid(lin(x2, self.sh_gate2)) * sh
             logits = lin(x2, self.gate_w)
-        if _MOE_FAST:
+        if _MOE_ROUTER_FAST:
             # ★ 第 48 轮：softmax 的分母在 `w/w.sum()` 里会被约掉，所以可以
             #   ① 直接在 **原始 logits** 上 topk（少一次 fp32 cast + 512 路 softmax）
             #   ② 只对这 10 个值做 softmax（等价于"topk 后再归一化"）
@@ -1183,6 +1586,22 @@ class FnLayer:
             w = (w / w.sum(dim=-1, keepdim=True)).to(torch.bfloat16)
 
         if isinstance(self.exp_gu, ExpW4):
+            if b > 1 and os.environ.get("FNX_MOE_GROUP", "0") == "1":
+                ids = idx.reshape(-1)
+                # Expert ids are 0..511 and exactly representable in fp32.
+                # int64 ArgSort falls back to AI CPU on this CANN build.
+                order = torch.argsort(ids.float())
+                counts = torch.zeros(self.exp_gu.E, dtype=torch.int64, device=x.device)
+                counts.scatter_add_(0, ids, torch.ones_like(ids))
+                ends = counts.cumsum(0)
+                host_ends = ends.cpu().tolist() if int(os.environ.get("FNX_MOE_GROUP_SPLIT", "0")) else None
+                rows = x2.index_select(0, order // TOPK).to(torch.bfloat16)
+                gu = self.exp_gu.apply_grouped(rows, ends, host_ends)
+                act = (F.silu(gu[:, :MI].float()) * gu[:, MI:].float()).to(torch.bfloat16)
+                yd = self.exp_dn.apply_grouped(act, ends, host_ends)
+                restored = torch.empty_like(yd).index_copy_(0, order, yd)
+                y = (restored.view(b, TOPK, H) * w.unsqueeze(-1)).sum(1)
+                return (y + sh).view(b, 1, H)
             # ★★ 第 37 轮：aclnn per-group W4A16（解包/乘 scale/GEMM 全在 AI Core 内）
             #   实测（真实形状，E=512 分布，图内 replay）0.32 ms/层 vs torch 解包路径 1.0 ms。
             #   gu：10 个专家权重沿 N 拼成一次调用（单序列只有一行 x，天然共用）；
@@ -1191,7 +1610,7 @@ class FnLayer:
             if b != 1:
                 raise RuntimeError("FNX_MOE_W4A16 只支持 FNX_BATCH=1（第 37 轮）")
             y = self.exp_gu.apply(x2.to(torch.bfloat16), idx[0]).view(TOPK, 2 * MI)
-            if _MOE_FAST:
+            if _MOE_ACT_BF16:
                 # ★ 第 48 轮：silu*mul 全程留 bf16，省掉 2 次升 fp32 + 1 次回 bf16（3 个 kernel）
                 act = F.silu(y[:, :MI]) * y[:, MI:]
             else:

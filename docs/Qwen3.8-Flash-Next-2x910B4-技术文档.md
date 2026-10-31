@@ -1049,6 +1049,66 @@ M=128 / N=12800 也只要 0.100 ms。⇒ 每次调用有约 **50 µs 固定成�
 图内剩下的杠杆只能是 GEMM 结构本身（msProf：WQBM 15.8 ms/step = 31.7%）与内存/带宽。
 `FNX_MOE_FAST` 保留为开关，**默认 0**（无收益就不引入数值风险）。
 
+### 4.22 第 49–55 轮（外部并入）：分块图 prefill、稀疏 QSA、grouped MoE、256k、双进程 PP
+
+> 本节记录的是**另一个 AI 在 r48.3 基础上继续改造并部署到现网**的版本（21:45–22:08 落地，代码当时未提交、未推送）。
+> 本轮（第 55 轮）做的第一件事是**把它提交进本仓库并做独立验收**。技术细节见
+> `…第49/50/51/52/53/54-55轮…` 六份记录。
+
+#### 4.22.1 现网基线对比（同机、同权重、同量化）
+
+| 指标 | r48.3（本仓库原基线） | **r55（现网部署）** | 倍数 |
+|---|---:|---:|---:|
+| 上下文上限 | 2,048（硬上限 16k） | **262,144** | 128× |
+| prefill 吞吐 | 61.7 ms/token（16.2 tok/s） | 8k prompt **≈1,150 tok/s**；256k **2,246.9 tok/s** | **≈71×（8k）** |
+| 8k 新 prompt TTFT | ≈494 s（8,026×61.7 ms） | **6.99 s** | 71× |
+| 256k 新 prompt TTFT | 不可用（我这边 OOM） | **117.86 s** | — |
+| decode TPOT | 63.4–63.7 ms（15.7 tok/s） | **54.1 ms（18.5 tok/s）**（本仓库独立实测）；其记录口径 55.97 ms / 17.87 tok/s @256k | 1.17× |
+| `mean_nll` | 2.1648 | **2.1653**（独立复测）/ 2.165267（其记录） | 持平 |
+| MCQ 24 题 | 24/24（3.48 s/题） | **24/24（0.52 s/题）** | 6.7× |
+| 长文三事实检索 | 未实现（无 indexer） | 256k 下 **3/3** | — |
+| 显存 dev0 / dev1 | 58.97 / 4.54 GiB | **56.0 / 56.6 GB**（两卡均衡） | — |
+
+**独立验收证据**（本仓库实测，非引用其文档）：`/health`、`/v1/models`、单请求 TTFT/TPOT（15 token prompt）、
+`/fnx/loss`（200 token）、`tools/mcq_eval.py`（24 题）。
+
+#### 4.22.2 关键技术路线，与我此前判断的对照
+
+| 方向 | 我 r48 的判断 | r55 的实际做法 | 结论 |
+|---|---|---|---|
+| 分块 prefill | "单独上线是负收益，必须先有分块图捕获" | 分块 + **分块 NPUGraph**（4096/512/128 三张图 + 独立图内存池） | ✅ "需要图捕获"对；"负收益"只适用于**无图**版本 |
+| grouped MoE | "实测慢 3.7×，别再投入" | **expert-major 重排**（`tools/repack_w4_em.py`）+ `GroupedMatmulV5`（WQBM **不支持三维 batch**，报 `x dim should be [2,2]`）；单层 T=128：逐 token 44 ms → **7.5 ms** | ❌ **我的否证只适用于"per-expert 小调用 + WQBM"**；换 GMM 后分组是正收益 |
+| DeltaNet 递推 | "分 32-token 块"（借鉴 Strata） | **FP32 分块 + 8×8 对角块预处理 + 最多 8 级块下三角求解**；64/128/512 在相关 key 压力下输出相对差 ≤2.2e-6 | ✅ 方向一致，且比"直接求 64 行幂"稳（后者被真实相关 key 淘汰） |
+| 长上下文注意力 | "16k 是硬上限，>2048 与模型不符" | **QSA sparse indexer**（4 head/128 维、每 4 个 raw key 均值池化、RMSNorm+RoPE、`sum(relu(QK))/sqrt(128)` 选 512 整块）+ BF16 连续 KV + BSND 融合注意力 | ❌ 上限是**我的实现**的限制 |
+| 双卡划分 | "dev1 图捕获不可用 ⇒ 只能 45+3" | **每卡一个独立进程、各 24 层**，受限文件映射缓冲区传 hidden state，两阶段流水 | ❌ "dev1 不能捕获"只对**单进程跨卡**成立 |
+| 质量门控 | NLL ±0.03 / MCQ | **NLL 门限 0.01** + 长文三事实 + 越界 400 + 缓存复用一致性；被拒候选：低精度 router/激活（2.1858）、FP32 decode BMM（2.1772） | ✅ 一致且更严 |
+
+#### 4.22.3 现网配置与运维
+
+```bash
+FNX_PIPELINE=1 FNX_PIPELINE_DEVICE1=1 FNX_PIPELINE_SPLIT=24 FNX_LPC=24
+FNX_CTX=262144 FNX_CHUNK=4096 FNX_CHUNK_SIZES=4096,512,128 FNX_CHUNK_POOL=private FNX_CHUNK_GRAPH=1
+FNX_INDEXER=1 FNX_QSA_SPARSE=1 FNX_INDEX_CACHE=1 FNX_INDEX_TILE=512 FNX_QSA_TILE=128 FNX_SPARSE_FLASH=1
+FNX_MOE_GROUP=1 FNX_MOE_GROUP_SPLIT=0 FNX_PREFILL_DN=fp32_chunk FNX_DELTA_SOLVER=blockmatmul
+FNX_KV_POSITION_MAJOR=1 FNX_CONV_CACHE=1 FNX_CACHE_GPU=1 FNX_MOE_FAST=1
+FNX_MOE_ROUTER_FAST=0 FNX_MOE_ACT_BF16=0 FNX_DN_DECODE_BMM=0 FNX_GRAPH_G1=0 FNX_GRAPH_HEAD=0
+```
+
+- `/health` 应返回 `ctx=262144, pipeline_stages=2, worker_alive=true, chunk_graph=true, qsa_indexer=true, qsa_sparse=true`；
+- 权重：`…-Q`(178 GB) / `…-LQP`(59 GB) / `…-LQP-w4a16`(59 GB) / **`…-LQP-w4a16-em`（expert-major，第 50 轮新增）**；
+- 回滚：`bash /root/ascend-dev/r55_rollback.sh`；部署前备份 `/root/ascend-dev/r55/predeploy.tgz`；
+- 产物与日志：`/root/ascend-dev/r49 … r55/`、`logs/r49_*.log … r55_*.log`。
+
+#### 4.22.4 仍未闭合
+
+1. **decode 的 54–56 ms/token 是当前最大项**：expert-major + GMM 只用在了 prefill，decode 仍走逐 token WQBM；
+   而 `FNX_MOE_FAST` 在图内零收益（§4.21.6）。
+2. **长位置 decode 更慢**（>2k 位置约 90 ms/token），索引器选块与 8k 窗口仍有成本；需要"短图/长图"两条路径继续压。
+3. **并发/批量**：现网 `FNX_BATCH=1`，indexer 与分块均限单序列；用 M 维摊薄权重
+   （实测单次 WQBM 成本与 M 几乎无关）是把吞吐再推一档的最直接手段。
+4. **逐位等价性**：r50 起已非逐位等价（路由/累加顺序变化），质量靠配对 NLL/KL/top1 与检索门禁把关。
+
+
 
 
 

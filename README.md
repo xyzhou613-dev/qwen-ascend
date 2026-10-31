@@ -5,10 +5,11 @@
 不依赖 vLLM / MindIE / ATB 图引擎：手写 model forward + `torch_npu` NPUGraph 捕获 + 自研 W4 打包/解包，
 在**单机双卡 128 GiB 显存**里跑完 48 层，OpenAI 兼容 HTTP 服务。
 
-> **当前状态：基线 `baseline-r48`**（r48 新增分块 prefill 能力；质量与速度与 r46 逐位一致）
-> `mean_nll = 2.1648`（ppl 8.713）/ `top1 = 48.0%` / 24 题单选题 **24/24**
-> **TPOT 63.7 / 63.5 ms（15.7 tok/s）**，prefill **61.7–70.7 ms/token**（293 → 16025 token 的 prompt）
-> TTFT 热态 0.08 s，冷启动 ≈30 s，上下文上限 16k（32k 启动 OOM），dev0 显存 58.97 GiB
+> **当前状态：基线 `baseline-r55`**（现网部署：双进程流水 + 分块图 prefill + 稀疏 QSA + grouped MoE + 256k 上下文）
+> **256k 新 prompt**：prefill **2,246.9 tok/s**、TTFT **117.86 s**、decode **55.97 ms/token（17.87 tok/s）**、长文三事实检索 **3/3**
+> **8k 新 prompt**：TTFT **6.99 s**、端到端 14.1 s、TPOT 55.96 ms
+> 短请求：TPOT **54.1 ms（18.5 tok/s）**（本仓库独立实测）；`mean_nll 2.1653`（基线 2.1648）、MCQ **24/24（0.52 s/题）**
+> 显存：dev0 **56.0 GB** / dev1 **56.6 GB**（两卡均衡），`FNX_CTX=262144`、48 层按 24+24 切分
 >
 > 提速主线（第 37/38 轮）：**把整数权重的反量化全部搬进 Cube** —— 用 CANN 现成的
 > `torch_npu.npu_weight_quant_batchmatmul`（aclnn per-group）替掉"每 token 反量化 + bf16 GEMM"：
@@ -17,11 +18,28 @@
 > `mean_nll` 从 2.1756 → r38 的 **2.1665**（中间不再落 bf16，累加更准）→ r39 的 2.1735（拼接改变 GEMM 累加顺序），MCQ 仍 24/24。
 > 四个开关：`FNX_MOE_W4A16` / `FNX_DENSE_W8` / `FNX_DENSE_CAT` / `FNX_SMALL_MERGE`。详见 `docs/…第37/38/39轮实测记录.md`。
 >
-> **第 48 轮（分块 prefill）**：`FnLayer.forward_chunk` + `FnModel.prefill_chunk`（`FNX_CHUNK>1`），
-> 与生产逐 token 路径**逐位等价**（`tests/t_chunk_state.py` 全部 `0.000e+00`）。实测稠密+注意力+递推摊薄 **8.6×**
-> （156 → 18.1 ms/token，T=32 饱和），但 **MoE 恒 ~60 ms/token 不摊薄** ⇒ chunk=128 的 75.8 ms/token
-> 仍比生产 61.7 慢 1.23×，生产 `FNX_CHUNK` **保持 1**。结论：prefill 与 decode 的瓶颈是同一个
-> —— MoE 专家权重读取；下一步是 MoE 并集 + 按专家分组 GEMM。详见 `docs/…第48轮实测记录.md` 与 §4.21。
+> **第 49–55 轮（外部并入，现网版本）**：① 分块 + **分块图捕获** prefill（r49，2.1×）；
+> ② **expert-major 重排 + GroupedMatmulV5** 的 grouped MoE + FP32 分块 DeltaNet（r50，prefill 24.8 → **558.6 tok/s**）；
+> ③ **稀疏 QSA indexer + BF16 连续 KV** 打开长上下文（r52/53，8k → 256k）；
+> ④ **每卡独立进程、24+24 流水**（r54/55，256k TTFT **117.9 s**、decode **55.97 ms**）。
+> 架构总览与"哪些 r48 结论被推翻"见技术文档 **§4.22**；各轮细节见 `docs/…第49 … 第54-55轮…`。
+>
+> **已知边界**：256k 是单次新 prompt 的实测，不代表所有输入/并发下的延迟保证；decode 的 54–56 ms/token 仍是最大项
+> （expert-major 只用于 prefill）；`FNX_BATCH=1`，未做并发批量。
+
+>
+> 提速主线（第 37/38 轮）：**把整数权重的反量化全部搬进 Cube** —— 用 CANN 现成的
+> `torch_npu.npu_weight_quant_batchmatmul`（aclnn per-group）替掉"每 token 反量化 + bf16 GEMM"：
+> 专家段（W4A16）一层 1.0 → 0.32 ms，稠密段（W8）一层 0.953 → 0.263 ms，
+> 再把共用输入的投影（qkv+z / b+a / mixer down+inj / shared gate+up）拼成一次调用。TPOT 110.3 → **65.8 ms（−40%）**，prefill 105 → **67.7 ms/token**，
+> `mean_nll` 从 2.1756 → r38 的 **2.1665**（中间不再落 bf16，累加更准）→ r39 的 2.1735（拼接改变 GEMM 累加顺序），MCQ 仍 24/24。
+> 四个开关：`FNX_MOE_W4A16` / `FNX_DENSE_W8` / `FNX_DENSE_CAT` / `FNX_SMALL_MERGE`。详见 `docs/…第37/38/39轮实测记录.md`。
+>
+> **第 48 轮（分块 prefill，已被第 49–55 轮接续）**：`FnLayer.forward_chunk` + `FnModel.prefill_chunk`（`FNX_CHUNK>1`），
+> 与当时的生产逐 token 路径**逐位等价**（`tests/t_chunk_state.py` 全部 `0.000e+00`）。当时实测稠密+注意力+递推摊薄 **8.6×**
+> （156 → 18.1 ms/token，T=32 饱和），但 MoE 不摊薄 ⇒ 无图版 chunk=128 的 75.8 ms/token 比当时的 61.7 慢 1.23×。
+> **该"负收益"结论已在 r49 被修正**：补上分块图捕获后分块 prefill 转为正收益（2.1×，r49），
+> 分组 MoE 在改用 GroupedMatmulV5 后也是正收益（r50）。详见 `docs/…第48轮实测记录.md`、§4.21 与 §4.22。
 
 
 ---

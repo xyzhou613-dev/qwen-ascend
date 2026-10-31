@@ -11,15 +11,12 @@ from .load import QDIR, SRCDIR, NgramTable, load_layer, load_nonlayer
 
 MASK64 = (1 << 64) - 1
 SIGN64 = 1 << 63
-# 是否把 dev1 那半边也捕获成图。默认 0 = 不捕获：
-# 实测 dav-c220 上 NPUGraph 的跨设备段重放不生效（dev1 等于空转），
-# 会让 48 层 mean_nll 从 5.67 退化到 12.51、输出变成 token 沙拉。
+# dev1 capture is opt-in. Always pass its stream explicitly to graph():
+# the process-wide default capture stream may belong to dev0.
 _CAP_G1 = os.environ.get("FNX_GRAPH_G1", "0")
 # 从第几层开始把专家权重 offload 到宿主锁页（默认 999 = 不 offload）
 _OFFLOAD_FROM = int(os.environ.get("FNX_OFFLOAD_FROM", "999"))
-# head 的 device 部分（mixer + lm_head）是否入图。**默认关**：
-# 实测能省 0.84 ms/步，但会破坏正确性（mean_nll 从 3.18 退化到 12.61、输出变 token 沙拉）。
-# 与 dev1 的图一样，这块平台上的 NPUGraph 只有 dev0 的 body0 是可用的。
+# Capture the mixer and lm_head on an explicit stream of head_dev.
 _CAP_GH = os.environ.get("FNX_GRAPH_HEAD", "0") == "1"
 # "0"=不捕获 dev1；"1"=整段 body1 捕获（实测跨设备重放无效）；"layer"=**每层一张单设备图**
 # 每层一张图是绕开"NPUGraph 跨设备段无效"的关键：图只含 dev1 上的单层内核，
@@ -33,7 +30,7 @@ def _s64(v):
 
 class FnModel:
     def __init__(self, P=2048, lpc=24, dev0="npu:0", dev1="npu:1", verbose=True,
-                 nlayers=None, with_head=True, with_ngram=True):
+                 nlayers=None, with_head=True, with_ngram=True, layer_start=0):
         cfg = json.load(open(os.path.join(SRCDIR, "config.json")))["text_config"]
         if os.environ.get("FNX_NO_NGRAM") == "1":     # ★消融开关，见 engine._NO_PLE 注释
             with_ngram = False
@@ -49,8 +46,8 @@ class FnModel:
         dev_h1 = dev1 if self.n > lpc else dev0
 
         lt_ = self.lt[: self.n]
-        n_full0 = sum(1 for t in lt_[:lpc] if t in E.FULL_TYPES)
-        n_full1 = sum(1 for t in lt_ if t in E.FULL_TYPES) - n_full0
+        n_full0 = sum(1 for t in lt_[layer_start:lpc] if t in E.FULL_TYPES)
+        n_full1 = sum(1 for t in lt_[layer_start:] if t in E.FULL_TYPES) - n_full0
         self.kv0 = E.KVStore(P, dev0, n_full0)
         self.kv1 = E.KVStore(P, dev_h1, n_full1)
 
@@ -87,7 +84,7 @@ class FnModel:
         i0 = i1 = 0
         n_off = 0
         off_bytes = 0
-        for i in range(self.n):
+        for i in range(layer_start, self.n):
             on0 = i < lpc
             dev = dev0 if on0 else dev1
             ltype = "ple" if i == E.PLE_LAYER else ("full" if lt_[i] in E.FULL_TYPES else "linear")
@@ -106,6 +103,8 @@ class FnModel:
             del W
             tc = time.time()
             if ltype == "full":
+                if L.index_enabled:
+                    L.index_k = torch.zeros(P, 128, dtype=torch.bfloat16, device=dev)
                 if on0:
                     L.kv, L.ki = self.kv0, i0
                     i0 += 1
@@ -116,8 +115,8 @@ class FnModel:
             if self.verbose:
                 self._log(f"  layer {i:2d} type={ltype:5s} load {tb-ta:6.1f}s init {tc-tb:5.1f}s "
                           f"累计 {time.time()-t0:6.1f}s  "
-                          f"hbm0={torch.npu.memory_allocated(0)/2**30:5.2f}GiB "
-                          f"hbm1={torch.npu.memory_allocated(1)/2**30:5.2f}GiB")
+                          f"hbm0={torch.npu.memory_allocated(self.dev0)/2**30:5.2f}GiB "
+                          f"hbm1={torch.npu.memory_allocated(self.dev1)/2**30:5.2f}GiB")
             if True:
                 torch.npu.empty_cache()
 
@@ -134,6 +133,9 @@ class FnModel:
         self.h1 = torch.zeros(_B, 1, E.HCH, dtype=torch.bfloat16, device=dev_h1)
         self.logits = torch.zeros(_B, E.VOCAB, dtype=torch.bfloat16, device=head_dev)
         self.ctx = [E.NG_EOS] * E.NG_CTX            # 仅 B=1 的 n-gram 路径用
+        self._host_pos = 0
+        self.g0_short = None
+        self.g1_short = None
         self.h_host = torch.zeros(_B, 1, E.HCH, dtype=torch.bfloat16)  # cross-device staging (P2P unavailable)
         self.table = None
         # ★ 图捕获用的旁路 stream。replay 必须回到**同一条 stream** 上：
@@ -152,8 +154,8 @@ class FnModel:
             self.head_off = [int(x) for x in sd[pe + "ngram_heads_offsets"].tolist()]
             del sd
         self._log(f"装配完成 {time.time()-t0:.1f}s  "
-                  f"hbm0={torch.npu.memory_allocated(0)/2**30:.2f}GiB "
-                  f"hbm1={torch.npu.memory_allocated(1)/2**30:.2f}GiB")
+                  f"hbm0={torch.npu.memory_allocated(self.dev0)/2**30:.2f}GiB "
+                  f"hbm1={torch.npu.memory_allocated(self.dev1)/2**30:.2f}GiB")
         if n_off:
             self._log(f"[offload] {n_off} 层的专家权重在宿主锁页：{off_bytes/2**30:.1f} GiB")
 
@@ -239,6 +241,13 @@ class FnModel:
         for L in self.layers0 + self.layers1:
             if getattr(L, "S", None) is not None:
                 ts.append(L.S)
+            ts.append(L.conv)
+            if getattr(L, "ple_conv", None) is not None:
+                ts.append(L.ple_conv)
+            if getattr(L, "index_k", None) is not None:
+                ts.append(L.index_k)
+            if getattr(L, "index_keys", None) is not None:
+                ts.append(L.index_keys)
         return ts
 
     def _snap(self):
@@ -289,6 +298,21 @@ class FnModel:
             with torch.npu.device(self.dev0), torch.npu.graph(self.g0, capture_error_mode="relaxed"):
                 self.body0()
             torch.npu.synchronize()
+            if E.B == 1 and self.kv0.P > 2048 and any(L.index_enabled for L in self.layers0):
+                self.pos0.zero_()
+                for L in self.layers0:
+                    L.short_qsa = True
+                self.body0()
+                torch.npu.synchronize()
+                self.g0_short = torch.npu.NPUGraph()
+                try:
+                    with torch.npu.device(self.dev0), torch.npu.graph(
+                            self.g0_short, pool=self.g0.pool(), capture_error_mode="relaxed"):
+                        self.body0()
+                finally:
+                    for L in self.layers0:
+                        L.short_qsa = False
+                torch.npu.synchronize()
             if self.layers1 and _CAP_G1 == "layer":
                 # ★ 每层一张**单设备**图（只含 dev1 上的这一层）：
                 # 绕开"整段 body1 的图跨设备重放不生效"的限制。层间靠固定缓冲区 self.h1 串联。
@@ -298,7 +322,7 @@ class FnModel:
                     self._g1_list = []
                     for L in self.layers1:
                         g = torch.npu.NPUGraph()
-                        with torch.npu.stream(s1), torch.npu.graph(g, capture_error_mode="relaxed"):
+                        with torch.npu.stream(s1), torch.npu.graph(g, stream=s1, capture_error_mode="relaxed"):
                             self.h1.copy_(L.forward(self.h1, self.pos1))
                         torch.npu.synchronize()
                         self._g1_list.append(g)
@@ -313,7 +337,7 @@ class FnModel:
                 self._gs1 = s1
                 with torch.npu.device(self.dev1):
                     self.g1 = torch.npu.NPUGraph()
-                    with torch.npu.stream(s1), torch.npu.graph(self.g1, capture_error_mode="relaxed"):
+                    with torch.npu.stream(s1), torch.npu.graph(self.g1, stream=s1, capture_error_mode="relaxed"):
                         self.body1()
                 torch.npu.synchronize()
             if self.with_head and _CAP_GH and self.head_dev == self.dev0:
@@ -380,6 +404,10 @@ class FnModel:
         for L in self.layers0 + self.layers1:
             if hasattr(L, "S"):
                 L.S[r].zero_()
+            if getattr(L, "index_k", None) is not None:
+                L.index_k.zero_()
+            if getattr(L, "index_keys", None) is not None:
+                L.index_keys.zero_()
             L.conv[r].zero_()
             if getattr(L, "use_ple", False):
                 L.ple_conv[r].zero_()
@@ -390,10 +418,82 @@ class FnModel:
                 t[r].zero_()
         self.pos0[r] = 0
         self.pos1[r] = 0
+        self._host_pos = 0
         self.h0[r].zero_()
         self.h1[r].zero_()
         self.emb_buf[r].zero_()
         torch.npu.synchronize()
+
+    def _chunk_body0(self):
+        h = self.emb_chunk.repeat(1, 1, E.HC)
+        for layer in self.layers0:
+            h = layer.forward_chunk(h, self.pos0, E._CHUNK)
+        self.chunk_h0.copy_(h)
+
+
+    @torch.no_grad()
+    def capture_chunk(self):
+        """Capture several fixed sizes so prompt tails can also use graphs."""
+        maximum = E._CHUNK
+        sizes = {maximum}
+        sizes.update(int(s) for s in os.environ.get("FNX_CHUNK_SIZES", str(maximum)).split(","))
+        sizes = sorted((s for s in sizes if 1 < s <= maximum), reverse=True)
+        base = self.emb_chunk
+        fields = ("gc", "gc_short", "chunk_h0")
+        self.chunk_graphs = {}
+        try:
+            for size in sizes:
+                E._CHUNK = size
+                self.emb_chunk = base[:size]
+                self._capture_chunk_size()
+                self.chunk_graphs[size] = {f: getattr(self, f, None) for f in fields}
+        finally:
+            E._CHUNK = maximum
+            self.emb_chunk = base
+        for name, value in self.chunk_graphs[maximum].items():
+            setattr(self, name, value)
+
+    @torch.no_grad()
+    def _capture_chunk_size(self):
+        """Capture fixed-size prefill on dev0, sharing decode's memory pool.
+
+        Replay is serialized with decode. dev1 stays eager, as in production.
+        Caller must reset/restore model state after capture.
+        """
+        if E.B != 1 or E._CHUNK <= 1:
+            raise ValueError("chunk capture requires FNX_BATCH=1 and FNX_CHUNK>1")
+        self.chunk_h0 = torch.zeros(E._CHUNK, 1, E.HCH, dtype=torch.bfloat16,
+                                    device=self.dev0)
+        self.emb_chunk.zero_()
+        self.pos0.zero_()
+        self.gc = None
+        with torch.npu.device(self.dev0):
+            stream = torch.npu.Stream()
+            self._chunk_stream = stream
+            with torch.npu.stream(stream):
+                for _ in range(2):
+                    self._chunk_body0()
+                torch.npu.synchronize(self.dev0)
+                graph = torch.npu.NPUGraph()
+                pool = self.g0.pool() if self.g0 is not None and os.environ.get("FNX_CHUNK_POOL", "shared") == "shared" else None
+                with torch.npu.graph(graph, stream=stream, pool=pool, capture_error_mode="relaxed"):
+                    self._chunk_body0()
+                self.gc_short = None
+                if self.g0_short is not None and E._CHUNK <= 2048:
+                    for L in self.layers0:
+                        L.short_qsa = True
+                    try:
+                        self._chunk_body0()
+                        torch.npu.synchronize(self.dev0)
+                        self.gc_short = torch.npu.NPUGraph()
+                        with torch.npu.graph(self.gc_short, stream=stream, pool=pool, capture_error_mode="relaxed"):
+                            self._chunk_body0()
+                    finally:
+                        for L in self.layers0:
+                            L.short_qsa = False
+            torch.npu.synchronize(self.dev0)
+            self.gc = graph
+        self.reset()
 
     @torch.no_grad()
     def prefill_chunk(self, ids):
@@ -408,8 +508,12 @@ class FnModel:
         由调用方用正常的 `step()` 走（它会产出 logits）。
         """
         T = E._CHUNK
+        if E.B != 1 or T < 1:
+            raise ValueError("prefill_chunk requires FNX_BATCH=1 and a positive chunk size")
         pos0 = int(self.pos0[0])
         n = len(ids)
+        if pos0 + n > self.kv0.P:
+            raise ValueError("prefill exceeds allocated context")
         i = 0
         if self.emb_chunk.shape[0] < min(T, n):
             # 装载期按 E._CHUNK 分配；测试/服务里改 E._CHUNK 后按需扩容
@@ -417,23 +521,40 @@ class FnModel:
                                          dtype=torch.bfloat16, device=self.dev0)
         while i < n:
             m = min(T, n - i)
+            bundle = None
+            sizes = getattr(self, "chunk_graphs", {})
+            eligible = [size for size in sizes if size <= m]
+            if eligible:
+                m = max(eligible)
+                bundle = sizes[m]
             toks = [int(x) for x in ids[i:i + m]]
             if self.emb_chunk.shape[0] < m:
                 self.emb_chunk = torch.zeros(m, 1, E.H, dtype=torch.bfloat16,
                                              device=self.dev0)
             buf = self.emb_chunk[:m]
             buf.view(-1).copy_(self.embed_rows(toks).view(-1))
-            h = buf.repeat(1, 1, E.HC)                     # [m,1,HCH]
-            for L in self.layers0:
-                h = L.forward_chunk(h, pos0, m)
+            if bundle is not None or (m == E._CHUNK and getattr(self, "gc", None) is not None):
+                with torch.npu.device(self.dev0):
+                    active = bundle or {"gc": self.gc, "gc_short": self.gc_short,
+                                        "chunk_h0": self.chunk_h0}
+                    graph = active["gc_short"] if pos0 + m <= 2048 and active["gc_short"] is not None else active["gc"]
+                    graph.replay()
+                h = active["chunk_h0"]
+            else:
+                h = buf.repeat(1, 1, E.HC)                     # [m,1,HCH]
+                for L in self.layers0:
+                    h = L.forward_chunk(h, pos0, m)
+            self.prefill_hidden = h
             if self.layers1:
                 # 跨卡中转：dev0 -> host -> dev1（每块一次，不再每 token 一次）
                 hh = h.cpu().to(self.dev1)
                 with torch.npu.device(self.dev1):
                     for L in self.layers1:
+                        L.short_qsa = pos0 + m <= 2048 and L.index_enabled
                         hh = L.forward_chunk(hh, pos0, m)
             self.pos0.add_(m)
             self.pos1.add_(m)
+            self._host_pos += m
             self.ctx = (self.ctx + toks)[-len(self.ctx):]
             pos0 += m
             i += m
@@ -461,12 +582,17 @@ class FnModel:
         self.emb_buf.view(-1).copy_(self.embed_rows(toks).view(-1))
         if self.table is not None:
             self.ngram_emb.copy_(self.table.gather(self.ngram_ids(toks[0])))
+        short = E.B == 1 and self._host_pos < 2048
+        for L in self.layers1:
+            L.short_qsa = short and L.index_enabled
         if self.g0 is not None:
-            self.g0.replay()
+            graph = self.g0_short if short and self.g0_short is not None else self.g0
+            graph.replay()
         else:
             self.body0()
-        self.h_host.copy_(self.h0)
-        self.h1.copy_(self.h_host)
+        if self.layers1 or self.with_head:
+            self.h_host.copy_(self.h0)
+            self.h1.copy_(self.h_host)
         if self.layers1:
             if self._g1_list:
                 # replay 走**默认流**：中转拷贝 `h1.copy_(h_host)` 是在默认流上做的，
@@ -489,6 +615,7 @@ class FnModel:
                 self.head()
         self.pos0.add_(1)
         self.pos1.add_(1)
+        self._host_pos += 1
         if E.B == 1:
             self.ctx = self.ctx[1:] + [toks[0]]
 
@@ -497,6 +624,10 @@ class FnModel:
             if hasattr(L, "S"):
                 L.S.zero_()
             L.conv.zero_()
+            if getattr(L, "index_k", None) is not None:
+                L.index_k.zero_()
+            if getattr(L, "index_keys", None) is not None:
+                L.index_keys.zero_()
             if L.use_ple:
                 L.ple_conv.zero_()
         for st in (self.kv0, self.kv1):
@@ -506,11 +637,12 @@ class FnModel:
                 t.zero_()
         self.pos0.zero_()
         self.pos1.zero_()
+        self._host_pos = 0
         self.ctx = [E.NG_EOS] * E.NG_CTX
         torch.npu.synchronize()
 
     @torch.no_grad()
-    def save_state(self):
+    def save_state(self, to_host=False, compact=None):
         """★ 递归状态快照：把 reset() 会清零的全部状态克隆一份。
 
         用途 = 前缀缓存。实测（第 30 轮）：聊天模板的静态前缀（system 提示 + 脚手架）
@@ -518,16 +650,28 @@ class FnModel:
         而「你好」总共只有 53 token。把这段前缀跑一次、快照状态，之后每请求
         load_state 覆盖（~ms 级）即可省掉这 45 步。
         """
-        st = {"pos0": self.pos0.clone(), "pos1": self.pos1.clone(),
+        copy = (lambda t: t.cpu()) if to_host else (lambda t: t.clone())
+        if compact is None:
+            compact = to_host and E.B == 1 and os.environ.get("FNX_COMPACT_STATE", "1") == "1"
+        compact = compact and E.B == 1
+        n = int(self.pos0[0]) if compact else self.P
+        kv_copy = lambda t: copy(t[:, :, :n])
+        st = {"pos0": copy(self.pos0), "pos1": copy(self.pos1),
               "ctx": list(self.ctx), "layers": [],
-              "kv0": ([t.clone() for t in self.kv0.k], [t.clone() for t in self.kv0.v]),
-              "kv1": ([t.clone() for t in self.kv1.k], [t.clone() for t in self.kv1.v])}
+              "kv0": ([kv_copy(t) for t in self.kv0.k], [kv_copy(t) for t in self.kv0.v]),
+              "kv1": ([kv_copy(t) for t in self.kv1.k], [kv_copy(t) for t in self.kv1.v])}
+        if compact:
+            st["valid_len"] = n
         for L in self.layers0 + self.layers1:
-            d = {"conv": L.conv.clone()}
+            d = {"conv": copy(L.conv)}
+            if getattr(L, "index_k", None) is not None:
+                d["index_k"] = copy(L.index_k[:n])
+            if getattr(L, "index_keys", None) is not None:
+                d["index_keys"] = copy(L.index_keys[:(n + 3) // 4])
             if hasattr(L, "S"):
-                d["S"] = L.S.clone()
+                d["S"] = copy(L.S)
             if getattr(L, "use_ple", False):
-                d["ple_conv"] = L.ple_conv.clone()
+                d["ple_conv"] = copy(L.ple_conv)
             st["layers"].append(d)
         return st
 
@@ -536,8 +680,14 @@ class FnModel:
         """恢复 save_state() 的快照。不先 reset：直接覆盖更快，且语义完全等价。"""
         self.pos0.copy_(st["pos0"])
         self.pos1.copy_(st["pos1"])
+        self._host_pos = int(st["pos0"][0])
         self.ctx = list(st["ctx"])
+        n = st.get("valid_len", self.P)
         for L, d in zip(self.layers0 + self.layers1, st["layers"]):
+            if "index_k" in d:
+                L.index_k[:n].copy_(d["index_k"])
+            if "index_keys" in d:
+                L.index_keys[:(n + 3) // 4].copy_(d["index_keys"])
             if "S" in d:
                 L.S.copy_(d["S"])
             L.conv.copy_(d["conv"])
@@ -545,9 +695,9 @@ class FnModel:
                 L.ple_conv.copy_(d["ple_conv"])
         for kv, (sk, sv) in ((self.kv0, st["kv0"]), (self.kv1, st["kv1"])):
             for t, s in zip(kv.k, sk):
-                t.copy_(s)
+                t[:, :, :n].copy_(s)
             for t, s in zip(kv.v, sv):
-                t.copy_(s)
+                t[:, :, :n].copy_(s)
         torch.npu.synchronize()
 
     @torch.no_grad()
@@ -557,20 +707,28 @@ class FnModel:
         实测教训：每请求 `save_state()` clone 100 多块不等的张量会让 HBM 占用
         从 58.9 GB 涨到 63.6 GB（碎片），所以槽位只在首次分配，之后一律 copy_ 复用。
         """
+        if "valid_len" in st and st["valid_len"] != int(self.pos0[0]):
+            st.update(self.save_state(to_host=st["pos0"].device.type == "cpu", compact=True))
+            return
+        n = st.get("valid_len", self.P)
         st["pos0"].copy_(self.pos0)
         st["pos1"].copy_(self.pos1)
         st["ctx"] = list(self.ctx)
         for L, d in zip(self.layers0 + self.layers1, st["layers"]):
             if "S" in d:
                 d["S"].copy_(L.S)
+            if "index_k" in d:
+                d["index_k"].copy_(L.index_k[:n])
+            if "index_keys" in d:
+                d["index_keys"].copy_(L.index_keys[:(n + 3) // 4])
             d["conv"].copy_(L.conv)
             if "ple_conv" in d:
                 d["ple_conv"].copy_(L.ple_conv)
         for kv, (sk, sv) in ((self.kv0, st["kv0"]), (self.kv1, st["kv1"])):
             for t, s in zip(kv.k, sk):
-                s.copy_(t)
+                s.copy_(t[:, :, :n])
             for t, s in zip(kv.v, sv):
-                s.copy_(t)
+                s.copy_(t[:, :, :n])
         torch.npu.synchronize()
 
     @staticmethod
