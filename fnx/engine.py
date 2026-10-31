@@ -192,11 +192,27 @@ def inv_freq(device):
     return 1.0 / (ROPE_THETA ** (idx / ROPE_DIM))
 
 
+_ROPE_TABLES = {}
+
+
 def rope_cs(pos, inv, dtype=torch.bfloat16):
     """pos: 0 维或 [B] int64 → (cos, sin) 形状 [ROPE_DIM] 或 [B, ROPE_DIM]。
 
     文本 mrope 退化为普通 RoPE；批处理时每个序列有自己的 pos。
     """
+    if os.environ.get("FNX_ROPE_CACHE", "0") == "1":
+        capacity = int(os.environ.get("FNX_CTX", "262144"))
+        key = (str(inv.device), dtype, capacity)
+        table = _ROPE_TABLES.get(key)
+        if table is None:
+            positions = torch.arange(capacity, device=inv.device, dtype=torch.float32)
+            angles = positions[:, None] * inv[None, :]
+            angles = torch.cat((angles, angles), -1)
+            table = torch.cat((angles.cos().to(dtype), angles.sin().to(dtype)), -1)
+            _ROPE_TABLES[key] = table
+        rows = table.index_select(0, pos.reshape(-1).to(torch.int64))
+        cos, sin = rows[:, :ROPE_DIM], rows[:, ROPE_DIM:]
+        return (cos[0], sin[0]) if pos.dim() == 0 else (cos, sin)
     f = pos.to(torch.float32)
     if f.dim() == 0:
         f = f * inv                     # [32]
