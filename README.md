@@ -5,12 +5,10 @@
 不依赖 vLLM / MindIE / ATB 图引擎：手写 model forward + `torch_npu` NPUGraph 捕获 + 自研 W4 打包/解包，
 在**单机双卡 128 GiB 显存**里跑完 48 层，OpenAI 兼容 HTTP 服务。
 
-> **当前状态：基线 `baseline-r48`**（r48 新增分块 prefill 能力；质量不变，速度有一处待查偏移）
-> `mean_nll = 2.1654`（ppl 8.72）/ `top1 = 48.5%` / 24 题单选题 **24/24**
-> **TPOT 73.6–74.1 ms（13.6 tok/s，本轮实测）** —— r46 记录值为 63.7–64.2 ms，
-> 同一配置下复测不到，差异待查（详见 `docs/…第48轮实测记录.md` §5，已排除热降频/脏状态/宿侧空隙/外部负载）。
-> prefill **61.7–70.7 ms/token**（293 → 16025 token 的 prompt，r47 口径），TTFT 热态 0.09 s，冷启动 ≈30 s
-> 上下文上限 16k（32k 启动 OOM），dev0 显存 59.53 GiB
+> **当前状态：基线 `baseline-r48`**（r48 新增分块 prefill 能力；质量与速度与 r46 逐位一致）
+> `mean_nll = 2.1648`（ppl 8.713）/ `top1 = 48.0%` / 24 题单选题 **24/24**
+> **TPOT 63.7 / 63.5 ms（15.7 tok/s）**，prefill **61.7–70.7 ms/token**（293 → 16025 token 的 prompt）
+> TTFT 热态 0.08 s，冷启动 ≈30 s，上下文上限 16k（32k 启动 OOM），dev0 显存 58.97 GiB
 >
 > 提速主线（第 37/38 轮）：**把整数权重的反量化全部搬进 Cube** —— 用 CANN 现成的
 > `torch_npu.npu_weight_quant_batchmatmul`（aclnn per-group）替掉"每 token 反量化 + bf16 GEMM"：

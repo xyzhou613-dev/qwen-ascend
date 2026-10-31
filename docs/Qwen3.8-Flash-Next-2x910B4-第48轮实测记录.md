@@ -88,29 +88,101 @@ bf16 下两者差 1 ulp，再经 MoE 的 `topk` 边界（专家集合一换就�
 
 > 注意 ④ 的实现前提：把 `ExpW4` 的容器从 `int4pack [K,E,N/8]` 改成 `[E,K,N/8]`，让"单专家切片"是连续内存（否则每个专家都要 `contiguous()` 拷 4.1 MB，反而更慢）。
 
+### 4.1 分组方案的第一轮实测（本轮末尾，待继续）
+
+在 dev1 上只加载 L00 的真实专家权重做了三路对照（T=128、每 token 10 专家、并集 470/512）：
+
+| 路径 | ms / 128 token | ms/token/层 |
+|---|---:|---:|
+| A 逐 token（生产路径） | 184.7 | **1.44** |
+| B 分组 + E-major 布局 | 589.0 | 4.60 |
+| C 分组 + 现有布局 + `contiguous()` | 643.7 | 5.03 |
+
+**分组反而慢 3.1×**，且单独测 `_wcat`（拷 10 专家 int4 权重）只要 **0.105 ms**（gu+dn 约 0.21 ms/token/层，仅占 A 的 1.44 里的 15%）。
+
+⇒ 两个重要推论：
+1. **拷贝不是瓶颈**，把布局改成 E-major 省不到什么；
+2. B 里 940 次单专家调用耗时 589 ms ⇒ **约 0.63 ms/次调用**，而 A 里 256 次调用耗时 184.7 ms ⇒ **约 0.72 ms/次调用** —— 单次成本几乎与 N（1280 vs 12800）无关。
+
+如果这个"每次调用约 0.6–0.7 ms 的固定开销"成立，那 MoE 的优化方向**不是减少权重流量，而是减少调用次数 / 提高每次调用的利用率**。
+但该探针跑在 npu:1（未设当前 device）且与生产共享卡，数字需要用干净卡复核（`tests/t_wqbm_calls.py` + `p342_calls.sh` 已就绪）。
+
+### 4.2 独占卡复核：MoE 的 911 µs 全是"算子个数 × 固定开销"
+
+`p342_calls.sh`（干净卡、真实形状）先证明**算子本身很便宜且对 M 不敏感**：
+
+| M | N | ms/call | GB/s |
+|---:|---:|---:|---:|
+| 1 | 1280 | 0.057 | 29 |
+| 1 | 12800 | 0.055 | 297 |
+| 128 | 1280 | 0.053 | 31 |
+| 128 | 12800 | 0.100 | 164 |
+| 128 | 51200 | 0.299 | 219 |
+
+⇒ 单次 `npu_weight_quant_batchmatmul` 有约 **50 µs 的固定成本**，M 从 1 到 128、N=1280 时耗时**完全不变**。
+
+`p343_moe_break.sh` 再把一层 MoE（B=1）逐算子拆开：
+
+| 算子 | µs |
+|---|---:|
+| `_scat(gu)`（`index_select` int8 → cast bf16 → ×base） | **123.7** |
+| `_scat(dn)` | **125.3** |
+| `silu*mul`（`.float()` 两条链 + 乘 + 回 bf16，算 10×640 个数） | **169.7** |
+| `WQBM dn`（`apply_diag`，内部又做一次 `_wcat`+`_scat`） | 283.8 |
+| `WQBM gu`（M=1, N=12800, K=2560） | 43.6 |
+| `_wcat(gu)` / `_wcat(dn)` | 33.3 / 34.4 |
+| `softmax` [1,512] / `topk(10)` | 26.9 / 29.6 |
+| 小 `index_select`（10 行） | 41.1 |
+| **合计** | **911 µs** |
+
+对照生产实测 1.33 ms/层/token（MoE 置零省下 60 ms/token ÷ 45 层），差额 0.42 ms 是共享专家与路由杂项。
+
+**三条可直接兑现的结论**：
+
+1. **GEMM 不是成本**（gu 只 43.6 µs）。真正的成本是 `_scat`、`silu*mul` 这类"转换链"上的**小算子个数**，
+   每个约 30–40 µs —— 911 µs 里约 700 µs 是这种固定开销。
+2. 修正 §4.1 的判断：分组更慢的主因不是共享卡噪声，而是**它把调用次数从 256 增到 940**
+   —— 在"每次 ~50 µs"的世界里，调用数是第一成本项，权重流量反而次要（`_wcat` 只占 15%）。
+3. ⇒ 下一步不是分组，而是**减少 `_moe` 里的算子个数**：
+   `_scat` 的 cast+mul 合成一步、`silu*mul` 全程留在 bf16、`apply_diag` 里重复的 `_wcat/_scat` 复用，
+   目标 911 → ~600 µs（decode 63.7 → ~50 ms，即 20 tok/s），且 prefill 里同样受益。
+
 ---
 
-## 5. 生产验收（本轮结束时实测，含一个未解决的异常）
+## 5. 生产验收（本轮结束时的最终实测）
 
-| 指标 | r46 记录值 | r48 本轮实测 | 判定 |
+| 指标 | r46 记录值 | r48 最终实测 | 判定 |
 |---|---|---|---|
-| `mean_nll`（eval_text 200 token） | 2.1648 | **2.1654** | ✅ 在 ±0.03 容差内 |
-| `ppl` / `top1` | 8.71 / 48.0% | 8.718 / 48.5% | ✅ |
-| 24 题单选题 | 24/24 | **24/24**（4.04 s/题） | ✅ |
-| 稳态 TPOT（128 token 输出） | 63.7 / 64.2 ms | **73.6–74.1 ms（13.6 tok/s）** | ⚠️ **慢 15%** |
-| dev0 显存 | 58.97 GiB | 59.53 GiB | ⚠️ 多 0.56 GiB |
-| TTFT（前缀命中 20/21） | 0.08 s | 0.09 s | ✅ |
+| `mean_nll`（eval_text 200 token） | 2.1648 | **2.1648** | 逐位相同 |
+| `ppl` / `top1` | 8.71 / 48.0% | 8.713 / 48.0% | 一致 |
+| 24 题单选题 | 24/24 | **24/24** | 一致 |
+| 稳态 TPOT（128 token 输出） | 63.7 / 64.2 ms | **63.7 / 63.5 ms** | 一致 |
+| dev0 显存 | 58.97 GiB | **58.97 GiB** | 一致 |
+| TTFT（前缀命中 20/21） | 0.08 s | 0.08 s | 一致 |
 
-**关于 TPOT 异常**：本轮的代码改动只落在 `_deltanet_chunk` / `_qsa_chunk` / `prefill_chunk` 三个函数里，
-`FNX_CHUNK=1`（生产配置）时**一行都不会执行**，所以理论上不可能影响 decode。已排除：
-- 不是热降频：停机 5 min 后复测仍 75.1–75.3 ms；
-- 不是脏状态：`systemctl stop` + `start` 干净重启后仍是 73.6–74.1 ms（4 次连续测量方差 <1 ms）；
-- 不是宿侧空隙：`/fnx/prof` 的 `tok_decode_ms` 只有 9.85 ms/128 token（可忽略）；
-- 不是外部负载：宿主 load average 1.3，64 核，服务进程仅占 0.53 核。
+### 5.1 过程中查到的两件事（都很值得记下来）
 
-`hbm0=59.53 GiB` 也在**上一版代码**（看护自动重启的那次）的日志里出现，说明显存差异早于本轮改动。
-⇒ 这是一个**独立于本轮工作的既有偏移**，需要在下一轮用"r47 代码 + msProf 设备/宿侧拆分"做 A/B 才能定位。
-**在它查清之前，本仓库不再宣称 63.7 ms 这个 TPOT。**
+**① 生产启动脚本被改成过实验配置，伪造出"15% 回归"。**
+
+本轮中途一度测到 TPOT 73.6–74.1 ms、dev0 59.53 GiB。逐项排除热降频（停机 5 min 复测仍 75）、
+脏状态（干净重启仍 73.6–74.1）、宿侧空隙（`tok_decode_ms` 仅 9.85 ms/128 token）、外部负载（load 1.3 / 64 核）后，
+`pgrep -af fnx.server` 暴露真相：**跑着的进程带的是 `FNX_LQP=…-LQP-g128` 和 `FNX_DEQ_ATTN=10`**，
+而不是 r47 的生产口径（plain LQP + `DEQ_ATTN=0`）。`/root/ascend-dev/p275.sh` 在 10:40 被改过
+（已存 `p275.sh.bak_g128`）。改回 r47 口径后：
+
+- dev0 **58.97 GiB**（g128 那份 59.53，差值 0.55 GiB 正是 `FNX_DEQ_ATTN` 预反量化多占的量）；
+- TPOT 63.7 / 63.5 ms、`mean_nll` **2.1648**，与本轮改动前**逐位一致**。
+
+⇒ **本轮的分块 prefill 代码没有任何性能回归**，那个"待查偏移"是启动脚本污染。
+教训：**报速度前先确认跑的是哪份启动脚本**（`pgrep -af fnx.server` 里带完整环境）。
+
+**② `systemctl stop` 不会杀掉容器里的服务进程。**
+
+`docker exec -d` 起的进程不在 systemd 的 cgroup 里，停服务后 NPU 显存仍被占着
+（本轮多次探针启动 OOM 就是这个原因）。p275.sh 里必须显式
+`docker exec fnx bash -lc "pkill -9 -f '[p]ython -m fnx.server'"`，该修正已写进脚本。
+
+---
 
 ## 6. 复现命令
 
@@ -123,10 +195,12 @@ bash /root/ascend-dev/p338_speed.sh
 bash /root/ascend-dev/p339_prod.sh
 # TPOT 单测（4 次）
 bash /root/ascend-dev/p340_tpot.sh
+# MoE 三路对照 / 单次调用成本（需独占卡）
+bash /root/ascend-dev/p341_moe_grp.sh
+bash /root/ascend-dev/p342_calls.sh
 # MCQ
 docker exec fnx bash -lc "cd /root/ascend-dev/fnx && /root/ascend-dev/venv/bin/python tools/mcq_eval.py"
 ```
 
-本轮改动文件：`backend/fnx/fnx/engine.py`（`forward_chunk`/`_deltanet_chunk`/`_qsa_chunk` + conv 归约修正 + 注意力切片）、`backend/fnx/fnx/model.py`（`prefill_chunk` + `emb_chunk` 按需扩容）、`backend/fnx/fnx/server.py`（`FNX_CHUNK` 分支）。
-探针：`tests/t_chunk_driver.py`、`t_chunk_fp.py`、`t_chunk_hook.py`、`t_chunk_state.py`、`t_chunk_speed.py`。
-
+本轮改动文件：`backend/fnx/fnx/engine.py`（`forward_chunk`/`_deltanet_chunk`/`_qsa_chunk` + conv 归约修正 + 注意力切片）、`backend/fnx/fnx/model.py`（`prefill_chunk` + `emb_chunk` 按需扩容）、`backend/fnx/fnx/server.py`（`FNX_CHUNK` 分支）、`backend/remote/p275.sh`（恢复 r47 生产口径 + 显式杀容器进程）。
+探针：`tests/t_chunk_driver.py`、`t_chunk_fp.py`、`t_chunk_hook.py`、`t_chunk_state.py`、`t_chunk_speed.py`、`t_moe_grp.py`、`t_wqbm_calls.py`。
