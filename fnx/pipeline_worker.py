@@ -26,10 +26,15 @@ def main():
                   with_head=True,with_ngram=False,verbose=False)
         stage_input=torch.zeros(1,1,E.HCH,device='npu:0',dtype=torch.bfloat16)
         stage_chunk=torch.zeros(maximum,1,E.HCH,device='npu:0',dtype=torch.bfloat16)
+        fused_head=os.environ.get('FNX_PIPELINE_FUSED_HEAD','0')=='1'
+        greedy=torch.zeros((),dtype=torch.int64,device='npu:0')
         def body():
             h=stage_input
             for L in m.layers0:h=L.forward(h,m.pos0)
             m.h0.copy_(h)
+            if fused_head:
+                m._head_device()
+                greedy.copy_(m.row_logits().argmax())
         def chunk_body():
             h=stage_chunk[:E._CHUNK]
             for L in m.layers0:h=L.forward_chunk(h,m.pos0,E._CHUNK)
@@ -62,10 +67,10 @@ def main():
                 graph=m.g0_short if m._host_pos<2048 and m.g0_short is not None else m.g0
                 if graph is not None:graph.replay()
                 else:body()
-                if with_head:m._head_device()
+                if with_head and not fused_head:m._head_device()
                 m.pos0.add_(1);m.pos1.add_(1);m._host_pos+=1
                 torch.npu.synchronize(0)
-                value=int(m.row_logits().argmax()) if with_head else None
+                value=int(greedy if fused_head else m.row_logits().argmax()) if with_head else None
             elif op=='sample':
                 temperature,=args
                 probs=torch.softmax(m.row_logits().float()/temperature,-1)
