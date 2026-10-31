@@ -21,6 +21,8 @@ from .model import FnModel
 
 MODEL_ID = "qwen3.8-flash-next-w4"
 P = int(os.environ.get("FNX_CTX", "2048"))
+# ★ 第 46 轮：分块 prefill 的块大小（1 = 关闭）
+_CHUNK = max(1, int(os.environ.get("FNX_CHUNK", "1")))
 # ★ 每请求分段计时开关：开时在 generate() 里插 torch.npu.synchronize() 才能拿到
 #   设备真实耗时（否则 replay 只是入队）。生产建议保持 0，排查时临时设 1。
 _PROF = os.environ.get("FNX_PROF", "0") == "1"
@@ -287,10 +289,23 @@ class Engine:
         pre = prompt_ids[n0:-1]
         n_pre = len(pre)
         every = max(1, n_pre // 8)
-        for i, x in enumerate(pre):
-            m.step_pad(int(x), with_head=False)
-            if n_pre >= 16 and (i + 1) % every == 0:
-                yield ("p", i + 1, n_pre)
+        # ★ 第 46 轮：分块 prefill（FNX_CHUNK>1）。一次算 T 个 token，稠密 GEMM 摊薄 ~30×；
+        #   DeltaNet 递推与 MoE 仍逐 token（第 ② 步再说）。最后一个 prompt token 不在这里算，
+        #   后面用正常 step() 出 logits。
+        if _CHUNK > 1 and n_pre >= _CHUNK:
+            done = 0
+            while done + _CHUNK <= n_pre:
+                m.prefill_chunk(pre[done:done + _CHUNK])
+                done += _CHUNK
+                if n_pre >= 16 and done // every != (done - _CHUNK) // every:
+                    yield ("p", done, n_pre)
+            for x in pre[done:]:
+                m.step_pad(int(x), with_head=False)
+        else:
+            for i, x in enumerate(pre):
+                m.step_pad(int(x), with_head=False)
+                if n_pre >= 16 and (i + 1) % every == 0:
+                    yield ("p", i + 1, n_pre)
         if synth:
             synth()
         t_c = time.perf_counter()

@@ -128,6 +128,8 @@ class FnModel:
         self.pos1 = torch.zeros(_B, dtype=torch.int64, device=dev_h1)
         self.ngram_emb = torch.zeros(_B, 1, E.H, dtype=torch.bfloat16, device=dev0)
         self.emb_buf = torch.zeros(_B, 1, E.H, dtype=torch.bfloat16, device=dev0)
+        # 分块 prefill 用的 token 缓冲（第 46 轮）：[CHUNK,1,H]
+        self.emb_chunk = torch.zeros(max(1, E._CHUNK), 1, E.H, dtype=torch.bfloat16, device=dev0)
         self.h0 = torch.zeros(_B, 1, E.HCH, dtype=torch.bfloat16, device=dev0)
         self.h1 = torch.zeros(_B, 1, E.HCH, dtype=torch.bfloat16, device=dev_h1)
         self.logits = torch.zeros(_B, E.VOCAB, dtype=torch.bfloat16, device=head_dev)
@@ -391,6 +393,43 @@ class FnModel:
         self.h0[r].zero_()
         self.h1[r].zero_()
         self.emb_buf[r].zero_()
+        torch.npu.synchronize()
+
+    @torch.no_grad()
+    def prefill_chunk(self, ids):
+        """★ 第 46 轮：分块 prefill（一次算 T 个 token，eager）。
+
+        为什么值得：prefill 原来逐 token 跑同一套 forward，每 token 都要把整层权重读一遍。
+        第 45 轮实测（真实 L00 权重）：稠密 GEMM T=32 时 32.7×、MoE 权重 31.1×。
+        分块只批量化"与时间无关"的部分（投影/GEMM/KV 行写/注意力），顺序依赖的
+        DeltaNet 递推仍逐 token。
+
+        语义：**只推进状态**（KV/conv/S/pos/ctx），不返回 logits —— 最后一个 prompt token
+        由调用方用正常的 `step()` 走（它会产出 logits）。
+        """
+        T = E._CHUNK
+        pos0 = int(self.pos0[0])
+        n = len(ids)
+        i = 0
+        while i < n:
+            m = min(T, n - i)
+            toks = [int(x) for x in ids[i:i + m]]
+            buf = self.emb_chunk[:m]
+            buf.view(-1).copy_(self.embed_rows(toks).view(-1))
+            h = buf.repeat(1, 1, E.HC)                     # [m,1,HCH]
+            for L in self.layers0:
+                h = L.forward_chunk(h, pos0, m)
+            if self.layers1:
+                # 跨卡中转：dev0 -> host -> dev1（每块一次，不再每 token 一次）
+                hh = h.cpu().to(self.dev1)
+                with torch.npu.device(self.dev1):
+                    for L in self.layers1:
+                        hh = L.forward_chunk(hh, pos0, m)
+            self.pos0.add_(m)
+            self.pos1.add_(m)
+            self.ctx = (self.ctx + toks)[-len(self.ctx):]
+            pos0 += m
+            i += m
         torch.npu.synchronize()
 
     def step(self, tok, with_head=True):

@@ -105,6 +105,8 @@ _DENSE_CAT = os.environ.get("FNX_DENSE_CAT", "1") == "1"
 #   ★ 第 39 轮：bf16 小权重里"共用输入"的也拼成一次 GEMM
 #   （mixer 的 down+inj、shared-expert 的 gate+up）。数值逐位不变。
 #   `FNX_SMALL_MERGE`: 0=不拼, 1(或 all)=都拼, mix=只拼 mixer, sh=只拼 shared-expert
+# ★ 第 46 轮：分块 prefill 的块大小 T（1 = 关闭，走原来的逐 token 路径）
+_CHUNK = max(1, int(os.environ.get("FNX_CHUNK", "1")))
 _CAT4 = os.environ.get("FNX_DENSE_CAT4", "0") == "1"       # 第 42 轮实测：4 合 1 不赚，默认关
 _DN_RMS = os.environ.get("FNX_DN_RMS", "1") == "1"       # DeltaNet 输出归一化用融合 rms_norm
 _INJECT_CM = os.environ.get("FNX_INJECT_CM", "0") == "1"   # 第 41 轮实测：addcmul 反而慢 ~0.5 ms，默认关
@@ -985,6 +987,131 @@ class FnLayer:
         att = torch.softmax(att.float(), dim=-1).to(torch.bfloat16)
         o = torch.matmul(att, Vv).view(b, NAH * HD)
         return lin(o * torch.sigmoid(gate.reshape(b, NAH * HD)), self.w_o)
+
+    # ---------- 分块（预填）路径：第 46 轮 ----------
+    # 动机：prefill 现在是逐 token 跑同一套 forward，每 token 都要把整层权重读一遍。
+    # 实测摊薄系数（第 45 轮，真实 L00 权重）：稠密 GEMM T=32 时 32.7×，MoE 权重 31.1×。
+    # 分块只批量化"与时间无关"的部分（投影/GEMM），顺序依赖的递推仍逐 token。
+    def _deltanet_chunk(self, h, T):
+        """h: [T,1,H]（同一个序列连续的 T 个位置）。返回 [T,1,H]。"""
+        if self.w_qkvz is not None:
+            qz = lin(h, self.w_qkvz)[:, 0]                      # [T, CONV+VAL(+2NVH)]
+            mq = qz[:, :CONV_DIM]
+            if self.qkvz_ba:
+                z = torch.sigmoid(qz[:, CONV_DIM:CONV_DIM + VAL_DIM].float()).view(T, NVH, HVD)
+                beta = torch.sigmoid(
+                    qz[:, CONV_DIM + VAL_DIM:CONV_DIM + VAL_DIM + NVH]).view(T, NVH, 1)
+                a = qz[:, CONV_DIM + VAL_DIM + NVH:]
+            else:
+                z = torch.sigmoid(qz[:, CONV_DIM:].float()).view(T, NVH, HVD)
+                beta = a = None
+        else:
+            mq = lin(h, self.w_qkv).view(T, CONV_DIM)
+            z = torch.sigmoid(lin(h, self.w_z).view(T, NVH, HVD).float())
+            beta = a = None
+        if beta is None:
+            if self.w_ab is not None:
+                ba = lin(h, self.w_ab)[:, 0]
+                beta = torch.sigmoid(ba[:, :NVH]).view(T, NVH, 1)
+                a = ba[:, NVH:]
+            else:
+                beta = torch.sigmoid(lin(h, self.w_b)).view(T, NVH, 1)
+                a = lin(h, self.w_a)
+        g = torch.exp((-torch.exp(self.A_log) * F.softplus(a.float() + self.dt_bias))
+                      .view(T, NVH))
+
+        # 卷积：把 3 列历史拼在左边，再按 4 个位移求和（与逐 token 的滑窗等价）
+        seq = torch.cat([self.conv[0], mq.transpose(0, 1)], dim=-1)      # [D, T+3]
+        w = self.conv_w                                                   # [D,4]
+        y = (w[:, 0:1] * seq[:, 0:T] + w[:, 1:2] * seq[:, 1:T + 1]
+             + w[:, 2:3] * seq[:, 2:T + 2] + w[:, 3:4] * seq[:, 3:T + 3])
+        y = F.silu(y).transpose(0, 1)                                     # [T,D]
+        self.conv.copy_(seq[:, T:T + 3].unsqueeze(0))
+        q, k, v = torch.split(y, [KEY_DIM, KEY_DIM, VAL_DIM], dim=-1)
+
+        rep = NVH // NKH
+        qa = l2norm(q.view(T, NKH, HKD)).repeat_interleave(rep, dim=1) / math.sqrt(HKD)
+        ka = l2norm(k.view(T, NKH, HKD)).repeat_interleave(rep, dim=1)
+        va = v.view(T, NVH, HVD)
+
+        # 递推（顺序依赖，只能逐 token；这里每 token 只有 6 个算子，且没有 GEMM）
+        S = self.S[0]
+        outs = []
+        for t in range(T):
+            St = S * g[t][:, None, None]
+            kv_mem = (St * ka[t].unsqueeze(-1)).sum(dim=-2)
+            delta = (va[t] - kv_mem) * beta[t]
+            St = St + ka[t].unsqueeze(-1) * delta.unsqueeze(-2)
+            outs.append((St * qa[t].unsqueeze(-1)).sum(dim=-2))
+            S = St
+        self.S[0].copy_(S)
+        o = torch.stack(outs, dim=0).to(torch.bfloat16)                   # [T,NVH,HVD]
+        if _DN_RMS:
+            xf = rms_norm(o, self.dn_norm_g).float() * z
+        else:
+            xf = o.float()
+            xf = xf * torch.rsqrt(xf.pow(2).mean(-1, keepdim=True) + EPS)
+            xf = self.dn_norm_w * xf.to(torch.bfloat16)
+            xf = xf * z
+        return lin(xf.to(torch.bfloat16).view(T, VAL_DIM), self.w_out)
+
+    def _qsa_chunk(self, h, pos0, T):
+        """h: [T,1,H]；pos0 是这 T 个 token 的起始位置。"""
+        pos = torch.arange(pos0, pos0 + T, dtype=torch.int64, device=self.dev)
+        cos, sin = rope_cs(pos, self.inv)                    # [T, ROPE_DIM]
+        cos, sin = cos.unsqueeze(1), sin.unsqueeze(1)         # [T,1,64] 广播到 head
+        if self.w_qkvf is not None:
+            qkv = lin(h, self.w_qkvf)[:, 0]
+            nq = NAH * 2 * HD
+            qg = qkv[:, :nq].reshape(T, NAH, 2 * HD)
+            k = rms_norm(qkv[:, nq:nq + KVH * HD].reshape(T, KVH, HD), self.kn_w)
+            v = qkv[:, nq + KVH * HD:].reshape(T, KVH, HD)
+        else:
+            qg = lin(h, self.w_q).view(T, NAH, 2 * HD)
+            k = rms_norm(lin(h, self.w_k).view(T, KVH, HD), self.kn_w)
+            v = lin(h, self.w_v).view(T, KVH, HD)
+        q = rms_norm(qg[..., :HD], self.qn_w)
+        gate = qg[..., HD:]
+        q = apply_rope(q, cos, sin)
+        k = apply_rope(k, cos, sin)
+
+        P = self.kv.P
+        kc, vc = self.kv.k[self.ki], self.kv.v[self.ki]       # [1,KVH,P,HD]
+        # 逐行写 pos（分块时一次写 T 行；eager 下 index_copy_ 可用，不必用 one-hot 广播）
+        kc[0].index_copy_(1, pos, k.transpose(0, 1).contiguous())
+        vc[0].index_copy_(1, pos, v.transpose(0, 1).contiguous())
+
+        Kr = kc[0].repeat_interleave(NAH // KVH, dim=0).unsqueeze(0)      # [1,NAH,P,HD]
+        Vr = vc[0].repeat_interleave(NAH // KVH, dim=0).unsqueeze(0)
+        qq = q.transpose(0, 1).unsqueeze(0)                               # [1,NAH,T,HD]
+        att = torch.matmul(qq, Kr.transpose(2, 3)) * (HD ** -0.5)         # [1,NAH,T,P]
+        qpos = pos.view(1, 1, T, 1)
+        kmask = (torch.arange(P, device=self.dev)[None, None, None, :] <= qpos)
+        att = att.masked_fill(~kmask, NEG)
+        att = torch.softmax(att.float(), dim=-1).to(torch.bfloat16)
+        o = torch.matmul(att, Vr).squeeze(0)                              # [NAH,T,HD]
+        o = o.transpose(0, 1).reshape(T, NAH * HD)
+        return lin(o * torch.sigmoid(gate.reshape(T, NAH * HD)), self.w_o)
+
+    def forward_chunk(self, h, pos0, T):
+        """分块前向：h [T,1,H]。MoE 暂按 token 循环（第 ② 步再做并集/分组）。"""
+        if self.use_ple and not _NO_PLE:
+            raise RuntimeError("分块 prefill 暂不支持 PLE（生产是 FNX_NO_PLE=1）")
+        if self.a_di is not None:
+            mixed, inj = gated_residual(h, self.a_hc_norm, self.a_di, self.a_up, None, n_inj=HC)
+        else:
+            mixed, inj = gated_residual(h, self.a_hc_norm, self.a_down, self.a_up, self.a_inj)
+        if self.ltype in ("linear", "ple"):
+            y = self._deltanet_chunk(mixed, T)
+        else:
+            y = self._qsa_chunk(mixed, pos0, T)
+        h = inject(h, inj, y)
+        if self.m_di is not None:
+            mixed, inj = gated_residual(h, self.m_hc_norm, self.m_di, self.m_up, None, n_inj=HC)
+        else:
+            mixed, inj = gated_residual(h, self.m_hc_norm, self.m_down, self.m_up, self.m_inj)
+        y = torch.cat([self._moe(mixed[t:t + 1]) for t in range(T)], dim=0)
+        return inject(h, inj, y)
 
     # ---------- PLE ----------
     def _ple(self, h, ngram_emb):

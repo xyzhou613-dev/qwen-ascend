@@ -1,6 +1,6 @@
 ﻿# Qwen3.8-Flash-Next（W4 MoE）在 2×Ascend 910B4 上的部署与优化实测
 
-> **版本锚点**：线上 tag `baseline-r45`（专家 + 稠密整数权重全走 aclnn Cube 融合 + 共用输入的投影拼接）；单机 2×910B4；单流、思考关、无并发。
+> **版本锚点**：线上 tag `baseline-r46`（专家 + 稠密整数权重全走 aclnn Cube 融合 + 共用输入的投影拼接）；单机 2×910B4；单流、思考关、无并发。
 > **r37/r38 变更摘要**：
 > r37 —— 专家 GEMM 换成 aclnn per-group W4A16（Cube），TPOT **110.3 → 76.7 ms**，prefill 105 → 74.3 ms/token，`mean_nll 2.1756 → 2.1995`。
 > r38 —— 稠密 int8 权重换成 aclnn W8 per-group（同一个算子），再把共用输入的投影拼成一次调用：TPOT **76.7 → 67.0 ms**，`mean_nll 2.1995 → 2.1665`（**比 r35 还好**），显存 59.57 → **58.98 GiB**。\n> r39 —— 把 mixer 的 `down+inj`、shared-expert 的 `gate+up` 也拼成一次 GEMM：TPOT **67.0 → 65.8 ms**，`mean_nll 2.1665 → 2.1735`（仍好于 r35）；同轮完成 **op-package MIX kernel 可行性验证**（§4.14）。
