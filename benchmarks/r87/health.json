@@ -1,0 +1,24 @@
+{
+  "status": "ok",
+  "engine_loaded": true,
+  "ctx": 262144,
+  "pipeline_stages": 2,
+  "worker_alive": true,
+  "prefill_chunk": 8192,
+  "index_caps": [
+    16384,
+    32768,
+    65536,
+    98304,
+    131072,
+    196608,
+    262144
+  ],
+  "native_sparse": true,
+  "native_dual": true,
+  "rope_cache": true,
+  "delta_window": 2048,
+  "chunk_graph": true,
+  "qsa_indexer": true,
+  "qsa_sparse": true
+}

@@ -238,6 +238,25 @@ class Engine:
                 self.conv_used[i] = self.conv_tick
         return best_n, best_st
 
+    def _conv_make_room(self, selected_state, preserve_selected=True):
+        """Evict a full LRU miss before prefill, when its buffers are unused.
+
+        Keeping the replaced GPU snapshot alive throughout the next request
+        increases prefill peak memory by the entire previous document state.
+        Selected states are loaded first; exact-prompt repeats keep their slot.
+        """
+        if self.conv_n <= 0 or len(self.conv_slots) < self.conv_n:
+            return
+        if preserve_selected and any(st is selected_state for st in self.conv_slots):
+            return
+        i = min(range(len(self.conv_used)), key=lambda j: self.conv_used[j])
+        st = self.conv_slots[i]
+        if hasattr(self.m, "release_state"):
+            self.m.release_state(st)
+        del self.conv_slots[i]
+        del self.conv_keys[i]
+        del self.conv_used[i]
+
     def _conv_store(self, prompt_ids, n0):
         """把 prefill 结束点的状态存进槽位（键 = prompt[:-1]，与状态严格对应）。
 
@@ -287,6 +306,8 @@ class Engine:
             m.load_state(st0)
         else:
             m.reset()
+        self._conv_make_room(st0, preserve_selected=(n0 == len(prompt_ids) - 1))
+        st0 = None  # A continued prompt has loaded the evicted state already.
         if synth:
             synth()
             t_b = time.perf_counter()
@@ -420,6 +441,7 @@ def health():
             "pipeline_stages": 2 if worker is not None else 1,
             "worker_alive": worker is not None and worker.poll() is None,
             "prefill_chunk": _CHUNK,
+            "index_caps": sorted(getattr(model,"index_decode_graphs",{})),
             "native_sparse": os.environ.get("FNX_NATIVE_SPARSE", "0") == "1",
             "native_dual": os.environ.get("FNX_NATIVE_DUAL", "0") == "1",
             "rope_cache": os.environ.get("FNX_ROPE_CACHE", "0") == "1",

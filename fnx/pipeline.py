@@ -122,6 +122,9 @@ class PipelineModel:
         self.finish_prefill();self.connection.send(('save_into',(st['worker_handle'],)))
         self.stage0.save_into(st['stage0']);st['worker_bytes']=self._receive()
 
+    def release_state(self,st):
+        self._rpc('release',st['worker_handle'])
+
     def state_bytes(self,st):
         return self.stage0.state_bytes(st['stage0'])+st['worker_bytes']
 

@@ -84,6 +84,7 @@ def main():
                 st=m.save_state(to_host=to_host,compact=compact)
                 handle=next_handle;next_handle+=1;snapshots[handle]=st
                 value=(handle,m.state_bytes(st))
+            elif op=='release':snapshots.pop(args[0]);value=None
             elif op=='load':m.load_state(snapshots[args[0]]);value=None
             elif op=='save_into':
                 st=snapshots[args[0]];m.save_into(st);value=m.state_bytes(st)
@@ -92,6 +93,7 @@ def main():
                 value=m.state_bytes(snapshots[handle])
             else:raise ValueError('Unknown pipeline command '+op)
             conn.send(('ok',value))
+            st=None  # snapshots owns cache tensors; do not retain the last save locally
     except (EOFError,BrokenPipeError):pass
     except Exception:
         error=traceback.format_exc();print(error,flush=True)
