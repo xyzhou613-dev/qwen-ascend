@@ -1,4 +1,4 @@
-﻿# 基线 `baseline-r42`（可复现性锚点）
+﻿# 基线 `baseline-r44`（可复现性锚点）
 
 本文件定义"基线"到底是什么：**配置、权重、版本、指标、验收判据**。
 在新机器上复现后，`scripts/40_verify.sh` 会把实测值与本文件对比，全部在容差内才打印 `BASELINE OK`。
@@ -30,7 +30,7 @@ FNX_DEQ_HEAD=1             # lm_head（606 MiB int8）→ bf16 常驻（放在 d
 FNX_DEQ_ATTN=0             # r38 起不再需要：稠密投影走 aclnn W8，省 0.55 GiB（r37 及以前是 10）
 # 服务行为
 FNX_PREFIX_CACHE=1  FNX_CONV_CACHE=4  FNX_ENABLE_THINKING=0  FNX_PROF=0
-FNX_PORT=8000  FNX_CTX=2048  FNX_BATCH=1
+FNX_PORT=8000  FNX_CTX=2048      # 本机硬上限 16k（32k 启动 OOM），生产固定 2048  FNX_BATCH=1
 ```
 
 布局：**dev0 = 45 层图捕获（59.57 GiB）**，**dev1 = 3 层 eager + lm_head(bf16)/mixer（5.27 GiB）**。

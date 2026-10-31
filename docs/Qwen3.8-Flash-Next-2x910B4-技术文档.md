@@ -1,6 +1,6 @@
 ﻿# Qwen3.8-Flash-Next（W4 MoE）在 2×Ascend 910B4 上的部署与优化实测
 
-> **版本锚点**：线上 tag `baseline-r43`（专家 + 稠密整数权重全走 aclnn Cube 融合 + 共用输入的投影拼接）；单机 2×910B4；单流、思考关、无并发。
+> **版本锚点**：线上 tag `baseline-r44`（专家 + 稠密整数权重全走 aclnn Cube 融合 + 共用输入的投影拼接）；单机 2×910B4；单流、思考关、无并发。
 > **r37/r38 变更摘要**：
 > r37 —— 专家 GEMM 换成 aclnn per-group W4A16（Cube），TPOT **110.3 → 76.7 ms**，prefill 105 → 74.3 ms/token，`mean_nll 2.1756 → 2.1995`。
 > r38 —— 稠密 int8 权重换成 aclnn W8 per-group（同一个算子），再把共用输入的投影拼成一次调用：TPOT **76.7 → 67.0 ms**，`mean_nll 2.1995 → 2.1665`（**比 r35 还好**），显存 59.57 → **58.98 GiB**。\n> r39 —— 把 mixer 的 `down+inj`、shared-expert 的 `gate+up` 也拼成一次 GEMM：TPOT **67.0 → 65.8 ms**，`mean_nll 2.1665 → 2.1735`（仍好于 r35）；同轮完成 **op-package MIX kernel 可行性验证**（§4.14）。
@@ -21,7 +21,7 @@
 |---|---:|---|---|
 | TPOT | **64.0–64.9 ms/token（15.5 tok/s，典型 64.6）** | 128 token 长输出，流式逐 token 计时；单流、思考关、无并发 | 【实测】r38 |
 | TTFT 热态 | **0.08 s** | 同一 prompt 再问，前缀/对话缓存命中；不是冷 prefill | 【实测】r38 |
-| TTFT 冷启动 | **≈0.068 s × prompt token 数** | r38 实测：9 token→0.72 s；77→5.17 s；**231→15.63 s**（r37 是 17.17 s、r35 是 29.3 s） | 【实测】r38 |
+| TTFT 冷启动 | **≈0.061–0.071 s × prompt token 数** | 见 §4.18：293 tok→17.8 s、1110→67.3 s、8026→528 s、**16025→1133 s** | 【实测】r44 |
 | 质量 | **mean_nll 2.1648 / ppl 8.71 / top1 48.0% / median_rank 1**（历史最佳） | `POST /fnx/loss`，`eval_text` 前 200 token，teacher-forcing | 【实测】r38 |
 | 任务级 | **24 题单选 24/24** | `tools/mcq_eval.py`，思考关，固定题库；平均 3.61 s/题 | 【实测】r42 |
 | 冷启动 | **≈30 s** | 进程启动到 `/health` 就绪；装配 9.1 s | 【实测】r38 |
@@ -812,6 +812,40 @@ mm.SetTail(curM, curN, K);
 
 ⇒ 如果目标是"用户感知更快"，下一步应该做**分块 prefill**（长 prompt 首 token 从 15.6 s → ~7 s），而不是继续磨 decode 的 2 ms。
 
+### 4.18 长上下文能力与硬边界（第 44 轮实测）
+
+**结论：这台机器的上下文上限是 16k。** 16k 能起（59.27 GiB）、**32k 启动即 OOM**（差 386 MiB）；而即使显存够，256k 的 prefill 也要约 16 小时。**>2048 的数值还与模型设计不一致**（模型的 indexer 稀疏选块未实现，我们跑的是稠密 causal）。
+
+#### 4.18.1 实测（同一套生产配置，只改 `FNX_CTX`）
+
+| 上下文 n_prompt | `FNX_CTX` | 启动 | dev0 显存 | prefill | TTFT | TPOT@该位置 | 端到端（16 输出 token） |
+|---:|---:|:--:|---:|---:|---:|---:|---:|
+| 293 | 2048 | ✅ | 58.97 GiB | 61.7 ms/tok | 17.82 s | 66.9 ms | 18.82 s |
+| 1,110 | 2048 | ✅ | 58.97 GiB | 60.8 ms/tok | 67.27 s | 67.3 ms | 68.28 s |
+| 8,026 | 8192 | ✅ | 59.10 GiB | 65.8 ms/tok | 528.07 s | 73.1 ms | 529.17 s |
+| **16,025** | **16384** | ✅ | **59.27 GiB** | **70.7 ms/tok** | **1132.91 s（18.9 min）** | **74.2 ms** | **1134.03 s** |
+| 32,768 | 32768 | ❌ OOM | — | — | — | — | — |
+
+失败原文：`Tried to allocate 386.00 MiB (60.96 GiB total; 59.61 GiB allocated; 5.09 MiB free)` —— 386 MiB 正好是 16k→32k 的 KV 增量。
+
+#### 4.18.2 外推（32k–256k）
+
+拟合（8k/16k 两个实测点，回代 16k 误差 2.6%）：`prefill 每 token = 60.9 + 0.000613·n` ms；`TPOT = 66.8 + 0.00046·pos` ms。
+
+| 上下文 | prefill 总耗时 | TPOT | KV 需要 | 可行性 |
+|---:|---:|---:|---:|---|
+| 32k | 44.2 min | 81.9 ms | 738 MB | ❌ 显存（差 386 MiB） |
+| 64k | 1.84 h | 97.2 ms | 1.48 GB | ❌ 显存 |
+| 128k | 5.1 h | 127.8 ms | 2.95 GB | ❌ 显存 + 时间 |
+| 256k | **16.1 h** | 189.0 ms | 5.90 GB | ❌ 显存 + 时间 |
+
+**三条独立原因**（任一成立就够否决）：
+1. **显存**：KV 22.5 KB/token（11 个全注意力层 × 2 KB）。int8 KV 可减半 ⇒ 32k 能装，64k 仍超，128k/256k 依旧不可达；KV 放主机则每 token 过 PCIe 约 280 ms，比算还慢。
+2. **时间**：本机 prefill ≈15 token/s，256k 要 16 小时；分块 prefill（2–2.5×，§4.17）也只能到 8 小时级。
+3. **模型语义**：模型在 `indexer_budget=2048` 之外用**稀疏选块**（config 有 `indexer_head_dim/kv_heads/n_heads`），我们实现的是稠密 causal。**>2048 的输出不代表模型该有的行为**，长上下文要先实现 indexer。
+
+> 生产因此固定 `FNX_CTX=2048`；调大 CTX 会挤爆图池（32k 启动失败即证据）。
+
 ---
 
 ## 5. 附录
@@ -824,7 +858,7 @@ mm.SetTail(curM, curN, K);
 |---|---|---|
 | TPOT | 流式请求中 `(最后一个 content token 时刻 − 第一个 content token 时刻) / (n − 1)` | 首 token 不计入；`temperature=0`；单流 |
 | TTFT 热态 | 同一 prompt 第二次及以后，请求发出到第一个 content token | 前缀/对话缓存命中；含 HTTP/分词 |
-| TTFT 冷启动 | 新 prompt 从请求发出到第一个 content token | 含完整 prefill；当前 **≈0.068 s × prompt token**（r38：231 token → 15.63 s） |
+| TTFT 冷启动 | 新 prompt 从请求发出到第一个 content token | 含完整 prefill；当前 **≈0.061–0.071 s × prompt token**（r44 实测 293/1110/8026/16025 token → 17.8/67.3/528/1133 s，见 §4.18） |
 | 冷启动 | 进程启动到 `GET /health` 返回 `{"status":"ok"}` | 不是首请求延迟 |
 | mean_nll | `−mean(log_softmax(logits)[target])`，teacher-forcing，单位 nats | `eval_text` 前 200 个预测；确定性 |
 | ppl | `exp(mean_nll)` | 2.1735 → 8.79（r39）；r38 为 2.1665 → 8.73；r35 为 2.1756 → 8.81 |
