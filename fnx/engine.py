@@ -1620,7 +1620,9 @@ class FnLayer:
                 host_ends = ends.cpu().tolist() if int(os.environ.get("FNX_MOE_GROUP_SPLIT", "0")) else None
                 rows = x2.index_select(0, order // TOPK).to(torch.bfloat16)
                 gu = self.exp_gu.apply_grouped(rows, ends, host_ends)
-                act = (F.silu(gu[:, :MI].float()) * gu[:, MI:].float()).to(torch.bfloat16)
+                act = (torch_npu.npu_swiglu(gu.float(), dim=-1).to(torch.bfloat16)
+                       if os.environ.get("FNX_MOE_SWIGLU_FP32", "0") == "1" else
+                       (F.silu(gu[:, :MI].float()) * gu[:, MI:].float()).to(torch.bfloat16))
                 yd = self.exp_dn.apply_grouped(act, ends, host_ends)
                 restored = torch.empty_like(yd).index_copy_(0, order, yd)
                 y = (restored.view(b, TOPK, H) * w.unsqueeze(-1)).sum(1)
@@ -1637,7 +1639,9 @@ class FnLayer:
                 # ★ 第 48 轮：silu*mul 全程留 bf16，省掉 2 次升 fp32 + 1 次回 bf16（3 个 kernel）
                 act = F.silu(y[:, :MI]) * y[:, MI:]
             else:
-                act = (F.silu(y[:, :MI].float()) * y[:, MI:].float()).to(torch.bfloat16)
+                act = (torch_npu.npu_swiglu(y.float(), dim=-1).to(torch.bfloat16)
+                       if os.environ.get("FNX_MOE_SWIGLU_FP32", "0") == "1" else
+                       (F.silu(y[:, :MI].float()) * y[:, MI:].float()).to(torch.bfloat16))
             y2 = self.exp_dn.apply_diag(act, idx[0])
             y2 = (y2 * w[0].unsqueeze(-1)).sum(dim=0, keepdim=True)
             return (y2 + sh).view(1, 1, H)
