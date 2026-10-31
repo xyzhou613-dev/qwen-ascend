@@ -1,3 +1,7 @@
+> 2026-11-01 更新：默认部署 256k（24+24 独立进程），新文档 262016 输入 + 128 输出，
+> 本机 HTTP TTFT 103.956 s，输出 18.56 tokens/s，三位置检索 3/3。
+> 详见 [生产验收与各轮记录](docs/r80-production.md)。
+
 # qwen-ascend
 
 **Qwen3.8-Flash-Next（W4 MoE，约 121 G 参数）在 2×Ascend 910B4 上的自研推理后端。**

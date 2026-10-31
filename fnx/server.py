@@ -420,6 +420,10 @@ def health():
             "pipeline_stages": 2 if worker is not None else 1,
             "worker_alive": worker is not None and worker.poll() is None,
             "prefill_chunk": _CHUNK,
+            "native_sparse": os.environ.get("FNX_NATIVE_SPARSE", "0") == "1",
+            "native_dual": os.environ.get("FNX_NATIVE_DUAL", "0") == "1",
+            "rope_cache": os.environ.get("FNX_ROPE_CACHE", "0") == "1",
+            "delta_window": int(os.environ.get("FNX_DELTA_WINDOW", "0")),
             "chunk_graph": bool(getattr(getattr(STATE.get("e"), "m", None), "gc", None)),
             "qsa_indexer": os.environ.get("FNX_INDEXER", "0") == "1",
             "qsa_sparse": os.environ.get("FNX_QSA_SPARSE", "0") == "1"}
