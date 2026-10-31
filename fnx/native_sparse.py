@@ -20,6 +20,19 @@ def write_and_view(store,ki,k,v,pos,P,short):
 
 def attention(q,ids,valid,kc,rc):
     T=q.shape[0];P=kc.shape[2]
+    if T == 1:
+        # Keep decode on the compact GQA kernel. One gather per packed cache
+        # uses flattened (head,position) rows, avoiding padded query heads.
+        width=ids.shape[-1]
+        rows=(ids.reshape(1,-1)+torch.arange(2,device=ids.device)[:,None]*P).reshape(-1)
+        latent=kc.reshape(2*P,512).index_select(0,rows).view(2,width,512).transpose(0,1)
+        rope=rc.reshape(2*P,64).index_select(0,rows).view(2,width,64).transpose(0,1)
+        keys=torch.cat((rope,latent[...,:192]),-1).view(1,width,2,256)
+        values=latent[...,192:448].contiguous().view(1,width,2,256)
+        out=torch_npu.npu_fused_infer_attention_score(q.view(1,1,24,256),keys,values,
+            num_heads=24,num_key_value_heads=2,input_layout='BSND',scale=256**-.5,
+            atten_mask=(~valid).view(1,1,1,width))[0]
+        return out.view(1,24*256)
     indices=torch.where(valid,ids,-1).to(torch.int32)
     width=(indices.shape[-1]+63)//64*64
     indices=F.pad(indices,(0,width-indices.shape[-1]),value=-1).view(1,T,1,width)
