@@ -1,4 +1,4 @@
-"""fnx —— Qwen3.8-Flash-Next 昇腾专用后端（graph-safe、单 token 步进）。
+﻿"""fnx —— Qwen3.8-Flash-Next 昇腾专用后端（graph-safe、单 token 步进）。
 
 设计要点（均由前 24 轮实测决定）：
   * 不做 TP/EP：单卡放 24 层（PP=2），卡间每 token 仅传 20 KB。
@@ -105,6 +105,7 @@ _DENSE_CAT = os.environ.get("FNX_DENSE_CAT", "1") == "1"
 #   ★ 第 39 轮：bf16 小权重里"共用输入"的也拼成一次 GEMM
 #   （mixer 的 down+inj、shared-expert 的 gate+up）。数值逐位不变。
 #   `FNX_SMALL_MERGE`: 0=不拼, 1(或 all)=都拼, mix=只拼 mixer, sh=只拼 shared-expert
+_INJECT_CM = os.environ.get("FNX_INJECT_CM", "0") == "1"   # 第 41 轮实测：addcmul 反而慢 ~0.5 ms，默认关
 _SM_RAW = os.environ.get("FNX_SMALL_MERGE", "1")
 _SM_MIX = _SM_RAW in ("1", "all", "mix")
 _SM_SH = _SM_RAW in ("1", "all", "sh")
@@ -704,7 +705,17 @@ def gated_residual(h, hc_norm_w, w_down, w_up, w_inj, n_inj=0):
 
 
 def inject(hyper, inj, y):
+    """hyper + y·inj（广播到 HCH）。每层调用 2 次，原来要 3 个 kernel（乘/reshape/加）。
+
+    第 41 轮：`mul → reshape → add` 换成一次 `addcmul`（数值等价：同一次乘加，
+    只是没有中间的 reshape 物化）。张量只有 10240 个元素，比当年那个 16.4M 元素的
+    dequant 场景小三个数量级，所以第 34 轮"addcmul 更慢"的结论在这里不适用——需实测。
+    """
     b = hyper.shape[0]
+    if _INJECT_CM:
+        # addcmul 要求三者能广播到同一形状：把 hyper 也看成 [b,1,HC,H]
+        out = torch.addcmul(hyper.view(b, 1, HC, H), y.view(b, 1, 1, H), inj.unsqueeze(-1))
+        return out.view(b, 1, HCH)
     return hyper + (y.view(b, 1, 1, H) * inj.unsqueeze(-1)).reshape(b, 1, HCH)
 
 
