@@ -771,18 +771,27 @@ def _staging(ids, N, K, dev):
 
 
 class KVStore:
-    def __init__(self, P, device, n):
-        self.P = P
-        self.native_sparse = os.environ.get("FNX_NATIVE_SPARSE", "0") == "1"
-        if self.native_sparse and (B != 1 or os.environ.get("FNX_QSA_SPARSE") != "1"):
+    def __init__(self,P,device,n):
+        self.P,self.n=P,n
+        self.native_sparse=os.environ.get("FNX_NATIVE_SPARSE","0")=="1"
+        self.native_dual=self.native_sparse and os.environ.get("FNX_NATIVE_DUAL","0")=="1"
+        if self.native_sparse and (B!=1 or os.environ.get("FNX_QSA_SPARSE")!="1"):
             raise ValueError("native sparse cache requires batch=1 and sparse QSA")
-        self.position_major = not self.native_sparse and os.environ.get("FNX_KV_POSITION_MAJOR", "0") == "1"
-        def allocate(width=HD):
-            if self.position_major:
-                return torch.zeros(B, P, KVH, width, dtype=torch.bfloat16, device=device).permute(0, 2, 1, 3)
-            return torch.zeros(B, KVH, P, width, dtype=torch.bfloat16, device=device)
-        self.k = [allocate(512 if self.native_sparse else HD) for _ in range(n)]
-        self.v = [allocate(64 if self.native_sparse else HD) for _ in range(n)]
+        self.position_major=(not self.native_sparse or self.native_dual) and os.environ.get("FNX_KV_POSITION_MAJOR","0")=="1"
+        def allocate(width,major=False):
+            if major:
+                return torch.zeros(B,P,KVH,width,dtype=torch.bfloat16,device=device).permute(0,2,1,3)
+            return torch.zeros(B,KVH,P,width,dtype=torch.bfloat16,device=device)
+        if self.native_dual:
+            if not self.position_major:raise ValueError("dual cache requires position-major original KV")
+            # Both lists include both representations, so existing snapshot,
+            # reset and restore loops keep them coherent without special cases.
+            self.k=[allocate(HD,True) for _ in range(n)]+[allocate(512) for _ in range(n)]
+            self.v=[allocate(HD,True) for _ in range(n)]+[allocate(64) for _ in range(n)]
+            self.head_offsets=torch.arange(KVH,device=device,dtype=torch.int64)[:,None]*P
+        else:
+            self.k=[allocate(512 if self.native_sparse else HD,self.position_major) for _ in range(n)]
+            self.v=[allocate(64 if self.native_sparse else HD,self.position_major) for _ in range(n)]
 
 
 def gated_residual(h, hc_norm_w, w_down, w_up, w_inj, n_inj=0):

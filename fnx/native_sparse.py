@@ -9,6 +9,16 @@ import torch.nn.functional as F
 import torch_npu
 
 def write_and_view(store,ki,k,v,pos,P,short):
+    if getattr(store,"native_dual",False):
+        original_k,original_v=store.k[ki][:,:,:P],store.v[ki][:,:,:P]
+        original_k[0].transpose(0,1).index_copy_(0,pos,k.contiguous())
+        original_v[0].transpose(0,1).index_copy_(0,pos,v.contiguous())
+        rows=(pos[None,:]+store.head_offsets).reshape(-1)
+        latent=F.pad(torch.cat((k[...,64:],v),-1),(0,64))
+        store.k[ki+store.n].view(2*store.P,512).index_copy_(0,rows,latent.transpose(0,1).contiguous().view(-1,512))
+        store.v[ki+store.n].view(2*store.P,64).index_copy_(0,rows,k[...,:64].transpose(0,1).contiguous().view(-1,64))
+        if short or k.shape[0]==1:return original_k,original_v
+        return store.k[ki+store.n][:,:,:P],store.v[ki+store.n][:,:,:P]
     kc,rc=store.k[ki][:,:,:P],store.v[ki][:,:,:P]
     latent=F.pad(torch.cat((k[...,64:],v),-1),(0,64))
     for head in range(2):
@@ -20,6 +30,14 @@ def write_and_view(store,ki,k,v,pos,P,short):
 
 def attention(q,ids,valid,kc,rc):
     T=q.shape[0];P=kc.shape[2]
+    if T == 1 and kc.shape[-1]==256:
+        width=ids.shape[-1]
+        keys=kc[0].transpose(0,1).index_select(0,ids.reshape(-1)).view(1,width,2,256)
+        values=rc[0].transpose(0,1).index_select(0,ids.reshape(-1)).view(1,width,2,256)
+        out=torch_npu.npu_fused_infer_attention_score(q.view(1,1,24,256),keys,values,
+            num_heads=24,num_key_value_heads=2,input_layout='BSND',scale=256**-.5,
+            atten_mask=(~valid).view(1,1,1,width))[0]
+        return out.view(1,24*256)
     if T == 1:
         # Keep decode on the compact GQA kernel. One gather per packed cache
         # uses flattened (head,position) rows, avoiding padded query heads.
