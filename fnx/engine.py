@@ -608,7 +608,7 @@ class ExpW4:
       s8t int8  [G,E,N]  （= 原 s8 的转置，逐位不变）
       base bf16 [E,N]    （原 fp16 基准转 bf16，只为喂算子）
     """
-    __slots__ = ("w4", "s8t", "base", "K", "N", "E", "G", "gs", "_dg", "_dgf", "expert_major", "_scales")
+    __slots__ = ("w4", "s8t", "base", "K", "N", "E", "G", "gs", "_dg", "_dgf", "expert_major", "_scales", "_ends")
 
     def __init__(self, w4, s8t, base, gs, expert_major=False):
         self.w4 = w4              # [K,E,N/8] int32
@@ -631,6 +631,7 @@ class ExpW4:
         dev = w4.device
         k = TOPK
         self._dg = torch.arange(k, dtype=torch.int64, device=dev)
+        self._ends = torch.arange(1, k + 1, dtype=torch.int64, device=dev)
         # ★ 第 48 轮：把 [k,k,N] 的对角取法压成**一次** index_select。
         #   原写法 `y.view(k,k,N)[dg,dg]` 是两次高级索引（约 2–3 个 kernel），
         #   在"每次 kernel 约 8 µs"的图里就是白花的 16–24 µs/层。
@@ -666,6 +667,16 @@ class ExpW4:
         """k 行各用 ids 里对应的专家：一次调用算 k×k 块，只取对角 -> [k,N]。"""
         k = x.shape[0]
         assert k == TOPK, k
+        if os.environ.get("FNX_DECODE_DN_GMM", "0") == "1":
+            if not self.expert_major or self._scales is None:
+                raise ValueError("decode DN GMM requires expert-major weights and cached scales")
+            # One activation row per selected expert. Avoid both the
+            # expert-major->K-major weight transpose and Cartesian k*k output.
+            return torch_npu.npu_grouped_matmul(
+                [x], [self.w4.index_select(0, ids)],
+                antiquant_scale=[self._scales.index_select(0, ids)],
+                group_list=self._ends, split_item=3, group_type=0,
+                output_dtype=torch.bfloat16)[0]
         y = self.apply(x, ids)                                  # [k, k*N]
         if _MOE_FAST:
             # 一次 index_select 取到对角（原写法是两次高级索引）
