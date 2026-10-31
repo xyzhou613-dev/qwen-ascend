@@ -7,7 +7,11 @@ def capture_index_buckets(m):
     if os.environ.get('FNX_INDEX_BUCKETS','0')!='1':return
     if os.environ.get('FNX_CHUNK_POOL')!='shared':
         raise ValueError('index buckets require serialized shared graph pools')
-    caps=sorted(set(min(m.P,x) for x in (16384,65536,131072,m.P)))
+    configured=os.environ.get("FNX_INDEX_CAPS", "16384,65536,131072").split(",")
+    requested=[int(x) for x in configured]+[m.P]
+    if any(int(x)<2048 or int(x)%4 for x in configured):
+        raise ValueError("index caps must be >=2048 and aligned to four tokens")
+    caps=sorted(set(min(m.P,x) for x in requested))
     m.index_decode_graphs={m.P:m.g0}
     m.index_chunk_graphs={m.P:m.chunk_graphs}
     full_graph=m.g0;full_chunks=m.chunk_graphs
@@ -34,10 +38,14 @@ def capture_index_buckets(m):
         m.reset()
 
 def decode_graph(m,end):
+    # Only complete four-token groups are scored; the final 0..3 tokens
+    # are handled separately by the indexer's causal tail.
+    end=end//4*4
     graphs=getattr(m,'index_decode_graphs',None)
     return graphs[min(cap for cap in graphs if cap>=end)] if graphs else m.g0
 
 def chunk_graph(m,end,size):
+    end=end//4*4
     graphs=getattr(m,'index_chunk_graphs',None)
     bundles=graphs[min(cap for cap in graphs if cap>=end)] if graphs else m.chunk_graphs
     return bundles.get(size)
