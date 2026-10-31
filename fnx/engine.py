@@ -8,6 +8,7 @@
   * QSA 稀疏选块（indexer）暂未实现 —— 上下文 ≤ indexer_budget(2048) 时稠密 causal 与参考实现**逐位一致**。
 """
 import math
+from .native_sparse import write_and_view as native_write, attention as native_attention
 import os
 import numpy as np
 import torch
@@ -756,13 +757,16 @@ def _staging(ids, N, K, dev):
 class KVStore:
     def __init__(self, P, device, n):
         self.P = P
-        self.position_major = os.environ.get("FNX_KV_POSITION_MAJOR", "0") == "1"
-        def allocate():
+        self.native_sparse = os.environ.get("FNX_NATIVE_SPARSE", "0") == "1"
+        if self.native_sparse and (B != 1 or os.environ.get("FNX_QSA_SPARSE") != "1"):
+            raise ValueError("native sparse cache requires batch=1 and sparse QSA")
+        self.position_major = not self.native_sparse and os.environ.get("FNX_KV_POSITION_MAJOR", "0") == "1"
+        def allocate(width=HD):
             if self.position_major:
-                return torch.zeros(B, P, KVH, HD, dtype=torch.bfloat16, device=device).permute(0, 2, 1, 3)
-            return torch.zeros(B, KVH, P, HD, dtype=torch.bfloat16, device=device)
-        self.k = [allocate() for _ in range(n)]
-        self.v = [allocate() for _ in range(n)]
+                return torch.zeros(B, P, KVH, width, dtype=torch.bfloat16, device=device).permute(0, 2, 1, 3)
+            return torch.zeros(B, KVH, P, width, dtype=torch.bfloat16, device=device)
+        self.k = [allocate(512 if self.native_sparse else HD) for _ in range(n)]
+        self.v = [allocate(64 if self.native_sparse else HD) for _ in range(n)]
 
 
 def gated_residual(h, hc_norm_w, w_down, w_up, w_inj, n_inj=0):
@@ -1283,6 +1287,8 @@ class FnLayer:
 
     def _sparse_qsa_attention(self, h, q, pos, kc, vc):
         ids, valid = self._indexer_indices(h, pos)
+        if self.kv.native_sparse:
+            return native_attention(q,ids,valid,kc,vc)
         outputs = []
         T, width = ids.shape
         tile = int(os.environ.get("FNX_QSA_TILE", "32"))
@@ -1347,7 +1353,9 @@ class FnLayer:
         # 逐行写各自的 pos（one-hot 形式，图捕获已验证可用；比 index_put 稳）
         kc, vc = self.kv.k[self.ki][:, :, :P], self.kv.v[self.ki][:, :, :P]
         sparse = os.environ.get("FNX_QSA_SPARSE", "0") == "1" and b == 1
-        if sparse:
+        if self.kv.native_sparse:
+            kc,vc=native_write(self.kv,self.ki,k,v,pos,P,self.short_qsa)
+        elif sparse:
             if self.kv.position_major:
                 kc[0].transpose(0, 1).index_copy_(0, pos, k.contiguous())
                 vc[0].transpose(0, 1).index_copy_(0, pos, v.contiguous())
@@ -1494,7 +1502,9 @@ class FnLayer:
         PT = P if dynamic_pos or fixed_short else pos0 + T
         kc, vc = self.kv.k[self.ki][:, :, :P], self.kv.v[self.ki][:, :, :P]
         # 逐行写 pos（分块时一次写 T 行；eager 下 index_copy_ 可用，不必用 one-hot 广播）
-        if self.kv.position_major:
+        if self.kv.native_sparse:
+            kc,vc=native_write(self.kv,self.ki,k,v,pos,P,self.short_qsa)
+        elif self.kv.position_major:
             kc[0].transpose(0, 1).index_copy_(0, pos, k.contiguous())
             vc[0].transpose(0, 1).index_copy_(0, pos, v.contiguous())
         else:
