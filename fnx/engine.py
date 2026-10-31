@@ -829,6 +829,7 @@ class FnLayer:
         # ★★ 第 39 轮：bf16 小权重里"共用同一输入"的也拼成一次 GEMM（MatMul 单次 13 µs）
         #   mixer：w_down(→320) 与 w_inj(→HC=4) 都吃 hn；shared expert：sh_gate 与 sh_up 都吃 x2。
         self.a_di = self.m_di = self.sh_gu = None
+        self.sh_gw = False
         if _SM_MIX:
             for pre in ("a", "m"):
                 wd, wi = getattr(self, pre + "_down", None), getattr(self, pre + "_inj", None)
@@ -837,11 +838,24 @@ class FnLayer:
                     setattr(self, pre + "_down", None)
                     setattr(self, pre + "_inj", None)
         if _SM_SH:
-            wg, wu = getattr(self, "sh_gate", None), getattr(self, "sh_up", None)
-            if isinstance(wg, Raw) and isinstance(wu, Raw):
-                self.sh_gu = Raw(torch.cat([wg.w, wu.w], dim=0))
-                self.sh_gate = None
-                self.sh_up = None
+            # 第 40 轮：把"同样吃 x2"的 4 个权重一次算完再切：
+            #   sh_gate(640) + sh_up(640) + sh_gate2(1) + gate_w(512)  →  一次 GEMM（N=1793）
+            # 动机同上：MatMul 单次 ~13 µs 里绝大部分是固定开销。
+            # 注意：N 变了会改变框架 tiling → 累加顺序变，/fnx/loss 可能微动（实测见第 40 轮记录）。
+            names = ("sh_gate", "sh_up", "sh_gate2", "gate_w")
+            ws = [getattr(self, n, None) for n in names]
+            if isinstance(ws[0], Raw) and isinstance(ws[1], Raw):
+                ws = [ws[0], ws[1]] + [w if isinstance(w, Raw) else None for w in ws[2:]]
+                if all(w is not None for w in ws):
+                    self.sh_gu = Raw(torch.cat([w.w for w in ws], dim=0))
+                    for n in names:
+                        setattr(self, n, None)
+                    self.sh_gw = True
+                else:
+                    self.sh_gu = Raw(torch.cat([ws[0].w, ws[1].w], dim=0))
+                    self.sh_gate = None
+                    self.sh_up = None
+                    self.sh_gw = False
 
     # ---------- DeltaNet 单步 ----------
     def _deltanet(self, h):
@@ -868,6 +882,8 @@ class FnLayer:
         g = (-torch.exp(self.A_log) * F.softplus(a.float() + self.dt_bias)).view(b, NVH)
 
         rep = NVH // NKH
+        # 第 40 轮试过：把 S 看成 [b,NKH,rep,HKD,HVD] 直接广播，免掉 repeat_interleave。
+        # 实测 **反而慢 0.7 ms**（5 维张量的逐元素效率不如物化两次 + 4 维），已回退。
         q = l2norm(q.view(b, NKH, HKD)).repeat_interleave(rep, dim=1) / math.sqrt(HKD)
         k = l2norm(k.view(b, NKH, HKD)).repeat_interleave(rep, dim=1)
         v = v.view(b, NVH, HVD)
@@ -944,12 +960,19 @@ class FnLayer:
         b = x.shape[0]
         x2 = x.view(b, H)
         if self.sh_gu is not None:
-            gu = lin(x2, self.sh_gu)                         # [b,1,2*MI]：gate 与 up 拼在一起
-            sh = lin(F.silu(gu[..., :MI]) * gu[..., MI:], self.sh_down)
+            gu = lin(x2, self.sh_gu)                         # [b, 2*MI (+1 gate2) (+V)]
+            sh = lin(F.silu(gu[:, :MI]) * gu[:, MI:2 * MI], self.sh_down)
+            if self.sh_gw:
+                # gate2(1 列) 与 gate_w(V 列) 也在这块里：一次 GEMM 全出
+                sh = torch.sigmoid(gu[:, 2 * MI:2 * MI + 1]) * sh
+                logits = gu[:, 2 * MI + 1:]
+            else:
+                sh = torch.sigmoid(lin(x2, self.sh_gate2)) * sh
+                logits = lin(x2, self.gate_w)
         else:
             sh = lin(F.silu(lin(x2, self.sh_gate)) * lin(x2, self.sh_up), self.sh_down)
-        sh = torch.sigmoid(lin(x2, self.sh_gate2)) * sh
-        logits = lin(x2, self.gate_w)
+            sh = torch.sigmoid(lin(x2, self.sh_gate2)) * sh
+            logits = lin(x2, self.gate_w)
         probs = torch.softmax(logits.float(), dim=-1)
         w, idx = torch.topk(probs, TOPK, dim=-1)                 # [b,10]
         w = (w / w.sum(dim=-1, keepdim=True)).to(torch.bfloat16)

@@ -1,6 +1,6 @@
 # Qwen3.8-Flash-Next（W4 MoE）在 2×Ascend 910B4 上的部署与优化实测
 
-> **版本锚点**：线上 tag `baseline-r39`（专家 + 稠密整数权重全走 aclnn Cube 融合 + 共用输入的投影拼接）；单机 2×910B4；单流、思考关、无并发。
+> **版本锚点**：线上 tag `baseline-r40`（专家 + 稠密整数权重全走 aclnn Cube 融合 + 共用输入的投影拼接）；单机 2×910B4；单流、思考关、无并发。
 > **r37/r38 变更摘要**：
 > r37 —— 专家 GEMM 换成 aclnn per-group W4A16（Cube），TPOT **110.3 → 76.7 ms**，prefill 105 → 74.3 ms/token，`mean_nll 2.1756 → 2.1995`。
 > r38 —— 稠密 int8 权重换成 aclnn W8 per-group（同一个算子），再把共用输入的投影拼成一次调用：TPOT **76.7 → 67.0 ms**，`mean_nll 2.1995 → 2.1665`（**比 r35 还好**），显存 59.57 → **58.98 GiB**。\n> r39 —— 把 mixer 的 `down+inj`、shared-expert 的 `gate+up` 也拼成一次 GEMM：TPOT **67.0 → 65.8 ms**，`mean_nll 2.1665 → 2.1735`（仍好于 r35）；同轮完成 **op-package MIX kernel 可行性验证**（§4.14）。
@@ -19,7 +19,7 @@
 
 | 指标 | 当前值 | 口径 | 证据 |
 |---|---:|---|---|
-| TPOT | **65.7–65.9 ms/token（15.2 tok/s）** | 128 token 长输出，流式逐 token 计时；单流、思考关、无并发 | 【实测】r38 |
+| TPOT | **64.8–65.9 ms/token（15.3 tok/s，典型 65.5）** | 128 token 长输出，流式逐 token 计时；单流、思考关、无并发 | 【实测】r38 |
 | TTFT 热态 | **0.08 s** | 同一 prompt 再问，前缀/对话缓存命中；不是冷 prefill | 【实测】r38 |
 | TTFT 冷启动 | **≈0.068 s × prompt token 数** | r38 实测：9 token→0.72 s；77→5.17 s；**231→15.63 s**（r37 是 17.17 s、r35 是 29.3 s） | 【实测】r38 |
 | 质量 | **mean_nll 2.1735 / ppl 8.79 / top1 48.0% / median_rank 1** | `POST /fnx/loss`，`eval_text` 前 200 token，teacher-forcing | 【实测】r38 |
@@ -27,10 +27,10 @@
 | 冷启动 | **≈30 s** | 进程启动到 `/health` 就绪；装配 9.1 s | 【实测】r38 |
 | 显存 | **dev0 58.97 GiB / dev1 5.3 GiB** | 稳态 `hbm0`；比 r37 少 0.6 GiB | 【实测】r39 |
 | 层布局 | **48/48 层全部上卡：45 层图捕获（dev0）+ 3 层 eager（dev1）** | 不是“48 层全部图捕获”；LPC=46 差 100 MiB（§4.13） | 【实测】 |
-| 演进 | **318（初版）→ 139.5（r31）→ 110.3（r35）→ 76.7（r37）→ 67.0（r38）→ 65.8 ms（r39）** | 同一套服务口径；累计 **4.8×** | 【实测】 |
+| 演进 | **318（初版）→ 139.5（r31）→ 110.3（r35）→ 76.7（r37）→ 67.0（r38）→ 65.5 ms（r40）** | 同一套服务口径；累计 **4.9×** | 【实测】 |
 
 > **数字随配置变化，见仓库 `BASELINE.md`**。r35 / r37 / r38 是三套可一键切换的配置：`FNX_MOE_W4A16`（0/1）、`FNX_DENSE_W8`（0/1），切一次 = 30 s 重启。
-> 65.8 ms 是**单次稳态测量**（同日两次 65.7 / 65.9）；同一脚本的波动约 ±1%（历史样本 66.9–68.5）。
+> 65.5 ms 是**跨重启的典型值**（同日样本 64.8 / 64.9 / 65.7 / 65.9）；这台机器的重启间波动约 ±1 ms，报告时注明单次。
 > **质量的账要分两轮看**：r38 把稠密 GEMM 改成"int8 在 Cube 内反量化后直接乘"，**改善**了 0.033 nats（2.1995 → 2.1665）；r39 的 mixer 合并让 GEMM 的 N 从 320 变 324、累加顺序变了，**回吐** 0.007 nats（2.1665 → 2.1735），换 2.4 ms。落点仍好于 r35 的 2.1756。想回到 2.1665 只需 `FNX_SMALL_MERGE=0`（+2 ms）。
 
 ### 1.2 口径（只列会影响复现的项）
@@ -79,7 +79,7 @@
 | r35 | 110.3 ms | 9.1 tok/s | 2.1756 | 49.0% | g64 + attn10，质量优先 |
 | r34（速度档，未上线） | 105 ms | 9.5 tok/s | 2.1860 | 48.0% | g128 + attn20 |
 | r37 | 76.7 ms | 13.0 tok/s | 2.1995 | 48.0% | 专家 GEMM 走 aclnn per-group W4A16（Cube 融合） |
-| r38 | 67.0 ms | 14.9 tok/s | 2.1665 | 49.5% | 稠密 int8 权重也走 aclnn W8 per-group + 投影拼接 |\n| **r39（线上）** | **65.8 ms** | **15.2 tok/s** | **2.1735** | **48.0%** | **mixer / shared-expert 也拼成一次 GEMM（只减发射）** |
+| r38 | 67.0 ms | 14.9 tok/s | 2.1665 | 49.5% | 稠密 int8 权重也走 aclnn W8 per-group + 投影拼接 |\n| r39 | 65.8 ms | 15.2 tok/s | 2.1735 | 48.0% | mixer / shared-expert 也拼成一次 GEMM（只减发射） |\n| **r40（线上）** | **65.5 ms** | **15.3 tok/s** | **2.1735** | **48.0%** | **shared-expert+gate 再拼一次；两个"该赚没赚"的回退记录** |
 
 - r31 → r38：TPOT **−52%**，吞吐 **+107%**；质量 `mean_nll −0.009`、`top1 +0.5 点`，24 题单选保持 **24/24**。
 - 初版 → r39：**4.8×**。
@@ -711,19 +711,59 @@ Tried to allocate 802.00 MiB (60.96 GiB total; 59.51 GiB allocated; 708.91 MiB f
 
 对照：现有 torch 路径在真实形状上约 1.5 TFLOPS；框架调优过的 `aclnnMatmul` 在 4096³ 能到 241 TFLOPS。**28.4 TFLOPS 证明 Cube 真在用，但离框架级 kernel 还差 8 倍。**
 
-#### 4.14.3 还差的两跳
+#### 4.14.3 多核正确性已修（第 40 轮）
 
-1. **多核数值错**：单核 PASS，20 核 rel 0.95 FAIL，但 `y[0]` 与单核完全一致 ⇒ 0 号核的 tile 对、其余核写错位置。补 `SetOrgShape` 无效；下一步查 per-core offset / workspace / KFC 的 AIV↔AIC 映射。
-2. **把“整层流式 + 4-bit 解包”写进同一个 kernel**。现在这个 op 只做了一次 bare matmul，单次调用 0.21 ms 比分层调 torch 的 0.043 ms 还贵；只有把一层的工作（含解包、含 gather）压进一个 kernel，才能把 6,649 个 kernel 降到 ~200。
+**症状**：单核 PASS，20 核 rel 0.95 FAIL，且 `y[0]` 与单核一致。
 
-**投资判断**：技术可行（本轮已证），但要拿到量级收益还需 1–2 周 kernel 工程，且第二跳（解包融合）完全未验证。这是当前唯一能突破“每 token 6,649 个 kernel × 8 µs”账根的路，也是唯一值钱的一步。
+**定位**（kernel 里 `PRINTF` 打 block 拓扑）：
 
-### 4.15 本轮另外两个证否
+```
+[AIV Block 0/40] blk=0/20  usedCoreNum=20  singleM=205  singleN=16    (M=1024, N=64)
+```
+
+⇒ tiling **把 M 和 N 都切了**（20 核 = 5 个 M 块 × 4 个 N 块），而 kernel 每个核都写到**偏移 0** —— 只有最后一个核的 tile 留下来。
+
+**顺带排除一个错误猜想**：以为真正算 matmul 的是 AIC，于是在 kernel 里加 `#ifdef ASCEND_IS_AIV return;` → 结果全零（那个"121 TFLOPS"是假的）。**AIV 侧的 KFC client 才是驱动方。**
+
+**修法**：kernel 自己算 per-core 偏移 + `SetTail` 处理尾块：
+
+```cpp
+const uint32_t nCoreNum = (N + sN - 1) / sN;        // 实测先铺 N 再进 M
+const uint32_t m0 = (GetBlockIdx() / nCoreNum) * sM;
+const uint32_t n0 = (GetBlockIdx() % nCoreNum) * sN;
+gx.SetGlobalBuffer(x_gm + m0 * K,  curM * K);
+gw.SetGlobalBuffer(w_gm + n0,      K * N);
+gy.SetGlobalBuffer(y_gm + m0 * N + n0, curM * N);
+mm.SetTail(curM, curN, K);
+```
+
+**结果（全部 PASS，rel ≈ 1.8e-4）**：
+
+| 形状 | 修前 | **修后** |
+|---|---:|---:|
+| 1024³ | 0.111 ms FAIL | **0.086 ms / 24.9 TFLOPS** |
+| 16×1280×2560（真实 MoE gu） | 0.209 ms FAIL | **0.059 ms** |
+| 128×1280×2560 | 0.924 ms FAIL | **0.075 ms / 11.1 TFLOPS** |
+
+对照：我们现有 torch 路径同形状是 0.043 ms/层（10 专家 bmm）。**裸 matmul 打平没有意义**，收益全在下一跳。
+
+#### 4.14.4 最后一跳：把解包与 gather 融进 kernel（未做）
+
+1. **4-bit 解包进 kernel**：kernel 内 Vector 侧解到 L1/L0 中间 buffer，再由 `Matmul` 吃 —— ggml 的做法，也是消掉 324 次/步 WQBM（16 ms/步）的唯一路径。
+2. **gather 进 kernel**：现在按专家 gather 权重（16.4 MB/层）在 kernel 外做（288 次 IndexSelect/步 = 5.3 ms/步）。
+3. **第一个真实目标**：单层 MoE 的 `gate_up_proj`（输入 10 个专家 id + 一行 x，输出 [10,1280]），基线 0.043 ms。
+
+**投资判断**：前两跳（工具链 + 多核正确）已通，剩最后一跳是 1–2 周的 kernel 工程。这是唯一能突破"每 token 6,649 个 kernel × 8 µs"账根的路。
+
+### 4.15 已证否的"看起来该赚"改动
 
 | 方向 | 数字 | 结论 |
 |---|---|---|
-| head 改 int8 分 4 段调用 | 65.4 → 67.1 ms（**慢 1.7**） | 4 次小调用的固定开销吃掉省下的字节；单次大 bf16 GEMM 更高效 |
+| head 改 int8 分 4 段调用 | 65.4 → 67.1 ms（**慢 1.7**） | 4 次小调用的固定开销吃掉省下的字节 |
+| DeltaNet 去掉 `repeat_interleave`（改 5 维广播，数值等价） | **慢 0.7 ms** | 5 维逐元素不如"物化两次 + 4 维"；已回退 |
 | `FNX_DEQ_ATTN=20`（再多预反量化 20 层） | 启动期驱动 OOM | `hbm0` 显示的 2 GiB 余量不是真可用 |
+
+> 通用教训：这台机器上**"少一个 kernel"不等于"更快"**——形状/维度一变，Vector 单元的逐元素效率可能倒退。只认整请求 A/B。
 
 ---
 
