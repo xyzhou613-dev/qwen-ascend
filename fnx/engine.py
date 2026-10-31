@@ -608,7 +608,7 @@ class ExpW4:
       s8t int8  [G,E,N]  （= 原 s8 的转置，逐位不变）
       base bf16 [E,N]    （原 fp16 基准转 bf16，只为喂算子）
     """
-    __slots__ = ("w4", "s8t", "base", "K", "N", "E", "G", "gs", "_dg", "_dgf", "expert_major")
+    __slots__ = ("w4", "s8t", "base", "K", "N", "E", "G", "gs", "_dg", "_dgf", "expert_major", "_scales")
 
     def __init__(self, w4, s8t, base, gs, expert_major=False):
         self.w4 = w4              # [K,E,N/8] int32
@@ -619,6 +619,14 @@ class ExpW4:
         self.N = w4.shape[2] * 8
         self.G = s8t.shape[0]
         self.gs = gs
+        self._scales = None
+        if os.environ.get("FNX_W4_SCALE_CACHE", "0") == "1":
+            # Compute exactly the original BF16 scales once, keeping the
+            # expert-major layout consumed by grouped matmul. Drop int8
+            # source scales so net storage grows by only one byte/scale.
+            self._scales = (s8t.permute(1, 0, 2).to(torch.bfloat16)
+                            * base[:, None, :]).contiguous()
+            self.s8t = self.base = None
         # 对角下标常驻（图捕获期不要新建 arange，避免多一次分配）
         dev = w4.device
         k = TOPK
@@ -638,6 +646,8 @@ class ExpW4:
         return p.reshape(self.K, p.shape[1] * (self.N // 8))
 
     def _scat(self, ids):
+        if self._scales is not None:
+            return self._scales.index_select(0, ids).transpose(0, 1).contiguous().view(self.G, -1)
         sc = torch.index_select(self.s8t, 1, ids)               # [G,k,N] int8
         bs = torch.index_select(self.base, 0, ids).unsqueeze(0)  # [1,k,N] bf16
         s = sc.to(torch.bfloat16)
@@ -677,7 +687,8 @@ class ExpW4:
                 end = host_ends[last - 1]
                 if end == begin:
                     continue
-                scales = self.s8t[:, first:last].permute(1, 0, 2).to(torch.bfloat16) * self.base[first:last, None, :]
+                scales = (self._scales[first:last] if self._scales is not None else
+                          self.s8t[:, first:last].permute(1, 0, 2).to(torch.bfloat16) * self.base[first:last, None, :])
                 # Slice-based int4 GMM returned wrong results in this build.
                 # Materialize bounded weights/inputs at storage offset zero.
                 weight = self.w4[first:last].clone()
@@ -687,7 +698,8 @@ class ExpW4:
                     group_list=group_ends[first:last] - begin, split_item=3,
                     group_type=0, output_dtype=torch.bfloat16)[0])
             return torch.cat(outputs, dim=0)
-        scales = self.s8t.permute(1, 0, 2).to(torch.bfloat16) * self.base[:, None, :]
+        scales = (self._scales if self._scales is not None else
+                  self.s8t.permute(1, 0, 2).to(torch.bfloat16) * self.base[:, None, :])
         return torch_npu.npu_grouped_matmul(
             [x], [self.w4], antiquant_scale=[scales], group_list=group_ends,
             split_item=3, group_type=0, output_dtype=torch.bfloat16)[0]
