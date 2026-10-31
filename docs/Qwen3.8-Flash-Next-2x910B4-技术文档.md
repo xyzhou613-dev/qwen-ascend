@@ -1,6 +1,6 @@
 ﻿# Qwen3.8-Flash-Next（W4 MoE）在 2×Ascend 910B4 上的部署与优化实测
 
-> **版本锚点**：线上 tag `baseline-r42`（专家 + 稠密整数权重全走 aclnn Cube 融合 + 共用输入的投影拼接）；单机 2×910B4；单流、思考关、无并发。
+> **版本锚点**：线上 tag `baseline-r43`（专家 + 稠密整数权重全走 aclnn Cube 融合 + 共用输入的投影拼接）；单机 2×910B4；单流、思考关、无并发。
 > **r37/r38 变更摘要**：
 > r37 —— 专家 GEMM 换成 aclnn per-group W4A16（Cube），TPOT **110.3 → 76.7 ms**，prefill 105 → 74.3 ms/token，`mean_nll 2.1756 → 2.1995`。
 > r38 —— 稠密 int8 权重换成 aclnn W8 per-group（同一个算子），再把共用输入的投影拼成一次调用：TPOT **76.7 → 67.0 ms**，`mean_nll 2.1995 → 2.1665`（**比 r35 还好**），显存 59.57 → **58.98 GiB**。\n> r39 —— 把 mixer 的 `down+inj`、shared-expert 的 `gate+up` 也拼成一次 GEMM：TPOT **67.0 → 65.8 ms**，`mean_nll 2.1665 → 2.1735`（仍好于 r35）；同轮完成 **op-package MIX kernel 可行性验证**（§4.14）。
@@ -780,6 +780,37 @@ mm.SetTail(curM, curN, K);
 | `FNX_DEQ_ATTN=20`（再多预反量化 20 层） | 启动期驱动 OOM | `hbm0` 显示的 2 GiB 余量不是真可用 |
 
 > 通用教训：这台机器上**"少一个 kernel"不等于"更快"**——形状/维度一变，Vector 单元的逐元素效率可能倒退。只认整请求 A/B。
+
+### 4.16 终局评估：64.6 ms 的构成与剩余每一条路的代价（第 43 轮）
+
+| 口径 | 值 | 说明 |
+|---|---:|---|
+| 墙钟 TPOT | **64.6 ms** | 128 token 流式，单流 |
+| 设备时间 | **50.0 ms/步** | msProf captured，r42 配置 |
+| **宿侧空隙** | **14.6 ms（23%）** | dev1 的 3 层 eager 逐算子发射（约 390 次 launch）+ 跨卡中转 + head + 采样同步 |
+| kernel 数 | **≈6,300 个/步** | 平均 8.0 µs |
+
+**设备侧的四个大头（每步）**：`WeightQuantBatchmatmul 15.8`（31.7%）、`Mul 6.7`（13.5%）、`IndexSelect 5.6`（11.1%）、`MatMul 3.7`（7.3%）。
+
+**剩余可动的每一条路，以及按项目"≥3% 才动热路径"门槛的判定**：
+
+| 方向 | 预计收益 | 代价/风险 | 判定 |
+|---|---:|---|---|
+| L1 级手写融合 kernel（MoE） | **−6~7 ms（−10%）** | 1–2 周；需同时"直读 int4"+"M=1 接近带宽上限"；裸 Matmul 版实测慢 4.4× | 唯一值得投的，但需专门决策 |
+| `npu_fusion_attention` 换掉 QSA 手写注意力（9 层） | −0.3~0.6 ms（<1%） | 掩码语义要重做；数值会变 | **低于 3% 门槛，不做** |
+| 继续合并/去 kernel | −0.2~0.5 ms | 本轮已证否 4 合 1 与 addcmul | **低于门槛，不做** |
+| dev1 的 3 层 eager 挪进图 | −4~5 ms | LPC=46 差 93 MiB（§4.13） | 显存不允许 |
+| head 改 int8 | −3 ms（预期） | 实测 **+1.7 ms** | 已证否 |
+
+**结论**：64.6 ms 是"torch 层可达"的终点；下一步要么投 L1 kernel（−10%），要么换目标（见下）。
+
+### 4.17 如果换目标：prefill 比 decode 更值钱
+
+当前 **prefill 与 decode 同价（67.7 ms/token，第 38 轮实测）**，因为 prefill 也是逐 token 跑同一个 forward。而长 prompt 的首 token 延迟直接是 `0.068 s × prompt token 数`（808 token → 55 s）。
+
+分块 prefill（一次算 T 个 token）在第 36 轮的真实权重探针里测到：**稠密/投影 31.9×（T=32）、MoE 1.54×**。按 r42 的分布推算，prefill 有 **2–2.5×** 空间（67.7 → ~30 ms/token），而它**不需要写 kernel**，纯 torch 代码即可，风险只来自数值重验。
+
+⇒ 如果目标是"用户感知更快"，下一步应该做**分块 prefill**（长 prompt 首 token 从 15.6 s → ~7 s），而不是继续磨 decode 的 2 ms。
 
 ---
 
