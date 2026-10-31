@@ -1,4 +1,4 @@
-﻿"""fnx —— Qwen3.8-Flash-Next 昇腾专用后端（graph-safe、单 token 步进）。
+"""fnx —— Qwen3.8-Flash-Next 昇腾专用后端（graph-safe、单 token 步进）。
 
 设计要点（均由前 24 轮实测决定）：
   * 不做 TP/EP：单卡放 24 层（PP=2），卡间每 token 仅传 20 KB。
@@ -105,6 +105,8 @@ _DENSE_CAT = os.environ.get("FNX_DENSE_CAT", "1") == "1"
 #   ★ 第 39 轮：bf16 小权重里"共用输入"的也拼成一次 GEMM
 #   （mixer 的 down+inj、shared-expert 的 gate+up）。数值逐位不变。
 #   `FNX_SMALL_MERGE`: 0=不拼, 1(或 all)=都拼, mix=只拼 mixer, sh=只拼 shared-expert
+_CAT4 = os.environ.get("FNX_DENSE_CAT4", "0") == "1"       # 第 42 轮实测：4 合 1 不赚，默认关
+_DN_RMS = os.environ.get("FNX_DN_RMS", "1") == "1"       # DeltaNet 输出归一化用融合 rms_norm
 _INJECT_CM = os.environ.get("FNX_INJECT_CM", "0") == "1"   # 第 41 轮实测：addcmul 反而慢 ~0.5 ms，默认关
 _SM_RAW = os.environ.get("FNX_SMALL_MERGE", "1")
 _SM_MIX = _SM_RAW in ("1", "all", "mix")
@@ -757,6 +759,8 @@ class FnLayer:
             self.A_log = W[p + "A_log"].float()
             self.dt_bias = W[p + "dt_bias"].float()
             self.dn_norm_w = W[p + "norm.weight"].float()
+            # rms_norm() 是 (1+w) 语义，这里需要直接乘，预先减 1
+            self.dn_norm_g = (self.dn_norm_w - 1.0).contiguous()
         if ltype in ("full",):
             p = "self_attn."
             self.w_q = W[p + "q_proj.weight"]
@@ -814,20 +818,34 @@ class FnLayer:
         self.w_qkvz = None
         self.w_ab = None
         self.w_qkvf = None
+        self.qkvz_ba = False
         self.n_cat = 0
         if _DENSE_CAT:
-            names = ("w_qkv", "w_z")
-            ws = [getattr(self, n, None) for n in names]
-            if all(isinstance(w, DenseW8) for w in ws):
-                self.w_qkvz = DenseW8.merge(ws)
-                for n in names:
+            # ★ 第 42 轮：linear 层的 4 个投影（qkv/z/b/a）都吃同一个 h，理论上能一次调用出完。
+            #   **实测不赚**：65.1/65.7 vs 基线 64.7/65.6（噪声内，nll 不变 2.1735）。
+            #   原因：w_b/w_a 只有 48 列（0.25 MB），那一次调用的固定开销远小于 49 µs 的平均值；
+            #   而合并后的大调用 N 从 10240 涨到 16480，多读的字节把省下的抵消了。
+            #   保留开关 `FNX_DENSE_CAT4=1` 以便将来 op 版变化时复测。
+            four = ("w_qkv", "w_z", "w_b", "w_a")
+            ws4 = [getattr(self, n, None) for n in four]
+            if _CAT4 and all(isinstance(w, DenseW8) for w in ws4):
+                self.w_qkvz = DenseW8.merge(ws4)
+                self.qkvz_ba = True
+                for n in four:
                     setattr(self, n, None)
-            names = ("w_b", "w_a")
-            ws = [getattr(self, n, None) for n in names]
-            if all(isinstance(w, DenseW8) for w in ws):
-                self.w_ab = DenseW8.merge(ws)
-                for n in names:
-                    setattr(self, n, None)
+            else:
+                names = ("w_qkv", "w_z")
+                ws = [getattr(self, n, None) for n in names]
+                if all(isinstance(w, DenseW8) for w in ws):
+                    self.w_qkvz = DenseW8.merge(ws)
+                    for n in names:
+                        setattr(self, n, None)
+                names = ("w_b", "w_a")
+                ws = [getattr(self, n, None) for n in names]
+                if all(isinstance(w, DenseW8) for w in ws):
+                    self.w_ab = DenseW8.merge(ws)
+                    for n in names:
+                        setattr(self, n, None)
             names = ("w_q", "w_k", "w_v")
             ws = [getattr(self, n, None) for n in names]
             if all(isinstance(w, DenseW8) for w in ws):
@@ -872,24 +890,34 @@ class FnLayer:
     def _deltanet(self, h):
         b = h.shape[0]
         if self.w_qkvz is not None:
-            qz = lin(h, self.w_qkvz)[:, 0]                 # [b, CONV+VAL]，切片是视图
+            qz = lin(h, self.w_qkvz)[:, 0]                 # [b, CONV+VAL(+2*NVH)]，切片是视图
             mq = qz[:, :CONV_DIM]
-            z = torch.sigmoid(qz[:, CONV_DIM:].float()).view(b, NVH, HVD)
+            if self.qkvz_ba:
+                # qkv+z+b+a 四合一（第 42 轮）
+                z = torch.sigmoid(qz[:, CONV_DIM:CONV_DIM + VAL_DIM].float()).view(b, NVH, HVD)
+                beta = torch.sigmoid(
+                    qz[:, CONV_DIM + VAL_DIM:CONV_DIM + VAL_DIM + NVH]).view(b, NVH, 1)
+                a = qz[:, CONV_DIM + VAL_DIM + NVH:]
+            else:
+                z = torch.sigmoid(qz[:, CONV_DIM:].float()).view(b, NVH, HVD)
+                beta = a = None
         else:
             mq = lin(h, self.w_qkv).view(b, CONV_DIM)
             z = torch.sigmoid(lin(h, self.w_z).view(b, NVH, HVD).float())
+            beta = a = None
         buf = torch.cat([self.conv, mq.unsqueeze(-1)], dim=-1)              # [b,D,4]
         y = (buf * self.conv_w.unsqueeze(0)).sum(-1)
         y = F.silu(y)
         self.conv.copy_(buf[..., 1:])
         q, k, v = torch.split(y, [KEY_DIM, KEY_DIM, VAL_DIM], dim=-1)
-        if self.w_ab is not None:
-            ba = lin(h, self.w_ab)[:, 0]                   # [b, NVH+NVH]
-            beta = torch.sigmoid(ba[:, :NVH]).view(b, NVH, 1)
-            a = ba[:, NVH:]
-        else:
-            beta = torch.sigmoid(lin(h, self.w_b)).view(b, NVH, 1)
-            a = lin(h, self.w_a)
+        if beta is None:
+            if self.w_ab is not None:
+                ba = lin(h, self.w_ab)[:, 0]                   # [b, NVH+NVH]
+                beta = torch.sigmoid(ba[:, :NVH]).view(b, NVH, 1)
+                a = ba[:, NVH:]
+            else:
+                beta = torch.sigmoid(lin(h, self.w_b)).view(b, NVH, 1)
+                a = lin(h, self.w_a)
         g = (-torch.exp(self.A_log) * F.softplus(a.float() + self.dt_bias)).view(b, NVH)
 
         rep = NVH // NKH
@@ -907,10 +935,17 @@ class FnLayer:
         self.S.copy_(S)
 
         o = o.to(torch.bfloat16)
-        xf = o.float()
-        xf = xf * torch.rsqrt(xf.pow(2).mean(-1, keepdim=True) + EPS)
-        xf = self.dn_norm_w * xf.to(torch.bfloat16)
-        xf = xf * z                             # output_gate_type = "sigmoid"（不是 silu）
+        if _DN_RMS:
+            # ★ 第 42 轮：这里原来是手写的 4 乘 + 2 规约（pow/mean/rsqrt/mul/mul），
+            #   换成引擎里已有的融合 `npu_rms_norm`（内部 fp32 计算）。
+            #   ⚠️ rms_norm() 内部用 (1+weight) 语义，而这里要的是**直接乘** dn_norm_w，
+            #   所以装载期预存了 dn_norm_g = dn_norm_w - 1。第一版漏了这一步，nll 直接炸到 2.52。
+            xf = rms_norm(o, self.dn_norm_g).float() * z
+        else:
+            xf = o.float()
+            xf = xf * torch.rsqrt(xf.pow(2).mean(-1, keepdim=True) + EPS)
+            xf = self.dn_norm_w * xf.to(torch.bfloat16)
+            xf = xf * z                             # output_gate_type = "sigmoid"（不是 silu）
         return lin(xf.to(torch.bfloat16).view(b, VAL_DIM), self.w_out)
 
     # ---------- QSA（稠密 causal，≤2048 上下文与参考一致） ----------

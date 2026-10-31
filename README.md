@@ -5,8 +5,8 @@
 不依赖 vLLM / MindIE / ATB 图引擎：手写 model forward + `torch_npu` NPUGraph 捕获 + 自研 W4 打包/解包，
 在**单机双卡 128 GiB 显存**里跑完 48 层，OpenAI 兼容 HTTP 服务。
 
-> **当前状态：基线 `baseline-r41`**
-> `mean_nll = 2.1735`（ppl 8.79）/ `top1 = 48.0%` / **TPOT 65.5 ms（15.3 tok/s）**
+> **当前状态：基线 `baseline-r42`**
+> `mean_nll = 2.1648`（ppl 8.71）/ `top1 = 48.0%` / **TPOT 64.6 ms（15.5 tok/s）**
 > TTFT：热态 **0.08 s**，冷启动 ≈ **0.068 s × prompt token 数**（231 token → 15.6 s）
 > 24 题单选题准确率 **24/24**，冷启动 ≈30 s，错误 0
 >
