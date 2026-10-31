@@ -1,4 +1,4 @@
-"""权重装配：从 Q 目录流式加载单层；稠密一次性反量化，专家保留 int8。
+﻿"""权重装配：从 Q 目录流式加载单层；稠密一次性反量化，专家保留 int8。
 另含 n-gram 表（≈51 GB，驻留磁盘/page cache）的 mmap 随机行读取。
 """
 import json
@@ -177,9 +177,23 @@ def load_nonlayer(embed_dev, head_dev, with_lmhead=True):
             else:
                 mx[n] = f.get_tensor(k).to(head_dev)
     if with_lmhead:
-        lw = E.QW(lq.to(head_dev), ls.to(head_dev), K=lq.shape[-1] - lpad)
-        lw.chunk_n = 16384                      # 必须分块：整块反量化要 1.19 GiB，46 层时只剩 ~1.0 GiB   # 宿主算 lm_head 实测 1600 ms/token，否决
-        # lm_head 在宿主算，不再需要分块反量化
+        # ★ 第 39 轮：`FNX_DENSE_W8=1` 时 lm_head 也走 aclnn W8（int8 常驻，读的字节腰斩）。
+        #   算子要求 N ≤ 65535，而词表 248320 → 必须按 N 预切 4 段（62080 each）。
+        #   前提是 `FNX_DEQ_HEAD=0`，否则会被装载期预反量化成 1.27 GB 的 bf16。
+        lw = None
+        if os.environ.get("FNX_DENSE_W8") == "1":
+            try:
+                lw = E.DenseW8(lq.to(head_dev), ls.to(head_dev), K=lq.shape[-1] - lpad)
+                lw.make_chunks(62080)
+                print(f"[dense_w8] lm_head → int8 分 {len(lw.chunks)} 段，"
+                      f"每段 N≤62080（算子上限 65535）", flush=True)
+            except Exception as _e:  # noqa: BLE001
+                print(f"[dense_w8] lm_head 退回 QW: {_e}", flush=True)
+                lw = None
+        if lw is None:
+            lw = E.QW(lq.to(head_dev), ls.to(head_dev), K=lq.shape[-1] - lpad)
+            lw.chunk_n = 16384                      # 必须分块：整块反量化要 1.19 GiB
+        #   宿主算 lm_head 实测 1600 ms/token，否决
     else:
         lw = torch.zeros(1, 1, dtype=torch.bfloat16, device=head_dev)
     return (eq, es), lw, mx

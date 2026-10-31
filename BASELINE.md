@@ -1,4 +1,4 @@
-﻿# 基线 `baseline-r38`（可复现性锚点）
+﻿# 基线 `baseline-r39`（可复现性锚点）
 
 本文件定义"基线"到底是什么：**配置、权重、版本、指标、验收判据**。
 在新机器上复现后，`scripts/40_verify.sh` 会把实测值与本文件对比，全部在容差内才打印 `BASELINE OK`。
@@ -20,6 +20,8 @@ FNX_MOE_W4A16=1
 # r38：稠密 int8 权重也走同一个 aclnn 算子；再把共用输入的投影拼成一次调用
 FNX_DENSE_W8=1
 FNX_DENSE_CAT=1
+# r39：mixer 的 down+inj、shared-expert 的 gate+up 也拼成一次 GEMM（1=都拼, mix/sh=只拚一边, 0=不拼）
+FNX_SMALL_MERGE=1
 FNX_W4A16_DIR=/models/Qwen3.8-Flash-Next-LQP-w4a16   # tools/repack_w4a16.py 产出
 # 装载期预反量化（第 32 轮，数值逐位不变，只是不再每 token 重算）
 FNX_DEQ_SMALL=1            # 每层 11 个小权重（mixer/shared-expert/gate）→ bf16 常驻
@@ -65,12 +67,12 @@ FNX_PORT=8000  FNX_CTX=2048  FNX_BATCH=1
 
 | 指标 | 基线值 | 容差 |
 |---|---|---|
-| `/fnx/loss`（`eval_text` 前 200 token）`mean_nll` | **2.1665** | ±0.03（r37 为 2.1995，r35 为 2.1756） |
-| 同上 `top1` | 49.50% | ±2.0 个百分点 |
-| 稳态 TPOT（≥128 token 输出） | **67.0 ms（14.9 tok/s）** | ≤ 85 ms |
+| `/fnx/loss`（`eval_text` 前 200 token）`mean_nll` | **2.1735** | ±0.03（r38 为 2.1665，r35 为 2.1756） |
+| 同上 `top1` | 48.00% | ±2.0 个百分点 |
+| 稳态 TPOT（≥128 token 输出） | **65.8 ms（15.2 tok/s）** | ≤ 80 ms |
 | TTFT（热态，重复 prompt） | **0.08 s** | ≤ 0.5 s |
 | 冷启动（装配 + 前缀缓存 + 图捕获） | ≈30 s | ≤ 90 s |
-| 显存 | dev0 **58.98 GiB** / dev1 **5.3 GiB** | dev0 ≤ 60.4 GiB |
+| 显存 | dev0 **58.97 GiB** / dev1 **5.3 GiB** | dev0 ≤ 60.4 GiB |
 | 24 题单选题准确率 | 24/24 | ≥ 22/24 |
 
 **质量口径注意**：`mean_nll` 用的是 `eval_text.txt`（仓库 `tests/` 里的评测文本，

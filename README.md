@@ -5,17 +5,17 @@
 不依赖 vLLM / MindIE / ATB 图引擎：手写 model forward + `torch_npu` NPUGraph 捕获 + 自研 W4 打包/解包，
 在**单机双卡 128 GiB 显存**里跑完 48 层，OpenAI 兼容 HTTP 服务。
 
-> **当前状态：基线 `baseline-r38`**
-> `mean_nll = 2.1665`（ppl 8.73）/ `top1 = 49.5%` / **TPOT 67.0 ms（14.9 tok/s）**
+> **当前状态：基线 `baseline-r39`**
+> `mean_nll = 2.1735`（ppl 8.79）/ `top1 = 48.0%` / **TPOT 65.8 ms（15.2 tok/s）**
 > TTFT：热态 **0.08 s**，冷启动 ≈ **0.068 s × prompt token 数**（231 token → 15.6 s）
 > 24 题单选题准确率 **24/24**，冷启动 ≈30 s，错误 0
 >
 > 提速主线（第 37/38 轮）：**把整数权重的反量化全部搬进 Cube** —— 用 CANN 现成的
 > `torch_npu.npu_weight_quant_batchmatmul`（aclnn per-group）替掉"每 token 反量化 + bf16 GEMM"：
 > 专家段（W4A16）一层 1.0 → 0.32 ms，稠密段（W8）一层 0.953 → 0.263 ms，
-> 再把共用输入的投影拼成一次调用。TPOT 110.3 → **67.0 ms（−39%）**，prefill 105 → **67.7 ms/token**，
-> `mean_nll` 反而从 2.1756 降到 **2.1665**（中间不再落 bf16，累加更准），MCQ 仍 24/24。
-> 三个开关：`FNX_MOE_W4A16` / `FNX_DENSE_W8` / `FNX_DENSE_CAT`。详见 `docs/Qwen3.8-Flash-Next-第37轮实测记录.md` 与 `…第38轮…`。
+> 再把共用输入的投影（qkv+z / b+a / mixer down+inj / shared gate+up）拼成一次调用。TPOT 110.3 → **65.8 ms（−40%）**，prefill 105 → **67.7 ms/token**，
+> `mean_nll` 从 2.1756 → r38 的 **2.1665**（中间不再落 bf16，累加更准）→ r39 的 2.1735（拼接改变 GEMM 累加顺序），MCQ 仍 24/24。
+> 四个开关：`FNX_MOE_W4A16` / `FNX_DENSE_W8` / `FNX_DENSE_CAT` / `FNX_SMALL_MERGE`。详见 `docs/…第37/38/39轮实测记录.md`。
 
 ---
 

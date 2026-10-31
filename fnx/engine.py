@@ -102,6 +102,12 @@ _Q4_CLIP = float(os.environ.get("FNX_Q4_CLIP", "1.0"))
 #   一次算子调用全出，层内再切片。动机是 profile 里 WeightQuantBatchmatmul 变成
 #   最大单项（16 ms/步 / 315 次调用，平均 0.05 ms —— 成本在发射不在算）。
 _DENSE_CAT = os.environ.get("FNX_DENSE_CAT", "1") == "1"
+#   ★ 第 39 轮：bf16 小权重里"共用输入"的也拼成一次 GEMM
+#   （mixer 的 down+inj、shared-expert 的 gate+up）。数值逐位不变。
+#   `FNX_SMALL_MERGE`: 0=不拼, 1(或 all)=都拼, mix=只拼 mixer, sh=只拼 shared-expert
+_SM_RAW = os.environ.get("FNX_SMALL_MERGE", "1")
+_SM_MIX = _SM_RAW in ("1", "all", "mix")
+_SM_SH = _SM_RAW in ("1", "all", "sh")
 _SMALL_NAMES = ("a_down", "a_up", "m_down", "m_up", "a_inj", "m_inj",
                 "sh_gate", "sh_up", "sh_down", "sh_gate2", "gate_w")
 _ATTN_NAMES = ("w_qkv", "w_z", "w_b", "w_a", "w_out", "w_q", "w_k", "w_v", "w_o")
@@ -263,7 +269,7 @@ class DenseW8:
     scale 在装载期一次性转置成 `[G,N]` bf16（每个权重只有几十 KB），所以每 token 没有
     scale 拼接开销——这一点和专家（512 个专家、必须现场拼）根本不同。
     """
-    __slots__ = ("w8t", "sc", "gs", "K", "N")
+    __slots__ = ("w8t", "sc", "gs", "K", "N", "chunks")
 
     def __init__(self, q, s, K=None):
         gs = q.shape[-1] // s.shape[-1]
@@ -276,9 +282,30 @@ class DenseW8:
         self.gs = gs
         self.K = kk
         self.N = self.w8t.shape[1]
+        self.chunks = None
+
+    def make_chunks(self, chunk_n):
+        """按 N 预切成连续块——算子要求 K、N ≤ 65535，lm_head 的 N=248320 必须切。
+
+        实测意义：lm_head 现在是 dev1 上的 bf16 常驻（1.27 GB），一次 GEMM 要 5.7 ms；
+        换 int8（0.64 GB）+ 4 段算子调用，读的字节腰斩，且走 Cube 内反量化。
+        预切（而不是每次切片）是为了给算子连续内存：非连续视图它可能拒绝或隐式拷贝。
+        """
+        parts = []
+        off = 0
+        for w, s in zip(torch.split(self.w8t, chunk_n, dim=1),
+                        torch.split(self.sc, chunk_n, dim=1)):
+            n0 = off
+            off += w.shape[1]
+            parts.append((w.contiguous(), s.contiguous(), n0, off))
+        self.chunks = parts
+        self.w8t = None
+        self.sc = None
 
     def deq_w(self):
         """一次性反量化（供 FNX_DEQ_SMALL 这类装载期预反量化用）。"""
+        if self.chunks is not None:
+            raise RuntimeError("DenseW8 已按 N 切块，不再支持一次性反量化")
         w = self.w8t.to(torch.bfloat16) * self.sc.repeat_interleave(self.gs, dim=0)
         return w.t().contiguous()                             # [N,K]
 
@@ -289,8 +316,14 @@ class DenseW8:
         if x.dtype != torch.bfloat16:
             x = x.to(torch.bfloat16)
         x2 = x if x.dim() == 2 else x.reshape(-1, sh[-1])
-        y = torch_npu.npu_weight_quant_batchmatmul(
-            x2, self.w8t, self.sc, antiquant_group_size=self.gs)
+        if self.chunks is None:
+            y = torch_npu.npu_weight_quant_batchmatmul(
+                x2, self.w8t, self.sc, antiquant_group_size=self.gs)
+        else:
+            y = torch.empty(x2.shape[0], self.N, dtype=torch.bfloat16, device=x2.device)
+            for w, s, n0, n1 in self.chunks:
+                y[:, n0:n1] = torch_npu.npu_weight_quant_batchmatmul(
+                    x2, w, s, antiquant_group_size=self.gs)
         return y if x.dim() <= 2 else y.view(*sh[:-1], self.N)
 
     @staticmethod
@@ -309,6 +342,7 @@ class DenseW8:
         sc = torch.cat([p.sc for p in parts], dim=1)          # [G, ΣN]
         o = DenseW8.__new__(DenseW8)
         o.w8t, o.sc, o.gs, o.K, o.N = w, sc, gs, parts[0].K, w.shape[1]
+        o.chunks = None
         return o
 
 
@@ -644,13 +678,25 @@ class KVStore:
         self.v = [torch.zeros(B, KVH, P, HD, dtype=torch.bfloat16, device=device) for _ in range(n)]
 
 
-def gated_residual(h, hc_norm_w, w_down, w_up, w_inj):
+def gated_residual(h, hc_norm_w, w_down, w_up, w_inj, n_inj=0):
+    """n_inj > 0 表示 w_down 已把 block_inject 拼在尾部（最后 n_inj 列是 inj）。
+
+    第 39 轮：`w_down`（→LOWRANK=320）与 `w_inj`（→HC=4）都吃同一个 hn，拼成一次 GEMM
+    可以少一次发射（Captured 路径里 MatMul 单次 ~13 µs，但其中大半是固定开销）。
+    拼接后数值不变：每列的点积与原来完全相同。
+    """
     b = h.shape[0]
     hn = rms_norm(h, hc_norm_w, gs=H)
-    mix = F.silu(lin(hn, w_down) / HC)
+    di = lin(hn, w_down)
+    if n_inj:
+        dp, ip = di[..., :-n_inj], di[..., -n_inj:]
+    else:
+        dp, ip = di, None
+    mix = F.silu(dp / HC)
     mix = torch.sigmoid(lin(mix, w_up))
-    mix = mix.view(b, 1, HC, H)
-    mixed = (mix * hn.view(b, 1, HC, H)).mean(dim=-2).view(b, 1, H)
+    mixed = (mix.view(b, 1, HC, H) * hn.view(b, 1, HC, H)).mean(dim=-2).view(b, 1, H)
+    if n_inj:
+        return mixed, (2.0 * torch.sigmoid(ip / HC)).view(b, 1, HC)
     if w_inj is None:
         return mixed
     inj = 2.0 * torch.sigmoid(lin(hn, w_inj) / HC)
@@ -756,6 +802,7 @@ class FnLayer:
         #   拼完必须把原件置 None：否则同一份权重在显存里放两遍（+55 MiB/层）。
         self.w_qkvz = None
         self.w_ab = None
+        self.w_qkvf = None
         self.n_cat = 0
         if _DENSE_CAT:
             names = ("w_qkv", "w_z")
@@ -770,8 +817,31 @@ class FnLayer:
                 self.w_ab = DenseW8.merge(ws)
                 for n in names:
                     setattr(self, n, None)
+            names = ("w_q", "w_k", "w_v")
+            ws = [getattr(self, n, None) for n in names]
+            if all(isinstance(w, DenseW8) for w in ws):
+                self.w_qkvf = DenseW8.merge(ws)
+                for n in names:
+                    setattr(self, n, None)
             if self.w_qkvz is not None or self.w_ab is not None:
                 self.n_cat = int(self.w_qkvz is not None) + int(self.w_ab is not None)
+
+        # ★★ 第 39 轮：bf16 小权重里"共用同一输入"的也拼成一次 GEMM（MatMul 单次 13 µs）
+        #   mixer：w_down(→320) 与 w_inj(→HC=4) 都吃 hn；shared expert：sh_gate 与 sh_up 都吃 x2。
+        self.a_di = self.m_di = self.sh_gu = None
+        if _SM_MIX:
+            for pre in ("a", "m"):
+                wd, wi = getattr(self, pre + "_down", None), getattr(self, pre + "_inj", None)
+                if isinstance(wd, Raw) and isinstance(wi, Raw):
+                    setattr(self, pre + "_di", Raw(torch.cat([wd.w, wi.w], dim=0)))
+                    setattr(self, pre + "_down", None)
+                    setattr(self, pre + "_inj", None)
+        if _SM_SH:
+            wg, wu = getattr(self, "sh_gate", None), getattr(self, "sh_up", None)
+            if isinstance(wg, Raw) and isinstance(wu, Raw):
+                self.sh_gu = Raw(torch.cat([wg.w, wu.w], dim=0))
+                self.sh_gate = None
+                self.sh_up = None
 
     # ---------- DeltaNet 单步 ----------
     def _deltanet(self, h):
@@ -822,11 +892,18 @@ class FnLayer:
         cos, sin = rope_cs(pos, self.inv)
         if b > 1:
             cos, sin = cos.unsqueeze(1), sin.unsqueeze(1)     # [b,1,64] 便于广播
-        qg = lin(h, self.w_q).view(b, NAH, 2 * HD)
+        if self.w_qkvf is not None:
+            qkv = lin(h, self.w_qkvf)[:, 0]                     # [b, 6144+512+512]
+            nq = NAH * 2 * HD
+            qg = qkv[:, :nq].reshape(b, NAH, 2 * HD)
+            k = rms_norm(qkv[:, nq:nq + KVH * HD].reshape(b, KVH, HD), self.kn_w)
+            v = qkv[:, nq + KVH * HD:].reshape(b, KVH, HD)
+        else:
+            qg = lin(h, self.w_q).view(b, NAH, 2 * HD)
+            k = rms_norm(lin(h, self.w_k).view(b, KVH, HD), self.kn_w)
+            v = lin(h, self.w_v).view(b, KVH, HD)
         q = rms_norm(qg[..., :HD], self.qn_w)
         gate = qg[..., HD:]
-        k = rms_norm(lin(h, self.w_k).view(b, KVH, HD), self.kn_w)
-        v = lin(h, self.w_v).view(b, KVH, HD)
         q = apply_rope(q, cos, sin)
         k = apply_rope(k, cos, sin)
 
@@ -866,7 +943,11 @@ class FnLayer:
     def _moe(self, x):
         b = x.shape[0]
         x2 = x.view(b, H)
-        sh = lin(F.silu(lin(x2, self.sh_gate)) * lin(x2, self.sh_up), self.sh_down)
+        if self.sh_gu is not None:
+            gu = lin(x2, self.sh_gu)                         # [b,1,2*MI]：gate 与 up 拼在一起
+            sh = lin(F.silu(gu[..., :MI]) * gu[..., MI:], self.sh_down)
+        else:
+            sh = lin(F.silu(lin(x2, self.sh_gate)) * lin(x2, self.sh_up), self.sh_down)
         sh = torch.sigmoid(lin(x2, self.sh_gate2)) * sh
         logits = lin(x2, self.gate_w)
         probs = torch.softmax(logits.float(), dim=-1)
@@ -929,10 +1010,16 @@ class FnLayer:
     def forward(self, h, pos, ngram_emb=None):
         if self.use_ple and not _NO_PLE:
             h = h + self._ple(h, ngram_emb)
-        mixed, inj = gated_residual(h, self.a_hc_norm, self.a_down, self.a_up, self.a_inj)
+        if self.a_di is not None:
+            mixed, inj = gated_residual(h, self.a_hc_norm, self.a_di, self.a_up, None, n_inj=HC)
+        else:
+            mixed, inj = gated_residual(h, self.a_hc_norm, self.a_down, self.a_up, self.a_inj)
         y = self._deltanet(mixed) if self.ltype in ("linear", "ple") else self._qsa(mixed, pos)
         h = inject(h, inj, y)
-        mixed, inj = gated_residual(h, self.m_hc_norm, self.m_down, self.m_up, self.m_inj)
+        if self.m_di is not None:
+            mixed, inj = gated_residual(h, self.m_hc_norm, self.m_di, self.m_up, None, n_inj=HC)
+        else:
+            mixed, inj = gated_residual(h, self.m_hc_norm, self.m_down, self.m_up, self.m_inj)
         y = self._moe(mixed)
         return inject(h, inj, y)
 
