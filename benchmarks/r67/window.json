@@ -1,0 +1,34 @@
+{
+  "best": {
+    "window": 2048,
+    "ms": 32.52713499823585,
+    "bitexact": true
+  },
+  "all": [
+    {
+      "window": 8192,
+      "ms": 34.547854599077255,
+      "bitexact": true
+    },
+    {
+      "window": 4096,
+      "ms": 33.72678639134392,
+      "bitexact": true
+    },
+    {
+      "window": 2048,
+      "ms": 32.52713499823585,
+      "bitexact": true
+    },
+    {
+      "window": 1024,
+      "ms": 33.261522999964654,
+      "bitexact": true
+    },
+    {
+      "window": 512,
+      "ms": 34.191929595544934,
+      "bitexact": true
+    }
+  ]
+}

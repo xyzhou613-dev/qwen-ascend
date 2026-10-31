@@ -816,6 +816,17 @@ def delta_chunk_fp32(q, k, v, log_g, beta, state):
     Preserve the fp32 recurrent state rather than casting it to bf16.
     """
     T = q.shape[0]
+    window = int(os.environ.get("FNX_DELTA_WINDOW", "0"))
+    if window and T > window:
+        if window % 64:
+            raise ValueError("DeltaNet window must align to 64-token solve blocks")
+        outputs = []
+        for begin in range(0, T, window):
+            end = min(begin + window, T)
+            out, state = delta_chunk_fp32(q[begin:end], k[begin:end], v[begin:end],
+                                          log_g[begin:end], beta[begin:end], state)
+            outputs.append(out)
+        return torch.cat(outputs, 0), state
     if T > 64 and os.environ.get("FNX_DELTA_BATCH", "0") == "1":
         return delta_chunk_batched_fp32(q, k, v, log_g, beta, state)
     if T > 64:
