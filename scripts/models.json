@@ -1,0 +1,32 @@
+{
+  "default_port": 8000,
+  "defaults": {
+    "health_timeout_s": 900,
+    "stop_timeout_s": 90
+  },
+  "models": {
+    "flash-next": {
+      "kind": "fnx",
+      "desc": "Qwen3.8-Flash-Next 121B MoE W4，自研 fnx 引擎（r55：双进程流水 24+24、分块图 prefill、稀疏 QSA）",
+      "model_id": "qwen3.8-flash-next-w4",
+      "port": 8000,
+      "systemd": "fnx.service",
+      "health": "/health",
+      "start_log": "/root/ascend-dev/logs/modelctl-flash-next.log"
+    },
+    "27b": {
+      "kind": "vllm",
+      "desc": "Qwen3.8-27B dense bf16，vLLM-Ascend 0.23.0，TP=2",
+      "model_id": "qwen3.8-27b",
+      "model_path": "/models/Qwen3.8-27B",
+      "port": 8000,
+      "tp": 2,
+      "max_model_len": 32768,
+      "gpu_memory_utilization": 0.9,
+      "devices": "0,1",
+      "vllm_args": "--trust-remote-code --limit-mm-per-prompt '{\"image\": 0, \"video\": 0}'",
+      "health": "/v1/models",
+      "start_log": "/root/ascend-dev/logs/modelctl-27b.log"
+    }
+  }
+}
