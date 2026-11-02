@@ -643,7 +643,7 @@ class FnModel:
         torch.npu.synchronize()
 
     @torch.no_grad()
-    def save_state(self, to_host=False, compact=None):
+    def save_state(self, to_host=False, compact=None, dual_slim=None):
         """★ 递归状态快照：把 reset() 会清零的全部状态克隆一份。
 
         用途 = 前缀缓存。实测（第 30 轮）：聊天模板的静态前缀（system 提示 + 脚手架）
@@ -657,10 +657,16 @@ class FnModel:
         compact = compact and E.B == 1
         n = int(self.pos0[0]) if compact else self.P
         kv_copy = lambda t: copy(t[:, :, :n])
+        if dual_slim is None:
+            dual_slim = os.environ.get("FNX_STATE_DUAL_SLIM", "0") == "1"
+        def kv_snapshot(kv):
+            count = kv.n if dual_slim and getattr(kv, "native_dual", False) else len(kv.k)
+            return ([kv_copy(t) for t in kv.k[:count]], [kv_copy(t) for t in kv.v[:count]])
         st = {"pos0": copy(self.pos0), "pos1": copy(self.pos1),
               "ctx": list(self.ctx), "layers": [],
-              "kv0": ([kv_copy(t) for t in self.kv0.k], [kv_copy(t) for t in self.kv0.v]),
-              "kv1": ([kv_copy(t) for t in self.kv1.k], [kv_copy(t) for t in self.kv1.v])}
+              "kv0": kv_snapshot(self.kv0), "kv1": kv_snapshot(self.kv1)}
+        if dual_slim:
+            st["kv_format"] = "original-only-v1"
         if compact:
             st["valid_len"] = n
         for L in self.layers0 + self.layers1:
@@ -679,6 +685,8 @@ class FnModel:
     @torch.no_grad()
     def load_state(self, st):
         """恢复 save_state() 的快照。不先 reset：直接覆盖更快，且语义完全等价。"""
+        if st.get("kv_format") not in (None, "original-only-v1"):
+            raise ValueError("unsupported snapshot KV format")
         self.pos0.copy_(st["pos0"])
         self.pos1.copy_(st["pos1"])
         self._host_pos = int(st["pos0"][0])
@@ -699,6 +707,11 @@ class FnModel:
                 t[:, :, :n].copy_(s)
             for t, s in zip(kv.v, sv):
                 t[:, :, :n].copy_(s)
+            if st.get("kv_format") == "original-only-v1" and getattr(kv, "native_dual", False):
+                if len(sk) != kv.n or len(sv) != kv.n:
+                    raise ValueError("invalid original-only dual-cache snapshot")
+                from .snapshot import rebuild_packed
+                rebuild_packed(kv, n)
         torch.npu.synchronize()
 
     @torch.no_grad()
@@ -709,7 +722,10 @@ class FnModel:
         从 58.9 GB 涨到 63.6 GB（碎片），所以槽位只在首次分配，之后一律 copy_ 复用。
         """
         if "valid_len" in st and st["valid_len"] != int(self.pos0[0]):
-            st.update(self.save_state(to_host=st["pos0"].device.type == "cpu", compact=True))
+            replacement = self.save_state(to_host=st["pos0"].device.type == "cpu", compact=True,
+                                          dual_slim=st.get("kv_format") == "original-only-v1")
+            st.clear()
+            st.update(replacement)
             return
         n = st.get("valid_len", self.P)
         st["pos0"].copy_(self.pos0)

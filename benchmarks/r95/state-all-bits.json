@@ -1,0 +1,35 @@
+{
+  "full_bytes": 74449520,
+  "slim_bytes": 36700784,
+  "saved_bytes": 37748736,
+  "load_timings": [
+    {
+      "host": false,
+      "load_ms": 1.0315629770047963
+    },
+    {
+      "host": true,
+      "load_ms": 10.754627990536392
+    },
+    {
+      "host": false,
+      "load_ms": 1.0315520339645445
+    },
+    {
+      "host": true,
+      "load_ms": 10.80385799286887
+    }
+  ],
+  "lengths": [
+    0,
+    1,
+    3,
+    4,
+    7,
+    31,
+    8192,
+    8192
+  ],
+  "bf16_all_bit_patterns": true,
+  "legacy_host_slot_reuse": true
+}

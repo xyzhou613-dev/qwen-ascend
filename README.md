@@ -135,3 +135,8 @@ bash scripts/deploy_all.sh          # 自检 → 容器 → 权重 → 起服务
 - 模型权重：Qwen3.8-Flash-Next（本仓库不含权重）
 - 运行时：`torch_npu` / CANN（版本见 `BASELINE.md`）
 - 所有性能数字均在 Ascend 910B4 上实测，测量脚本同仓库可复跑
+
+
+### 2026-11-02 r95更新
+
+当前采用indexer去重与original-only快照；[实测、质量、显存口径和回退](docs/r95-index-snapshot.md)，[当前两阶段算子采集](docs/r93-current-profile.md)。整请求变化较小，不宣称显著加速。

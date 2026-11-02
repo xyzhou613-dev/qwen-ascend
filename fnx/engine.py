@@ -1314,7 +1314,14 @@ class FnLayer:
             self.index_keys = apply_rope(rms_norm(pooled, self.index_kn), cos, sin).float()
         # Duplicate group ids write identical values. Incomplete groups are
         # excluded by the causal mask; recompute them when more raw keys arrive.
-        group_ids = pos // 4
+        if os.environ.get("FNX_INDEX_UNIQUE", "0") == "1" and raw.shape[0] > 1:
+            # Fixed upper bound on touched groups is capture-safe for every
+            # start alignment. Clamp the optional extra row to the last group;
+            # do not mutate a causally future cache row.
+            count = (raw.shape[0] + 6) // 4
+            group_ids = (pos[0] // 4 + torch.arange(count, device=self.dev)).clamp_max(pos[-1] // 4)
+        else:
+            group_ids = pos // 4
         rows = (group_ids[:, None] * 4 + torch.arange(4, device=self.dev)).reshape(-1)
         pooled = self.index_k.index_select(0, rows).view(-1, 4, 128).float().mean(1).to(raw.dtype)
         cos, sin = rope_cs(group_ids * 4, self.inv)
