@@ -1,0 +1,8 @@
+[W1102 07:05:53.447215934 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+DELTA_FIRST {"blocks": 20, "state_exact": true, "output_exact": true, "max_state_abs": 0.0, "max_output_abs": 0.0, "unchanged_heads": [], "wrong_heads": []}
+DELTA_DIRECT {"blocks": 20, "state_exact": true, "output_exact": true, "max_state_abs": 0.0, "max_output_abs": 0.0, "unchanged_heads": [], "wrong_heads": [], "recurrent_exact_256": true, "signed_zero_exact": true, "torch_36_calls_ms": 3.1085639784578234, "direct_36_calls_ms": 1.7115999944508076}
+DELTA_FIRST {"blocks": 24, "state_exact": true, "output_exact": true, "max_state_abs": 0.0, "max_output_abs": 0.0, "unchanged_heads": [], "wrong_heads": []}
+DELTA_DIRECT {"blocks": 24, "state_exact": true, "output_exact": true, "max_state_abs": 0.0, "max_output_abs": 0.0, "unchanged_heads": [], "wrong_heads": [], "recurrent_exact_256": true, "signed_zero_exact": true, "torch_36_calls_ms": 3.1000390299595892, "direct_36_calls_ms": 1.2438485282473266}
+DELTA_FIRST {"blocks": 40, "state_exact": true, "output_exact": true, "max_state_abs": 0.0, "max_output_abs": 0.0, "unchanged_heads": [], "wrong_heads": []}
+DELTA_DIRECT {"blocks": 40, "state_exact": true, "output_exact": true, "max_state_abs": 0.0, "max_output_abs": 0.0, "unchanged_heads": [], "wrong_heads": [], "recurrent_exact_256": true, "signed_zero_exact": true, "torch_36_calls_ms": 3.1023195188026875, "direct_36_calls_ms": 1.2430989590939134}
+R109_REBUILT_ACCEPT

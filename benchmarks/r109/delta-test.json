@@ -1,0 +1,8 @@
+{
+  "layer": 0,
+  "steps": 256,
+  "graph_dynamic_input": true,
+  "state_fp32_bit_exact": true,
+  "conv_bf16_bit_exact": true,
+  "output_bf16_bit_exact": true
+}

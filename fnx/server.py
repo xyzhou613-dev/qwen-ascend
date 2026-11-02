@@ -453,6 +453,7 @@ def health():
             "conversation_state_bytes": sum(model.state_bytes(st) for st in getattr(STATE.get("e"), "conv_slots", [])),
             "rope_cache": os.environ.get("FNX_ROPE_CACHE", "0") == "1",
             "delta_window": int(os.environ.get("FNX_DELTA_WINDOW", "0")),
+            "delta_native": os.environ.get("FNX_DN_NATIVE", "0") == "1" and os.environ.get("FNX_DN_DECODE_BMM", "0") != "1",
             "chunk_graph": bool(getattr(getattr(STATE.get("e"), "m", None), "gc", None)),
             "qsa_indexer": os.environ.get("FNX_INDEXER", "0") == "1",
             "qsa_sparse": os.environ.get("FNX_QSA_SPARSE", "0") == "1"}

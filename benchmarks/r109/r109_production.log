@@ -1,0 +1,55 @@
+R109_DEPLOYED
+QUALITY 262144 {'mean_nll': 2.165267, 'ppl': 8.7169, 'top1_acc': 0.485, 'n': 200}
+PROGRESS 262144 : prefill 32768/262012 elapsed 12.89
+PROGRESS 262144 : prefill 65536/262012 elapsed 22.69
+PROGRESS 262144 : prefill 98304/262012 elapsed 32.78
+PROGRESS 262144 : prefill 131072/262012 elapsed 43.15
+PROGRESS 262144 : prefill 163840/262012 elapsed 54.04
+PROGRESS 262144 : prefill 196608/262012 elapsed 64.88
+PROGRESS 262144 : prefill 229376/262012 elapsed 76.29
+PROGRESS 262144 : prefill 262012/262012 elapsed 92.39
+LONG_RESULT {"ctx": 262144, "prompt_tokens": 262016, "ttft_s": 92.45, "e2e_s": 99.057, "stats": {"ttft_ms": 91297.39, "tokens": 128, "seconds": 97.904, "tpot_ms": 52.02, "tok_decode_ms": 7.42, "prefill_ms": 91138.6, "prefill_tok_s": 2874.87, "n_prefill": 262012}, "answer": "根据资料内容，三个项目的验收码如下：\n\n1. 项目海棠：7319\n2. 项目松柏：8652\n3. 项目银杏：2946\n\n***\n\n**昇腾处理器推理服务优化与长文档处理技术详解**\n\n在昇腾处理器面向的大规模深度学习训练与推理场景中，软件栈以 CANN 为核心，其架构设计向上提供框架适配层，向下直接管理芯片的算力与内存资源。在实际的工程部署与性能调优过程中，一个极易被低估的关键环节并非算子本身的峰值计算性能，而是数据在设备", "recall_hits": 3}
+REPEAT 262144 seconds 7.895 stats {'ttft_ms': 163.64, 'seconds': 6.722, 'tpot_ms': 51.63, 'n_prefill': 0, 'prefill_ms': 0.12, 'prefill_tok_s': 0.0} answer 根据资料内容，三个项目的验收码如下：
+
+1. 项目海棠：7319
+2. 项目松柏：8652
+3. 项目银杏：2946
+
+***
+
+**昇腾处理器推理服务优化与长文档处理技术详解**
+
+在昇腾处理器面向的大规模深度学习训练与推理场景中，软件栈以 CANN 为核心，其架构设计向上提供框架适配层，向下直接管理芯片的算力与内存资源。在实际的工程部署与性能调优过程中，一个极易被低估的关键环节并非算子本身的峰值计算性能，而是数据在设备
+LONG_ACCEPT 262144
+CONTINUATION {"seconds": 1.9958545099943876, "prompt_tokens": 262045, "answer": "7319", "stats": {"ttft_ms": 639.13, "seconds": 0.846, "tpot_ms": 51.65, "n_prefill": 29, "prefill_ms": 404.32, "prefill_tok_s": 71.72}}
+CONTINUATION_ACCEPT
+PAYLOAD 1 prompt_tokens 8064 max_output 128
+PAYLOAD 2 prompt_tokens 8064 max_output 128
+PAYLOAD 3 prompt_tokens 8064 max_output 128
+{"run": 1, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 5.501, "end_to_end_s": 11.92, "prefill_s": 5.377, "prefill_tok_s": 1499.05, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 50.55, "server_total_s": 11.883}
+{"run": 2, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 5.475, "end_to_end_s": 11.892, "prefill_s": 5.375, "prefill_tok_s": 1499.61, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 50.53, "server_total_s": 11.859}
+{"run": 3, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 5.467, "end_to_end_s": 11.883, "prefill_s": 5.366, "prefill_tok_s": 1502.02, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 50.52, "server_total_s": 11.849}
+E2E_COMPLETE
+QUALITY 262144 {'mean_nll': 2.165267, 'ppl': 8.7169, 'top1_acc': 0.485, 'n': 200}
+PROGRESS 262144 : prefill 32768/262012 elapsed 12.7
+PROGRESS 262144 : prefill 65536/262012 elapsed 22.46
+PROGRESS 262144 : prefill 98304/262012 elapsed 32.49
+PROGRESS 262144 : prefill 131072/262012 elapsed 42.82
+PROGRESS 262144 : prefill 163840/262012 elapsed 53.67
+PROGRESS 262144 : prefill 196608/262012 elapsed 64.51
+PROGRESS 262144 : prefill 229376/262012 elapsed 75.88
+PROGRESS 262144 : prefill 262012/262012 elapsed 91.9
+LONG_RESULT {"ctx": 262144, "prompt_tokens": 262016, "ttft_s": 91.96, "e2e_s": 98.558, "stats": {"ttft_ms": 90813.52, "tokens": 128, "seconds": 97.411, "tpot_ms": 51.95, "tok_decode_ms": 6.83, "prefill_ms": 90675.44, "prefill_tok_s": 2889.56, "n_prefill": 262012}, "answer": "根据资料内容，三个项目的验收码如下：\n\n1. 项目海棠的验收码是7319。\n2. 项目松柏的验收码是8652。\n3. 项目银杏的验收码是2946。\n\n关于资料中涉及的推理服务和长文档处理技术，资料主要围绕昇腾处理器在大规模深度学习训练与推理场景下的性能优化展开，其核心软件栈以CANN为核心，向上提供框架适配层，向下管理芯片的算力与内存资源。在实际部署中，最容易被低估的环节往往不是算子本身的峰值性能，而是数据", "recall_hits": 3}
+REPEAT 262144 seconds 7.874 stats {'ttft_ms': 155.24, 'seconds': 6.708, 'tpot_ms': 51.59, 'n_prefill': 0, 'prefill_ms': 0.12, 'prefill_tok_s': 0.0} answer 根据资料内容，三个项目的验收码如下：
+
+1. 项目海棠的验收码是7319。
+2. 项目松柏的验收码是8652。
+3. 项目银杏的验收码是2946。
+
+关于资料中涉及的推理服务和长文档处理技术，资料主要围绕昇腾处理器在大规模深度学习训练与推理场景下的性能优化展开，其核心软件栈以CANN为核心，向上提供框架适配层，向下管理芯片的算力与内存资源。在实际部署中，最容易被低估的环节往往不是算子本身的峰值性能，而是数据
+LONG_ACCEPT 262144
+CONTINUATION {"seconds": 1.9539018280338496, "prompt_tokens": 262045, "answer": "7319", "stats": {"ttft_ms": 601.43, "seconds": 0.808, "tpot_ms": 51.64, "n_prefill": 29, "prefill_ms": 367.84, "prefill_tok_s": 78.84}}
+CONTINUATION_ACCEPT
+active
+enabled
+R109_PRODUCTION_ACCEPT

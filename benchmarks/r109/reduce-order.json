@@ -1,0 +1,530 @@
+[
+  {
+    "tree_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1344401091337204,
+      "max_abs": 1.862645149230957e-08
+    },
+    "tree_halves": {
+      "exact": false,
+      "equal_fraction": 0.1326497346162796,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes1_sequential": {
+      "exact": true,
+      "equal_fraction": 1.0,
+      "max_abs": 0.0
+    },
+    "lanes1_adjacent": {
+      "exact": true,
+      "equal_fraction": 1.0,
+      "max_abs": 0.0
+    },
+    "lanes1_halves": {
+      "exact": true,
+      "equal_fraction": 1.0,
+      "max_abs": 0.0
+    },
+    "lanes2_sequential": {
+      "exact": false,
+      "equal_fraction": 0.1233723983168602,
+      "max_abs": 2.0489096641540527e-08
+    },
+    "lanes2_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1233723983168602,
+      "max_abs": 2.0489096641540527e-08
+    },
+    "lanes2_halves": {
+      "exact": false,
+      "equal_fraction": 0.1233723983168602,
+      "max_abs": 2.0489096641540527e-08
+    },
+    "lanes4_sequential": {
+      "exact": false,
+      "equal_fraction": 0.1363932341337204,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes4_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1298828125,
+      "max_abs": 2.0489096641540527e-08
+    },
+    "lanes4_halves": {
+      "exact": false,
+      "equal_fraction": 0.1298828125,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes8_sequential": {
+      "exact": false,
+      "equal_fraction": 0.1316731721162796,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes8_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.12744140625,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes8_halves": {
+      "exact": false,
+      "equal_fraction": 0.12841796875,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes16_sequential": {
+      "exact": false,
+      "equal_fraction": 0.1315104216337204,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes16_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1344401091337204,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes16_halves": {
+      "exact": false,
+      "equal_fraction": 0.1319987028837204,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes32_sequential": {
+      "exact": false,
+      "equal_fraction": 0.1241861954331398,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes32_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1368815153837204,
+      "max_abs": 1.6763806343078613e-08
+    },
+    "lanes32_halves": {
+      "exact": false,
+      "equal_fraction": 0.1354166716337204,
+      "max_abs": 1.6763806343078613e-08
+    },
+    "lanes64_sequential": {
+      "exact": false,
+      "equal_fraction": 0.1170247420668602,
+      "max_abs": 2.60770320892334e-08
+    },
+    "lanes64_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1412760466337204,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes64_halves": {
+      "exact": false,
+      "equal_fraction": 0.1326497346162796,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes128_sequential": {
+      "exact": true,
+      "equal_fraction": 1.0,
+      "max_abs": 0.0
+    },
+    "lanes128_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1344401091337204,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes128_halves": {
+      "exact": false,
+      "equal_fraction": 0.1326497346162796,
+      "max_abs": 1.862645149230957e-08
+    }
+  },
+  {
+    "tree_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1357421875,
+      "max_abs": 1.4901161193847656e-08
+    },
+    "tree_halves": {
+      "exact": false,
+      "equal_fraction": 0.1341145783662796,
+      "max_abs": 1.4901161193847656e-08
+    },
+    "lanes1_sequential": {
+      "exact": true,
+      "equal_fraction": 1.0,
+      "max_abs": 0.0
+    },
+    "lanes1_adjacent": {
+      "exact": true,
+      "equal_fraction": 1.0,
+      "max_abs": 0.0
+    },
+    "lanes1_halves": {
+      "exact": true,
+      "equal_fraction": 1.0,
+      "max_abs": 0.0
+    },
+    "lanes2_sequential": {
+      "exact": false,
+      "equal_fraction": 0.1282552033662796,
+      "max_abs": 1.6763806343078613e-08
+    },
+    "lanes2_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1282552033662796,
+      "max_abs": 1.6763806343078613e-08
+    },
+    "lanes2_halves": {
+      "exact": false,
+      "equal_fraction": 0.1282552033662796,
+      "max_abs": 1.6763806343078613e-08
+    },
+    "lanes4_sequential": {
+      "exact": false,
+      "equal_fraction": 0.1253255158662796,
+      "max_abs": 1.4901161193847656e-08
+    },
+    "lanes4_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1267903596162796,
+      "max_abs": 1.4901161193847656e-08
+    },
+    "lanes4_halves": {
+      "exact": false,
+      "equal_fraction": 0.1214192733168602,
+      "max_abs": 1.4901161193847656e-08
+    },
+    "lanes8_sequential": {
+      "exact": false,
+      "equal_fraction": 0.1326497346162796,
+      "max_abs": 1.4901161193847656e-08
+    },
+    "lanes8_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1311848908662796,
+      "max_abs": 1.4901161193847656e-08
+    },
+    "lanes8_halves": {
+      "exact": false,
+      "equal_fraction": 0.1334635466337204,
+      "max_abs": 1.4901161193847656e-08
+    },
+    "lanes16_sequential": {
+      "exact": false,
+      "equal_fraction": 0.1253255158662796,
+      "max_abs": 1.4901161193847656e-08
+    },
+    "lanes16_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1385091096162796,
+      "max_abs": 1.4901161193847656e-08
+    },
+    "lanes16_halves": {
+      "exact": false,
+      "equal_fraction": 0.13525390625,
+      "max_abs": 1.4901161193847656e-08
+    },
+    "lanes32_sequential": {
+      "exact": false,
+      "equal_fraction": 0.1220703125,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes32_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1412760466337204,
+      "max_abs": 1.4901161193847656e-08
+    },
+    "lanes32_halves": {
+      "exact": false,
+      "equal_fraction": 0.1339518278837204,
+      "max_abs": 1.4901161193847656e-08
+    },
+    "lanes64_sequential": {
+      "exact": false,
+      "equal_fraction": 0.1165364608168602,
+      "max_abs": 2.2351741790771484e-08
+    },
+    "lanes64_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1393229216337204,
+      "max_abs": 1.4901161193847656e-08
+    },
+    "lanes64_halves": {
+      "exact": false,
+      "equal_fraction": 0.1341145783662796,
+      "max_abs": 1.4901161193847656e-08
+    },
+    "lanes128_sequential": {
+      "exact": true,
+      "equal_fraction": 1.0,
+      "max_abs": 0.0
+    },
+    "lanes128_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1357421875,
+      "max_abs": 1.4901161193847656e-08
+    },
+    "lanes128_halves": {
+      "exact": false,
+      "equal_fraction": 0.1341145783662796,
+      "max_abs": 1.4901161193847656e-08
+    }
+  },
+  {
+    "tree_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1360677033662796,
+      "max_abs": 1.6763806343078613e-08
+    },
+    "tree_halves": {
+      "exact": false,
+      "equal_fraction": 0.130859375,
+      "max_abs": 1.4901161193847656e-08
+    },
+    "lanes1_sequential": {
+      "exact": true,
+      "equal_fraction": 1.0,
+      "max_abs": 0.0
+    },
+    "lanes1_adjacent": {
+      "exact": true,
+      "equal_fraction": 1.0,
+      "max_abs": 0.0
+    },
+    "lanes1_halves": {
+      "exact": true,
+      "equal_fraction": 1.0,
+      "max_abs": 0.0
+    },
+    "lanes2_sequential": {
+      "exact": false,
+      "equal_fraction": 0.1315104216337204,
+      "max_abs": 1.6763806343078613e-08
+    },
+    "lanes2_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1315104216337204,
+      "max_abs": 1.6763806343078613e-08
+    },
+    "lanes2_halves": {
+      "exact": false,
+      "equal_fraction": 0.1315104216337204,
+      "max_abs": 1.6763806343078613e-08
+    },
+    "lanes4_sequential": {
+      "exact": false,
+      "equal_fraction": 0.1319987028837204,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes4_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1266276091337204,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes4_halves": {
+      "exact": false,
+      "equal_fraction": 0.1233723983168602,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes8_sequential": {
+      "exact": false,
+      "equal_fraction": 0.1298828125,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes8_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1310221403837204,
+      "max_abs": 1.6763806343078613e-08
+    },
+    "lanes8_halves": {
+      "exact": false,
+      "equal_fraction": 0.12841796875,
+      "max_abs": 1.6763806343078613e-08
+    },
+    "lanes16_sequential": {
+      "exact": false,
+      "equal_fraction": 0.1204427108168602,
+      "max_abs": 1.4901161193847656e-08
+    },
+    "lanes16_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1334635466337204,
+      "max_abs": 1.4901161193847656e-08
+    },
+    "lanes16_halves": {
+      "exact": false,
+      "equal_fraction": 0.1324869841337204,
+      "max_abs": 1.4901161193847656e-08
+    },
+    "lanes32_sequential": {
+      "exact": false,
+      "equal_fraction": 0.1214192733168602,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes32_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1329752653837204,
+      "max_abs": 1.6763806343078613e-08
+    },
+    "lanes32_halves": {
+      "exact": false,
+      "equal_fraction": 0.1336262971162796,
+      "max_abs": 1.6763806343078613e-08
+    },
+    "lanes64_sequential": {
+      "exact": false,
+      "equal_fraction": 0.11083984375,
+      "max_abs": 2.421438694000244e-08
+    },
+    "lanes64_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1306966096162796,
+      "max_abs": 1.4901161193847656e-08
+    },
+    "lanes64_halves": {
+      "exact": false,
+      "equal_fraction": 0.130859375,
+      "max_abs": 1.4901161193847656e-08
+    },
+    "lanes128_sequential": {
+      "exact": true,
+      "equal_fraction": 1.0,
+      "max_abs": 0.0
+    },
+    "lanes128_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1360677033662796,
+      "max_abs": 1.6763806343078613e-08
+    },
+    "lanes128_halves": {
+      "exact": false,
+      "equal_fraction": 0.130859375,
+      "max_abs": 1.4901161193847656e-08
+    }
+  },
+  {
+    "tree_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.13720703125,
+      "max_abs": 2.0489096641540527e-08
+    },
+    "tree_halves": {
+      "exact": false,
+      "equal_fraction": 0.14599609375,
+      "max_abs": 2.0489096641540527e-08
+    },
+    "lanes1_sequential": {
+      "exact": true,
+      "equal_fraction": 1.0,
+      "max_abs": 0.0
+    },
+    "lanes1_adjacent": {
+      "exact": true,
+      "equal_fraction": 1.0,
+      "max_abs": 0.0
+    },
+    "lanes1_halves": {
+      "exact": true,
+      "equal_fraction": 1.0,
+      "max_abs": 0.0
+    },
+    "lanes2_sequential": {
+      "exact": false,
+      "equal_fraction": 0.1319987028837204,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes2_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1319987028837204,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes2_halves": {
+      "exact": false,
+      "equal_fraction": 0.1319987028837204,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes4_sequential": {
+      "exact": false,
+      "equal_fraction": 0.1305338591337204,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes4_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1316731721162796,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes4_halves": {
+      "exact": false,
+      "equal_fraction": 0.1319987028837204,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes8_sequential": {
+      "exact": false,
+      "equal_fraction": 0.1368815153837204,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes8_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1315104216337204,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes8_halves": {
+      "exact": false,
+      "equal_fraction": 0.1388346403837204,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes16_sequential": {
+      "exact": false,
+      "equal_fraction": 0.1295572966337204,
+      "max_abs": 2.60770320892334e-08
+    },
+    "lanes16_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1433919221162796,
+      "max_abs": 2.2351741790771484e-08
+    },
+    "lanes16_halves": {
+      "exact": false,
+      "equal_fraction": 0.13134765625,
+      "max_abs": 2.2351741790771484e-08
+    },
+    "lanes32_sequential": {
+      "exact": false,
+      "equal_fraction": 0.12744140625,
+      "max_abs": 2.421438694000244e-08
+    },
+    "lanes32_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1455078125,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes32_halves": {
+      "exact": false,
+      "equal_fraction": 0.1448567658662796,
+      "max_abs": 2.0489096641540527e-08
+    },
+    "lanes64_sequential": {
+      "exact": false,
+      "equal_fraction": 0.1129557266831398,
+      "max_abs": 1.6763806343078613e-08
+    },
+    "lanes64_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.1407877653837204,
+      "max_abs": 1.862645149230957e-08
+    },
+    "lanes64_halves": {
+      "exact": false,
+      "equal_fraction": 0.14599609375,
+      "max_abs": 2.0489096641540527e-08
+    },
+    "lanes128_sequential": {
+      "exact": true,
+      "equal_fraction": 1.0,
+      "max_abs": 0.0
+    },
+    "lanes128_adjacent": {
+      "exact": false,
+      "equal_fraction": 0.13720703125,
+      "max_abs": 2.0489096641540527e-08
+    },
+    "lanes128_halves": {
+      "exact": false,
+      "equal_fraction": 0.14599609375,
+      "max_abs": 2.0489096641540527e-08
+    }
+  }
+]

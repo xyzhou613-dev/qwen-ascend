@@ -1,5 +1,5 @@
 #!/bin/bash
-# r106: validated 256k profile, exact caches and native sparse prefill.
+# r109: validated 256k profile, exact caches and native sparse prefill.
 # BF16 KV, FP32 recurrent state, double-buffered chunk prefill.
 set -u
 # r52 context profile
@@ -48,6 +48,7 @@ docker exec -d fnx bash -lc "cd /root/ascend-dev/fnx && \
   FNX_INDEX_UNIQUE=1 FNX_STATE_DUAL_SLIM=1 \
   FNX_MOE_INVERSE=1 \
   FNX_MOE_INVERSE_SORT=1 \
+  FNX_DN_NATIVE=1 \
   /root/ascend-dev/venv/bin/python -m fnx.server > $LOG 2>&1"
 H=""
 for i in $(seq 1 60); do

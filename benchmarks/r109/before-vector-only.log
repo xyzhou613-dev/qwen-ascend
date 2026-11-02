@@ -1,0 +1,6 @@
+[W1102 06:35:42.247950879 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+DELTA_FIRST {"blocks": 20, "state_exact": false, "output_exact": false, "max_state_abs": 0.04286610335111618, "max_output_abs": 0.028273969888687134, "unchanged_heads": [], "wrong_heads": [21, 22, 23, 24, 25, 26, 27, 28, 29, 36, 38, 41, 42, 43, 44, 45, 46, 47]}
+DELTA_FIRST {"blocks": 24, "state_exact": false, "output_exact": false, "max_state_abs": 0.045350052416324615, "max_output_abs": 0.012339912354946136, "unchanged_heads": [], "wrong_heads": [32, 33, 34, 35, 36, 37, 38, 39]}
+DELTA_FIRST {"blocks": 40, "state_exact": true, "output_exact": true, "max_state_abs": 0.0, "max_output_abs": 0.0, "unchanged_heads": [], "wrong_heads": []}
+DELTA_DIRECT {"blocks": 40, "state_exact": true, "output_exact": true, "max_state_abs": 0.0, "max_output_abs": 0.0, "unchanged_heads": [], "wrong_heads": [], "recurrent_exact_256": true, "torch_36_calls_ms": 3.182329499395564, "direct_36_calls_ms": 1.3515590107999742}
+R108_PROBE_COMPLETE

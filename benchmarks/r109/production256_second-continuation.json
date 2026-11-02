@@ -1,0 +1,13 @@
+{
+  "seconds": 1.9539018280338496,
+  "prompt_tokens": 262045,
+  "answer": "7319",
+  "stats": {
+    "ttft_ms": 601.43,
+    "seconds": 0.808,
+    "tpot_ms": 51.64,
+    "n_prefill": 29,
+    "prefill_ms": 367.84,
+    "prefill_tok_s": 78.84
+  }
+}

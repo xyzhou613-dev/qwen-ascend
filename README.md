@@ -1,4 +1,4 @@
-> 当前生产：2026-11-02 r106，两次新256k TTFT 92.405/91.808秒。[当前验收、数值边界与回退](docs/r106-moe-inverse-sort.md)。
+> 当前生产：2026-11-02 r109，256k输出约19.24 tok/s。[当前验收、原生内核构建及回退](docs/r109-native-delta.md)。
 
 > 2026-11-02：ACL设备IPC混合传输已验收，当前hybrid；256k生产TTFT 102.114/101.607s。[第91–92轮实测与边界](docs/r92-peer-ipc.md)。
 
@@ -152,3 +152,8 @@ bash scripts/deploy_all.sh          # 自检 → 容器 → 权重 → 起服务
 ### 2026-11-02 r106更新
 
 当前采用较大MoE批次的等价逆排列FP32排序；两次新256k TTFT 92.405/91.808秒，固定测例均值较r100减少约4.46%。[实测、负结果与回退](docs/r106-moe-inverse-sort.md)。decode策略未改变。
+
+
+### 2026-11-02 r109更新
+
+逐位一致的FP32 DeltaNet原生decode更新；两次256k平均TPOT 51.985 ms，较r106输出速度提高约4.31%。[原始数据、构建和回退](docs/r109-native-delta.md)。

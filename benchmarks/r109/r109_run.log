@@ -1,0 +1,45 @@
+R109_PREPARED
+[W1102 06:45:45.385492346 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+[W1102 06:45:46.055050699 TensorFactories.cpp:423] Warning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (function operator())
+REAL_DELTA_EXACT 64
+REAL_DELTA_EXACT 128
+REAL_DELTA_EXACT 192
+REAL_DELTA_EXACT 256
+R109_DELTA_ACCEPT
+PAYLOAD 1 prompt_tokens 8064 max_output 128
+PAYLOAD 2 prompt_tokens 8064 max_output 128
+PAYLOAD 3 prompt_tokens 8064 max_output 128
+{"run": 1, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 5.592, "end_to_end_s": 12.016, "prefill_s": 5.468, "prefill_tok_s": 1474.15, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 50.58, "server_total_s": 11.977}
+{"run": 2, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 5.48, "end_to_end_s": 11.896, "prefill_s": 5.38, "prefill_tok_s": 1498.19, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 50.52, "server_total_s": 11.864}
+{"run": 3, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 5.473, "end_to_end_s": 11.895, "prefill_s": 5.374, "prefill_tok_s": 1499.93, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 50.57, "server_total_s": 11.863}
+E2E_COMPLETE
+QUALITY 262144 {'mean_nll': 2.165267, 'ppl': 8.7169, 'top1_acc': 0.485, 'n': 200}
+PROGRESS 262144 : prefill 32768/262012 elapsed 12.75
+PROGRESS 262144 : prefill 65536/262012 elapsed 22.56
+PROGRESS 262144 : prefill 98304/262012 elapsed 32.64
+PROGRESS 262144 : prefill 131072/262012 elapsed 43.02
+PROGRESS 262144 : prefill 163840/262012 elapsed 53.92
+PROGRESS 262144 : prefill 196608/262012 elapsed 64.76
+PROGRESS 262144 : prefill 229376/262012 elapsed 76.16
+PROGRESS 262144 : prefill 262012/262012 elapsed 92.25
+LONG_RESULT {"ctx": 262144, "prompt_tokens": 262016, "ttft_s": 92.315, "e2e_s": 98.927, "stats": {"ttft_ms": 91220.11, "tokens": 128, "seconds": 97.831, "tpot_ms": 52.06, "tok_decode_ms": 7.52, "prefill_ms": 91069.17, "prefill_tok_s": 2877.07, "n_prefill": 262012}, "answer": "根据资料内容，三个项目的验收码如下：\n\n1. 海棠：7319\n2. 松柏：8652\n3. 银杏：2946\n\n关于资料中涉及的推理服务和长文档处理技术，以下是详细的技术解析：\n\n在现代大规模深度学习推理场景中，尤其是针对昇腾处理器等专用硬件，性能优化的核心往往不在于单一算子的峰值算力，而在于对数据搬运开销的精细管理。资料指出，跨设备的数据拷贝虽然单次数据量看似不大，但若处于关键路径上，其累积延迟可能远超计算本身。因此，优化的首要步骤是拆解", "recall_hits": 3}
+REPEAT 262144 seconds 7.843 stats {'ttft_ms': 168.07, 'seconds': 6.727, 'tpot_ms': 51.64, 'n_prefill': 0, 'prefill_ms': 0.12, 'prefill_tok_s': 0.0} answer 根据资料内容，三个项目的验收码如下：
+
+1. 海棠：7319
+2. 松柏：8652
+3. 银杏：2946
+
+关于资料中涉及的推理服务和长文档处理技术，以下是详细的技术解析：
+
+在现代大规模深度学习推理场景中，尤其是针对昇腾处理器等专用硬件，性能优化的核心往往不在于单一算子的峰值算力，而在于对数据搬运开销的精细管理。资料指出，跨设备的数据拷贝虽然单次数据量看似不大，但若处于关键路径上，其累积延迟可能远超计算本身。因此，优化的首要步骤是拆解
+LONG_ACCEPT 262144
+CONTINUATION {"seconds": 1.9515031710034236, "prompt_tokens": 262045, "answer": "7319", "stats": {"ttft_ms": 639.61, "seconds": 0.846, "tpot_ms": 51.64, "n_prefill": 29, "prefill_ms": 404.84, "prefill_tok_s": 71.63}}
+CONTINUATION_ACCEPT
+PAYLOAD 1 prompt_tokens 8064 max_output 128
+PAYLOAD 2 prompt_tokens 8064 max_output 128
+PAYLOAD 3 prompt_tokens 8064 max_output 128
+{"run": 1, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 5.488, "end_to_end_s": 11.916, "prefill_s": 5.379, "prefill_tok_s": 1498.48, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 50.61, "server_total_s": 11.88}
+{"run": 2, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 5.471, "end_to_end_s": 11.898, "prefill_s": 5.374, "prefill_tok_s": 1499.94, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 50.6, "server_total_s": 11.866}
+{"run": 3, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 5.479, "end_to_end_s": 11.899, "prefill_s": 5.38, "prefill_tok_s": 1498.19, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 50.55, "server_total_s": 11.867}
+E2E_COMPLETE
+R109_CANDIDATE_ACCEPT

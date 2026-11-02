@@ -1199,18 +1199,22 @@ class FnLayer:
         k = l2norm(k.view(b, NKH, HKD)).repeat_interleave(rep, dim=1)
         v = v.view(b, NVH, HVD)
 
-        S = self.S * torch.exp(g)[..., None, None]                          # 先衰减
-        if os.environ.get("FNX_DN_DECODE_BMM", "0") == "1":
-            kv_mem = torch.bmm(k.float().reshape(-1, 1, HKD), S.reshape(-1, HKD, HVD)).reshape(b, NVH, HVD)
-            delta = (v - kv_mem) * beta
-            S = torch.addcmul(S, k.float().unsqueeze(-1), delta.unsqueeze(-2))
-            o = torch.bmm(q.float().reshape(-1, 1, HKD), S.reshape(-1, HKD, HVD)).reshape(b, NVH, HVD)
+        if b == 1 and os.environ.get("FNX_DN_NATIVE", "0") == "1" and os.environ.get("FNX_DN_DECODE_BMM", "0") != "1":
+            from .delta_native import step as native_delta_step
+            o = native_delta_step(self.S, q, k, v, beta, torch.exp(g)[..., None, None])
         else:
-            kv_mem = (S * k.unsqueeze(-1)).sum(dim=-2)
-            delta = (v - kv_mem) * beta
-            S = S + k.unsqueeze(-1) * delta.unsqueeze(-2)
-            o = (S * q.unsqueeze(-1)).sum(dim=-2)
-        self.S.copy_(S)
+            S = self.S * torch.exp(g)[..., None, None]                          # 先衰减
+            if os.environ.get("FNX_DN_DECODE_BMM", "0") == "1":
+                kv_mem = torch.bmm(k.float().reshape(-1, 1, HKD), S.reshape(-1, HKD, HVD)).reshape(b, NVH, HVD)
+                delta = (v - kv_mem) * beta
+                S = torch.addcmul(S, k.float().unsqueeze(-1), delta.unsqueeze(-2))
+                o = torch.bmm(q.float().reshape(-1, 1, HKD), S.reshape(-1, HKD, HVD)).reshape(b, NVH, HVD)
+            else:
+                kv_mem = (S * k.unsqueeze(-1)).sum(dim=-2)
+                delta = (v - kv_mem) * beta
+                S = S + k.unsqueeze(-1) * delta.unsqueeze(-2)
+                o = (S * q.unsqueeze(-1)).sum(dim=-2)
+            self.S.copy_(S)
 
         o = o.to(torch.bfloat16)
         if _DN_RMS:
