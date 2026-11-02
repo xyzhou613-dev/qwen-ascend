@@ -1,0 +1,320 @@
+{
+  "date": "2026-11-02",
+  "baseline_commit": "91ba026",
+  "baseline256": [
+    {
+      "ctx": 262144,
+      "prompt_tokens": 262016,
+      "ttft_s": 102.048,
+      "e2e_s": 108.913,
+      "stats": {
+        "ttft_ms": 100945.24,
+        "tokens": 128,
+        "seconds": 107.81,
+        "tpot_ms": 54.05,
+        "tok_decode_ms": 7.35,
+        "prefill_ms": 100783.69,
+        "prefill_tok_s": 2599.75,
+        "n_prefill": 262012
+      },
+      "answer": "根据资料内容，三个项目的验收码如下：\n\n1. 海棠：7319\n2. 松柏：8652\n3. 银杏：2946\n\n关于资料中涉及的推理服务和长文档处理技术，以下是详细的技术解析：\n\n在现代大规模深度学习推理场景中，尤其是针对昇腾处理器等专用AI芯片，性能优化的核心往往不在于单一算子的峰值算力，而在于系统级的数据搬运效率与内存带宽利用率。资料指出，最容易被低估的性能瓶颈是数据在设备之间搬运所带来的固定开销。即使单次跨设备张量拷贝的数据量看似微小，一旦其",
+      "recall_hits": 3
+    },
+    {
+      "ctx": 262144,
+      "prompt_tokens": 262016,
+      "ttft_s": 101.552,
+      "e2e_s": 108.406,
+      "stats": {
+        "ttft_ms": 100454.02,
+        "tokens": 128,
+        "seconds": 107.307,
+        "tpot_ms": 53.96,
+        "tok_decode_ms": 6.66,
+        "prefill_ms": 100312.73,
+        "prefill_tok_s": 2611.95,
+        "n_prefill": 262012
+      },
+      "answer": "根据资料内容，三个项目的验收码如下：\n\n1. 项目海棠的验收码是7319。\n2. 项目松柏的验收码是8652。\n3. 项目银杏的验收码是2946。\n\n关于资料中涉及的推理服务和长文档处理技术，资料主要聚焦于昇腾处理器在大规模深度学习训练与推理场景下的性能优化，特别是针对现代混合专家模型（MoE）的推理瓶颈分析与量化技术。资料指出，昇腾处理器的软件栈以CANN为核心，其性能优化的关键在于识别数据搬运带来的固定开销，而非",
+      "recall_hits": 3
+    }
+  ],
+  "candidate256": {
+    "ctx": 262144,
+    "prompt_tokens": 262016,
+    "ttft_s": 96.535,
+    "e2e_s": 103.413,
+    "stats": {
+      "ttft_ms": 95437.08,
+      "tokens": 128,
+      "seconds": 102.314,
+      "tpot_ms": 54.15,
+      "tok_decode_ms": 6.68,
+      "prefill_ms": 95286.77,
+      "prefill_tok_s": 2749.72,
+      "n_prefill": 262012
+    },
+    "answer": "根据资料内容，三个项目的验收码如下：\n\n1. 海棠：7319\n2. 松柏：8652\n3. 银杏：2946\n\n关于资料中涉及的推理服务和长文档处理技术，以下是详细的技术解析：\n\n在现代大规模深度学习推理场景中，尤其是针对昇腾处理器等专用硬件，性能优化的核心往往不在于单一算子的峰值算力，而在于系统级的数据搬运与内存带宽管理。资料指出，最容易被低估的性能瓶颈是数据在设备之间搬运所带来的固定开销。即使单次跨设备张量拷贝的数据量看似微小，一旦其出现在每个",
+    "recall_hits": 3
+  },
+  "production256": [
+    {
+      "ctx": 262144,
+      "prompt_tokens": 262016,
+      "ttft_s": 96.672,
+      "e2e_s": 103.528,
+      "stats": {
+        "ttft_ms": 95571.11,
+        "tokens": 128,
+        "seconds": 102.427,
+        "tpot_ms": 53.98,
+        "tok_decode_ms": 6.8,
+        "prefill_ms": 95409.75,
+        "prefill_tok_s": 2746.18,
+        "n_prefill": 262012
+      },
+      "answer": "根据资料内容，三个项目的验收码如下：\n\n1. 海棠：7319\n2. 松柏：8652\n3. 银杏：2946\n\n***\n\n**昇腾处理器推理服务优化与长文档处理技术详解**\n\n在昇腾处理器面向的大规模深度学习训练与推理场景中，软件栈以 CANN 为核心，其架构设计向上提供框架适配层，向下直接管理芯片的算力与内存资源。在实际的工程部署与性能调优过程中，一个极易被低估的关键环节并非算子（Operator）本身的峰值计算性能，而是数据在设备",
+      "recall_hits": 3
+    },
+    {
+      "ctx": 262144,
+      "prompt_tokens": 262016,
+      "ttft_s": 96.144,
+      "e2e_s": 103.017,
+      "stats": {
+        "ttft_ms": 95042.94,
+        "tokens": 128,
+        "seconds": 101.916,
+        "tpot_ms": 54.12,
+        "tok_decode_ms": 8.25,
+        "prefill_ms": 94900.48,
+        "prefill_tok_s": 2760.91,
+        "n_prefill": 262012
+      },
+      "answer": "根据资料内容，三个项目的验收码如下：\n\n1. 项目海棠：7319\n2. 项目松柏：8652\n3. 项目银杏：2946\n\n***\n\n**昇腾处理器推理服务优化与长文档处理技术详解**\n\n在昇腾处理器面向的大规模深度学习训练与推理场景中，软件栈以CANN为核心，其架构设计向上提供框架适配层，向下管理芯片的算力与内存资源。在实际部署中，性能优化的核心难点往往不在于算子本身的峰值性能，而在于数据在设备之间搬运所带来的固定开销。这种开销在",
+      "recall_hits": 3
+    }
+  ],
+  "production8k": [
+    {
+      "run": 1,
+      "transport": "server-local HTTP",
+      "prompt_tokens": 8064,
+      "output_tokens": 128,
+      "ttft_s": 5.613,
+      "end_to_end_s": 12.289,
+      "prefill_s": 5.492,
+      "prefill_tok_s": 1467.47,
+      "fresh_prefill_tokens": 8060,
+      "decode_tpot_ms": 52.56,
+      "server_total_s": 12.253
+    },
+    {
+      "run": 2,
+      "transport": "server-local HTTP",
+      "prompt_tokens": 8064,
+      "output_tokens": 128,
+      "ttft_s": 5.589,
+      "end_to_end_s": 12.26,
+      "prefill_s": 5.488,
+      "prefill_tok_s": 1468.62,
+      "fresh_prefill_tokens": 8060,
+      "decode_tpot_ms": 52.52,
+      "server_total_s": 12.228
+    },
+    {
+      "run": 3,
+      "transport": "server-local HTTP",
+      "prompt_tokens": 8064,
+      "output_tokens": 128,
+      "ttft_s": 5.571,
+      "end_to_end_s": 12.246,
+      "prefill_s": 5.471,
+      "prefill_tok_s": 1473.25,
+      "fresh_prefill_tokens": 8060,
+      "decode_tpot_ms": 52.56,
+      "server_total_s": 12.215
+    }
+  ],
+  "quality": [
+    {
+      "mean_nll": 2.165267,
+      "ppl": 8.7169,
+      "top1_acc": 0.485,
+      "n": 200
+    },
+    {
+      "mean_nll": 2.165267,
+      "ppl": 8.7169,
+      "top1_acc": 0.485,
+      "n": 200
+    },
+    {
+      "mean_nll": 2.165267,
+      "ppl": 8.7169,
+      "top1_acc": 0.485,
+      "n": 200
+    }
+  ],
+  "continuations": [
+    {
+      "seconds": 1.9622443019761704,
+      "prompt_tokens": 262045,
+      "answer": "7319",
+      "stats": {
+        "ttft_ms": 643.71,
+        "seconds": 0.859,
+        "tpot_ms": 53.83,
+        "n_prefill": 29,
+        "prefill_ms": 408.07,
+        "prefill_tok_s": 71.07
+      }
+    },
+    {
+      "seconds": 1.9631857330095954,
+      "prompt_tokens": 262045,
+      "answer": "7319",
+      "stats": {
+        "ttft_ms": 643.25,
+        "seconds": 0.858,
+        "tpot_ms": 53.66,
+        "n_prefill": 29,
+        "prefill_ms": 405.21,
+        "prefill_tok_s": 71.57
+      }
+    },
+    {
+      "seconds": 1.925267715996597,
+      "prompt_tokens": 262045,
+      "answer": "7319",
+      "stats": {
+        "ttft_ms": 608.68,
+        "seconds": 0.824,
+        "tpot_ms": 53.66,
+        "n_prefill": 29,
+        "prefill_ms": 371.25,
+        "prefill_tok_s": 78.11
+      }
+    }
+  ],
+  "baseline_mean_ttft_s": 101.80000000000001,
+  "production_mean_ttft_s": 96.408,
+  "ttft_improvement_percent": 5.296660117878204,
+  "real_moe": [
+    {
+      "tokens": 128,
+      "real_layer": 0,
+      "eager_exact": true,
+      "dynamic_graph_seeds": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "tokens": 512,
+      "real_layer": 0,
+      "eager_exact": true,
+      "dynamic_graph_seeds": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "tokens": 8192,
+      "real_layer": 0,
+      "eager_exact": true,
+      "dynamic_graph_seeds": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "restore_probe": [
+    {
+      "tokens": 128,
+      "method": "scatter",
+      "median_ms": 0.34228601725772023,
+      "restored_exact": true,
+      "weighted_sum_exact": true
+    },
+    {
+      "tokens": 128,
+      "method": "inverse_gather",
+      "median_ms": 0.32874548924155533,
+      "restored_exact": true,
+      "weighted_sum_exact": true
+    },
+    {
+      "tokens": 512,
+      "method": "scatter",
+      "median_ms": 0.5770569841843098,
+      "restored_exact": true,
+      "weighted_sum_exact": true
+    },
+    {
+      "tokens": 512,
+      "method": "inverse_gather",
+      "median_ms": 0.32968600862659514,
+      "restored_exact": true,
+      "weighted_sum_exact": true
+    },
+    {
+      "tokens": 8192,
+      "method": "scatter",
+      "median_ms": 14.757294004084542,
+      "restored_exact": true,
+      "weighted_sum_exact": true
+    },
+    {
+      "tokens": 8192,
+      "method": "inverse_gather",
+      "median_ms": 7.906001002993435,
+      "restored_exact": true,
+      "weighted_sum_exact": true
+    }
+  ],
+  "health": {
+    "status": "ok",
+    "engine_loaded": true,
+    "ctx": 262144,
+    "pipeline_stages": 2,
+    "worker_alive": true,
+    "prefill_chunk": 8192,
+    "pipeline_transport": "hybrid",
+    "pipeline_transfers": {
+      "peer_transfers": 128,
+      "peer_bytes": 11214520320,
+      "host_transfers": 1316,
+      "host_bytes": 40693760
+    },
+    "index_caps": [
+      16384,
+      32768,
+      65536,
+      98304,
+      131072,
+      196608,
+      262144
+    ],
+    "native_sparse": true,
+    "native_dual": true,
+    "index_unique": true,
+    "moe_inverse": true,
+    "state_dual_slim": true,
+    "conversation_state_bytes": 7763871776,
+    "rope_cache": true,
+    "delta_window": 2048,
+    "chunk_graph": true,
+    "qsa_indexer": true,
+    "qsa_sparse": true
+  },
+  "snapshot_saved_bytes_at_full_ctx": 7247757312,
+  "notes": [
+    "Loaded model, server-local HTTP, fresh random document ID, input262016/output128",
+    "Inverse routing is enabled only for grouped expert batches >=512; decode path is unchanged",
+    "Two production samples are not a long-running SLA or proof of hardware limits"
+  ]
+}

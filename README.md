@@ -140,3 +140,8 @@ bash scripts/deploy_all.sh          # 自检 → 容器 → 权重 → 起服务
 ### 2026-11-02 r95更新
 
 当前采用indexer去重与original-only快照；[实测、质量、显存口径和回退](docs/r95-index-snapshot.md)，[当前两阶段算子采集](docs/r93-current-profile.md)。整请求变化较小，不宣称显著加速。
+
+
+### 2026-11-02 r100更新
+
+当前新增MoE逆排列gather；两次新256k TTFT 96.672/96.144秒，固定测例均值较r95减少约5.30%。[实测、精度与回退](docs/r100-moe-inverse.md)。decode路径未改变。

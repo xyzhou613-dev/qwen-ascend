@@ -1677,7 +1677,15 @@ class FnLayer:
                        if os.environ.get("FNX_MOE_SWIGLU_FP32", "0") == "1" else
                        (F.silu(gu[:, :MI].float()) * gu[:, MI:].float()).to(torch.bfloat16))
                 yd = self.exp_dn.apply_grouped(act, ends, host_ends)
-                restored = torch.empty_like(yd).index_copy_(0, order, yd)
+                if b >= 512 and os.environ.get("FNX_MOE_INVERSE", "0") == "1":
+                    # Invert only the small row permutation, then gather the
+                    # large expert output. Keep token/expert order, BF16 multiply
+                    # and sum exactly as in the original scatter path.
+                    inverse = torch.empty_like(order).index_copy_(
+                        0, order, torch.arange(order.numel(), device=x.device))
+                    restored = yd.index_select(0, inverse)
+                else:
+                    restored = torch.empty_like(yd).index_copy_(0, order, yd)
                 y = (restored.view(b, TOPK, H) * w.unsqueeze(-1)).sum(1)
                 return (y + sh).view(b, 1, H)
             # ★★ 第 37 轮：aclnn per-group W4A16（解包/乘 scale/GEMM 全在 AI Core 内）

@@ -1,0 +1,44 @@
+[
+  {
+    "tokens": 128,
+    "method": "scatter",
+    "median_ms": 0.34228601725772023,
+    "restored_exact": true,
+    "weighted_sum_exact": true
+  },
+  {
+    "tokens": 128,
+    "method": "inverse_gather",
+    "median_ms": 0.32874548924155533,
+    "restored_exact": true,
+    "weighted_sum_exact": true
+  },
+  {
+    "tokens": 512,
+    "method": "scatter",
+    "median_ms": 0.5770569841843098,
+    "restored_exact": true,
+    "weighted_sum_exact": true
+  },
+  {
+    "tokens": 512,
+    "method": "inverse_gather",
+    "median_ms": 0.32968600862659514,
+    "restored_exact": true,
+    "weighted_sum_exact": true
+  },
+  {
+    "tokens": 8192,
+    "method": "scatter",
+    "median_ms": 14.757294004084542,
+    "restored_exact": true,
+    "weighted_sum_exact": true
+  },
+  {
+    "tokens": 8192,
+    "method": "inverse_gather",
+    "median_ms": 7.906001002993435,
+    "restored_exact": true,
+    "weighted_sum_exact": true
+  }
+]

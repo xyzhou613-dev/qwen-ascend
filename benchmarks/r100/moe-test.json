@@ -1,0 +1,32 @@
+[
+  {
+    "tokens": 128,
+    "real_layer": 0,
+    "eager_exact": true,
+    "dynamic_graph_seeds": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "tokens": 512,
+    "real_layer": 0,
+    "eager_exact": true,
+    "dynamic_graph_seeds": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "tokens": 8192,
+    "real_layer": 0,
+    "eager_exact": true,
+    "dynamic_graph_seeds": [
+      1,
+      2,
+      3
+    ]
+  }
+]
