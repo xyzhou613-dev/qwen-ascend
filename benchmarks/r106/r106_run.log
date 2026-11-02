@@ -1,0 +1,44 @@
+R106_PREPARED
+[W1102 06:04:28.203998146 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+REAL_MOE_EXACT 128
+REAL_MOE_EXACT 512
+REAL_MOE_EXACT 4096
+REAL_MOE_EXACT 8192
+R106_MOE_ACCEPT
+PAYLOAD 1 prompt_tokens 8064 max_output 128
+PAYLOAD 2 prompt_tokens 8064 max_output 128
+PAYLOAD 3 prompt_tokens 8064 max_output 128
+{"run": 1, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 5.611, "end_to_end_s": 12.311, "prefill_s": 5.484, "prefill_tok_s": 1469.77, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 52.75, "server_total_s": 12.271}
+{"run": 2, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 5.489, "end_to_end_s": 12.186, "prefill_s": 5.386, "prefill_tok_s": 1496.6, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 52.73, "server_total_s": 12.152}
+{"run": 3, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 5.483, "end_to_end_s": 12.174, "prefill_s": 5.38, "prefill_tok_s": 1498.19, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 52.68, "server_total_s": 12.14}
+E2E_COMPLETE
+QUALITY 262144 {'mean_nll': 2.165267, 'ppl': 8.7169, 'top1_acc': 0.485, 'n': 200}
+PROGRESS 262144 : prefill 32768/262012 elapsed 12.8
+PROGRESS 262144 : prefill 65536/262012 elapsed 22.6
+PROGRESS 262144 : prefill 98304/262012 elapsed 32.68
+PROGRESS 262144 : prefill 131072/262012 elapsed 43.05
+PROGRESS 262144 : prefill 163840/262012 elapsed 53.94
+PROGRESS 262144 : prefill 196608/262012 elapsed 64.77
+PROGRESS 262144 : prefill 229376/262012 elapsed 76.17
+PROGRESS 262144 : prefill 262012/262012 elapsed 92.27
+LONG_RESULT {"ctx": 262144, "prompt_tokens": 262016, "ttft_s": 92.329, "e2e_s": 99.2, "stats": {"ttft_ms": 91174.97, "tokens": 128, "seconds": 98.045, "tpot_ms": 54.1, "tok_decode_ms": 7.08, "prefill_ms": 91024.73, "prefill_tok_s": 2878.47, "n_prefill": 262012}, "answer": "根据资料内容，三个项目的验收码如下：\n\n1. 项目海棠的验收码是7319。\n2. 项目松柏的验收码是8652。\n3. 项目银杏的验收码是2946。\n\n关于资料中涉及的推理服务和长文档处理技术，资料主要围绕昇腾处理器在大规模深度学习训练与推理场景下的性能优化展开，核心观点是“测量优于直觉”，强调通过精确的量化手段来定位性能瓶颈，而非凭直觉优化代码。\n\n首先，在推理服务方面，资料指出昇腾处理器的软件栈以C", "recall_hits": 3}
+REPEAT 262144 seconds 8.176 stats {'ttft_ms': 161.91, 'seconds': 6.989, 'tpot_ms': 53.75, 'n_prefill': 0, 'prefill_ms': 0.12, 'prefill_tok_s': 0.0} answer 根据资料内容，三个项目的验收码如下：
+
+1. 项目海棠的验收码是7319。
+2. 项目松柏的验收码是8652。
+3. 项目银杏的验收码是2946。
+
+关于资料中涉及的推理服务和长文档处理技术，资料主要围绕昇腾处理器在大规模深度学习训练与推理场景下的性能优化展开，核心观点是“测量优于直觉”，强调通过精确的量化手段来定位性能瓶颈，而非凭直觉优化代码。
+
+首先，在推理服务方面，资料指出昇腾处理器的软件栈以C
+LONG_ACCEPT 262144
+CONTINUATION {"seconds": 2.004168978019152, "prompt_tokens": 262045, "answer": "7319", "stats": {"ttft_ms": 639.57, "seconds": 0.855, "tpot_ms": 53.77, "n_prefill": 29, "prefill_ms": 398.16, "prefill_tok_s": 72.83}}
+CONTINUATION_ACCEPT
+PAYLOAD 1 prompt_tokens 8064 max_output 128
+PAYLOAD 2 prompt_tokens 8064 max_output 128
+PAYLOAD 3 prompt_tokens 8064 max_output 128
+{"run": 1, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 5.488, "end_to_end_s": 12.166, "prefill_s": 5.376, "prefill_tok_s": 1499.29, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 52.58, "server_total_s": 12.129}
+{"run": 2, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 5.483, "end_to_end_s": 12.169, "prefill_s": 5.382, "prefill_tok_s": 1497.58, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 52.65, "server_total_s": 12.137}
+{"run": 3, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 5.485, "end_to_end_s": 12.177, "prefill_s": 5.384, "prefill_tok_s": 1496.89, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 52.69, "server_total_s": 12.144}
+E2E_COMPLETE
+R106_CANDIDATE_ACCEPT

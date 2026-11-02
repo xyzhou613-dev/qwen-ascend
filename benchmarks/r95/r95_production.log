@@ -1,0 +1,53 @@
+R95_DEPLOYED
+QUALITY 262144 {'mean_nll': 2.165267, 'ppl': 8.7169, 'top1_acc': 0.485, 'n': 200}
+PROGRESS 262144 : prefill 32768/262012 elapsed 14.09
+PROGRESS 262144 : prefill 65536/262012 elapsed 25.06
+PROGRESS 262144 : prefill 98304/262012 elapsed 36.3
+PROGRESS 262144 : prefill 131072/262012 elapsed 47.83
+PROGRESS 262144 : prefill 163840/262012 elapsed 59.89
+PROGRESS 262144 : prefill 196608/262012 elapsed 71.89
+PROGRESS 262144 : prefill 229376/262012 elapsed 84.46
+PROGRESS 262144 : prefill 262012/262012 elapsed 101.98
+LONG_RESULT {"ctx": 262144, "prompt_tokens": 262016, "ttft_s": 102.048, "e2e_s": 108.913, "stats": {"ttft_ms": 100945.24, "tokens": 128, "seconds": 107.81, "tpot_ms": 54.05, "tok_decode_ms": 7.35, "prefill_ms": 100783.69, "prefill_tok_s": 2599.75, "n_prefill": 262012}, "answer": "根据资料内容，三个项目的验收码如下：\n\n1. 海棠：7319\n2. 松柏：8652\n3. 银杏：2946\n\n关于资料中涉及的推理服务和长文档处理技术，以下是详细的技术解析：\n\n在现代大规模深度学习推理场景中，尤其是针对昇腾处理器等专用AI芯片，性能优化的核心往往不在于单一算子的峰值算力，而在于系统级的数据搬运效率与内存带宽利用率。资料指出，最容易被低估的性能瓶颈是数据在设备之间搬运所带来的固定开销。即使单次跨设备张量拷贝的数据量看似微小，一旦其", "recall_hits": 3}
+REPEAT 262144 seconds 8.102 stats {'ttft_ms': 162.93, 'seconds': 6.986, 'tpot_ms': 53.72, 'n_prefill': 0, 'prefill_ms': 0.12, 'prefill_tok_s': 0.0} answer 根据资料内容，三个项目的验收码如下：
+
+1. 海棠：7319
+2. 松柏：8652
+3. 银杏：2946
+
+关于资料中涉及的推理服务和长文档处理技术，以下是详细的技术解析：
+
+在现代大规模深度学习推理场景中，尤其是针对昇腾处理器等专用AI芯片，性能优化的核心往往不在于单一算子的峰值算力，而在于系统级的数据搬运效率与内存带宽利用率。资料指出，最容易被低估的性能瓶颈是数据在设备之间搬运所带来的固定开销。即使单次跨设备张量拷贝的数据量看似微小，一旦其
+LONG_ACCEPT 262144
+CONTINUATION {"seconds": 1.9317536340095103, "prompt_tokens": 262045, "answer": "7319", "stats": {"ttft_ms": 618.69, "seconds": 0.834, "tpot_ms": 53.63, "n_prefill": 29, "prefill_ms": 377.05, "prefill_tok_s": 76.91}}
+CONTINUATION_ACCEPT
+PAYLOAD 1 prompt_tokens 8064 max_output 128
+PAYLOAD 2 prompt_tokens 8064 max_output 128
+PAYLOAD 3 prompt_tokens 8064 max_output 128
+{"run": 1, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 5.899, "end_to_end_s": 12.584, "prefill_s": 5.777, "prefill_tok_s": 1395.11, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 52.64, "server_total_s": 12.549}
+{"run": 2, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 5.872, "end_to_end_s": 12.553, "prefill_s": 5.772, "prefill_tok_s": 1396.45, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 52.6, "server_total_s": 12.521}
+{"run": 3, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 5.866, "end_to_end_s": 12.551, "prefill_s": 5.767, "prefill_tok_s": 1397.67, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 52.64, "server_total_s": 12.521}
+E2E_COMPLETE
+QUALITY 262144 {'mean_nll': 2.165267, 'ppl': 8.7169, 'top1_acc': 0.485, 'n': 200}
+PROGRESS 262144 : prefill 32768/262012 elapsed 13.9
+PROGRESS 262144 : prefill 65536/262012 elapsed 24.82
+PROGRESS 262144 : prefill 98304/262012 elapsed 36.02
+PROGRESS 262144 : prefill 131072/262012 elapsed 47.51
+PROGRESS 262144 : prefill 163840/262012 elapsed 59.51
+PROGRESS 262144 : prefill 196608/262012 elapsed 71.52
+PROGRESS 262144 : prefill 229376/262012 elapsed 84.03
+PROGRESS 262144 : prefill 262012/262012 elapsed 101.49
+LONG_RESULT {"ctx": 262144, "prompt_tokens": 262016, "ttft_s": 101.552, "e2e_s": 108.406, "stats": {"ttft_ms": 100454.02, "tokens": 128, "seconds": 107.307, "tpot_ms": 53.96, "tok_decode_ms": 6.66, "prefill_ms": 100312.73, "prefill_tok_s": 2611.95, "n_prefill": 262012}, "answer": "根据资料内容，三个项目的验收码如下：\n\n1. 项目海棠的验收码是7319。\n2. 项目松柏的验收码是8652。\n3. 项目银杏的验收码是2946。\n\n关于资料中涉及的推理服务和长文档处理技术，资料主要聚焦于昇腾处理器在大规模深度学习训练与推理场景下的性能优化，特别是针对现代混合专家模型（MoE）的推理瓶颈分析与量化技术。资料指出，昇腾处理器的软件栈以CANN为核心，其性能优化的关键在于识别数据搬运带来的固定开销，而非", "recall_hits": 3}
+REPEAT 262144 seconds 8.08 stats {'ttft_ms': 159.45, 'seconds': 6.969, 'tpot_ms': 53.62, 'n_prefill': 0, 'prefill_ms': 0.12, 'prefill_tok_s': 0.0} answer 根据资料内容，三个项目的验收码如下：
+
+1. 项目海棠的验收码是7319。
+2. 项目松柏的验收码是8652。
+3. 项目银杏的验收码是2946。
+
+关于资料中涉及的推理服务和长文档处理技术，资料主要聚焦于昇腾处理器在大规模深度学习训练与推理场景下的性能优化，特别是针对现代混合专家模型（MoE）的推理瓶颈分析与量化技术。资料指出，昇腾处理器的软件栈以CANN为核心，其性能优化的关键在于识别数据搬运带来的固定开销，而非
+LONG_ACCEPT 262144
+CONTINUATION {"seconds": 1.9170429929508828, "prompt_tokens": 262045, "answer": "7319", "stats": {"ttft_ms": 592.15, "seconds": 0.807, "tpot_ms": 53.64, "n_prefill": 29, "prefill_ms": 353.15, "prefill_tok_s": 82.12}}
+CONTINUATION_ACCEPT
+active
+enabled
+R95_PRODUCTION_ACCEPT

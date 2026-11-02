@@ -1,0 +1,32 @@
+[W1102 05:58:17.524337603 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+CUSTOM_COMBINE_CHECK {"tokens": 1, "blocks": 20, "exact": true, "max_abs": 0.0}
+CUSTOM_COMBINE {"tokens": 1, "blocks": 20, "exact": true, "max_abs": 0.0, "median_ms": 0.33617601729929447, "dynamic_exact": true}
+CUSTOM_COMBINE_CHECK {"tokens": 1, "blocks": 40, "exact": true, "max_abs": 0.0}
+CUSTOM_COMBINE {"tokens": 1, "blocks": 40, "exact": true, "max_abs": 0.0, "median_ms": 0.3398659755475819, "dynamic_exact": true}
+CUSTOM_BASELINE {"tokens": 1, "mode": "inverse", "median_ms": 0.3280910023022443}
+CUSTOM_COMBINE_CHECK {"tokens": 7, "blocks": 20, "exact": true, "max_abs": 0.0}
+CUSTOM_COMBINE {"tokens": 7, "blocks": 20, "exact": true, "max_abs": 0.0, "median_ms": 0.331725983414799, "dynamic_exact": true}
+CUSTOM_COMBINE_CHECK {"tokens": 7, "blocks": 40, "exact": true, "max_abs": 0.0}
+CUSTOM_COMBINE {"tokens": 7, "blocks": 40, "exact": true, "max_abs": 0.0, "median_ms": 0.33169600646942854, "dynamic_exact": true}
+CUSTOM_BASELINE {"tokens": 7, "mode": "inverse", "median_ms": 0.32816099701449275}
+CUSTOM_COMBINE_CHECK {"tokens": 128, "blocks": 20, "exact": true, "max_abs": 0.0}
+CUSTOM_COMBINE {"tokens": 128, "blocks": 20, "exact": true, "max_abs": 0.0, "median_ms": 0.33804099075496197, "dynamic_exact": true}
+CUSTOM_COMBINE_CHECK {"tokens": 128, "blocks": 40, "exact": true, "max_abs": 0.0}
+CUSTOM_COMBINE {"tokens": 128, "blocks": 40, "exact": true, "max_abs": 0.0, "median_ms": 0.3385809832252562, "dynamic_exact": true}
+CUSTOM_BASELINE {"tokens": 128, "mode": "inverse", "median_ms": 0.3323160344734788}
+CUSTOM_COMBINE_CHECK {"tokens": 512, "blocks": 20, "exact": true, "max_abs": 0.0}
+CUSTOM_COMBINE {"tokens": 512, "blocks": 20, "exact": true, "max_abs": 0.0, "median_ms": 0.33357596839778125, "dynamic_exact": true}
+CUSTOM_COMBINE_CHECK {"tokens": 512, "blocks": 40, "exact": true, "max_abs": 0.0}
+CUSTOM_COMBINE {"tokens": 512, "blocks": 40, "exact": true, "max_abs": 0.0, "median_ms": 0.33553101820871234, "dynamic_exact": true}
+CUSTOM_BASELINE {"tokens": 512, "mode": "inverse", "median_ms": 0.33523599267937243}
+CUSTOM_COMBINE_CHECK {"tokens": 4096, "blocks": 20, "exact": true, "max_abs": 0.0}
+CUSTOM_COMBINE {"tokens": 4096, "blocks": 20, "exact": true, "max_abs": 0.0, "median_ms": 1.2612035206984729, "dynamic_exact": true}
+CUSTOM_COMBINE_CHECK {"tokens": 4096, "blocks": 40, "exact": true, "max_abs": 0.0}
+CUSTOM_COMBINE {"tokens": 4096, "blocks": 40, "exact": true, "max_abs": 0.0, "median_ms": 1.2775934883393347, "dynamic_exact": true}
+CUSTOM_BASELINE {"tokens": 4096, "mode": "inverse", "median_ms": 1.1469684832263738}
+CUSTOM_COMBINE_CHECK {"tokens": 8192, "blocks": 20, "exact": true, "max_abs": 0.0}
+CUSTOM_COMBINE {"tokens": 8192, "blocks": 20, "exact": true, "max_abs": 0.0, "median_ms": 2.458256989484653, "dynamic_exact": true}
+CUSTOM_COMBINE_CHECK {"tokens": 8192, "blocks": 40, "exact": true, "max_abs": 0.0}
+CUSTOM_COMBINE {"tokens": 8192, "blocks": 40, "exact": true, "max_abs": 0.0, "median_ms": 2.4954820109996945, "dynamic_exact": true}
+CUSTOM_BASELINE {"tokens": 8192, "mode": "inverse", "median_ms": 2.21301699639298}
+R104_PROBE_COMPLETE

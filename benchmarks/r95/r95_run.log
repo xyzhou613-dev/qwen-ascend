@@ -1,0 +1,72 @@
+R95_PREPARED
+[W1102 03:56:29.647093676 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+SNAPSHOT_EXACT 0
+SNAPSHOT_EXACT 1
+/root/ascend-dev/r95/fnx/model.py:707: UserWarning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (Triggered internally at ../torch_npu/csrc/aten/common/TensorFactories.cpp:423.)
+  t[:, :, :n].copy_(s)
+SNAPSHOT_EXACT 3
+SNAPSHOT_EXACT 4
+SNAPSHOT_EXACT 7
+SNAPSHOT_EXACT 31
+SNAPSHOT_EXACT 8192
+SNAPSHOT_EXACT 262144
+R95_STATE_ACCEPT {"full_bytes": 2382365296, "slim_bytes": 1174405744, "saved_bytes": 1207959552, "load_timings": [{"host": false, "load_ms": 40.461372991558164}, {"host": true, "load_ms": 332.6595709659159}], "lengths": [0, 1, 3, 4, 7, 31, 8192, 262144], "bf16_all_bit_patterns": true, "legacy_host_slot_reuse": true}
+PAYLOAD 1 prompt_tokens 8064 max_output 128
+PAYLOAD 2 prompt_tokens 8064 max_output 128
+PAYLOAD 3 prompt_tokens 8064 max_output 128
+{"run": 1, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 5.99, "end_to_end_s": 12.668, "prefill_s": 5.864, "prefill_tok_s": 1374.41, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 52.59, "server_total_s": 12.63}
+{"run": 2, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 5.871, "end_to_end_s": 12.553, "prefill_s": 5.769, "prefill_tok_s": 1397.03, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 52.61, "server_total_s": 12.521}
+{"run": 3, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 5.872, "end_to_end_s": 12.551, "prefill_s": 5.772, "prefill_tok_s": 1396.44, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 52.59, "server_total_s": 12.52}
+E2E_COMPLETE
+QUALITY 262144 {'mean_nll': 2.165267, 'ppl': 8.7169, 'top1_acc': 0.485, 'n': 200}
+PROGRESS 262144 : prefill 32768/262012 elapsed 14.02
+PROGRESS 262144 : prefill 65536/262012 elapsed 25.01
+PROGRESS 262144 : prefill 98304/262012 elapsed 36.27
+PROGRESS 262144 : prefill 131072/262012 elapsed 47.81
+PROGRESS 262144 : prefill 163840/262012 elapsed 59.89
+PROGRESS 262144 : prefill 196608/262012 elapsed 71.89
+PROGRESS 262144 : prefill 229376/262012 elapsed 84.47
+PROGRESS 262144 : prefill 262012/262012 elapsed 101.98
+LONG_RESULT {"ctx": 262144, "prompt_tokens": 262016, "ttft_s": 102.044, "e2e_s": 108.917, "stats": {"ttft_ms": 100932.58, "tokens": 128, "seconds": 107.805, "tpot_ms": 54.11, "tok_decode_ms": 7.69, "prefill_ms": 100780.82, "prefill_tok_s": 2599.82, "n_prefill": 262012}, "answer": "根据资料内容，三个项目的验收码如下：\n\n1. 海棠：7319\n2. 松柏：8652\n3. 银杏：2946\n\n关于资料中涉及的推理服务和长文档处理技术，以下是详细的技术解析：\n\n在现代大规模深度学习推理场景中，尤其是针对昇腾处理器等专用硬件，性能优化的核心往往不在于算子本身的峰值算力，而在于数据搬运带来的固定开销。当模型参数规模达到数百亿甚至千亿级别时，传统的算力瓶颈已逐渐让位于内存带宽瓶颈。特别是在混合专家模型（MoE）中，虽然总参数量", "recall_hits": 3}
+REPEAT 262144 seconds 8.102 stats {'ttft_ms': 161.66, 'seconds': 6.979, 'tpot_ms': 53.68, 'n_prefill': 0, 'prefill_ms': 0.11, 'prefill_tok_s': 0.0} answer 根据资料内容，三个项目的验收码如下：
+
+1. 海棠：7319
+2. 松柏：8652
+3. 银杏：2946
+
+关于资料中涉及的推理服务和长文档处理技术，以下是详细的技术解析：
+
+在现代大规模深度学习推理场景中，尤其是针对昇腾处理器等专用硬件，性能优化的核心往往不在于算子本身的峰值算力，而在于数据搬运带来的固定开销。当模型参数规模达到数百亿甚至千亿级别时，传统的算力瓶颈已逐渐让位于内存带宽瓶颈。特别是在混合专家模型（MoE）中，虽然总参数量
+LONG_ACCEPT 262144
+CONTINUATION {"seconds": 1.9663045160123147, "prompt_tokens": 262045, "answer": "7319", "stats": {"ttft_ms": 641.39, "seconds": 0.857, "tpot_ms": 53.73, "n_prefill": 29, "prefill_ms": 404.46, "prefill_tok_s": 71.7}}
+CONTINUATION_ACCEPT
+QUALITY 262144 {'mean_nll': 2.165267, 'ppl': 8.7169, 'top1_acc': 0.485, 'n': 200}
+PROGRESS 262144 : prefill 32768/262012 elapsed 13.9
+PROGRESS 262144 : prefill 65536/262012 elapsed 24.84
+PROGRESS 262144 : prefill 98304/262012 elapsed 36.03
+PROGRESS 262144 : prefill 131072/262012 elapsed 47.53
+PROGRESS 262144 : prefill 163840/262012 elapsed 59.55
+PROGRESS 262144 : prefill 196608/262012 elapsed 71.55
+PROGRESS 262144 : prefill 229376/262012 elapsed 84.07
+PROGRESS 262144 : prefill 262012/262012 elapsed 101.54
+LONG_RESULT {"ctx": 262144, "prompt_tokens": 262016, "ttft_s": 101.601, "e2e_s": 108.487, "stats": {"ttft_ms": 100506.42, "tokens": 128, "seconds": 107.393, "tpot_ms": 54.22, "tok_decode_ms": 8.25, "prefill_ms": 100359.17, "prefill_tok_s": 2610.74, "n_prefill": 262012}, "answer": "根据资料内容，三个项目的验收码如下：\n\n1. 海棠：7319\n2. 松柏：8652\n3. 银杏：2946\n\n关于资料中涉及的推理服务和长文档处理技术，以下是详细的技术解析：\n\n在现代大规模深度学习推理场景中，尤其是针对昇腾处理器等专用硬件，性能优化的核心往往不在于单一算子的峰值算力，而在于系统级的数据搬运效率与内存带宽利用率。资料指出，最容易被低估的性能瓶颈是数据在设备之间搬运所带来的固定开销。即使单次跨设备张量拷贝的数据量看似微小，一旦其出现在", "recall_hits": 3}
+REPEAT 262144 seconds 8.097 stats {'ttft_ms': 157.78, 'seconds': 6.976, 'tpot_ms': 53.68, 'n_prefill': 0, 'prefill_ms': 0.12, 'prefill_tok_s': 0.0} answer 根据资料内容，三个项目的验收码如下：
+
+1. 海棠：7319
+2. 松柏：8652
+3. 银杏：2946
+
+关于资料中涉及的推理服务和长文档处理技术，以下是详细的技术解析：
+
+在现代大规模深度学习推理场景中，尤其是针对昇腾处理器等专用硬件，性能优化的核心往往不在于单一算子的峰值算力，而在于系统级的数据搬运效率与内存带宽利用率。资料指出，最容易被低估的性能瓶颈是数据在设备之间搬运所带来的固定开销。即使单次跨设备张量拷贝的数据量看似微小，一旦其出现在
+LONG_ACCEPT 262144
+CONTINUATION {"seconds": 1.9268662029644474, "prompt_tokens": 262045, "answer": "7319", "stats": {"ttft_ms": 601.32, "seconds": 0.817, "tpot_ms": 53.78, "n_prefill": 29, "prefill_ms": 365.78, "prefill_tok_s": 79.28}}
+CONTINUATION_ACCEPT
+PAYLOAD 1 prompt_tokens 8064 max_output 128
+PAYLOAD 2 prompt_tokens 8064 max_output 128
+PAYLOAD 3 prompt_tokens 8064 max_output 128
+{"run": 1, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 5.892, "end_to_end_s": 12.575, "prefill_s": 5.779, "prefill_tok_s": 1394.73, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 52.62, "server_total_s": 12.539}
+{"run": 2, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 5.872, "end_to_end_s": 12.557, "prefill_s": 5.771, "prefill_tok_s": 1396.65, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 52.64, "server_total_s": 12.525}
+{"run": 3, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 5.868, "end_to_end_s": 12.548, "prefill_s": 5.767, "prefill_tok_s": 1397.57, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 52.59, "server_total_s": 12.516}
+E2E_COMPLETE
+R95_CANDIDATE_ACCEPT

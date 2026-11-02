@@ -1,0 +1,80 @@
+R93_PREPARED
+[W1102 03:44:30.953167789 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+nonlayer 完成 0.0s
+  layer  0 type=linear load    0.3s init   0.1s 累计    0.3s  hbm0= 7.78GiB hbm1= 7.78GiB
+  layer  1 type=ple   load    0.2s init   0.0s 累计    0.5s  hbm0= 9.20GiB hbm1= 9.20GiB
+  layer  2 type=linear load    0.2s init   0.0s 累计    0.7s  hbm0=10.60GiB hbm1=10.60GiB
+  layer  3 type=full  load    0.1s init   0.0s 累计    0.9s  hbm0=12.04GiB hbm1=12.04GiB
+  layer  4 type=linear load    0.2s init   0.0s 累计    1.0s  hbm0=13.44GiB hbm1=13.44GiB
+  layer  5 type=linear load    0.2s init   0.0s 累计    1.2s  hbm0=14.83GiB hbm1=14.83GiB
+  layer  6 type=linear load    0.2s init   0.0s 累计    1.4s  hbm0=16.23GiB hbm1=16.23GiB
+  layer  7 type=full  load    0.1s init   0.0s 累计    1.6s  hbm0=17.67GiB hbm1=17.67GiB
+  layer  8 type=linear load    0.2s init   0.0s 累计    1.8s  hbm0=19.07GiB hbm1=19.07GiB
+  layer  9 type=linear load    0.1s init   0.0s 累计    1.9s  hbm0=20.46GiB hbm1=20.46GiB
+  layer 10 type=linear load    0.1s init   0.0s 累计    2.1s  hbm0=21.86GiB hbm1=21.86GiB
+  layer 11 type=full  load    0.2s init   0.0s 累计    2.3s  hbm0=23.30GiB hbm1=23.30GiB
+  layer 12 type=linear load    0.2s init   0.0s 累计    2.5s  hbm0=24.70GiB hbm1=24.70GiB
+  layer 13 type=linear load    0.1s init   0.0s 累计    2.6s  hbm0=26.09GiB hbm1=26.09GiB
+  layer 14 type=linear load    0.2s init   0.0s 累计    2.8s  hbm0=27.49GiB hbm1=27.49GiB
+  layer 15 type=full  load    0.2s init   0.0s 累计    3.0s  hbm0=28.93GiB hbm1=28.93GiB
+  layer 16 type=linear load    0.2s init   0.0s 累计    3.2s  hbm0=30.33GiB hbm1=30.33GiB
+  layer 17 type=linear load    0.2s init   0.0s 累计    3.4s  hbm0=31.72GiB hbm1=31.72GiB
+  layer 18 type=linear load    0.1s init   0.0s 累计    3.5s  hbm0=33.12GiB hbm1=33.12GiB
+  layer 19 type=full  load    0.1s init   0.0s 累计    3.6s  hbm0=34.56GiB hbm1=34.56GiB
+  layer 20 type=linear load    0.2s init   0.0s 累计    3.8s  hbm0=35.95GiB hbm1=35.95GiB
+  layer 21 type=linear load    0.1s init   0.0s 累计    4.0s  hbm0=37.35GiB hbm1=37.35GiB
+  layer 22 type=linear load    0.1s init   0.0s 累计    4.1s  hbm0=38.75GiB hbm1=38.75GiB
+  layer 23 type=full  load    0.2s init   0.0s 累计    4.4s  hbm0=40.19GiB hbm1=40.19GiB
+装配完成 4.4s  hbm0=40.23GiB hbm1=40.23GiB
+[pipeline] worker ready {'pid': 326199, 'layers': 24, 'visible': '1', 'ipc_pid': 187855}
+[fnx] 装配 13.6s
+[fnx] 停止符 = [248044, 248046]
+[W1102 03:44:45.733751502 TensorFactories.cpp:423] Warning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (function operator())
+[fnx] 前缀缓存[{"enable_thinking": false}] 3 token, 状态 111.2 MiB(主机), 建缓存 2.1s
+图捕获完成 body0
+[index-bucket] captured 196608
+[index-bucket] captured 131072
+[index-bucket] captured 98304
+[index-bucket] captured 65536
+[index-bucket] captured 32768
+[index-bucket] captured 16384
+[fnx] 图捕获 166.0s
+[fnx] hbm0: alloc=42.21 GiB reserved=48.04 GiB
+[2026-11-02 03:47:34] [WARNING] [326118] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-11-02 03:47:34] [WARNING] [326118] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-11-02 03:47:40] [WARNING] [326118] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-11-02 03:47:40] [INFO] [326349] profiler.py: Start parsing profiling data in sync mode at: /root/ascend-dev/r93/traces/prefill8k_stage0/localhost.localdomain_326118_20261102034734080_ascend_pt
+|/-\|/-\|/-\|/-[2026-11-02 03:47:56] [INFO] [326358] profiler.py: CANN profiling data parsed in a total time of 0:00:15.047111
+\|/-[2026-11-02 03:48:00] [INFO] [326349] profiler.py: All profiling data parsed in a total time of 0:00:19.983738
+PROFILE_PHASE {'tag': 'prefill8k', 'start_ns': 413774925146603, 'end_ns': 413780934690757, 'wall_ms': 6009.544154}
+[2026-11-02 03:48:24] [WARNING] [326118] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-11-02 03:48:24] [WARNING] [326118] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-11-02 03:48:25] [WARNING] [326118] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-11-02 03:48:25] [INFO] [326915] profiler.py: Start parsing profiling data in sync mode at: /root/ascend-dev/r93/traces/decode_8k_stage0/localhost.localdomain_326118_20261102034824228_ascend_pt
+|/-\|/-[2026-11-02 03:48:31] [INFO] [326924] profiler.py: CANN profiling data parsed in a total time of 0:00:06.042106
+\|[2026-11-02 03:48:35] [INFO] [326915] profiler.py: All profiling data parsed in a total time of 0:00:09.290890
+PROFILE_PHASE {'tag': 'decode_8k', 'start_ns': 413825055552055, 'end_ns': 413825917892428, 'wall_ms': 862.340373}
+[2026-11-02 03:50:03] [WARNING] [326118] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-11-02 03:50:03] [WARNING] [326118] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-11-02 03:50:12] [WARNING] [326118] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-11-02 03:50:13] [INFO] [327483] profiler.py: Start parsing profiling data in sync mode at: /root/ascend-dev/r93/traces/prefill256k_late_stage0/localhost.localdomain_326118_20261102035003431_ascend_pt
+|/-\|/-\|/-\|/[2026-11-02 03:50:26] [INFO] [327492] profiler.py: CANN profiling data parsed in a total time of 0:00:13.039494
+-\|/[2026-11-02 03:50:31] [INFO] [327483] profiler.py: All profiling data parsed in a total time of 0:00:17.648605
+PROFILE_PHASE {'tag': 'prefill256k_late', 'start_ns': 413924257738298, 'end_ns': 413933660475977, 'wall_ms': 9402.737679}
+[2026-11-02 03:51:14] [WARNING] [326118] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-11-02 03:51:14] [WARNING] [326118] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-11-02 03:51:15] [WARNING] [326118] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-11-02 03:51:16] [INFO] [328051] profiler.py: Start parsing profiling data in sync mode at: /root/ascend-dev/r93/traces/decode_256k_stage0/localhost.localdomain_326118_20261102035114915_ascend_pt
+|/-\|/-[2026-11-02 03:51:22] [INFO] [328060] profiler.py: CANN profiling data parsed in a total time of 0:00:06.039678
+\|/[2026-11-02 03:51:25] [INFO] [328051] profiler.py: All profiling data parsed in a total time of 0:00:09.473147
+PROFILE_PHASE {'tag': 'decode_256k', 'start_ns': 413995737080434, 'end_ns': 413996619296022, 'wall_ms': 882.215588}
+PROFILE_SUMMARY decode_8k_stage0/localhost.localdomain_326118_20261102034824228_ascend_pt/ASCEND_PROFILER_OUTPUT/kernel_details.csv {"device_total_ms": 383.4731679999968, "ops": [{"op": "N/A", "ms": 383.4731679999968, "percent": 100.00000000000001, "count": 51328}]}
+PROFILE_SUMMARY prefill8k_stage1/localhost.localdomain_326199_20261102034733990_ascend_pt/ASCEND_PROFILER_OUTPUT/kernel_details.csv {"device_total_ms": 4309.188811999957, "ops": [{"op": "N/A", "ms": 4309.188811999957, "percent": 100.0, "count": 85637}]}
+PROFILE_SUMMARY prefill256k_late_stage0/localhost.localdomain_326118_20261102035003431_ascend_pt/ASCEND_PROFILER_OUTPUT/kernel_details.csv {"device_total_ms": 6029.062301999998, "ops": [{"op": "N/A", "ms": 6029.062301999998, "percent": 100.0, "count": 75740}]}
+PROFILE_SUMMARY decode_256k_stage0/localhost.localdomain_326118_20261102035114915_ascend_pt/ASCEND_PROFILER_OUTPUT/kernel_details.csv {"device_total_ms": 394.6763850000045, "ops": [{"op": "N/A", "ms": 394.6763850000045, "percent": 100.0, "count": 51328}]}
+PROFILE_SUMMARY decode_8k_stage1/localhost.localdomain_326199_20261102034824166_ascend_pt/ASCEND_PROFILER_OUTPUT/kernel_details.csv {"device_total_ms": 417.00344899999425, "ops": [{"op": "N/A", "ms": 417.00344899999425, "percent": 100.0, "count": 51712}]}
+PROFILE_SUMMARY prefill256k_late_stage1/localhost.localdomain_326199_20261102035003356_ascend_pt/ASCEND_PROFILER_OUTPUT/kernel_details.csv {"device_total_ms": 6058.57288899996, "ops": [{"op": "N/A", "ms": 6058.57288899996, "percent": 100.0, "count": 75738}]}
+PROFILE_SUMMARY decode_256k_stage1/localhost.localdomain_326199_20261102035114853_ascend_pt/ASCEND_PROFILER_OUTPUT/kernel_details.csv {"device_total_ms": 426.7077559999972, "ops": [{"op": "N/A", "ms": 426.7077559999972, "percent": 100.0, "count": 51712}]}
+PROFILE_SUMMARY prefill8k_stage0/localhost.localdomain_326118_20261102034734080_ascend_pt/ASCEND_PROFILER_OUTPUT/kernel_details.csv {"device_total_ms": 4282.748301000028, "ops": [{"op": "N/A", "ms": 4282.748301000028, "percent": 100.0, "count": 85669}]}
+R93_PROFILE_ACCEPT
+Job for fnx.service canceled.

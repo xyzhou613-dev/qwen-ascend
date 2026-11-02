@@ -1,0 +1,49 @@
+[W1102 05:54:37.334163092 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+Traceback (most recent call last):
+  File "/root/ascend-dev/r103/r103_probe.py", line 53, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/root/ascend-dev/venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/ascend-dev/r103/r103_probe.py", line 41, in main
+    fused();torch.npu.synchronize()
+    ^^^^^^^
+  File "/root/ascend-dev/r103/r103_probe.py", line 40, in fused
+    def fused():conv_step(history,current,weights,new,output);return output
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/pypto/error.py", line 148, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/pypto/frontend/parser/entry.py", line 329, in __call__
+    self._execute_kernel(in_tensors, input_tensor_defs)
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/pypto/frontend/parser/entry.py", line 665, in _execute_kernel
+    pypto_impl.LaunchKernelTorch(
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/pypto/error.py", line 148, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/pypto/frontend/parser/entry.py", line 503, in compile
+    self._pto_function = self._parser.execute()
+                         ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/pypto/frontend/parser/parser.py", line 131, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/pypto/frontend/parser/parser.py", line 494, in execute
+    self._result = self.visit(self._parsed_node)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/pypto/frontend/parser/parser.py", line 542, in visit
+    return func(node)
+           ^^^^^^^^^^
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/pypto/frontend/parser/parser.py", line 871, in _visit_function_def
+    with pypto.function(node.name, *tensor_input_args, *output_args):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/contextlib.py", line 144, in __exit__
+    next(self.gen)
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/pypto/_controller.py", line 452, in function
+    _raise_if_exception(first_exc)
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/pypto/_controller.py", line 401, in _raise_if_exception
+    raise FeError(exc)
+pypto.error.FeError: ErrCode: F00003, RuntimeError: CHECK FAILED: lastDimBytes % BLOCK_SIZE == 0
+location: /root/ascend-dev/r103/r103_kernels.py:26:0
+FwkOp tile shape's last dim is not aligned. Creating FwkOp: TILE_REGISTER_COPY, Last dim bytes: 8, BLOCK_SIZE: 32, Dump tensor: <10240x3xDT_BF16 / 10240x3xDT_BF16> %17@26(0, 0)#(-1)
+[ERROR] 2026-11-02-05:54:38 (PID:334808, Device:0, RankID:-1) ERR99999 UNKNOWN applicaiton exception

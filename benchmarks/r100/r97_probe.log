@@ -1,0 +1,11 @@
+[W1102 04:17:11.764814382 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+RANK_PROBE {"tokens": 1, "method": "rank3", "median_per_write_ms": 0.020413779566297308, "exact_bf16_bits": true}
+RANK_PROBE {"tokens": 1, "method": "flat2", "median_per_write_ms": 0.020409750504768454, "exact_bf16_bits": true}
+RANK_PROBE {"tokens": 128, "method": "rank3", "median_per_write_ms": 0.0213516250369139, "exact_bf16_bits": true}
+RANK_PROBE {"tokens": 128, "method": "flat2", "median_per_write_ms": 0.021285344701027498, "exact_bf16_bits": true}
+RANK_PROBE {"tokens": 512, "method": "rank3", "median_per_write_ms": 0.036977906347601674, "exact_bf16_bits": true}
+RANK_PROBE {"tokens": 512, "method": "flat2", "median_per_write_ms": 0.03679881228890736, "exact_bf16_bits": true}
+RANK_PROBE {"tokens": 8192, "method": "rank3", "median_per_write_ms": 0.2939729365607491, "exact_bf16_bits": true}
+RANK_PROBE {"tokens": 8192, "method": "flat2", "median_per_write_ms": 0.2939538771897787, "exact_bf16_bits": true}
+R97_RANK_ACCEPT
+R97_PROBE_ACCEPT

@@ -1,0 +1,38 @@
+/root/ascend-dev/r104/r104_combine.cpp:54:10: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+        (GM_ADDR)source,(GM_ADDR)inverse,(GM_ADDR)weights,(GM_ADDR)output,(uint32_t)tokens);
+         ^~~~~~~
+/usr/local/Ascend/ascend-toolkit/latest/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/root/ascend-dev/r104/r104_combine.cpp:54:26: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+        (GM_ADDR)source,(GM_ADDR)inverse,(GM_ADDR)weights,(GM_ADDR)output,(uint32_t)tokens);
+                         ^~~~~~~
+/usr/local/Ascend/ascend-toolkit/latest/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/root/ascend-dev/r104/r104_combine.cpp:54:43: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+        (GM_ADDR)source,(GM_ADDR)inverse,(GM_ADDR)weights,(GM_ADDR)output,(uint32_t)tokens);
+                                          ^~~~~~~
+/usr/local/Ascend/ascend-toolkit/latest/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/root/ascend-dev/r104/r104_combine.cpp:54:60: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+        (GM_ADDR)source,(GM_ADDR)inverse,(GM_ADDR)weights,(GM_ADDR)output,(uint32_t)tokens);
+                                                           ^~~~~~~
+/usr/local/Ascend/ascend-toolkit/latest/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+4 warnings generated.
+R104_BUILD_ACCEPT

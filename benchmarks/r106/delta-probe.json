@@ -1,0 +1,14 @@
+[
+  {
+    "mode": "torch",
+    "repeated_calls": 36,
+    "median_ms": 1.892160507850349,
+    "exact": true
+  },
+  {
+    "mode": "partial_fusion",
+    "repeated_calls": 36,
+    "median_ms": 1.8694449972826988,
+    "exact": true
+  }
+]

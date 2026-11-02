@@ -1681,8 +1681,14 @@ class FnLayer:
                     # Invert only the small row permutation, then gather the
                     # large expert output. Keep token/expert order, BF16 multiply
                     # and sum exactly as in the original scatter path.
-                    inverse = torch.empty_like(order).index_copy_(
-                        0, order, torch.arange(order.numel(), device=x.device))
+                    if b >= 4096 and order.numel() <= 16777216 and os.environ.get("FNX_MOE_INVERSE_SORT", "0") == "1":
+                        # order is a permutation of [0,N). Its inverse is
+                        # argsort(order); FP32 is exact for every index here.
+                        # Large 1-D int64 index_copy is slow on this CANN build.
+                        inverse = torch.argsort(order.float())
+                    else:
+                        inverse = torch.empty_like(order).index_copy_(
+                            0, order, torch.arange(order.numel(), device=x.device))
                     restored = yd.index_select(0, inverse)
                 else:
                     restored = torch.empty_like(yd).index_copy_(0, order, yd)

@@ -1,0 +1,110 @@
+[
+  {
+    "tokens": 512,
+    "mode": "index64",
+    "median_ms": 0.3302360128145665,
+    "exact": true
+  },
+  {
+    "tokens": 512,
+    "mode": "scatter64",
+    "median_ms": 0.33027600147761405,
+    "exact": true
+  },
+  {
+    "tokens": 512,
+    "mode": "scatter32",
+    "median_ms": 0.32914598705247045,
+    "exact": true
+  },
+  {
+    "tokens": 512,
+    "mode": "index_float",
+    "median_ms": 0.33886602614074945,
+    "exact": true
+  },
+  {
+    "tokens": 512,
+    "mode": "sort_float",
+    "median_ms": 0.3312960034236312,
+    "exact": true
+  },
+  {
+    "tokens": 512,
+    "mode": "padded8",
+    "median_ms": 0.332331022946164,
+    "exact": true
+  },
+  {
+    "tokens": 4096,
+    "mode": "index64",
+    "median_ms": 2.277441992191598,
+    "exact": true
+  },
+  {
+    "tokens": 4096,
+    "mode": "scatter64",
+    "median_ms": 0.35163600114174187,
+    "exact": true
+  },
+  {
+    "tokens": 4096,
+    "mode": "scatter32",
+    "median_ms": 0.7012920104898512,
+    "exact": true
+  },
+  {
+    "tokens": 4096,
+    "mode": "index_float",
+    "median_ms": 3.217509511159733,
+    "exact": true
+  },
+  {
+    "tokens": 4096,
+    "mode": "sort_float",
+    "median_ms": 0.33199600875377655,
+    "exact": true
+  },
+  {
+    "tokens": 4096,
+    "mode": "padded8",
+    "median_ms": 0.8111775096040219,
+    "exact": true
+  },
+  {
+    "tokens": 8192,
+    "mode": "index64",
+    "median_ms": 5.747492017690092,
+    "exact": true
+  },
+  {
+    "tokens": 8192,
+    "mode": "scatter64",
+    "median_ms": 0.7403074705507606,
+    "exact": true
+  },
+  {
+    "tokens": 8192,
+    "mode": "scatter32",
+    "median_ms": 1.320984010817483,
+    "exact": true
+  },
+  {
+    "tokens": 8192,
+    "mode": "index_float",
+    "median_ms": 10.444286017445847,
+    "exact": true
+  },
+  {
+    "tokens": 8192,
+    "mode": "sort_float",
+    "median_ms": 0.31828100327402353,
+    "exact": true
+  },
+  {
+    "tokens": 8192,
+    "mode": "padded8",
+    "median_ms": 1.2889140052720904,
+    "exact": true
+  }
+]
