@@ -1,0 +1,16 @@
+{
+  "base_url": "http://127.0.0.1:8000/v1",
+  "model": "qwen3.8-27b",
+  "temperature": 0.0,
+  "top_p": 1.0,
+  "max_tokens": 16384,
+  "n": 1,
+  "concurrency": 4,
+  "request_timeout": 3600,
+  "test_timeout": 20,
+  "eval_workers": 1,
+  "chat_template_kwargs": {
+    "enable_thinking": false
+  },
+  "api_key": "EMPTY"
+}
