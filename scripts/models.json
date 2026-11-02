@@ -24,7 +24,7 @@
       "max_model_len": 32768,
       "gpu_memory_utilization": 0.9,
       "devices": "0,1",
-      "vllm_args": "--trust-remote-code --limit-mm-per-prompt '{\"image\": 0, \"video\": 0}'",
+      "vllm_args": "--trust-remote-code --enable-auto-tool-choice --tool-call-parser qwen3_xml --limit-mm-per-prompt '{\"image\": 0, \"video\": 0}'",
       "health": "/v1/models",
       "start_log": "/root/ascend-dev/logs/modelctl-27b.log"
     }
