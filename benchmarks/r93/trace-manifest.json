@@ -1,0 +1,42 @@
+[
+  {
+    "path": "/root/ascend-dev/r93/traces/decode_8k_stage0/localhost.localdomain_326118_20261102034824228_ascend_pt/ASCEND_PROFILER_OUTPUT/kernel_details.csv",
+    "bytes": 4221811,
+    "sha256": "433e4963da9957f661a7b99858df304af4f6fd34e25fa5ad45d5ff02fcad9a6f"
+  },
+  {
+    "path": "/root/ascend-dev/r93/traces/prefill8k_stage1/localhost.localdomain_326199_20261102034733990_ascend_pt/ASCEND_PROFILER_OUTPUT/kernel_details.csv",
+    "bytes": 7199871,
+    "sha256": "b898f17b135d67d0a265c7822ca938757591d36aa8e506f027651ef037937888"
+  },
+  {
+    "path": "/root/ascend-dev/r93/traces/prefill256k_late_stage0/localhost.localdomain_326118_20261102035003431_ascend_pt/ASCEND_PROFILER_OUTPUT/kernel_details.csv",
+    "bytes": 6411419,
+    "sha256": "780b053d3d0f8284f5dbf38ca437f958914d181b2b9ad94fa403c953e289b033"
+  },
+  {
+    "path": "/root/ascend-dev/r93/traces/decode_256k_stage0/localhost.localdomain_326118_20261102035114915_ascend_pt/ASCEND_PROFILER_OUTPUT/kernel_details.csv",
+    "bytes": 4223126,
+    "sha256": "554505f01ec421c5a7004a461e99f7d7e05464a2dfc8fbdceac2aa6334e49165"
+  },
+  {
+    "path": "/root/ascend-dev/r93/traces/decode_8k_stage1/localhost.localdomain_326199_20261102034824166_ascend_pt/ASCEND_PROFILER_OUTPUT/kernel_details.csv",
+    "bytes": 4257363,
+    "sha256": "c8d37385720ed59a814686edc822174678df763aa0730789769e140ac434fa12"
+  },
+  {
+    "path": "/root/ascend-dev/r93/traces/prefill256k_late_stage1/localhost.localdomain_326199_20261102035003356_ascend_pt/ASCEND_PROFILER_OUTPUT/kernel_details.csv",
+    "bytes": 6411549,
+    "sha256": "eda46c14a46168c7df16fd437401687d5c313670a8d609c53f2c5406958626fb"
+  },
+  {
+    "path": "/root/ascend-dev/r93/traces/decode_256k_stage1/localhost.localdomain_326199_20261102035114853_ascend_pt/ASCEND_PROFILER_OUTPUT/kernel_details.csv",
+    "bytes": 4258525,
+    "sha256": "e16671fb3fa01cb511d51c437f10d838f7e86f7ec0dc65e80e0ac72ae92ecda1"
+  },
+  {
+    "path": "/root/ascend-dev/r93/traces/prefill8k_stage0/localhost.localdomain_326118_20261102034734080_ascend_pt/ASCEND_PROFILER_OUTPUT/kernel_details.csv",
+    "bytes": 7195708,
+    "sha256": "a4d5349884fc427f13c4db85cd07eff7f9b733e879382d93853548f4ecf1c7b8"
+  }
+]
