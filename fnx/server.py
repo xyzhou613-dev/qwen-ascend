@@ -441,6 +441,8 @@ def health():
             "pipeline_stages": 2 if worker is not None else 1,
             "worker_alive": worker is not None and worker.poll() is None,
             "prefill_chunk": _CHUNK,
+            "pipeline_transport": getattr(model,"transport","single"),
+            "pipeline_transfers": dict(getattr(model,"transport_stats",{})),
             "index_caps": sorted(getattr(model,"index_decode_graphs",{})),
             "native_sparse": os.environ.get("FNX_NATIVE_SPARSE", "0") == "1",
             "native_dual": os.environ.get("FNX_NATIVE_DUAL", "0") == "1",

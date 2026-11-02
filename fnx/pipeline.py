@@ -7,6 +7,7 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
+import time
 
 import torch
 from . import engine as E
@@ -22,6 +23,11 @@ class PipelineModel:
         self.P, self.n = P, nlayers or 48
         self.split = int(os.environ.get('FNX_PIPELINE_SPLIT', str(lpc)))
         self.maximum = E._CHUNK
+        self.transport=os.environ.get('FNX_PIPELINE_TRANSPORT','host')
+        if self.transport not in ('host','peer','hybrid'):
+            raise ValueError('pipeline transport must be host, peer or hybrid')
+        self.peer_owner=None
+        self.transport_stats={'peer_transfers':0,'peer_bytes':0,'host_transfers':0,'host_bytes':0}
         self.directory = Path(tempfile.mkdtemp(prefix='fnx-pp-', dir=os.environ.get('FNX_IPC_DIR','/root/ascend-dev')))
         self.hpath, self.lpath = self.directory/'hidden.buf', self.directory/'logits.buf'
         for path,size in ((self.hpath,2*self.maximum*E.HCH*2),(self.lpath,E.VOCAB*2)):
@@ -44,6 +50,11 @@ class PipelineModel:
         self.stage0=FnModel(P=P,lpc=self.split,dev0='npu:0',dev1='npu:0',nlayers=self.split,
                             with_head=False,with_ngram=False,verbose=kw.get('verbose',False))
         self.worker_info=self._receive()
+        if self.transport!='host':
+            from .peer_ipc import Owner
+            self.peer_owner=Owner(self.maximum*E.HCH*2)
+            self.peer_owner.allow(self.worker_info['ipc_pid'])
+            self._rpc('peer_init',self.peer_owner.descriptor())
         print('[pipeline] worker ready',self.worker_info,flush=True)
 
     def __getattr__(self,name):
@@ -80,8 +91,15 @@ class PipelineModel:
             self.stage0.prefill_chunk(ids[offset:offset+size])
             if len(self.pending)==2:
                 self._receive();self.pending.popleft()
-            self.hidden[self.slot,:size].copy_(self.stage0.prefill_hidden)
-            torch.npu.synchronize(0)
+            if self.peer_owner is not None and (self.transport=='peer' or size>=128):
+                self.peer_owner.publish(self.stage0.prefill_hidden,self.slot)
+                self.transport_stats['peer_transfers']+=1
+                self.transport_stats['peer_bytes']+=size*E.HCH*2
+            else:
+                self.hidden[self.slot,:size].copy_(self.stage0.prefill_hidden)
+                torch.npu.synchronize(0)
+                self.transport_stats['host_transfers']+=1
+                self.transport_stats['host_bytes']+=size*E.HCH*2
             self.connection.send(('prefill',(self.slot,size)))
             self.pending.append(self.slot);self.slot^=1;offset+=size
 
@@ -90,8 +108,15 @@ class PipelineModel:
         self.finish_prefill()
         self.stage0.g0=decode_graph(self.stage0,self.stage0._host_pos+1)
         self.stage0.step_pad(tok,with_head=False)
-        self.hidden[0,:1].copy_(self.stage0.h0)
-        torch.npu.synchronize(0)
+        if self.transport=='peer':
+            self.peer_owner.publish(self.stage0.h0,0)
+            self.transport_stats['peer_transfers']+=1
+            self.transport_stats['peer_bytes']+=E.HCH*2
+        else:
+            self.hidden[0,:1].copy_(self.stage0.h0)
+            torch.npu.synchronize(0)
+            self.transport_stats['host_transfers']+=1
+            self.transport_stats['host_bytes']+=E.HCH*2
         self.last_token=self._rpc('step',bool(with_head))
 
     def step(self,tok,with_head=True):
@@ -137,10 +162,23 @@ class PipelineModel:
 
     def close(self):
         process=self.__dict__.get('process')
+        owner=self.__dict__.get('peer_owner')
+        if owner is not None and process is not None and process.poll() is None:
+            try:
+                self.connection.send(('peer_close',()))
+                deadline=time.monotonic()+5
+                while self.connection.poll(max(0,deadline-time.monotonic())):
+                    status,value=self.connection.recv()
+                    if status=='ok' and value=='peer_closed':break
+                    if time.monotonic()>=deadline:break
+                process.wait(timeout=5)
+            except (BrokenPipeError,EOFError,OSError,subprocess.TimeoutExpired):pass
         if process is not None and process.poll() is None:
             process.terminate()
             try:process.wait(timeout=10)
             except subprocess.TimeoutExpired:process.kill();process.wait(timeout=10)
+        if owner is not None:
+            owner.close();self.peer_owner=None
         conn=self.__dict__.get('connection')
         if conn is not None:conn.close()
         log=self.__dict__.get('worker_log')

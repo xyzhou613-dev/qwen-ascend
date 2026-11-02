@@ -17,6 +17,8 @@ from .index_buckets import capture_index_buckets,decode_graph,chunk_graph
 def main():
     fd,P,split,n=map(int,sys.argv[1:5]);hpath,lpath=sys.argv[5:7]
     conn=Connection(fd)
+    peer=None
+    transport=os.environ.get('FNX_PIPELINE_TRANSPORT','host')
     try:
         assert torch.npu.device_count()==1,'worker must expose exactly one device'
         torch.npu.set_device(0)
@@ -42,14 +44,25 @@ def main():
             m.chunk_h0.copy_(h)
         m.body0=body;m._chunk_body0=chunk_body
         snapshots={};next_handle=0
-        conn.send(('ok',{'pid':os.getpid(),'layers':len(m.layers0),'visible':os.environ.get('ASCEND_RT_VISIBLE_DEVICES')}))
+        info={'pid':os.getpid(),'layers':len(m.layers0),'visible':os.environ.get('ASCEND_RT_VISIBLE_DEVICES')}
+        if transport!='host':
+            from .peer_ipc import process_id
+            info['ipc_pid']=process_id()
+        conn.send(('ok',info))
         while True:
             op,args=conn.recv()
-            if op=='capture':m.capture();value=None
+            if op=='peer_init':
+                from .peer_ipc import Borrower
+                peer=Borrower(args[0]);value=None
+            elif op=='peer_close':
+                if peer is not None:peer.close();peer=None
+                conn.send(('ok','peer_closed'));break
+            elif op=='capture':m.capture();value=None
             elif op=='capture_chunk':m.capture_chunk();capture_index_buckets(m);value=None
             elif op=='prefill':
                 slot,T=args;pos=m._host_pos
-                stage_chunk[:T].copy_(shared[slot,:T]);torch.npu.synchronize(0)
+                if peer is not None and (transport=='peer' or T>=128):peer.receive(stage_chunk[:T],slot)
+                else:stage_chunk[:T].copy_(shared[slot,:T]);torch.npu.synchronize(0)
                 short=pos+T<=2048
                 bundle=chunk_graph(m,pos+T,T)
                 if short or bundle is None:
@@ -64,7 +77,8 @@ def main():
                 torch.npu.synchronize(0);value=None
             elif op=='step':
                 with_head,=args
-                stage_input.copy_(shared[0,:1]);torch.npu.synchronize(0)
+                if transport=='peer':peer.receive(stage_input,0)
+                else:stage_input.copy_(shared[0,:1]);torch.npu.synchronize(0)
                 graph=m.g0_short if m._host_pos<2048 and m.g0_short is not None else decode_graph(m,m._host_pos+1)
                 if graph is not None:graph.replay()
                 else:body()
@@ -99,5 +113,7 @@ def main():
         error=traceback.format_exc();print(error,flush=True)
         try:conn.send(('error',error))
         except (EOFError,BrokenPipeError):pass
+    finally:
+        if peer is not None:peer.close()
 
 if __name__=='__main__':main()
