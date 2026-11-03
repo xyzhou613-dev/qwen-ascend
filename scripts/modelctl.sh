@@ -14,7 +14,10 @@ set -u
 
 CONF=${MODELCTL_CONF:-/root/ascend-dev/models.json}
 CONTAINER=${MODELCTL_CONTAINER:-fnx}
-VLLM_PATTERN='vllm serve'
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+VLLM_API_PATTERN='vllm serve'
+VLLM_PATTERN="$VLLM_API_PATTERN|^VLLM::(EngineCore|Worker_TP)"
+LIVE_STATES='D,R,S,T,t,I'
 FNX_PATTERN='[p]ython -m fnx.server'
 
 die()  { echo "错误: $*" >&2; exit 1; }
@@ -42,6 +45,8 @@ for key, val in (
     ("DESC", m.get("desc", "")),
     ("MODEL_ID", m.get("model_id")),
     ("MODEL_PATH", m.get("model_path", "")),
+    ("LQP_PATH", m.get("lqp_path", "")),
+    ("LQP_ARGS", m.get("lqp_args", "")),
     ("PORT", str(m.get("port"))),
     ("TP", str(m.get("tp", 1))),
     ("MAX_LEN", str(m.get("max_model_len", 32768))),
@@ -83,7 +88,9 @@ PY
 }
 
 # ---------- 状态探测 ----------
-vllm_running() { docker exec "$CONTAINER" bash -lc "pgrep -f '$VLLM_PATTERN'" >/dev/null 2>&1; }
+vllm_running() {
+    docker exec "$CONTAINER" pgrep -f -r "$LIVE_STATES" "$VLLM_PATTERN" >/dev/null 2>&1
+}
 fnx_running()  { docker exec "$CONTAINER" bash -lc "pgrep -f '$FNX_PATTERN'" >/dev/null 2>&1; }
 
 npu_busy() {
@@ -112,9 +119,10 @@ wait_health() {  # port path limit
 # ---------- 停止 ----------
 stop_vllm() {
     info "停止 vLLM"
-    docker exec "$CONTAINER" bash -lc "pkill -f '$VLLM_PATTERN'" >/dev/null 2>&1 || true
+    docker exec "$CONTAINER" pkill -f "$VLLM_API_PATTERN" >/dev/null 2>&1 || true
     sleep 3
-    docker exec "$CONTAINER" bash -lc "pkill -9 -f '$VLLM_PATTERN'" >/dev/null 2>&1 || true
+    # Failed API startup can leave EngineCore and TP workers holding HBM.
+    docker exec "$CONTAINER" pkill -9 -f -r "$LIVE_STATES" "$VLLM_PATTERN" >/dev/null 2>&1 || true
 }
 
 stop_fnx() {
@@ -134,8 +142,8 @@ stop_all() {  # $1=超时秒数（可选）
     vllm_running && stop_vllm
     # 兜底：两种都再清一遍
     for unit in $(list_systemd_units); do systemctl stop "$unit" >/dev/null 2>&1 || true; done
-    docker exec "$CONTAINER" bash -lc \
-        "pkill -9 -f '$FNX_PATTERN'; pkill -9 -f '$VLLM_PATTERN'" >/dev/null 2>&1 || true
+    docker exec "$CONTAINER" pkill -9 -f "$FNX_PATTERN" >/dev/null 2>&1 || true
+    docker exec "$CONTAINER" pkill -9 -f -r "$LIVE_STATES" "$VLLM_PATTERN" >/dev/null 2>&1 || true
     if ! wait_npu_free "$t"; then
         die "显存未在 ${t}s 内释放，请手动检查 npu-smi info"
     fi
@@ -143,8 +151,26 @@ stop_all() {  # $1=超时秒数（可选）
 
 # ---------- 启动 ----------
 start_model() {
-    local name=$1
-    eval "$(load_profile "$name")" || die "配置里没有模型 '$name'（用 list 查看）"
+    local name=$1 profile model_path load_args=""
+    profile=$(load_profile "$name") || die "配置里没有模型 '$name'（用 list 查看）"
+    eval "$profile"
+    model_path=$MODEL_PATH
+    if [ "$KIND" = vllm ]; then
+        [ -d "$MODEL_PATH" ] || die "权重目录不存在: $MODEL_PATH"
+        if [ -n "$LQP_PATH" ] && [ "${MODELCTL_DISABLE_LQP:-0}" != 1 ]; then
+            if docker exec "$CONTAINER" python3 "$SCRIPT_DIR/lqp_27b.py" \
+                check "$MODEL_PATH" "$LQP_PATH" --tp "$TP"; then
+                model_path=$LQP_PATH
+                load_args="--load-format sharded_state --dtype bfloat16"
+                if [ "${MODELCTL_DISABLE_LQP_FAST:-0}" != 1 ]; then
+                    load_args="$load_args $LQP_ARGS"
+                fi
+                info "27B LQP 已校验，使用 BF16 TP=$TP 分片"
+            else
+                info "LQP 不可用，使用原始权重和原启动参数"
+            fi
+        fi
+    fi
 
     info "目标: $name  kind=$KIND  model_id=$MODEL_ID  port=$PORT"
     stop_all "${STOP_T:-90}"
@@ -159,16 +185,14 @@ start_model() {
         systemctl start "$SYSTEMD" || die "systemctl start $SYSTEMD 失败"
         ;;
     vllm)
-        [ -n "$MODEL_PATH" ] || die "vllm 类型必须配置 model_path"
-        [ -d "$MODEL_PATH" ] || die "权重目录不存在: $MODEL_PATH"
         local log=${START_LOG:-/root/ascend-dev/logs/modelctl-${name}.log}
-        info "启动 vLLM（TP=$TP, max_model_len=$MAX_LEN；首次需图编译，约 2–6 min）"
+        info "启动 vLLM（TP=$TP, max_model_len=$MAX_LEN）"
         docker exec -d "$CONTAINER" bash -lc \
             "cd /models && ASCEND_RT_VISIBLE_DEVICES='$DEVICES' \
-             vllm serve '$MODEL_PATH' --served-model-name '$MODEL_ID' \
+             vllm serve '$model_path' --served-model-name '$MODEL_ID' \
              --tensor-parallel-size $TP --max-model-len $MAX_LEN \
              --gpu-memory-utilization $GPU_UTIL --host 0.0.0.0 --port $PORT \
-             $VLLM_ARGS > '$log' 2>&1" || die "docker exec 启动失败"
+             $VLLM_ARGS $load_args > '$log' 2>&1" || die "docker exec 启动失败"
         ;;
     *) die "未知 kind: $KIND" ;;
     esac

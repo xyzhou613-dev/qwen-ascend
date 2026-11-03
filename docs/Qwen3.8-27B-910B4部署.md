@@ -1,5 +1,7 @@
 # Qwen3.8-27B 部署到 2×910B4（vLLM-Ascend）
 
+> 2026-11-03 更新：`modelctl.sh start 27b` 可使用 BF16 TP=2 离线分片。见[离线分片与切换实测](#27b-lqp)。
+
 日期：2026-11-01
 机器：192.168.18.206，2 × Ascend 910B4（每卡 64 GB），容器 `fnx`（镜像 `quay.io/ascend/vllm-ascend:v0.23.0`）
 
@@ -99,3 +101,62 @@ curl -s http://127.0.0.1:8000/health
 
 模型本身（读 `config.json`）：64 层、hidden 5120、24 头 / 4 KV、head_dim 256、dense FFN 17408、
 词表 248,320、每 4 层 1 个 full attention（其余 linear/DeltaNet）、带视觉塔；dense 27B，非 MoE。
+
+<a id="27b-lqp"></a>
+## 8. BF16 离线分片与模型切换
+
+27B 采用 vLLM 的 `sharded_state` 格式。导出时用原始 loader 完成 TP 切分和权重合并，在 Ascend 把权重转成算子布局之前按 rank 保存。启动时每张卡只读取自己的分片，仍走同一套 Ascend 权重后处理。模型保持 BF16、TP=2 和 32768 上下文，生成接口及模型 ID 与原部署相同。[vLLM Sharded State](https://docs.vllm.ai/en/stable/api/vllm/model_executor/model_loader/sharded_state_loader/)
+
+快速配置单独缩减启动图准备，启用 `FULL_DECODE_ONLY` 并捕获 1/2/4/8 四种大小。Prefill 和超过捕获范围的批次走 eager。调度并发上限仍由 vLLM 配置控制。[vLLM-Ascend 0.23 图模式](https://docs.vllm.ai/projects/ascend/en/v0.23.0/user_guide/feature_guide/graph_mode.html)
+
+```bash
+cd /root/ascend-dev
+./modelctl.sh start 27b
+./modelctl.sh start flash-next
+
+# 保留离线权重，恢复原图配置
+MODELCTL_DISABLE_LQP_FAST=1 ./modelctl.sh start 27b
+# 恢复原始权重与原图配置
+MODELCTL_DISABLE_LQP=1 ./modelctl.sh start 27b
+```
+
+`models.json` 的 `lqp_path` 指向 `/models/Qwen3.8-27B-LQP-tp2`。启动前在容器内检查源权重、模型元数据、双 rank 产物和软件版本。产物缺失或校验失败时，脚本走原始权重与原启动参数。
+
+离线导出需要独占双卡。将 `scripts/lqp_27b.py` 和 `scripts/lqp_27b_worker.py` 放在容器可见的 `/root/ascend-dev`，使用同一运行环境执行。新产物先写入临时目录，完整校验后再发布到目标路径。已有产物时，用新目标目录导出，确认后更新配置。
+
+```bash
+./modelctl.sh stop
+docker exec fnx bash -lc '
+  export ASCEND_RT_VISIBLE_DEVICES=0,1 VLLM_WORKER_MULTIPROC_METHOD=spawn
+  export PYTHONPATH=/root/ascend-dev:${PYTHONPATH:-}
+  python3 /root/ascend-dev/lqp_27b.py build \
+    /models/Qwen3.8-27B /models/Qwen3.8-27B-LQP-tp2
+'
+./modelctl.sh start 27b
+```
+
+测量脚本从执行切换命令计时，轮询目标模型 ID，并发起本机流式请求。首个非空生成片段计作切换完成。
+
+```bash
+python3 bench_model_switch.py 27b /tmp/flash-to-27b.json
+python3 bench_model_switch.py flash-next /tmp/27b-to-flash.json
+```
+
+### 2026-11-03 实测
+
+双 910B4，27B 为 BF16 TP=2 文本模式，保留系统正常页缓存。原版 Flash Next → 27B 从切换命令到脚本健康检查为约 **238 秒**，首次流式请求 TTFT 为 **0.52 秒**。优化后两轮到目标模型接口就绪为 **179.23 / 181.48 秒**。
+
+| 轮次 | Flash Next → 27B 首 token | 27B → Flash Next 首 token | 两方向合计 |
+|---|---:|---:|---:|
+| 1 | 179.86 s | 188.98 s | 368.85 s |
+| 2 | 182.14 s | 189.74 s | 371.89 s |
+
+切回 Flash Next 使用 256k 配置，两轮的启动图捕获分别为 153.7 / 154.8 秒。两方向合计只累加两次切换，轮中精度和解码探针单独计时。原始记录在服务器 `/root/ascend-dev/lqp27/`。
+
+| 27B 阶段 | 原版 | 优化第 1 轮 | 优化第 2 轮 |
+|---|---:|---:|---:|
+| 权重加载 | 7.76 s | 2.09 s | 2.04 s |
+| 图捕获 | 51 s | 5 s | 6 s |
+| 单请求 64-token 解码中位数 | 27.65 tok/s | 27.71 tok/s | 27.70 tok/s |
+
+三条固定提示的贪心生成文本和 67 个返回 token 一致。所选 token 的 logprob 最大绝对差为 0.0000122。图配置保留 `mode=3` 以初始化当前 Ascend 版本的 ACLGraph 工作区。只将 `mode` 改为 0 并保留全解码图，在本机曾因未初始化工作区而失败。
