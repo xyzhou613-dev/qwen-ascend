@@ -1,0 +1,85 @@
+[
+  {
+    "name": "stable_unique",
+    "original_harness_error": "AssertionError('unapproved call')",
+    "ok": true,
+    "outcomes": [
+      {
+        "args": [
+          [
+            3,
+            1,
+            3,
+            2,
+            1
+          ]
+        ],
+        "expected": [
+          3,
+          1,
+          2
+        ],
+        "actual": [
+          3,
+          1,
+          2
+        ],
+        "ok": true
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": [],
+        "actual": [],
+        "ok": true
+      },
+      {
+        "args": [
+          [
+            1,
+            1
+          ]
+        ],
+        "expected": [
+          1
+        ],
+        "actual": [
+          1
+        ],
+        "ok": true
+      }
+    ]
+  },
+  {
+    "name": "is_palindrome",
+    "original_harness_error": "AssertionError('unapproved call')",
+    "ok": true,
+    "outcomes": [
+      {
+        "args": [
+          "A man, a plan, a canal: Panama"
+        ],
+        "expected": true,
+        "actual": true,
+        "ok": true
+      },
+      {
+        "args": [
+          "race a car"
+        ],
+        "expected": false,
+        "actual": false,
+        "ok": true
+      },
+      {
+        "args": [
+          ""
+        ],
+        "expected": true,
+        "actual": true,
+        "ok": true
+      }
+    ]
+  }
+]

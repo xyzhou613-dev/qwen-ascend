@@ -1,0 +1,9 @@
+{
+  "observed_at": "2026-11-05 16:50:35",
+  "trigger": "three concurrent streaming requests",
+  "health_timeout_seconds": 3,
+  "server_main_wchan": "futex_wait_queue",
+  "server_pid": 2856776,
+  "worker_pid": 2860349,
+  "source": "get_engine acquires generation LOCK synchronously on ASGI event loop; next SSE iteration needs that event loop"
+}

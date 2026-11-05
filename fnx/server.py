@@ -7,7 +7,11 @@
   POST /v1/chat/completions   （支持 stream=true 的 SSE）
 """
 import asyncio
+from starlette.concurrency import iterate_in_threadpool
 import json
+from jinja2 import TemplateError
+from tokenizers.decoders import DecodeStream
+from .request_validation import RequestError, object_body, positive_int, chat_parameters
 import os
 import re
 import threading
@@ -70,6 +74,9 @@ def _import_web():
 FastAPI, Request, JSONResponse, StreamingResponse, uvicorn = _import_web()
 app = FastAPI(title="fnx-backend")
 LOCK = threading.Lock()
+INIT_LOCK = threading.Lock()
+TOKENIZER_LOCK = threading.RLock()
+REQUEST_LOCK = asyncio.Lock()
 STATE = {}
 
 
@@ -186,16 +193,17 @@ class Engine:
             print(f"[fnx] 前缀变体已达上限，{key} 走全量 prefill", flush=True)
             return [], None
         SENT = "\u0002FNXPFX\u0002"
-        text = self.tok.apply_chat_template(
-            [{"role": "user", "content": SENT}], tokenize=False,
-            add_generation_prompt=True, **kw)
-        cut = text.find(SENT)
-        if cut <= 0:
-            print("[fnx] 前缀缓存：模板里找不到哨兵 -> 关闭", flush=True)
-            self.prefix_variants[key] = ([], None)
-            return [], None
-        pids = [int(x) for x in
-                self.tok(text[:cut], return_tensors="pt").input_ids[0].tolist()]
+        with TOKENIZER_LOCK:
+            text = self.tok.apply_chat_template(
+                [{"role": "user", "content": SENT}], tokenize=False,
+                add_generation_prompt=True, **kw)
+            cut = text.find(SENT)
+            if cut <= 0:
+                print("[fnx] 前缀缓存：模板里找不到哨兵 -> 关闭", flush=True)
+                self.prefix_variants[key] = ([], None)
+                return [], None
+            pids = [int(x) for x in
+                    self.tok(text[:cut], return_tensors="pt").input_ids[0].tolist()]
         t = time.time()
         if pids:
             self.m.reset()
@@ -403,10 +411,40 @@ class Engine:
 
 
 def get_engine():
-    with LOCK:
+    # Request handlers run on the event loop. Never wait there for the
+    # generation lock: an active SSE stream needs that loop to advance.
+    engine = STATE.get("e")
+    if engine is not None:
+        return engine
+    with INIT_LOCK:
         if "e" not in STATE:
             STATE["e"] = Engine()
         return STATE["e"]
+
+
+def request_error(exc):
+    _metric_add(requests_err=1)
+    return JSONResponse(status_code=exc.status, content={"error": {
+        "message": str(exc), "type": "invalid_request_error", "param": exc.param}})
+
+
+async def json_body(req):
+    try:
+        return object_body(await req.json())
+    except (ValueError, UnicodeDecodeError) as exc:
+        if isinstance(exc, RequestError):
+            raise
+        raise RequestError("request body must contain valid JSON") from exc
+
+
+def tokenize_text(eng, text):
+    with TOKENIZER_LOCK:
+        return eng.tok(text, return_tensors="pt").input_ids[0].tolist()
+
+
+def decode_text(eng, tokens, skip_special_tokens=True):
+    with TOKENIZER_LOCK:
+        return eng.tok.decode(tokens, skip_special_tokens=skip_special_tokens)
 
 
 @app.get("/metrics")
@@ -437,7 +475,7 @@ def health():
     worker=getattr(model,"process",None)
     if worker is not None and worker.poll() is not None:
         return JSONResponse(status_code=503,content={"status":"worker_unavailable","ctx":P})
-    return {"status": "ok", "engine_loaded": "e" in STATE, "ctx": P,
+    return {"status": "ok", "engine_loaded": "e" in STATE, "ctx": P, "service_revision": "r120",
             "pipeline_stages": 2 if worker is not None else 1,
             "worker_alive": worker is not None and worker.poll() is None,
             "prefill_chunk": _CHUNK,
@@ -487,22 +525,31 @@ def models():
 
 @app.post("/v1/chat/completions")
 async def chat(req: Request):
-    body = await req.json()
+    try:
+        body = await json_body(req)
+        msgs, max_new, temp, stream = chat_parameters(body, MODEL_ID)
+    except RequestError as exc:
+        return request_error(exc)
     eng = get_engine()
-    msgs = body.get("messages", [])
-    max_new = int(body.get("max_tokens") or 128)
-    temp = float(body.get("temperature") or 0.0)
-    stream = bool(body.get("stream"))
-
-    t_t0 = time.perf_counter()
     tpl_kw = Engine._tpl_kw(body)
-    text = eng.tok.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True,
-                                       **tpl_kw)
-    t_tk = time.perf_counter()
-    ids = eng.tok(text, return_tensors="pt").input_ids[0].tolist()
-    eng.last_tok = {"chat_template_ms": round((t_tk - t_t0) * 1e3, 2),
-                    "tokenize_ms": round((time.perf_counter() - t_tk) * 1e3, 2),
-                    "n_prompt": len(ids), "tpl": tpl_kw}
+
+    def prepare():
+        with TOKENIZER_LOCK:
+            t_t0 = time.perf_counter()
+            text = eng.tok.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True,
+                                               **tpl_kw)
+            t_tk = time.perf_counter()
+            ids = eng.tok(text, return_tensors="pt").input_ids[0].tolist()
+            timings = {"chat_template_ms": round((t_tk - t_t0) * 1e3, 2),
+                       "tokenize_ms": round((time.perf_counter() - t_tk) * 1e3, 2),
+                       "n_prompt": len(ids), "tpl": tpl_kw}
+            return ids, timings
+
+
+    try:
+        ids, eng.last_tok = await asyncio.to_thread(prepare)
+    except (ValueError, TypeError, IndexError, TemplateError) as exc:
+        return request_error(RequestError("invalid messages: " + str(exc), "messages"))
 
     if not ids or max_new < 1 or len(ids) + max_new - 1 > P:
         _metric_add(requests_err=1)
@@ -526,10 +573,11 @@ async def chat(req: Request):
                 for ev in eng.generate(ids, max_new, temp, tpl_kw):
                     if ev[0] == "t":
                         toks_.append(ev[1])
-                txt_ = clean_text(eng.tok.decode(toks_, skip_special_tokens=True))
+                txt_ = clean_text(decode_text(eng, toks_))
                 return toks_, txt_, qms, (eng.last_prof or {})
 
-        toks, txt, qms, p = await asyncio.to_thread(_work)
+        async with REQUEST_LOCK:
+            toks, txt, qms, p = await asyncio.to_thread(_work)
         dt = time.perf_counter() - t0
         _metric_add(queue_ms_sum=qms, tokens_out=len(toks),
                     prefix_hit_tokens=p.get("prefix_hit", 0),
@@ -554,53 +602,75 @@ async def chat(req: Request):
         first = None
         n = 0
         t_dc = 0.0
-        # ★ 流式的锁必须持有**整个生成期间**（原来 `with LOCK` 只包住 return，
-        #   生成器是之后才被消费的 → 两个流会同时改同一套递归状态/KV）。
+        token_ids, emitted = [], []
+        decoder = DecodeStream(skip_special_tokens=True)
         LOCK.acquire()
         try:
             for ev in eng.generate(ids, max_new, temp, tpl_kw):
                 if ev[0] == "p":
-                    # ★ prefill 进度：SSE 注释行（客户端会忽略，但连接不空闲超时，
-                    #   UI 可以据此显示"正在读 prompt i/N"）
                     yield f": prefill {ev[1]}/{ev[2]}\n\n"
                     continue
-                t = ev[1]
-                if first is None:
-                    first = time.perf_counter() - t0
+                token = ev[1]
+                token_ids.append(token)
                 n += 1
                 a = time.perf_counter()
-                piece = eng.tok.decode([t], skip_special_tokens=True)
+                # DecodeStream holds incomplete UTF-8 bytes across token IDs.
+                with TOKENIZER_LOCK:
+                    piece = decoder.step(eng.tok.backend_tokenizer, token) or ""
+                if piece:
+                    emitted.append(piece)
+                    if first is None:
+                        first = time.perf_counter() - t0
                 d = {"id": cid, "object": "chat.completion.chunk", "created": created,
                      "model": MODEL_ID,
                      "choices": [{"index": 0, "delta": {"content": piece}, "finish_reason": None}]}
-                s = "data: " + json.dumps(d, ensure_ascii=False) + "\n\n"
                 t_dc += time.perf_counter() - a
-                yield s
+                yield "data: " + json.dumps(d, ensure_ascii=False) + "\n\n"
+            # A length limit can split a character. Match the tokenizer's
+            # ordinary decode for the final incomplete suffix as well.
+            decoded = decode_text(eng, token_ids)
+            sent = "".join(emitted)
+            if decoded.startswith(sent) and len(decoded) > len(sent):
+                if first is None:
+                    first = time.perf_counter() - t0
+                d["choices"][0]["delta"]["content"] = decoded[len(sent):]
+                yield "data: " + json.dumps(d, ensure_ascii=False) + "\n\n"
+            dt = time.perf_counter() - t0
+            # Capture request statistics before releasing the shared engine.
+            p = dict(eng.last_prof or {})
+            reason = "stop" if token_ids and token_ids[-1] in eng.stop_ids else "length"
+            done = {"id": cid, "object": "chat.completion.chunk", "created": created,
+                    "model": MODEL_ID,
+                    "choices": [{"index": 0, "delta": {}, "finish_reason": reason}],
+                    "fnx_stats": {"ttft_ms": round((first or 0) * 1e3, 2), "tokens": n,
+                                  "seconds": round(dt, 3),
+                                  "tpot_ms": round((dt - (first or 0)) / max(1, n - 1) * 1e3, 2),
+                                  "tok_decode_ms": round(t_dc * 1e3, 2),
+                                  "prefill_ms": p.get("prefill_ms", 0),
+                                  "prefill_tok_s": p.get("prefill_tok_s", 0),
+                                  "n_prefill": p.get("n_prefill", 0)}}
+            eng.last_sse = done["fnx_stats"]
+            _metric_add(tokens_out=n, prefix_hit_tokens=p.get("prefix_hit", 0),
+                        prefill_tokens=max(0, p.get("n_prefill", 0)),
+                        ttft_ms_sum=(first or 0) * 1e3,
+                        tpot_ms_sum=done["fnx_stats"]["tpot_ms"] or 0.0, tpot_n=1)
         finally:
             LOCK.release()
-        dt = time.perf_counter() - t0
-        p0 = eng.last_prof or {}
-        done = {"id": cid, "object": "chat.completion.chunk", "created": created,
-                "model": MODEL_ID,
-                "choices": [{"index": 0, "delta": {}, "finish_reason": "stop"}],
-                "fnx_stats": {"ttft_ms": round((first or 0) * 1e3, 2), "tokens": n,
-                              "seconds": round(dt, 3),
-                              "tpot_ms": round((dt - (first or 0)) / max(1, n - 1) * 1e3, 2),
-                              "tok_decode_ms": round(t_dc * 1e3, 2),
-                              "prefill_ms": p0.get("prefill_ms", 0),
-                              "prefill_tok_s": p0.get("prefill_tok_s", 0),
-                              "n_prefill": p0.get("n_prefill", 0)}}
-        eng.last_sse = done["fnx_stats"]
-        p = eng.last_prof or {}
-        _metric_add(tokens_out=n,
-                    prefix_hit_tokens=p.get("prefix_hit", 0),
-                    prefill_tokens=max(0, p.get("n_prefill", 0)),
-                    ttft_ms_sum=(first or 0) * 1e3,
-                    tpot_ms_sum=done["fnx_stats"]["tpot_ms"] or 0.0, tpot_n=1)
         yield "data: " + json.dumps(done, ensure_ascii=False) + "\n\n"
         yield "data: [DONE]\n\n"
 
-    return StreamingResponse(sse(), media_type="text/event-stream")
+    async def response_events():
+        # Queue admission is asynchronous: waiting streams must not consume
+        # all AnyIO worker threads while the active stream needs its next step.
+        async with REQUEST_LOCK:
+            iterator = sse()
+            try:
+                async for chunk in iterate_in_threadpool(iterator):
+                    yield chunk
+            finally:
+                iterator.close()
+
+    return StreamingResponse(response_events(), media_type="text/event-stream")
 
 
 @app.post("/fnx/loss")
@@ -614,58 +684,70 @@ async def loss(req: Request):
     返回：{"mean_nll":..., "ppl":..., "n":..., "first_nll":[...], "tokens":[...]}
     """
     import math
-    body = await req.json()
+    try:
+        body = await json_body(req)
+    except RequestError as exc:
+        return request_error(exc)
     eng = get_engine()
     text = body.get("text") or ""
-    cap = int(body.get("max_tokens") or 400)
-    ids = eng.tok(text, return_tensors="pt").input_ids[0].tolist()
+    try:
+        cap = positive_int(body.get("max_tokens"), "max_tokens", 400)
+        if not isinstance(text, str):
+            raise RequestError("text must be a string", "text")
+    except RequestError as exc:
+        return request_error(exc)
+    ids = await asyncio.to_thread(tokenize_text, eng, text)
     if len(ids) < 2:
         return JSONResponse(status_code=400, content={"error": "text 太短"})
     if len(ids) > P:
         ids = ids[:P]
     ids = ids[:cap + 1]
-    with LOCK, torch.no_grad():
-        m = eng.m
-        m.reset()
-        m.id = uuid.uuid4().hex
-        V = int(m.logits.shape[-1])
-        shifts = (-3, -2, -1, 0, 1, 2, 3)
-        acc = {d: 0.0 for d in shifts}
-        hit = 0
-        ranks = []
-        nlls = []
-        diffs = {}
-        for i in range(len(ids) - 1):
-            m.step_pad(int(ids[i]), with_head=True)
-            lg = m.row_logits().float().view(-1)
-            lp = torch.log_softmax(lg, dim=-1)
-            tgt = ids[i + 1]
-            for d in shifts:                       # ★ 平移扫描：词表是否整体错位
-                j = tgt + d
-                if 0 <= j < V:
-                    acc[d] += float(-lp[j].item())
-            if i < 200:
-                nlls.append(round(float(-lp[tgt].item()), 4))
-                am = int(lg.argmax().item())
-                hit += int(am == tgt)
-                ranks.append(int((lg > lg[tgt]).sum().item()))
-                diffs[am - tgt] = diffs.get(am - tgt, 0) + 1
-        n = len(ids) - 1
-        top_diffs = sorted(diffs.items(), key=lambda kv: -kv[1])[:5]
-        return {"mean_nll": round(acc[0] / n, 6),
-                "ppl": round(math.exp(acc[0] / n), 4), "n": n,
-                "shift_nll": {str(d): round(acc[d] / n, 4) for d in shifts},
-                "argmax_minus_tgt_top5": top_diffs,
-                "top1_acc": round(hit / max(1, len(ranks)), 4),
-                "median_rank": sorted(ranks)[len(ranks) // 2] if ranks else -1,
-                "rank_n": len(ranks),
-                "vocab": V,
-                "first_nll": [round(float(v), 4) for v in
-                              [acc[0] / n]],
-                # ★ 逐 token NLL/rank（前 64 个）：与 bf16 参考实现做**配对**比较用
-                "nll_tokens": nlls[:64],
-                "rank_tokens": ranks[:64],
-                "tokens": ids[:24], "prompt_tokens": len(ids)}
+    def work():
+        with LOCK, torch.no_grad():
+            m = eng.m
+            m.reset()
+            m.id = uuid.uuid4().hex
+            V = int(m.logits.shape[-1])
+            shifts = (-3, -2, -1, 0, 1, 2, 3)
+            acc = {d: 0.0 for d in shifts}
+            hit = 0
+            ranks = []
+            nlls = []
+            diffs = {}
+            for i in range(len(ids) - 1):
+                m.step_pad(int(ids[i]), with_head=True)
+                lg = m.row_logits().float().view(-1)
+                lp = torch.log_softmax(lg, dim=-1)
+                tgt = ids[i + 1]
+                for d in shifts:                       # ★ 平移扫描：词表是否整体错位
+                    j = tgt + d
+                    if 0 <= j < V:
+                        acc[d] += float(-lp[j].item())
+                if i < 200:
+                    nlls.append(round(float(-lp[tgt].item()), 4))
+                    am = int(lg.argmax().item())
+                    hit += int(am == tgt)
+                    ranks.append(int((lg > lg[tgt]).sum().item()))
+                    diffs[am - tgt] = diffs.get(am - tgt, 0) + 1
+            n = len(ids) - 1
+            top_diffs = sorted(diffs.items(), key=lambda kv: -kv[1])[:5]
+            return {"mean_nll": round(acc[0] / n, 6),
+                    "ppl": round(math.exp(acc[0] / n), 4), "n": n,
+                    "shift_nll": {str(d): round(acc[d] / n, 4) for d in shifts},
+                    "argmax_minus_tgt_top5": top_diffs,
+                    "top1_acc": round(hit / max(1, len(ranks)), 4),
+                    "median_rank": sorted(ranks)[len(ranks) // 2] if ranks else -1,
+                    "rank_n": len(ranks),
+                    "vocab": V,
+                    "first_nll": [round(float(v), 4) for v in
+                                  [acc[0] / n]],
+                    # ★ 逐 token NLL/rank（前 64 个）：与 bf16 参考实现做**配对**比较用
+                    "nll_tokens": nlls[:64],
+                    "rank_tokens": ranks[:64],
+                    "tokens": ids[:24], "prompt_tokens": len(ids)}
+
+    async with REQUEST_LOCK:
+        return await asyncio.to_thread(work)
 
 
 @app.post("/fnx/selfcheck")
@@ -681,57 +763,67 @@ async def selfcheck(req: Request):
       C 直接 greedy 生成出来的 token 序列
     """
     import math
-    body = await req.json()
-    n = int(body.get("n") or 24)
+    try:
+        body = await json_body(req)
+    except RequestError as exc:
+        return request_error(exc)
+    try:
+        n = positive_int(body.get("n"), "n", 24)
+    except RequestError as exc:
+        return request_error(exc)
     eng = get_engine()
     tok = eng.tok
-    base = tok(body.get("text") or "你好", return_tensors="pt").input_ids[0].tolist()
+    base = await asyncio.to_thread(tokenize_text, eng, body.get("text") or "你好")
 
-    with LOCK, torch.no_grad():
-        m = eng.m
-        # ---- C：先生成 ----
-        m.reset()
-        m.id = uuid.uuid4().hex
-        for x in base[:-1]:
-            m.step_pad(int(x), with_head=False)
-        seq = []
-        cur = int(base[-1])
-        for _ in range(n):
-            m.step_pad(cur, with_head=True)
-            cur = int(m.row_logits().float().argmax(-1).item())
-            seq.append(cur)
-        full = base[:-1] + seq
-        start = len(base) - 1
-
-        # ---- A：有历史 ----
-        m.reset()
-        m.id = uuid.uuid4().hex
-        nll_a = []
-        for i, x in enumerate(full[:-1]):
-            m.step_pad(int(x), with_head=True)
-            if i >= start - 1:
-                lp = torch.log_softmax(m.row_logits().float().view(-1), dim=-1)
-                nll_a.append(float(-lp[full[i + 1]].item()))
-
-        # ---- B：无历史（每个位置单独喂一个 token）----
-        nll_b = []
-        for i in range(start, len(full) - 1):
+    def work():
+        with LOCK, torch.no_grad():
+            m = eng.m
+            # ---- C：先生成 ----
             m.reset()
             m.id = uuid.uuid4().hex
-            m.step_pad(int(full[i]), with_head=True)
-            lp = torch.log_softmax(m.row_logits().float().view(-1), dim=-1)
-            nll_b.append(float(-lp[full[i + 1]].item()))
+            for x in base[:-1]:
+                m.step_pad(int(x), with_head=False)
+            seq = []
+            cur = int(base[-1])
+            for _ in range(n):
+                m.step_pad(cur, with_head=True)
+                cur = int(m.row_logits().float().argmax(-1).item())
+                seq.append(cur)
+            full = base[:-1] + seq
+            start = len(base) - 1
 
-    V = int(m.logits.shape[-1])
-    ma = sum(nll_a) / max(1, len(nll_a))
-    mb = sum(nll_b) / max(1, len(nll_b))
-    return {"vocab": V, "ln_vocab": round(math.log(V), 4),
-            "gen_ids": seq, "gen_text": tok.decode(seq),
-            "nll_with_history": round(ma, 4),
-            "nll_no_history": round(mb, 4),
-            "history_gain": round(mb - ma, 4),
-            "verdict": ("历史有效" if ma < mb - 1.0 else
-                        "历史几乎没用（每步只看到 1 个 token → KV/state 没接上）")}
+            # ---- A：有历史 ----
+            m.reset()
+            m.id = uuid.uuid4().hex
+            nll_a = []
+            for i, x in enumerate(full[:-1]):
+                m.step_pad(int(x), with_head=True)
+                if i >= start - 1:
+                    lp = torch.log_softmax(m.row_logits().float().view(-1), dim=-1)
+                    nll_a.append(float(-lp[full[i + 1]].item()))
+
+            # ---- B：无历史（每个位置单独喂一个 token）----
+            nll_b = []
+            for i in range(start, len(full) - 1):
+                m.reset()
+                m.id = uuid.uuid4().hex
+                m.step_pad(int(full[i]), with_head=True)
+                lp = torch.log_softmax(m.row_logits().float().view(-1), dim=-1)
+                nll_b.append(float(-lp[full[i + 1]].item()))
+
+        V = int(m.logits.shape[-1])
+        ma = sum(nll_a) / max(1, len(nll_a))
+        mb = sum(nll_b) / max(1, len(nll_b))
+        return {"vocab": V, "ln_vocab": round(math.log(V), 4),
+                "gen_ids": seq, "gen_text": decode_text(eng, seq, skip_special_tokens=False),
+                "nll_with_history": round(ma, 4),
+                "nll_no_history": round(mb, 4),
+                "history_gain": round(mb - ma, 4),
+                "verdict": ("历史有效" if ma < mb - 1.0 else
+                            "历史几乎没用（每步只看到 1 个 token → KV/state 没接上）")}
+
+    async with REQUEST_LOCK:
+        return await asyncio.to_thread(work)
 
 
 if __name__ == "__main__":

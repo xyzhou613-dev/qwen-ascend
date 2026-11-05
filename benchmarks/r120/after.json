@@ -1,0 +1,4278 @@
+{
+  "version": "r120-service/r119-kernels",
+  "started_at": "2026-11-05 09:09:24",
+  "cases": [
+    {
+      "group": "mcq",
+      "name": "1",
+      "ok": true,
+      "question": "中国的首都是？",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 486.7,
+        "seconds": 0.533,
+        "tpot_ms": 45.7,
+        "n_prefill": 47,
+        "prefill_ms": 409.68,
+        "prefill_tok_s": 114.72
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "2",
+      "ok": true,
+      "question": "水的化学式是？",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 456.23,
+        "seconds": 0.502,
+        "tpot_ms": 45.56,
+        "n_prefill": 49,
+        "prefill_ms": 396.31,
+        "prefill_tok_s": 123.64
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "3",
+      "ok": true,
+      "question": "9 × 7 = ?",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 436.35,
+        "seconds": 0.482,
+        "tpot_ms": 45.21,
+        "n_prefill": 53,
+        "prefill_ms": 377.02,
+        "prefill_tok_s": 140.58
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "4",
+      "ok": true,
+      "question": "一年有多少个月？",
+      "expected": "C",
+      "answer": "C",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 436.93,
+        "seconds": 0.482,
+        "tpot_ms": 45.28,
+        "n_prefill": 51,
+        "prefill_ms": 377.81,
+        "prefill_tok_s": 134.99
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "5",
+      "ok": true,
+      "question": "太阳系中最大的行星是？",
+      "expected": "C",
+      "answer": "C",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 437.34,
+        "seconds": 0.483,
+        "tpot_ms": 45.24,
+        "n_prefill": 50,
+        "prefill_ms": 378.46,
+        "prefill_tok_s": 132.12
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "6",
+      "ok": true,
+      "question": "《论语》的作者（记录者）是孔子的？",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 441.01,
+        "seconds": 0.487,
+        "tpot_ms": 45.24,
+        "n_prefill": 56,
+        "prefill_ms": 382.16,
+        "prefill_tok_s": 146.54
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "7",
+      "ok": true,
+      "question": "二进制 1011 等于十进制？",
+      "expected": "C",
+      "answer": "C",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 441.9,
+        "seconds": 0.488,
+        "tpot_ms": 45.47,
+        "n_prefill": 57,
+        "prefill_ms": 382.61,
+        "prefill_tok_s": 148.98
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "8",
+      "ok": true,
+      "question": "下列哪个不是编程语言？",
+      "expected": "C",
+      "answer": "C",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 438.97,
+        "seconds": 0.485,
+        "tpot_ms": 45.57,
+        "n_prefill": 48,
+        "prefill_ms": 379.59,
+        "prefill_tok_s": 126.45
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "9",
+      "ok": true,
+      "question": "人体最大的器官是？",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 407.2,
+        "seconds": 0.453,
+        "tpot_ms": 45.24,
+        "n_prefill": 48,
+        "prefill_ms": 348.21,
+        "prefill_tok_s": 137.85
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "10",
+      "ok": true,
+      "question": "光在真空中的速度约为每秒？",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 465.09,
+        "seconds": 0.511,
+        "tpot_ms": 45.17,
+        "n_prefill": 65,
+        "prefill_ms": 406.15,
+        "prefill_tok_s": 160.04
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "11",
+      "ok": true,
+      "question": "下面哪个是质数？",
+      "expected": "C",
+      "answer": "C",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 411.69,
+        "seconds": 0.457,
+        "tpot_ms": 45.17,
+        "n_prefill": 53,
+        "prefill_ms": 353.0,
+        "prefill_tok_s": 150.14
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "12",
+      "ok": true,
+      "question": "中国哪个朝代最早？",
+      "expected": "C",
+      "answer": "C",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 412.47,
+        "seconds": 0.458,
+        "tpot_ms": 45.39,
+        "n_prefill": 48,
+        "prefill_ms": 353.69,
+        "prefill_tok_s": 135.71
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "13",
+      "ok": true,
+      "question": "一个三角形内角和是多少度？",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 436.31,
+        "seconds": 0.482,
+        "tpot_ms": 45.23,
+        "n_prefill": 58,
+        "prefill_ms": 377.05,
+        "prefill_tok_s": 153.82
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "14",
+      "ok": true,
+      "question": "REST API 里用来获取资源的方法通常是？",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 415.35,
+        "seconds": 0.461,
+        "tpot_ms": 45.47,
+        "n_prefill": 49,
+        "prefill_ms": 356.57,
+        "prefill_tok_s": 137.42
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "15",
+      "ok": true,
+      "question": "下列哪项属于监督学习？",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 414.24,
+        "seconds": 0.46,
+        "tpot_ms": 45.19,
+        "n_prefill": 50,
+        "prefill_ms": 355.16,
+        "prefill_tok_s": 140.78
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "16",
+      "ok": true,
+      "question": "1 加到 10 等于？",
+      "expected": "C",
+      "answer": "C",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 406.45,
+        "seconds": 0.452,
+        "tpot_ms": 45.17,
+        "n_prefill": 57,
+        "prefill_ms": 347.84,
+        "prefill_tok_s": 163.87
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "17",
+      "ok": true,
+      "question": "地球绕太阳一周约需？",
+      "expected": "C",
+      "answer": "C",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 436.66,
+        "seconds": 0.482,
+        "tpot_ms": 45.38,
+        "n_prefill": 63,
+        "prefill_ms": 377.61,
+        "prefill_tok_s": 166.84
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "18",
+      "ok": true,
+      "question": "HTTP 状态码 404 表示？",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 406.59,
+        "seconds": 0.452,
+        "tpot_ms": 45.21,
+        "n_prefill": 58,
+        "prefill_ms": 347.78,
+        "prefill_tok_s": 166.77
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "19",
+      "ok": true,
+      "question": "下列哪个单位表示存储容量？",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 413.85,
+        "seconds": 0.459,
+        "tpot_ms": 45.21,
+        "n_prefill": 47,
+        "prefill_ms": 355.25,
+        "prefill_tok_s": 132.3
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "20",
+      "ok": true,
+      "question": "“三人行，必有我师”出自？",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 411.03,
+        "seconds": 0.456,
+        "tpot_ms": 45.19,
+        "n_prefill": 57,
+        "prefill_ms": 352.44,
+        "prefill_tok_s": 161.73
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "21",
+      "ok": true,
+      "question": "神经网络中 ReLU 是？",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 435.29,
+        "seconds": 0.481,
+        "tpot_ms": 45.49,
+        "n_prefill": 54,
+        "prefill_ms": 376.16,
+        "prefill_tok_s": 143.56
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "22",
+      "ok": true,
+      "question": "地球上海洋面积占表面约？",
+      "expected": "C",
+      "answer": "C",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 434.96,
+        "seconds": 0.481,
+        "tpot_ms": 45.56,
+        "n_prefill": 59,
+        "prefill_ms": 375.05,
+        "prefill_tok_s": 157.31
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "23",
+      "ok": true,
+      "question": "下列哪项是数据库？",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 436.32,
+        "seconds": 0.482,
+        "tpot_ms": 45.17,
+        "n_prefill": 46,
+        "prefill_ms": 377.12,
+        "prefill_tok_s": 121.98
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "24",
+      "ok": true,
+      "question": "若 x + 5 = 12，则 x = ?",
+      "expected": "C",
+      "answer": "C",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 413.81,
+        "seconds": 0.459,
+        "tpot_ms": 45.22,
+        "n_prefill": 57,
+        "prefill_ms": 355.1,
+        "prefill_tok_s": 160.52
+      }
+    },
+    {
+      "group": "code",
+      "name": "gcd",
+      "ok": true,
+      "code": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a\n",
+      "outcomes": [
+        {
+          "args": [
+            48,
+            18
+          ],
+          "expected": 6,
+          "actual": 6,
+          "ok": true
+        },
+        {
+          "args": [
+            0,
+            7
+          ],
+          "expected": 7,
+          "actual": 7,
+          "ok": true
+        },
+        {
+          "args": [
+            17,
+            13
+          ],
+          "expected": 1,
+          "actual": 1,
+          "ok": true
+        },
+        {
+          "args": [
+            0,
+            0
+          ],
+          "expected": 0,
+          "actual": 0,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "group": "code",
+      "name": "two_sum",
+      "ok": true,
+      "code": "def two_sum(nums, target):\n    seen = {}\n    for i, num in enumerate(nums):\n        complement = target - num\n        if complement in seen:\n            return [seen[complement], i]\n        seen[num] = i\n",
+      "outcomes": [
+        {
+          "args": [
+            [
+              2,
+              7,
+              11,
+              15
+            ],
+            9
+          ],
+          "expected": [
+            0,
+            1
+          ],
+          "actual": [
+            0,
+            1
+          ],
+          "ok": true
+        },
+        {
+          "args": [
+            [
+              3,
+              3
+            ],
+            6
+          ],
+          "expected": [
+            0,
+            1
+          ],
+          "actual": [
+            0,
+            1
+          ],
+          "ok": true
+        },
+        {
+          "args": [
+            [
+              3,
+              2,
+              4
+            ],
+            6
+          ],
+          "expected": [
+            1,
+            2
+          ],
+          "actual": [
+            1,
+            2
+          ],
+          "ok": true
+        }
+      ]
+    },
+    {
+      "group": "code",
+      "name": "stable_unique",
+      "ok": true,
+      "code": "def stable_unique(items):\n    seen = set()\n    result = []\n    for item in items:\n        if item not in seen:\n            seen.add(item)\n            result.append(item)\n    return result\n",
+      "outcomes": [
+        {
+          "args": [
+            [
+              3,
+              1,
+              3,
+              2,
+              1
+            ]
+          ],
+          "expected": [
+            3,
+            1,
+            2
+          ],
+          "actual": [
+            3,
+            1,
+            2
+          ],
+          "ok": true
+        },
+        {
+          "args": [
+            []
+          ],
+          "expected": [],
+          "actual": [],
+          "ok": true
+        },
+        {
+          "args": [
+            [
+              1,
+              1
+            ]
+          ],
+          "expected": [
+            1
+          ],
+          "actual": [
+            1
+          ],
+          "ok": true
+        }
+      ]
+    },
+    {
+      "group": "code",
+      "name": "is_prime",
+      "ok": true,
+      "code": "def is_prime(n):\n    if n < 2:\n        return False\n    if n == 2:\n        return True\n    if n % 2 == 0:\n        return False\n    i = 3\n    while i * i <= n:\n        if n % i == 0:\n            return False\n        i += 2\n    return True\n",
+      "outcomes": [
+        {
+          "args": [
+            2
+          ],
+          "expected": true,
+          "actual": true,
+          "ok": true
+        },
+        {
+          "args": [
+            1
+          ],
+          "expected": false,
+          "actual": false,
+          "ok": true
+        },
+        {
+          "args": [
+            9
+          ],
+          "expected": false,
+          "actual": false,
+          "ok": true
+        },
+        {
+          "args": [
+            97
+          ],
+          "expected": true,
+          "actual": true,
+          "ok": true
+        },
+        {
+          "args": [
+            -3
+          ],
+          "expected": false,
+          "actual": false,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "group": "code",
+      "name": "binary_search",
+      "ok": true,
+      "code": "def binary_search(nums, target):\n    left, right = 0, len(nums) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        if nums[mid] == target:\n            return mid\n        elif nums[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    return -1\n",
+      "outcomes": [
+        {
+          "args": [
+            [
+              1,
+              3,
+              5,
+              7
+            ],
+            5
+          ],
+          "expected": 2,
+          "actual": 2,
+          "ok": true
+        },
+        {
+          "args": [
+            [],
+            3
+          ],
+          "expected": -1,
+          "actual": -1,
+          "ok": true
+        },
+        {
+          "args": [
+            [
+              1,
+              3
+            ],
+            2
+          ],
+          "expected": -1,
+          "actual": -1,
+          "ok": true
+        },
+        {
+          "args": [
+            [
+              4
+            ],
+            4
+          ],
+          "expected": 0,
+          "actual": 0,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "group": "code",
+      "name": "merge_intervals",
+      "ok": true,
+      "code": "def merge_intervals(intervals):\n    if not intervals:\n        return []\n    \n    sorted_intervals = sorted(intervals, key=lambda x: x[0])\n    merged = [sorted_intervals[0]]\n    \n    for current in sorted_intervals[1:]:\n        last = merged[-1]\n        if current[0] <= last[1]:\n            last[1] = max(last[1], current[1])\n        else:\n            merged.append(current)\n    \n    return merged\n",
+      "outcomes": [
+        {
+          "args": [
+            [
+              [
+                1,
+                3
+              ],
+              [
+                2,
+                6
+              ],
+              [
+                8,
+                10
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              6
+            ],
+            [
+              8,
+              10
+            ]
+          ],
+          "actual": [
+            [
+              1,
+              6
+            ],
+            [
+              8,
+              10
+            ]
+          ],
+          "ok": true
+        },
+        {
+          "args": [
+            []
+          ],
+          "expected": [],
+          "actual": [],
+          "ok": true
+        },
+        {
+          "args": [
+            [
+              [
+                4,
+                5
+              ],
+              [
+                1,
+                4
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              5
+            ]
+          ],
+          "actual": [
+            [
+              1,
+              5
+            ]
+          ],
+          "ok": true
+        }
+      ]
+    },
+    {
+      "group": "code",
+      "name": "is_palindrome",
+      "ok": true,
+      "code": "def is_palindrome(s):\n    cleaned = [c.lower() for c in s if c.isalnum() and c.isascii()]\n    return cleaned == cleaned[::-1]",
+      "outcomes": [
+        {
+          "args": [
+            "A man, a plan, a canal: Panama"
+          ],
+          "expected": true,
+          "actual": true,
+          "ok": true
+        },
+        {
+          "args": [
+            "race a car"
+          ],
+          "expected": false,
+          "actual": false,
+          "ok": true
+        },
+        {
+          "args": [
+            ""
+          ],
+          "expected": true,
+          "actual": true,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "group": "code",
+      "name": "longest_common_prefix",
+      "ok": true,
+      "code": "def longest_common_prefix(strs):\n    if not strs:\n        return \"\"\n    prefix = strs[0]\n    for s in strs[1:]:\n        while not s.startswith(prefix):\n            prefix = prefix[:-1]\n            if not prefix:\n                return \"\"\n    return prefix\n",
+      "outcomes": [
+        {
+          "args": [
+            [
+              "flower",
+              "flow",
+              "flight"
+            ]
+          ],
+          "expected": "fl",
+          "actual": "fl",
+          "ok": true
+        },
+        {
+          "args": [
+            []
+          ],
+          "expected": "",
+          "actual": "",
+          "ok": true
+        },
+        {
+          "args": [
+            [
+              "dog",
+              "racecar",
+              "car"
+            ]
+          ],
+          "expected": "",
+          "actual": "",
+          "ok": true
+        },
+        {
+          "args": [
+            [
+              "abc"
+            ]
+          ],
+          "expected": "abc",
+          "actual": "abc",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "group": "stream",
+      "name": "emoji",
+      "ok": true,
+      "plain": "𠮷🧪🚀 café Ελληνικά",
+      "stream": "𠮷🧪🚀 café Ελληνικά",
+      "replacement_count": 0,
+      "done": true
+    },
+    {
+      "group": "stream",
+      "name": "chinese",
+      "ok": true,
+      "plain": "昇腾推理，边界测试。",
+      "stream": "昇腾推理，边界测试。",
+      "replacement_count": 0,
+      "done": true
+    },
+    {
+      "group": "stream",
+      "name": "english",
+      "ok": true,
+      "plain": "Alpha beta 0123456789",
+      "stream": "Alpha beta 0123456789",
+      "replacement_count": 0,
+      "done": true
+    },
+    {
+      "group": "stream",
+      "name": "json",
+      "ok": true,
+      "plain": "{\"status\":\"成功\",\"emoji\":\"🧪\"}",
+      "stream": "{\"status\":\"成功\",\"emoji\":\"🧪\"}",
+      "replacement_count": 0,
+      "done": true
+    },
+    {
+      "group": "protocol",
+      "name": "stream_finish_reason",
+      "ok": true,
+      "nonstream_reason": "length",
+      "stream_reason": "length",
+      "plain": "1",
+      "stream": "1",
+      "completion_tokens": 1
+    },
+    {
+      "group": "invalid_request",
+      "name": "invalid_json",
+      "ok": true,
+      "response": {
+        "status": 400,
+        "content_type": "application/json",
+        "seconds": 0.0014535749796777964,
+        "body": "{\"error\":{\"message\":\"request body must contain valid JSON\",\"type\":\"invalid_request_error\",\"param\":null}}",
+        "json": {
+          "error": {
+            "message": "request body must contain valid JSON",
+            "type": "invalid_request_error",
+            "param": null
+          }
+        }
+      }
+    },
+    {
+      "group": "invalid_request",
+      "name": "nonobject_body",
+      "ok": true,
+      "response": {
+        "status": 400,
+        "content_type": "application/json",
+        "seconds": 0.0012624039081856608,
+        "body": "{\"error\":{\"message\":\"request body must be a JSON object\",\"type\":\"invalid_request_error\",\"param\":null}}",
+        "json": {
+          "error": {
+            "message": "request body must be a JSON object",
+            "type": "invalid_request_error",
+            "param": null
+          }
+        }
+      }
+    },
+    {
+      "group": "invalid_request",
+      "name": "missing_messages",
+      "ok": true,
+      "response": {
+        "status": 400,
+        "content_type": "application/json",
+        "seconds": 0.001249794033356011,
+        "body": "{\"error\":{\"message\":\"messages must be a nonempty list\",\"type\":\"invalid_request_error\",\"param\":\"messages\"}}",
+        "json": {
+          "error": {
+            "message": "messages must be a nonempty list",
+            "type": "invalid_request_error",
+            "param": "messages"
+          }
+        }
+      }
+    },
+    {
+      "group": "invalid_request",
+      "name": "bad_max_tokens",
+      "ok": true,
+      "response": {
+        "status": 400,
+        "content_type": "application/json",
+        "seconds": 0.0012871039798483253,
+        "body": "{\"error\":{\"message\":\"max_tokens must be a positive integer\",\"type\":\"invalid_request_error\",\"param\":\"max_tokens\"}}",
+        "json": {
+          "error": {
+            "message": "max_tokens must be a positive integer",
+            "type": "invalid_request_error",
+            "param": "max_tokens"
+          }
+        }
+      }
+    },
+    {
+      "group": "invalid_request",
+      "name": "zero_max_tokens",
+      "ok": true,
+      "response": {
+        "status": 400,
+        "content_type": "application/json",
+        "seconds": 0.0012515130219981074,
+        "body": "{\"error\":{\"message\":\"max_tokens must be a positive integer\",\"type\":\"invalid_request_error\",\"param\":\"max_tokens\"}}",
+        "json": {
+          "error": {
+            "message": "max_tokens must be a positive integer",
+            "type": "invalid_request_error",
+            "param": "max_tokens"
+          }
+        }
+      }
+    },
+    {
+      "group": "invalid_request",
+      "name": "negative_max_tokens",
+      "ok": true,
+      "response": {
+        "status": 400,
+        "content_type": "application/json",
+        "seconds": 0.0012625940144062042,
+        "body": "{\"error\":{\"message\":\"max_tokens must be a positive integer\",\"type\":\"invalid_request_error\",\"param\":\"max_tokens\"}}",
+        "json": {
+          "error": {
+            "message": "max_tokens must be a positive integer",
+            "type": "invalid_request_error",
+            "param": "max_tokens"
+          }
+        }
+      }
+    },
+    {
+      "group": "invalid_request",
+      "name": "bad_temperature",
+      "ok": true,
+      "response": {
+        "status": 400,
+        "content_type": "application/json",
+        "seconds": 0.0012514940463006496,
+        "body": "{\"error\":{\"message\":\"temperature must be a finite number between 0 and 2\",\"type\":\"invalid_request_error\",\"param\":\"temperature\"}}",
+        "json": {
+          "error": {
+            "message": "temperature must be a finite number between 0 and 2",
+            "type": "invalid_request_error",
+            "param": "temperature"
+          }
+        }
+      }
+    },
+    {
+      "group": "invalid_request",
+      "name": "wrong_model",
+      "ok": true,
+      "response": {
+        "status": 404,
+        "content_type": "application/json",
+        "seconds": 0.0012465930776670575,
+        "body": "{\"error\":{\"message\":\"requested model is not loaded; use qwen3.8-flash-next-w4\",\"type\":\"invalid_request_error\",\"param\":\"model\"}}",
+        "json": {
+          "error": {
+            "message": "requested model is not loaded; use qwen3.8-flash-next-w4",
+            "type": "invalid_request_error",
+            "param": "model"
+          }
+        }
+      }
+    },
+    {
+      "group": "invalid_request",
+      "name": "over_context_budget",
+      "ok": true,
+      "response": {
+        "status": 400,
+        "content_type": "application/json",
+        "seconds": 0.002113076043315232,
+        "body": "{\"error\":\"prompt (16) + max_tokens (262145) - 1 must be <= ctx (262144); both must be positive\"}",
+        "json": {
+          "error": "prompt (16) + max_tokens (262145) - 1 must be <= ctx (262144); both must be positive"
+        }
+      }
+    },
+    {
+      "group": "invalid_request",
+      "name": "unsupported_n",
+      "ok": true,
+      "response": {
+        "status": 400,
+        "content_type": "application/json",
+        "seconds": 0.0013024440268054605,
+        "body": "{\"error\":{\"message\":\"this backend supports n=1 only\",\"type\":\"invalid_request_error\",\"param\":\"n\"}}",
+        "json": {
+          "error": {
+            "message": "this backend supports n=1 only",
+            "type": "invalid_request_error",
+            "param": "n"
+          }
+        }
+      }
+    },
+    {
+      "group": "state",
+      "name": "repeat_and_switch_back",
+      "ok": true,
+      "answers": [
+        "481726",
+        "481726",
+        "903158",
+        "481726"
+      ],
+      "repeat_prefill": 0,
+      "switchback_prefill": 29
+    },
+    {
+      "group": "cache",
+      "name": "immediate_repeat",
+      "ok": true,
+      "stats": {
+        "ttft_ms": 49.68,
+        "seconds": 0.321,
+        "tpot_ms": 45.22,
+        "n_prefill": 0,
+        "prefill_ms": 0.08,
+        "prefill_tok_s": 0.0
+      }
+    },
+    {
+      "group": "concurrency",
+      "name": "571924",
+      "ok": true,
+      "text": "571924\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n",
+      "stats": {
+        "ttft_ms": 442.52,
+        "tokens": 64,
+        "seconds": 3.317,
+        "tpot_ms": 45.63,
+        "tok_decode_ms": 1.24,
+        "prefill_ms": 379.74,
+        "prefill_tok_s": 102.7,
+        "n_prefill": 39
+      },
+      "done": true
+    },
+    {
+      "group": "concurrency",
+      "name": "826315",
+      "ok": true,
+      "text": "826315\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n",
+      "stats": {
+        "ttft_ms": 7020.64,
+        "tokens": 64,
+        "seconds": 9.9,
+        "tpot_ms": 45.7,
+        "tok_decode_ms": 1.17,
+        "prefill_ms": 358.33,
+        "prefill_tok_s": 108.84,
+        "n_prefill": 39
+      },
+      "done": true
+    },
+    {
+      "group": "concurrency",
+      "name": "439687",
+      "ok": true,
+      "text": "439687\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n",
+      "stats": {
+        "ttft_ms": 3726.09,
+        "tokens": 64,
+        "seconds": 6.603,
+        "tpot_ms": 45.66,
+        "tok_decode_ms": 1.36,
+        "prefill_ms": 349.95,
+        "prefill_tok_s": 111.44,
+        "n_prefill": 39
+      },
+      "done": true
+    },
+    {
+      "group": "health",
+      "name": "during_parallel_generation",
+      "ok": true,
+      "samples": 49,
+      "failed": 0,
+      "max_seconds": 0.0034747200552374125,
+      "rows": [
+        {
+          "ok": true,
+          "seconds": 0.0034747200552374125
+        },
+        {
+          "ok": true,
+          "seconds": 0.0028477880405262113
+        },
+        {
+          "ok": true,
+          "seconds": 0.0021466759499162436
+        },
+        {
+          "ok": true,
+          "seconds": 0.0021373360650613904
+        },
+        {
+          "ok": true,
+          "seconds": 0.002547038020566106
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023992169881239533
+        },
+        {
+          "ok": true,
+          "seconds": 0.00228447699919343
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019562459783628583
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019062949577346444
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018465359462425113
+        },
+        {
+          "ok": true,
+          "seconds": 0.001904365955851972
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023150870110839605
+        },
+        {
+          "ok": true,
+          "seconds": 0.002033125958405435
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018634749576449394
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018339359667152166
+        },
+        {
+          "ok": true,
+          "seconds": 0.001833515940234065
+        },
+        {
+          "ok": true,
+          "seconds": 0.0021542960312217474
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024011069908738136
+        },
+        {
+          "ok": true,
+          "seconds": 0.0022642259718850255
+        },
+        {
+          "ok": true,
+          "seconds": 0.002409186912700534
+        },
+        {
+          "ok": true,
+          "seconds": 0.002385006984695792
+        },
+        {
+          "ok": true,
+          "seconds": 0.002401736914180219
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023581170244142413
+        },
+        {
+          "ok": true,
+          "seconds": 0.0022286060266196728
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019713060464709997
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018442360451444983
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018108050571754575
+        },
+        {
+          "ok": true,
+          "seconds": 0.002038736012764275
+        },
+        {
+          "ok": true,
+          "seconds": 0.0022996170446276665
+        },
+        {
+          "ok": true,
+          "seconds": 0.002304957015439868
+        },
+        {
+          "ok": true,
+          "seconds": 0.001939265988767147
+        },
+        {
+          "ok": true,
+          "seconds": 0.001836914918385446
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019163360120728612
+        },
+        {
+          "ok": true,
+          "seconds": 0.0021663560764864087
+        },
+        {
+          "ok": true,
+          "seconds": 0.00252636696677655
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026112080086022615
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023579669650644064
+        },
+        {
+          "ok": true,
+          "seconds": 0.0020094759529456496
+        },
+        {
+          "ok": true,
+          "seconds": 0.001918566063977778
+        },
+        {
+          "ok": true,
+          "seconds": 0.0021912759402766824
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023700969759374857
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019224559655413032
+        },
+        {
+          "ok": true,
+          "seconds": 0.001977606094442308
+        },
+        {
+          "ok": true,
+          "seconds": 0.001875565038062632
+        },
+        {
+          "ok": true,
+          "seconds": 0.0021880670683458447
+        },
+        {
+          "ok": true,
+          "seconds": 0.0020840360084548593
+        },
+        {
+          "ok": true,
+          "seconds": 0.002279696986079216
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019888560054823756
+        },
+        {
+          "ok": true,
+          "seconds": 0.0021223360672593117
+        }
+      ]
+    },
+    {
+      "group": "cancellation",
+      "name": "disconnect_then_new_request",
+      "ok": true,
+      "aborted_after_pieces": 3,
+      "follow_seconds": 0.6808653669431806,
+      "follow_answer": "6174",
+      "total_seconds": 1.2455840600887313
+    },
+    {
+      "group": "stability",
+      "name": "30_new_sessions",
+      "ok": true,
+      "records": [
+        {
+          "expected": "700000",
+          "answer": "700000",
+          "seconds": 0.7322263299720362,
+          "ok": true
+        },
+        {
+          "expected": "700001",
+          "answer": "700001",
+          "seconds": 0.7009634670102969,
+          "ok": true
+        },
+        {
+          "expected": "700002",
+          "answer": "700002",
+          "seconds": 0.7071455949917436,
+          "ok": true
+        },
+        {
+          "expected": "700003",
+          "answer": "700003",
+          "seconds": 0.6814495589351282,
+          "ok": true
+        },
+        {
+          "expected": "700004",
+          "answer": "700004",
+          "seconds": 0.6843339080223814,
+          "ok": true
+        },
+        {
+          "expected": "700005",
+          "answer": "700005",
+          "seconds": 0.6827758030267432,
+          "ok": true
+        },
+        {
+          "expected": "700006",
+          "answer": "700006",
+          "seconds": 0.7031681740190834,
+          "ok": true
+        },
+        {
+          "expected": "700007",
+          "answer": "700007",
+          "seconds": 0.6946273279609159,
+          "ok": true
+        },
+        {
+          "expected": "700008",
+          "answer": "700008",
+          "seconds": 0.7012534079840407,
+          "ok": true
+        },
+        {
+          "expected": "700009",
+          "answer": "700009",
+          "seconds": 0.6924017319688573,
+          "ok": true
+        },
+        {
+          "expected": "700010",
+          "answer": "700010",
+          "seconds": 0.6745289590908214,
+          "ok": true
+        },
+        {
+          "expected": "700011",
+          "answer": "700011",
+          "seconds": 0.6985386800952256,
+          "ok": true
+        },
+        {
+          "expected": "700012",
+          "answer": "700012",
+          "seconds": 0.6939109960803762,
+          "ok": true
+        },
+        {
+          "expected": "700013",
+          "answer": "700013",
+          "seconds": 0.6949030089890584,
+          "ok": true
+        },
+        {
+          "expected": "700014",
+          "answer": "700014",
+          "seconds": 0.6951390889007598,
+          "ok": true
+        },
+        {
+          "expected": "700015",
+          "answer": "700015",
+          "seconds": 0.6973304561106488,
+          "ok": true
+        },
+        {
+          "expected": "700016",
+          "answer": "700016",
+          "seconds": 0.7053856799611822,
+          "ok": true
+        },
+        {
+          "expected": "700017",
+          "answer": "700017",
+          "seconds": 0.7060867219697684,
+          "ok": true
+        },
+        {
+          "expected": "700018",
+          "answer": "700018",
+          "seconds": 0.7051384589867666,
+          "ok": true
+        },
+        {
+          "expected": "700019",
+          "answer": "700019",
+          "seconds": 0.704928018967621,
+          "ok": true
+        },
+        {
+          "expected": "700020",
+          "answer": "700020",
+          "seconds": 0.7069369150558487,
+          "ok": true
+        },
+        {
+          "expected": "700021",
+          "answer": "700021",
+          "seconds": 0.6912683079717681,
+          "ok": true
+        },
+        {
+          "expected": "700022",
+          "answer": "700022",
+          "seconds": 0.6955240500392392,
+          "ok": true
+        },
+        {
+          "expected": "700023",
+          "answer": "700023",
+          "seconds": 0.6921627400442958,
+          "ok": true
+        },
+        {
+          "expected": "700024",
+          "answer": "700024",
+          "seconds": 0.6923469610046595,
+          "ok": true
+        },
+        {
+          "expected": "700025",
+          "answer": "700025",
+          "seconds": 0.6848975800676271,
+          "ok": true
+        },
+        {
+          "expected": "700026",
+          "answer": "700026",
+          "seconds": 0.6834295549197122,
+          "ok": true
+        },
+        {
+          "expected": "700027",
+          "answer": "700027",
+          "seconds": 0.688966030953452,
+          "ok": true
+        },
+        {
+          "expected": "700028",
+          "answer": "700028",
+          "seconds": 0.7007118660258129,
+          "ok": true
+        },
+        {
+          "expected": "700029",
+          "answer": "700029",
+          "seconds": 0.6869023150065914,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "group": "long",
+      "name": "8192",
+      "ok": true,
+      "prompt_tokens": 8064,
+      "recall_hits": 3,
+      "text": "项目海棠的验收码是7319。\n项目松柏的验收码是8652。\n项目银杏的验收码是2946。\n\n在昇腾处理器面向的大规模深度学习训练与推理场景中，软件栈以CANN为核心，其架构设计深刻影响了现代混合专家模型（MoE）的推理服务优化策略。随着参数规模推向新的量级，稀疏激活机制成为关键，即在单个时间步仅激活数百个专家中的极小部分。这一特性导致推理瓶颈从算力转向内存带宽，因为权重的读取量由激活专家数量决定，而非全部参数量",
+      "stats": {
+        "ttft_ms": 5597.19,
+        "tokens": 128,
+        "seconds": 11.408,
+        "tpot_ms": 45.76,
+        "tok_decode_ms": 2.93,
+        "prefill_ms": 5526.46,
+        "prefill_tok_s": 1458.44,
+        "n_prefill": 8060
+      },
+      "ttft_s": 5.633645651047118,
+      "seconds": 11.445108768995851
+    },
+    {
+      "group": "health",
+      "name": "during_long_8192",
+      "ok": true,
+      "samples": 57,
+      "failed": 0,
+      "max_seconds": 0.00470192392822355,
+      "rows": [
+        {
+          "ok": true,
+          "seconds": 0.00470192392822355
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024782170075923204
+        },
+        {
+          "ok": true,
+          "seconds": 0.002081535989418626
+        },
+        {
+          "ok": true,
+          "seconds": 0.002266495954245329
+        },
+        {
+          "ok": true,
+          "seconds": 0.002592956996522844
+        },
+        {
+          "ok": true,
+          "seconds": 0.002629227004945278
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026100369868800044
+        },
+        {
+          "ok": true,
+          "seconds": 0.002597226994112134
+        },
+        {
+          "ok": true,
+          "seconds": 0.002305197063833475
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019487260142341256
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024975580163300037
+        },
+        {
+          "ok": true,
+          "seconds": 0.00204814609605819
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018073449609801173
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017916159704327583
+        },
+        {
+          "ok": true,
+          "seconds": 0.0020217460114508867
+        },
+        {
+          "ok": true,
+          "seconds": 0.00232952693477273
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024400270776823163
+        },
+        {
+          "ok": true,
+          "seconds": 0.001898155896924436
+        },
+        {
+          "ok": true,
+          "seconds": 0.002014345955103636
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018734150798991323
+        },
+        {
+          "ok": true,
+          "seconds": 0.002801427966915071
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026861679507419467
+        },
+        {
+          "ok": true,
+          "seconds": 0.002499827998690307
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018592150881886482
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019022459164261818
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024217369500547647
+        },
+        {
+          "ok": true,
+          "seconds": 0.002415127935819328
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026331180706620216
+        },
+        {
+          "ok": true,
+          "seconds": 0.002409277018159628
+        },
+        {
+          "ok": true,
+          "seconds": 0.00204853608738631
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019374460680410266
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019661959959194064
+        },
+        {
+          "ok": true,
+          "seconds": 0.001866706064902246
+        },
+        {
+          "ok": true,
+          "seconds": 0.0029564490541815758
+        },
+        {
+          "ok": true,
+          "seconds": 0.002023705979809165
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026540179969742894
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025265379808843136
+        },
+        {
+          "ok": true,
+          "seconds": 0.002486616955138743
+        },
+        {
+          "ok": true,
+          "seconds": 0.002008165931329131
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024692079750820994
+        },
+        {
+          "ok": true,
+          "seconds": 0.0020457960199564695
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019937860779464245
+        },
+        {
+          "ok": true,
+          "seconds": 0.001921996008604765
+        },
+        {
+          "ok": true,
+          "seconds": 0.0020428959978744388
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024857469834387302
+        },
+        {
+          "ok": true,
+          "seconds": 0.002408187952823937
+        },
+        {
+          "ok": true,
+          "seconds": 0.001940484973601997
+        },
+        {
+          "ok": true,
+          "seconds": 0.002192336949519813
+        },
+        {
+          "ok": true,
+          "seconds": 0.002081406069919467
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018949259538203478
+        },
+        {
+          "ok": true,
+          "seconds": 0.002649277914315462
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026775479782372713
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026827079709619284
+        },
+        {
+          "ok": true,
+          "seconds": 0.002013406017795205
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018886959878727794
+        },
+        {
+          "ok": true,
+          "seconds": 0.002440977026708424
+        },
+        {
+          "ok": true,
+          "seconds": 0.002553437021560967
+        }
+      ]
+    },
+    {
+      "group": "long_cache",
+      "name": "8192",
+      "ok": true,
+      "text": "项目海棠的验收码是7319。\n项目松柏的验收码是8652。\n项目银杏的验收码是2946。\n\n在昇腾处理器面向的大规模深度学习训练与推理场景中，软件栈以CANN为核心，其架构设计深刻影响了现代混合专家模型（MoE）的推理服务优化策略。随着参数规模推向新的量级，稀疏激活机制成为关键，即在单个时间步仅激活数百个专家中的极小部分。这一特性导致推理瓶颈从算力转向内存带宽，因为权重的读取量由激活专家数量决定，而非全部参数量",
+      "stats": {
+        "ttft_ms": 51.97,
+        "seconds": 5.798,
+        "tpot_ms": 45.24,
+        "n_prefill": 0,
+        "prefill_ms": 0.1,
+        "prefill_tok_s": 0.0
+      }
+    },
+    {
+      "group": "long_follow",
+      "name": "8192",
+      "ok": true,
+      "text": "7319",
+      "stats": {
+        "ttft_ms": 423.2,
+        "seconds": 0.604,
+        "tpot_ms": 45.13,
+        "n_prefill": 29,
+        "prefill_ms": 366.34,
+        "prefill_tok_s": 79.16
+      }
+    },
+    {
+      "group": "long",
+      "name": "262144",
+      "ok": true,
+      "prompt_tokens": 262016,
+      "recall_hits": 3,
+      "text": "根据资料内容，三个项目的验收码如下：\n\n1. 项目海棠：7319\n2. 项目松柏：8652\n3. 项目银杏：2946\n\n关于资料中涉及的推理服务和长文档处理技术，以下是详细的技术解析：\n\n在现代大规模深度学习推理场景中，尤其是针对昇腾处理器等专用AI芯片，性能优化的核心往往不在于单一算子的峰值算力，而在于系统级的数据搬运效率与内存带宽利用率。资料指出，最容易被低估的性能瓶颈是数据在设备之间搬运所带来的固定开销。即使单次跨设备张量拷贝的数据量看似微小",
+      "stats": {
+        "ttft_ms": 86677.4,
+        "tokens": 128,
+        "seconds": 92.658,
+        "tpot_ms": 47.09,
+        "tok_decode_ms": 3.37,
+        "prefill_ms": 86527.95,
+        "prefill_tok_s": 3028.06,
+        "n_prefill": 262012
+      },
+      "ttft_s": 87.96532928594388,
+      "seconds": 93.94614225602709
+    },
+    {
+      "group": "health",
+      "name": "during_long_262144",
+      "ok": true,
+      "samples": 464,
+      "failed": 0,
+      "max_seconds": 0.09445392002817243,
+      "rows": [
+        {
+          "ok": true,
+          "seconds": 0.015740486909635365
+        },
+        {
+          "ok": true,
+          "seconds": 0.0027817479567602277
+        },
+        {
+          "ok": true,
+          "seconds": 0.002697187941521406
+        },
+        {
+          "ok": true,
+          "seconds": 0.0027479779673740268
+        },
+        {
+          "ok": true,
+          "seconds": 0.002691427944228053
+        },
+        {
+          "ok": true,
+          "seconds": 0.09445392002817243
+        },
+        {
+          "ok": true,
+          "seconds": 0.002385596977546811
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018795760115608573
+        },
+        {
+          "ok": true,
+          "seconds": 0.002199967042542994
+        },
+        {
+          "ok": true,
+          "seconds": 0.002582667046226561
+        },
+        {
+          "ok": true,
+          "seconds": 0.0022195259807631373
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026855880860239267
+        },
+        {
+          "ok": true,
+          "seconds": 0.002552696969360113
+        },
+        {
+          "ok": true,
+          "seconds": 0.002660376951098442
+        },
+        {
+          "ok": true,
+          "seconds": 0.0022725260350853205
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025105869863182306
+        },
+        {
+          "ok": true,
+          "seconds": 0.001944566029123962
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017162349540740252
+        },
+        {
+          "ok": true,
+          "seconds": 0.0022461259504780173
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019216249929741025
+        },
+        {
+          "ok": true,
+          "seconds": 0.0021909669740125537
+        },
+        {
+          "ok": true,
+          "seconds": 0.0020298160379752517
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017816050676628947
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018100349698215723
+        },
+        {
+          "ok": true,
+          "seconds": 0.00223073607776314
+        },
+        {
+          "ok": true,
+          "seconds": 0.001770114991813898
+        },
+        {
+          "ok": true,
+          "seconds": 0.002545517054386437
+        },
+        {
+          "ok": true,
+          "seconds": 0.002500367001630366
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026296579744666815
+        },
+        {
+          "ok": true,
+          "seconds": 0.0022241270635277033
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017614549724385142
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018009849591180682
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018591460539028049
+        },
+        {
+          "ok": true,
+          "seconds": 0.002430877066217363
+        },
+        {
+          "ok": true,
+          "seconds": 0.0020894570043310523
+        },
+        {
+          "ok": true,
+          "seconds": 0.0016828549560159445
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017816650215536356
+        },
+        {
+          "ok": true,
+          "seconds": 0.001741924905218184
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024998680455610156
+        },
+        {
+          "ok": true,
+          "seconds": 0.002500977017916739
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024025971069931984
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026749679818749428
+        },
+        {
+          "ok": true,
+          "seconds": 0.0020650660153478384
+        },
+        {
+          "ok": true,
+          "seconds": 0.002467347076162696
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025065779918804765
+        },
+        {
+          "ok": true,
+          "seconds": 0.0022470169933512807
+        },
+        {
+          "ok": true,
+          "seconds": 0.00191253493539989
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025560370413586497
+        },
+        {
+          "ok": true,
+          "seconds": 0.002201286959461868
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018357050139456987
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024453779915347695
+        },
+        {
+          "ok": true,
+          "seconds": 0.002603597939014435
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018943449249491096
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019075960153713822
+        },
+        {
+          "ok": true,
+          "seconds": 0.002012146054767072
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018494859104976058
+        },
+        {
+          "ok": true,
+          "seconds": 0.0027512479573488235
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026002380764111876
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025881079491227865
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019869559910148382
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018407059833407402
+        },
+        {
+          "ok": true,
+          "seconds": 0.002283985959365964
+        },
+        {
+          "ok": true,
+          "seconds": 0.002395246992819011
+        },
+        {
+          "ok": true,
+          "seconds": 0.002397487056441605
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019249159377068281
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017668650252744555
+        },
+        {
+          "ok": true,
+          "seconds": 0.002253257087431848
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025645180139690638
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025215469067916274
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023306870134547353
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017777549801394343
+        },
+        {
+          "ok": true,
+          "seconds": 0.002619548002257943
+        },
+        {
+          "ok": true,
+          "seconds": 0.002497068024240434
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026389879640191793
+        },
+        {
+          "ok": true,
+          "seconds": 0.0027419779216870666
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023257870925590396
+        },
+        {
+          "ok": true,
+          "seconds": 0.0020420070504769683
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018036749679595232
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019262259593233466
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025349280331283808
+        },
+        {
+          "ok": true,
+          "seconds": 0.0020721059991046786
+        },
+        {
+          "ok": true,
+          "seconds": 0.002039175946265459
+        },
+        {
+          "ok": true,
+          "seconds": 0.001982065965421498
+        },
+        {
+          "ok": true,
+          "seconds": 0.001891245017759502
+        },
+        {
+          "ok": true,
+          "seconds": 0.002179856994189322
+        },
+        {
+          "ok": true,
+          "seconds": 0.004617893951945007
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026202279841527343
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024898980045691133
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026032980531454086
+        },
+        {
+          "ok": true,
+          "seconds": 0.002041105995886028
+        },
+        {
+          "ok": true,
+          "seconds": 0.002263016998767853
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023915570927783847
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017795648891478777
+        },
+        {
+          "ok": true,
+          "seconds": 0.001786816050298512
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017629349604249
+        },
+        {
+          "ok": true,
+          "seconds": 0.0016755249816924334
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024171670665964484
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024722779635339975
+        },
+        {
+          "ok": true,
+          "seconds": 0.002366977045312524
+        },
+        {
+          "ok": true,
+          "seconds": 0.0021710069850087166
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018529450753703713
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026319270255044103
+        },
+        {
+          "ok": true,
+          "seconds": 0.002610447001643479
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025770870270207524
+        },
+        {
+          "ok": true,
+          "seconds": 0.002141186036169529
+        },
+        {
+          "ok": true,
+          "seconds": 0.001774074975401163
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018397460225969553
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017171549843624234
+        },
+        {
+          "ok": true,
+          "seconds": 0.002467046957463026
+        },
+        {
+          "ok": true,
+          "seconds": 0.00250830699224025
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019274160731583834
+        },
+        {
+          "ok": true,
+          "seconds": 0.001848955056630075
+        },
+        {
+          "ok": true,
+          "seconds": 0.001731084892526269
+        },
+        {
+          "ok": true,
+          "seconds": 0.0020134859951213002
+        },
+        {
+          "ok": true,
+          "seconds": 0.002483727061189711
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017741959309205413
+        },
+        {
+          "ok": true,
+          "seconds": 0.002678637974895537
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024682870134711266
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024521281011402607
+        },
+        {
+          "ok": true,
+          "seconds": 0.002322447020560503
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023982470156624913
+        },
+        {
+          "ok": true,
+          "seconds": 0.002405627048574388
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017634161049500108
+        },
+        {
+          "ok": true,
+          "seconds": 0.0016766750486567616
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017345750238746405
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023335469886660576
+        },
+        {
+          "ok": true,
+          "seconds": 0.002359057078137994
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017033650074154139
+        },
+        {
+          "ok": true,
+          "seconds": 0.001718084909953177
+        },
+        {
+          "ok": true,
+          "seconds": 0.0020207560155540705
+        },
+        {
+          "ok": true,
+          "seconds": 0.001790375099517405
+        },
+        {
+          "ok": true,
+          "seconds": 0.002662507933564484
+        },
+        {
+          "ok": true,
+          "seconds": 0.002552357967942953
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026083480333909392
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023251670645549893
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017537949606776237
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017811049474403262
+        },
+        {
+          "ok": true,
+          "seconds": 0.002543817041441798
+        },
+        {
+          "ok": true,
+          "seconds": 0.002075286000035703
+        },
+        {
+          "ok": true,
+          "seconds": 0.0020685470663011074
+        },
+        {
+          "ok": true,
+          "seconds": 0.0020266659557819366
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017498950473964214
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017789750127121806
+        },
+        {
+          "ok": true,
+          "seconds": 0.002491588005796075
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023443569662049413
+        },
+        {
+          "ok": true,
+          "seconds": 0.002440377022139728
+        },
+        {
+          "ok": true,
+          "seconds": 0.002432306995615363
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025902879424393177
+        },
+        {
+          "ok": true,
+          "seconds": 0.0027096980484202504
+        },
+        {
+          "ok": true,
+          "seconds": 0.002523637027479708
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018044149037450552
+        },
+        {
+          "ok": true,
+          "seconds": 0.0020345159573480487
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017375349998474121
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017732749693095684
+        },
+        {
+          "ok": true,
+          "seconds": 0.002448656945489347
+        },
+        {
+          "ok": true,
+          "seconds": 0.0022930370178073645
+        },
+        {
+          "ok": true,
+          "seconds": 0.0021916760597378016
+        },
+        {
+          "ok": true,
+          "seconds": 0.002409097971394658
+        },
+        {
+          "ok": true,
+          "seconds": 0.001786625012755394
+        },
+        {
+          "ok": true,
+          "seconds": 0.0022894670255482197
+        },
+        {
+          "ok": true,
+          "seconds": 0.002485007978975773
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023712069960311055
+        },
+        {
+          "ok": true,
+          "seconds": 0.002733058063313365
+        },
+        {
+          "ok": true,
+          "seconds": 0.002437397022731602
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024567570071667433
+        },
+        {
+          "ok": true,
+          "seconds": 0.0021584659116342664
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024455670500174165
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019210060127079487
+        },
+        {
+          "ok": true,
+          "seconds": 0.0021995670394971967
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026355680311098695
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017420549411326647
+        },
+        {
+          "ok": true,
+          "seconds": 0.002301516942679882
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023726869840174913
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019023959757760167
+        },
+        {
+          "ok": true,
+          "seconds": 0.001983524998649955
+        },
+        {
+          "ok": true,
+          "seconds": 0.001831865985877812
+        },
+        {
+          "ok": true,
+          "seconds": 0.0021958359284326434
+        },
+        {
+          "ok": true,
+          "seconds": 0.002682677935808897
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024659669725224376
+        },
+        {
+          "ok": true,
+          "seconds": 0.002425136975944042
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018778849625959992
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023923279950395226
+        },
+        {
+          "ok": true,
+          "seconds": 0.0020074360072612762
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024157570442184806
+        },
+        {
+          "ok": true,
+          "seconds": 0.002012255950830877
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017495750216767192
+        },
+        {
+          "ok": true,
+          "seconds": 0.0016757750418037176
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017335049342364073
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017304449575021863
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023953570052981377
+        },
+        {
+          "ok": true,
+          "seconds": 0.002020195941440761
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017964249709621072
+        },
+        {
+          "ok": true,
+          "seconds": 0.002564537920989096
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025166469858959317
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024587970692664385
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023408069973811507
+        },
+        {
+          "ok": true,
+          "seconds": 0.001829915912821889
+        },
+        {
+          "ok": true,
+          "seconds": 0.002020286046899855
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017881349194794893
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019425159553065896
+        },
+        {
+          "ok": true,
+          "seconds": 0.0022316360846161842
+        },
+        {
+          "ok": true,
+          "seconds": 0.002499326947145164
+        },
+        {
+          "ok": true,
+          "seconds": 0.0021220059134066105
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018928860081359744
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019119159551337361
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026804780354723334
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023795070592314005
+        },
+        {
+          "ok": true,
+          "seconds": 0.002664517960511148
+        },
+        {
+          "ok": true,
+          "seconds": 0.002535807085223496
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024889380438253284
+        },
+        {
+          "ok": true,
+          "seconds": 0.002005186048336327
+        },
+        {
+          "ok": true,
+          "seconds": 0.0016847949009388685
+        },
+        {
+          "ok": true,
+          "seconds": 0.002391696907579899
+        },
+        {
+          "ok": true,
+          "seconds": 0.0021085459738969803
+        },
+        {
+          "ok": true,
+          "seconds": 0.0020849669817835093
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017534049693495035
+        },
+        {
+          "ok": true,
+          "seconds": 0.0016543749952688813
+        },
+        {
+          "ok": true,
+          "seconds": 0.001685804920271039
+        },
+        {
+          "ok": true,
+          "seconds": 0.002633587922900915
+        },
+        {
+          "ok": true,
+          "seconds": 0.002221236005425453
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023082070983946323
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017951260088011622
+        },
+        {
+          "ok": true,
+          "seconds": 0.002638737903907895
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025412869872525334
+        },
+        {
+          "ok": true,
+          "seconds": 0.002594916964881122
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018840458942577243
+        },
+        {
+          "ok": true,
+          "seconds": 0.0016994549660012126
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017446751007810235
+        },
+        {
+          "ok": true,
+          "seconds": 0.0016762850573286414
+        },
+        {
+          "ok": true,
+          "seconds": 0.002204896998591721
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024550469825044274
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024610169930383563
+        },
+        {
+          "ok": true,
+          "seconds": 0.001929626101627946
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017214450053870678
+        },
+        {
+          "ok": true,
+          "seconds": 0.001834535039961338
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025853569386526942
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024545270716771483
+        },
+        {
+          "ok": true,
+          "seconds": 0.002722588018514216
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025783670134842396
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024903370067477226
+        },
+        {
+          "ok": true,
+          "seconds": 0.001725345035083592
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024746080162003636
+        },
+        {
+          "ok": true,
+          "seconds": 0.00239029701333493
+        },
+        {
+          "ok": true,
+          "seconds": 0.0022200869861990213
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024967569625005126
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018083249451592565
+        },
+        {
+          "ok": true,
+          "seconds": 0.0016616350039839745
+        },
+        {
+          "ok": true,
+          "seconds": 0.00248558702878654
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017955750226974487
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019170260056853294
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019791959784924984
+        },
+        {
+          "ok": true,
+          "seconds": 0.001827874919399619
+        },
+        {
+          "ok": true,
+          "seconds": 0.002603806904517114
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025568269193172455
+        },
+        {
+          "ok": true,
+          "seconds": 0.002563757007010281
+        },
+        {
+          "ok": true,
+          "seconds": 0.0021253270097076893
+        },
+        {
+          "ok": true,
+          "seconds": 0.002448286977596581
+        },
+        {
+          "ok": true,
+          "seconds": 0.00205899600405246
+        },
+        {
+          "ok": true,
+          "seconds": 0.002366606961004436
+        },
+        {
+          "ok": true,
+          "seconds": 0.002468326943926513
+        },
+        {
+          "ok": true,
+          "seconds": 0.001811065012589097
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017025050474330783
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018296659691259265
+        },
+        {
+          "ok": true,
+          "seconds": 0.0016870050458237529
+        },
+        {
+          "ok": true,
+          "seconds": 0.002501907991245389
+        },
+        {
+          "ok": true,
+          "seconds": 0.002396736992523074
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019462760537862778
+        },
+        {
+          "ok": true,
+          "seconds": 0.002604448003694415
+        },
+        {
+          "ok": true,
+          "seconds": 0.002790158032439649
+        },
+        {
+          "ok": true,
+          "seconds": 0.002513327053748071
+        },
+        {
+          "ok": true,
+          "seconds": 0.002619378035888076
+        },
+        {
+          "ok": true,
+          "seconds": 0.0021406870801001787
+        },
+        {
+          "ok": true,
+          "seconds": 0.0020373560255393386
+        },
+        {
+          "ok": true,
+          "seconds": 0.00178161496296525
+        },
+        {
+          "ok": true,
+          "seconds": 0.001969135948456824
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019080359488725662
+        },
+        {
+          "ok": true,
+          "seconds": 0.002390387002378702
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019217459484934807
+        },
+        {
+          "ok": true,
+          "seconds": 0.0016976350452750921
+        },
+        {
+          "ok": true,
+          "seconds": 0.0016872849082574248
+        },
+        {
+          "ok": true,
+          "seconds": 0.001962674898095429
+        },
+        {
+          "ok": true,
+          "seconds": 0.0027185080107301474
+        },
+        {
+          "ok": true,
+          "seconds": 0.002669007983058691
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026552280178293586
+        },
+        {
+          "ok": true,
+          "seconds": 0.002565647941082716
+        },
+        {
+          "ok": true,
+          "seconds": 0.0020239459117874503
+        },
+        {
+          "ok": true,
+          "seconds": 0.001720275031402707
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024509079521521926
+        },
+        {
+          "ok": true,
+          "seconds": 0.002320416970178485
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017393450252711773
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017267450457438827
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017349650152027607
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017045850399881601
+        },
+        {
+          "ok": true,
+          "seconds": 0.002392247086390853
+        },
+        {
+          "ok": true,
+          "seconds": 0.002447777078486979
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019568060524761677
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017855549231171608
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025075580924749374
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025589970173314214
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026122379349544644
+        },
+        {
+          "ok": true,
+          "seconds": 0.0021449659252539277
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018558050505816936
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018145659705623984
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018693649908527732
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019364060135558248
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023893769830465317
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019473159918561578
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023675370030105114
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017673559486865997
+        },
+        {
+          "ok": true,
+          "seconds": 0.0016629650490358472
+        },
+        {
+          "ok": true,
+          "seconds": 0.002403817023150623
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023575270315632224
+        },
+        {
+          "ok": true,
+          "seconds": 0.002684767940081656
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025729580083861947
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025159779470413923
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019079960184171796
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025540770730003715
+        },
+        {
+          "ok": true,
+          "seconds": 0.00243619701359421
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017714150017127395
+        },
+        {
+          "ok": true,
+          "seconds": 0.001674664905294776
+        },
+        {
+          "ok": true,
+          "seconds": 0.002433367073535919
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018375550862401724
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024506880436092615
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018239249475300312
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018046649638563395
+        },
+        {
+          "ok": true,
+          "seconds": 0.0022860660683363676
+        },
+        {
+          "ok": true,
+          "seconds": 0.001957875909283757
+        },
+        {
+          "ok": true,
+          "seconds": 0.0029513490153476596
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025458669988438487
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023712769616395235
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019630659371614456
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017117949901148677
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018012559739872813
+        },
+        {
+          "ok": true,
+          "seconds": 0.002711158012971282
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024620279436931014
+        },
+        {
+          "ok": true,
+          "seconds": 0.0021199759794399142
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018159350147470832
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018325060373172164
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017403449164703488
+        },
+        {
+          "ok": true,
+          "seconds": 0.003317649941891432
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023566369200125337
+        },
+        {
+          "ok": true,
+          "seconds": 0.001856975955888629
+        },
+        {
+          "ok": true,
+          "seconds": 0.002663707942701876
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025685980217531323
+        },
+        {
+          "ok": true,
+          "seconds": 0.002386057050898671
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024370369501411915
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023129769833758473
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024489370407536626
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017821559449657798
+        },
+        {
+          "ok": true,
+          "seconds": 0.001715405029244721
+        },
+        {
+          "ok": true,
+          "seconds": 0.002049356000497937
+        },
+        {
+          "ok": true,
+          "seconds": 0.002526927972212434
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019848659867420793
+        },
+        {
+          "ok": true,
+          "seconds": 0.009186587063595653
+        },
+        {
+          "ok": true,
+          "seconds": 0.0021501260343939066
+        },
+        {
+          "ok": true,
+          "seconds": 0.002331626950763166
+        },
+        {
+          "ok": true,
+          "seconds": 0.00216535700019449
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026412380393594503
+        },
+        {
+          "ok": true,
+          "seconds": 0.002679788041859865
+        },
+        {
+          "ok": true,
+          "seconds": 0.0022924060467630625
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023594769882038236
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017750950064510107
+        },
+        {
+          "ok": true,
+          "seconds": 0.0022784769535064697
+        },
+        {
+          "ok": true,
+          "seconds": 0.002327517024241388
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017834249883890152
+        },
+        {
+          "ok": true,
+          "seconds": 0.0021673869341611862
+        },
+        {
+          "ok": true,
+          "seconds": 0.001817415002733469
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018359660170972347
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024017669493332505
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023276970023289323
+        },
+        {
+          "ok": true,
+          "seconds": 0.002193216932937503
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018458450213074684
+        },
+        {
+          "ok": true,
+          "seconds": 0.0038823509821668267
+        },
+        {
+          "ok": true,
+          "seconds": 0.002470367937348783
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025005870265886188
+        },
+        {
+          "ok": true,
+          "seconds": 0.002034786040894687
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017899050144478679
+        },
+        {
+          "ok": true,
+          "seconds": 0.0016746149631217122
+        },
+        {
+          "ok": true,
+          "seconds": 0.001990456017665565
+        },
+        {
+          "ok": true,
+          "seconds": 0.001684625050984323
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025182670215144753
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018528359942138195
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017551649361848831
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017723350320011377
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018210960552096367
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023682069731876254
+        },
+        {
+          "ok": true,
+          "seconds": 0.002545707975514233
+        },
+        {
+          "ok": true,
+          "seconds": 0.002538237953558564
+        },
+        {
+          "ok": true,
+          "seconds": 0.002102705999277532
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023314959835261106
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018811250338330865
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023382470244541764
+        },
+        {
+          "ok": true,
+          "seconds": 0.002267307019792497
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018333959160372615
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017049850430339575
+        },
+        {
+          "ok": true,
+          "seconds": 0.0016945850802585483
+        },
+        {
+          "ok": true,
+          "seconds": 0.0016916249878704548
+        },
+        {
+          "ok": true,
+          "seconds": 0.002457856899127364
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018972649704664946
+        },
+        {
+          "ok": true,
+          "seconds": 0.002357046934776008
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018881859723478556
+        },
+        {
+          "ok": true,
+          "seconds": 0.001730955089442432
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026024479884654284
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025166469858959317
+        },
+        {
+          "ok": true,
+          "seconds": 0.002489498001523316
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018714050529524684
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018488550558686256
+        },
+        {
+          "ok": true,
+          "seconds": 0.0016807150095701218
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018392259953543544
+        },
+        {
+          "ok": true,
+          "seconds": 0.002351896953769028
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017845549155026674
+        },
+        {
+          "ok": true,
+          "seconds": 0.0016816450515761971
+        },
+        {
+          "ok": true,
+          "seconds": 0.001817455980926752
+        },
+        {
+          "ok": true,
+          "seconds": 0.001677884953096509
+        },
+        {
+          "ok": true,
+          "seconds": 0.0020063159754499793
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024075169349089265
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018326860154047608
+        },
+        {
+          "ok": true,
+          "seconds": 0.002608558046631515
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025042470078915358
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024637870956212282
+        },
+        {
+          "ok": true,
+          "seconds": 0.002453917055390775
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024769470328465104
+        },
+        {
+          "ok": true,
+          "seconds": 0.0020329259568825364
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018670560093596578
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018139349995180964
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017972249770537019
+        },
+        {
+          "ok": true,
+          "seconds": 0.002517557004466653
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019679460674524307
+        },
+        {
+          "ok": true,
+          "seconds": 0.0017491750186309218
+        },
+        {
+          "ok": true,
+          "seconds": 0.0016838350566104054
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019119459902867675
+        },
+        {
+          "ok": true,
+          "seconds": 0.002541267895139754
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026443180395290256
+        },
+        {
+          "ok": true,
+          "seconds": 0.002602357999421656
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025608279975131154
+        },
+        {
+          "ok": true,
+          "seconds": 0.014998683938756585
+        },
+        {
+          "ok": true,
+          "seconds": 0.0020869660656899214
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023213669192045927
+        },
+        {
+          "ok": true,
+          "seconds": 0.002022825996391475
+        },
+        {
+          "ok": true,
+          "seconds": 0.001829485991038382
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018054149113595486
+        },
+        {
+          "ok": true,
+          "seconds": 0.001863855984993279
+        },
+        {
+          "ok": true,
+          "seconds": 0.001856575021520257
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024106180062517524
+        },
+        {
+          "ok": true,
+          "seconds": 0.0023183870362117887
+        },
+        {
+          "ok": true,
+          "seconds": 0.002042106003500521
+        },
+        {
+          "ok": true,
+          "seconds": 0.001910765073262155
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025072769494727254
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024674070300534368
+        },
+        {
+          "ok": true,
+          "seconds": 0.002675867988727987
+        },
+        {
+          "ok": true,
+          "seconds": 0.0022207259899005294
+        },
+        {
+          "ok": true,
+          "seconds": 0.002172757056541741
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019026859663426876
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018904450116679072
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018384159775450826
+        },
+        {
+          "ok": true,
+          "seconds": 0.002563157002441585
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019764360040426254
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019323260057717562
+        },
+        {
+          "ok": true,
+          "seconds": 0.0021377360681071877
+        },
+        {
+          "ok": true,
+          "seconds": 0.001946076052263379
+        },
+        {
+          "ok": true,
+          "seconds": 0.002088425913825631
+        },
+        {
+          "ok": true,
+          "seconds": 0.002572546945884824
+        },
+        {
+          "ok": true,
+          "seconds": 0.002591257099993527
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024891580687835813
+        }
+      ]
+    },
+    {
+      "group": "long_cache",
+      "name": "262144",
+      "ok": true,
+      "text": "根据资料内容，三个项目的验收码如下：\n\n1. 项目海棠：7319\n2. 项目松柏：8652\n3. 项目银杏：2946\n\n关于资料中涉及的推理服务和长文档处理技术，以下是详细的技术解析：\n\n在现代大规模深度学习推理场景中，尤其是针对昇腾处理器等专用AI芯片，性能优化的核心往往不在于单一算子的峰值算力，而在于系统级的数据搬运效率与内存带宽利用率。资料指出，最容易被低估的性能瓶颈是数据在设备之间搬运所带来的固定开销。即使单次跨设备张量拷贝的数据量看似微小",
+      "stats": {
+        "ttft_ms": 154.73,
+        "seconds": 6.084,
+        "tpot_ms": 46.68,
+        "n_prefill": 0,
+        "prefill_ms": 0.11,
+        "prefill_tok_s": 0.0
+      }
+    },
+    {
+      "group": "long_follow",
+      "name": "262144",
+      "ok": true,
+      "text": "7319",
+      "stats": {
+        "ttft_ms": 603.91,
+        "seconds": 0.791,
+        "tpot_ms": 46.78,
+        "n_prefill": 29,
+        "prefill_ms": 368.22,
+        "prefill_tok_s": 78.76
+      }
+    },
+    {
+      "group": "quality",
+      "name": "nll_200",
+      "ok": true,
+      "result": {
+        "mean_nll": 2.165267,
+        "ppl": 8.7169,
+        "n": 200,
+        "shift_nll": {
+          "-3": 18.2498,
+          "-2": 17.8542,
+          "-1": 17.9485,
+          "0": 2.1653,
+          "1": 17.495,
+          "2": 17.2352,
+          "3": 17.7159
+        },
+        "argmax_minus_tgt_top5": [
+          [
+            0,
+            97
+          ],
+          [
+            -601,
+            2
+          ],
+          [
+            -1999,
+            2
+          ],
+          [
+            -109763,
+            1
+          ],
+          [
+            -100507,
+            1
+          ]
+        ],
+        "top1_acc": 0.485,
+        "median_rank": 1,
+        "rank_n": 200,
+        "vocab": 248320,
+        "first_nll": [
+          2.1653
+        ],
+        "nll_tokens": [
+          1.6106,
+          6.1364,
+          9.6063,
+          5.7951,
+          8.0538,
+          1.8585,
+          0.8021,
+          0.0495,
+          4.0493,
+          0.3863,
+          4.8121,
+          5.174,
+          0.2311,
+          3.6309,
+          1.7606,
+          0.0027,
+          0.8908,
+          0.8182,
+          0.3136,
+          4.9003,
+          2.729,
+          5.5202,
+          0.4062,
+          0.943,
+          1.1224,
+          0.1381,
+          5.0195,
+          1.8349,
+          4.7905,
+          2.2498,
+          1.5611,
+          0.6202,
+          0.3436,
+          0.4314,
+          5.4723,
+          1.4482,
+          0.4014,
+          0.0593,
+          7.9606,
+          2.5697,
+          1.6841,
+          1.0148,
+          1.6108,
+          1.7666,
+          0.1506,
+          2.4353,
+          0.0219,
+          4.1634,
+          3.9212,
+          0.7915,
+          0.0116,
+          0.0094,
+          2.2586,
+          2.3479,
+          2.4921,
+          6.1606,
+          4.1098,
+          5.3285,
+          6.8335,
+          0.2809,
+          0.8406,
+          2.7282,
+          3.7843,
+          2.4002
+        ],
+        "rank_tokens": [
+          0,
+          51,
+          1060,
+          47,
+          62,
+          1,
+          0,
+          0,
+          3,
+          0,
+          14,
+          29,
+          0,
+          6,
+          1,
+          0,
+          0,
+          0,
+          0,
+          31,
+          4,
+          35,
+          0,
+          0,
+          0,
+          0,
+          13,
+          1,
+          15,
+          2,
+          1,
+          0,
+          0,
+          0,
+          28,
+          0,
+          0,
+          0,
+          194,
+          2,
+          1,
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          9,
+          8,
+          0,
+          0,
+          0,
+          1,
+          3,
+          4,
+          19,
+          5,
+          14,
+          35,
+          0,
+          0,
+          3,
+          3,
+          2
+        ],
+        "tokens": [
+          108095,
+          97765,
+          109787,
+          100778,
+          105019,
+          124089,
+          99476,
+          95999,
+          111892,
+          100653,
+          3709,
+          96041,
+          97703,
+          101304,
+          95828,
+          351,
+          11662,
+          220,
+          110082,
+          3709,
+          102020,
+          96553,
+          103994,
+          106190
+        ],
+        "prompt_tokens": 201
+      },
+      "seconds": 9.892898019985296
+    },
+    {
+      "group": "health",
+      "name": "during_loss_diagnostic",
+      "ok": true,
+      "samples": 49,
+      "failed": 0,
+      "max_seconds": 0.0034753899089992046,
+      "rows": [
+        {
+          "ok": true,
+          "seconds": 0.0034753899089992046
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019726259633898735
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018509260844439268
+        },
+        {
+          "ok": true,
+          "seconds": 0.002582047018222511
+        },
+        {
+          "ok": true,
+          "seconds": 0.00267363793682307
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019625650020316243
+        },
+        {
+          "ok": true,
+          "seconds": 0.002094296971336007
+        },
+        {
+          "ok": true,
+          "seconds": 0.002337687066756189
+        },
+        {
+          "ok": true,
+          "seconds": 0.002073036041110754
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026342379860579967
+        },
+        {
+          "ok": true,
+          "seconds": 0.002529927995055914
+        },
+        {
+          "ok": true,
+          "seconds": 0.0021222560899332166
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026150280609726906
+        },
+        {
+          "ok": true,
+          "seconds": 0.002722138073295355
+        },
+        {
+          "ok": true,
+          "seconds": 0.0027970579685643315
+        },
+        {
+          "ok": true,
+          "seconds": 0.0027255580062046647
+        },
+        {
+          "ok": true,
+          "seconds": 0.002029465977102518
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019822160247713327
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018835458904504776
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018302249955013394
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019066460663452744
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026497679064050317
+        },
+        {
+          "ok": true,
+          "seconds": 0.002095885924063623
+        },
+        {
+          "ok": true,
+          "seconds": 0.002030126051977277
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019327659392729402
+        },
+        {
+          "ok": true,
+          "seconds": 0.0021439860574901104
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019377359421923757
+        },
+        {
+          "ok": true,
+          "seconds": 0.0025347780901938677
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026995480293408036
+        },
+        {
+          "ok": true,
+          "seconds": 0.0026721180183812976
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024512578966096044
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018615450244396925
+        },
+        {
+          "ok": true,
+          "seconds": 0.002620948012918234
+        },
+        {
+          "ok": true,
+          "seconds": 0.002738497918471694
+        },
+        {
+          "ok": true,
+          "seconds": 0.0022809059591963887
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018583859782665968
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018272249726578593
+        },
+        {
+          "ok": true,
+          "seconds": 0.001883515971712768
+        },
+        {
+          "ok": true,
+          "seconds": 0.002671928028576076
+        },
+        {
+          "ok": true,
+          "seconds": 0.0024446171009913087
+        },
+        {
+          "ok": true,
+          "seconds": 0.002153837005607784
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019182449905201793
+        },
+        {
+          "ok": true,
+          "seconds": 0.0022792660165578127
+        },
+        {
+          "ok": true,
+          "seconds": 0.0028457880252972245
+        },
+        {
+          "ok": true,
+          "seconds": 0.0028514990117400885
+        },
+        {
+          "ok": true,
+          "seconds": 0.002569837961345911
+        },
+        {
+          "ok": true,
+          "seconds": 0.0019232950871810317
+        },
+        {
+          "ok": true,
+          "seconds": 0.0018052960513159633
+        },
+        {
+          "ok": true,
+          "seconds": 0.002066355897113681
+        }
+      ]
+    },
+    {
+      "group": "health",
+      "name": "final_generation",
+      "ok": true,
+      "answer": "2026"
+    }
+  ],
+  "initial_health": {
+    "status": 200,
+    "content_type": "application/json",
+    "seconds": 0.007328601088374853,
+    "body": "{\"status\":\"ok\",\"engine_loaded\":true,\"ctx\":262144,\"service_revision\":\"r120\",\"pipeline_stages\":2,\"worker_alive\":true,\"prefill_chunk\":8192,\"pipeline_transport\":\"hybrid\",\"delta_compact\":true,\"index_score\":true,\"conv_native\":true,\"index_expand\":true,\"mix_reduce\":true,\"moe_reduce\":true,\"dual_write\":true,\"pipeline_transfers\":{\"peer_transfers\":0,\"peer_bytes\":0,\"host_transfers\":3,\"host_bytes\":61440},\"index_caps\":[16384,32768,65536,98304,131072,196608,262144],\"native_sparse\":true,\"native_dual\":true,\"index_unique\":true,\"moe_inverse\":true,\"moe_inverse_sort\":true,\"state_dual_slim\":true,\"conversation_state_bytes\":0,\"rope_cache\":true,\"delta_window\":2048,\"delta_native\":true,\"chunk_graph\":true,\"qsa_indexer\":true,\"qsa_sparse\":true}",
+    "json": {
+      "status": "ok",
+      "engine_loaded": true,
+      "ctx": 262144,
+      "service_revision": "r120",
+      "pipeline_stages": 2,
+      "worker_alive": true,
+      "prefill_chunk": 8192,
+      "pipeline_transport": "hybrid",
+      "delta_compact": true,
+      "index_score": true,
+      "conv_native": true,
+      "index_expand": true,
+      "mix_reduce": true,
+      "moe_reduce": true,
+      "dual_write": true,
+      "pipeline_transfers": {
+        "peer_transfers": 0,
+        "peer_bytes": 0,
+        "host_transfers": 3,
+        "host_bytes": 61440
+      },
+      "index_caps": [
+        16384,
+        32768,
+        65536,
+        98304,
+        131072,
+        196608,
+        262144
+      ],
+      "native_sparse": true,
+      "native_dual": true,
+      "index_unique": true,
+      "moe_inverse": true,
+      "moe_inverse_sort": true,
+      "state_dual_slim": true,
+      "conversation_state_bytes": 0,
+      "rope_cache": true,
+      "delta_window": 2048,
+      "delta_native": true,
+      "chunk_graph": true,
+      "qsa_indexer": true,
+      "qsa_sparse": true
+    }
+  },
+  "initial_metrics": {
+    "status": 200,
+    "content_type": "text/plain; charset=utf-8",
+    "seconds": 0.002084116102196276,
+    "body": "# TYPE fnx_requests_total counter\nfnx_requests_total 0\nfnx_requests_err_total 0\nfnx_tokens_out_total 0\nfnx_prefill_tokens_total 0\nfnx_prefix_hit_tokens_total 0\n# TYPE fnx_queue_ms_avg gauge\nfnx_queue_ms_avg 0.000\nfnx_ttft_ms_avg 0.000\nfnx_tpot_ms_avg 0.000\nfnx_prefill_hit_ratio 0.0000\nfnx_engine_loaded 1\n"
+  },
+  "final_health": {
+    "status": 200,
+    "content_type": "application/json",
+    "seconds": 0.002208477002568543,
+    "body": "{\"status\":\"ok\",\"engine_loaded\":true,\"ctx\":262144,\"service_revision\":\"r120\",\"pipeline_stages\":2,\"worker_alive\":true,\"prefill_chunk\":8192,\"pipeline_transport\":\"hybrid\",\"delta_compact\":true,\"index_score\":true,\"conv_native\":true,\"index_expand\":true,\"mix_reduce\":true,\"moe_reduce\":true,\"dual_write\":true,\"pipeline_transfers\":{\"peer_transfers\":59,\"peer_bytes\":5525995520,\"host_transfers\":1947,\"host_bytes\":105799680},\"index_caps\":[16384,32768,65536,98304,131072,196608,262144],\"native_sparse\":true,\"native_dual\":true,\"index_unique\":true,\"moe_inverse\":true,\"moe_inverse_sort\":true,\"state_dual_slim\":true,\"conversation_state_bytes\":116935712,\"rope_cache\":true,\"delta_window\":2048,\"delta_native\":true,\"chunk_graph\":true,\"qsa_indexer\":true,\"qsa_sparse\":true}",
+    "json": {
+      "status": "ok",
+      "engine_loaded": true,
+      "ctx": 262144,
+      "service_revision": "r120",
+      "pipeline_stages": 2,
+      "worker_alive": true,
+      "prefill_chunk": 8192,
+      "pipeline_transport": "hybrid",
+      "delta_compact": true,
+      "index_score": true,
+      "conv_native": true,
+      "index_expand": true,
+      "mix_reduce": true,
+      "moe_reduce": true,
+      "dual_write": true,
+      "pipeline_transfers": {
+        "peer_transfers": 59,
+        "peer_bytes": 5525995520,
+        "host_transfers": 1947,
+        "host_bytes": 105799680
+      },
+      "index_caps": [
+        16384,
+        32768,
+        65536,
+        98304,
+        131072,
+        196608,
+        262144
+      ],
+      "native_sparse": true,
+      "native_dual": true,
+      "index_unique": true,
+      "moe_inverse": true,
+      "moe_inverse_sort": true,
+      "state_dual_slim": true,
+      "conversation_state_bytes": 116935712,
+      "rope_cache": true,
+      "delta_window": 2048,
+      "delta_native": true,
+      "chunk_graph": true,
+      "qsa_indexer": true,
+      "qsa_sparse": true
+    }
+  },
+  "final_metrics": {
+    "status": 200,
+    "content_type": "text/plain; charset=utf-8",
+    "seconds": 0.002022595959715545,
+    "body": "# TYPE fnx_requests_total counter\nfnx_requests_total 88\nfnx_requests_err_total 10\nfnx_tokens_out_total 1660\nfnx_prefill_tokens_total 273102\nfnx_prefix_hit_tokens_total 540589\n# TYPE fnx_queue_ms_avg gauge\nfnx_queue_ms_avg 0.565\nfnx_ttft_ms_avg 1543.543\nfnx_tpot_ms_avg 44.218\nfnx_prefill_hit_ratio 0.6644\nfnx_engine_loaded 1\n"
+  },
+  "finished_at": "2026-11-05 09:13:09"
+}

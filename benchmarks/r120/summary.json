@@ -1,0 +1,108 @@
+{
+  "date": "2026-11-05",
+  "kernel_baseline_commit": "43b7c7067deb33ad5859d8cddb366290909d4bad",
+  "original_completed_checks": 49,
+  "postfix_checks": 66,
+  "postfix_failures": 0,
+  "cpu_tests": 25,
+  "short3": [
+    {
+      "run": 1,
+      "transport": "server-local HTTP",
+      "prompt_tokens": 8064,
+      "output_tokens": 128,
+      "ttft_s": 5.309,
+      "end_to_end_s": 11.103,
+      "prefill_s": 5.211,
+      "prefill_tok_s": 1546.76,
+      "fresh_prefill_tokens": 8060,
+      "decode_tpot_ms": 45.62,
+      "server_total_s": 11.066
+    },
+    {
+      "run": 2,
+      "transport": "server-local HTTP",
+      "prompt_tokens": 8064,
+      "output_tokens": 128,
+      "ttft_s": 5.3,
+      "end_to_end_s": 11.11,
+      "prefill_s": 5.206,
+      "prefill_tok_s": 1548.15,
+      "fresh_prefill_tokens": 8060,
+      "decode_tpot_ms": 45.75,
+      "server_total_s": 11.078
+    },
+    {
+      "run": 3,
+      "transport": "server-local HTTP",
+      "prompt_tokens": 8064,
+      "output_tokens": 128,
+      "ttft_s": 5.294,
+      "end_to_end_s": 11.098,
+      "prefill_s": 5.198,
+      "prefill_tok_s": 1550.63,
+      "fresh_prefill_tokens": 8060,
+      "decode_tpot_ms": 45.7,
+      "server_total_s": 11.065
+    }
+  ],
+  "native_sha256": {
+    "libfnx_conv.so": "8d3c5fe603158803c293b561d6c9e8bc4841edf1d116fc2a8a81ba747ee69080",
+    "libfnx_delta.so": "6318e01624627ef88d35c32c36feaccc1729f1d4e097352e22e3f0b8ff845686",
+    "libfnx_score.so": "90accb61173cdde3182629c148433354fa62d635c4aa0cda9e7f83700974d7f2",
+    "libfnx_reduce.so": "4fc2f8c447ac0804e83f769f2283f6c9c54ebc0527377fa5cfee496d41a82825",
+    "libfnx_dual_write.so": "4722ace1c5d1543f2616e56a3f92d30365ce83533ec8c31a13c411ec56292a9e",
+    "libfnx_index_expand.so": "375702b7d51ce416b17f6cb1c75869425e2eaf6cef30185196c2d1df4e692d18"
+  },
+  "health": {
+    "status": "ok",
+    "engine_loaded": true,
+    "ctx": 262144,
+    "service_revision": "r120",
+    "pipeline_stages": 2,
+    "worker_alive": true,
+    "prefill_chunk": 8192,
+    "pipeline_transport": "hybrid",
+    "delta_compact": true,
+    "index_score": true,
+    "conv_native": true,
+    "index_expand": true,
+    "mix_reduce": true,
+    "moe_reduce": true,
+    "dual_write": true,
+    "pipeline_transfers": {
+      "peer_transfers": 59,
+      "peer_bytes": 5525995520,
+      "host_transfers": 1947,
+      "host_bytes": 105799680
+    },
+    "index_caps": [
+      16384,
+      32768,
+      65536,
+      98304,
+      131072,
+      196608,
+      262144
+    ],
+    "native_sparse": true,
+    "native_dual": true,
+    "index_unique": true,
+    "moe_inverse": true,
+    "moe_inverse_sort": true,
+    "state_dual_slim": true,
+    "conversation_state_bytes": 116935712,
+    "rope_cache": true,
+    "delta_window": 2048,
+    "delta_native": true,
+    "chunk_graph": true,
+    "qsa_indexer": true,
+    "qsa_sparse": true
+  },
+  "scope": [
+    "Flash Next only; native kernels, weights and Python package versions unchanged",
+    "r119 original run was stopped after concurrent streaming deadlocked the ASGI loop",
+    "Two original code answers were rejected by an overstrict test sandbox; original answers passed rejudging without resampling",
+    "Historical LiveCodeBench 100 was not rerun; the eight code tasks here are small functional samples"
+  ]
+}

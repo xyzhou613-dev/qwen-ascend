@@ -1,0 +1,31 @@
+{
+  "passed": 25,
+  "failed": 0,
+  "tests": [
+    "test_bad_json",
+    "test_budget_overflow",
+    "test_completion_token_alias",
+    "test_empty_messages",
+    "test_engine_lookup_does_not_acquire_generation_lock",
+    "test_english_and_json",
+    "test_invalid_message_content",
+    "test_loss_and_stream",
+    "test_loss_bad_body",
+    "test_loss_bad_cap",
+    "test_max_tokens_validation",
+    "test_missing_messages",
+    "test_more_streams_than_default_worker_pool",
+    "test_n_unsupported",
+    "test_nan_temperature",
+    "test_nonobject_body",
+    "test_nontext_content_part",
+    "test_parallel_streams_and_health",
+    "test_selfcheck_bad_cap",
+    "test_stream_type",
+    "test_temperature_validation",
+    "test_text_content_parts",
+    "test_unicode_every_truncation_prefix",
+    "test_unicode_stream_matches_nonstream",
+    "test_wrong_model"
+  ]
+}

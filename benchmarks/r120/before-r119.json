@@ -1,0 +1,1102 @@
+{
+  "version": "r119",
+  "started_at": "2026-11-05 08:45:45",
+  "cases": [
+    {
+      "group": "mcq",
+      "name": "1",
+      "ok": true,
+      "question": "中国的首都是？",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 447.22,
+        "seconds": 0.493,
+        "tpot_ms": 45.43,
+        "n_prefill": 47,
+        "prefill_ms": 387.85,
+        "prefill_tok_s": 121.18
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "2",
+      "ok": true,
+      "question": "水的化学式是？",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 457.69,
+        "seconds": 0.503,
+        "tpot_ms": 45.07,
+        "n_prefill": 49,
+        "prefill_ms": 397.61,
+        "prefill_tok_s": 123.24
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "3",
+      "ok": true,
+      "question": "9 × 7 = ?",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 446.68,
+        "seconds": 0.492,
+        "tpot_ms": 45.15,
+        "n_prefill": 53,
+        "prefill_ms": 387.71,
+        "prefill_tok_s": 136.7
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "4",
+      "ok": true,
+      "question": "一年有多少个月？",
+      "expected": "C",
+      "answer": "C",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 444.43,
+        "seconds": 0.49,
+        "tpot_ms": 45.04,
+        "n_prefill": 51,
+        "prefill_ms": 385.09,
+        "prefill_tok_s": 132.44
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "5",
+      "ok": true,
+      "question": "太阳系中最大的行星是？",
+      "expected": "C",
+      "answer": "C",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 435.17,
+        "seconds": 0.48,
+        "tpot_ms": 44.97,
+        "n_prefill": 50,
+        "prefill_ms": 376.37,
+        "prefill_tok_s": 132.85
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "6",
+      "ok": true,
+      "question": "《论语》的作者（记录者）是孔子的？",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 440.78,
+        "seconds": 0.486,
+        "tpot_ms": 45.17,
+        "n_prefill": 56,
+        "prefill_ms": 382.03,
+        "prefill_tok_s": 146.58
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "7",
+      "ok": true,
+      "question": "二进制 1011 等于十进制？",
+      "expected": "C",
+      "answer": "C",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 449.21,
+        "seconds": 0.495,
+        "tpot_ms": 45.11,
+        "n_prefill": 57,
+        "prefill_ms": 389.9,
+        "prefill_tok_s": 146.19
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "8",
+      "ok": true,
+      "question": "下列哪个不是编程语言？",
+      "expected": "C",
+      "answer": "C",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 449.67,
+        "seconds": 0.495,
+        "tpot_ms": 45.07,
+        "n_prefill": 48,
+        "prefill_ms": 389.8,
+        "prefill_tok_s": 123.14
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "9",
+      "ok": true,
+      "question": "人体最大的器官是？",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 425.72,
+        "seconds": 0.471,
+        "tpot_ms": 45.04,
+        "n_prefill": 48,
+        "prefill_ms": 366.6,
+        "prefill_tok_s": 130.93
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "10",
+      "ok": true,
+      "question": "光在真空中的速度约为每秒？",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 477.91,
+        "seconds": 0.523,
+        "tpot_ms": 44.99,
+        "n_prefill": 65,
+        "prefill_ms": 419.04,
+        "prefill_tok_s": 155.12
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "11",
+      "ok": true,
+      "question": "下面哪个是质数？",
+      "expected": "C",
+      "answer": "C",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 415.7,
+        "seconds": 0.461,
+        "tpot_ms": 44.98,
+        "n_prefill": 53,
+        "prefill_ms": 357.4,
+        "prefill_tok_s": 148.3
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "12",
+      "ok": true,
+      "question": "中国哪个朝代最早？",
+      "expected": "C",
+      "answer": "C",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 416.88,
+        "seconds": 0.462,
+        "tpot_ms": 45.13,
+        "n_prefill": 48,
+        "prefill_ms": 358.35,
+        "prefill_tok_s": 133.95
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "13",
+      "ok": true,
+      "question": "一个三角形内角和是多少度？",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 445.25,
+        "seconds": 0.491,
+        "tpot_ms": 45.06,
+        "n_prefill": 58,
+        "prefill_ms": 386.12,
+        "prefill_tok_s": 150.21
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "14",
+      "ok": true,
+      "question": "REST API 里用来获取资源的方法通常是？",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 421.46,
+        "seconds": 0.467,
+        "tpot_ms": 45.09,
+        "n_prefill": 49,
+        "prefill_ms": 362.41,
+        "prefill_tok_s": 135.2
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "15",
+      "ok": true,
+      "question": "下列哪项属于监督学习？",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 422.22,
+        "seconds": 0.468,
+        "tpot_ms": 44.98,
+        "n_prefill": 50,
+        "prefill_ms": 363.33,
+        "prefill_tok_s": 137.62
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "16",
+      "ok": true,
+      "question": "1 加到 10 等于？",
+      "expected": "C",
+      "answer": "C",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 420.75,
+        "seconds": 0.466,
+        "tpot_ms": 44.97,
+        "n_prefill": 57,
+        "prefill_ms": 362.04,
+        "prefill_tok_s": 157.44
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "17",
+      "ok": true,
+      "question": "地球绕太阳一周约需？",
+      "expected": "C",
+      "answer": "C",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 449.56,
+        "seconds": 0.495,
+        "tpot_ms": 45.09,
+        "n_prefill": 63,
+        "prefill_ms": 390.51,
+        "prefill_tok_s": 161.33
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "18",
+      "ok": true,
+      "question": "HTTP 状态码 404 表示？",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 420.26,
+        "seconds": 0.466,
+        "tpot_ms": 45.05,
+        "n_prefill": 58,
+        "prefill_ms": 361.45,
+        "prefill_tok_s": 160.46
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "19",
+      "ok": true,
+      "question": "下列哪个单位表示存储容量？",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 428.58,
+        "seconds": 0.474,
+        "tpot_ms": 45.09,
+        "n_prefill": 47,
+        "prefill_ms": 369.55,
+        "prefill_tok_s": 127.18
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "20",
+      "ok": true,
+      "question": "“三人行，必有我师”出自？",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 425.51,
+        "seconds": 0.471,
+        "tpot_ms": 45.36,
+        "n_prefill": 57,
+        "prefill_ms": 366.28,
+        "prefill_tok_s": 155.62
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "21",
+      "ok": true,
+      "question": "神经网络中 ReLU 是？",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 441.81,
+        "seconds": 0.487,
+        "tpot_ms": 45.02,
+        "n_prefill": 54,
+        "prefill_ms": 382.8,
+        "prefill_tok_s": 141.07
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "22",
+      "ok": true,
+      "question": "地球上海洋面积占表面约？",
+      "expected": "C",
+      "answer": "C",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 441.57,
+        "seconds": 0.487,
+        "tpot_ms": 45.03,
+        "n_prefill": 59,
+        "prefill_ms": 382.91,
+        "prefill_tok_s": 154.08
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "23",
+      "ok": true,
+      "question": "下列哪项是数据库？",
+      "expected": "B",
+      "answer": "B",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 441.14,
+        "seconds": 0.486,
+        "tpot_ms": 45.03,
+        "n_prefill": 46,
+        "prefill_ms": 382.47,
+        "prefill_tok_s": 120.27
+      }
+    },
+    {
+      "group": "mcq",
+      "name": "24",
+      "ok": true,
+      "question": "若 x + 5 = 12，则 x = ?",
+      "expected": "C",
+      "answer": "C",
+      "strict_format": true,
+      "stats": {
+        "ttft_ms": 416.5,
+        "seconds": 0.462,
+        "tpot_ms": 45.13,
+        "n_prefill": 57,
+        "prefill_ms": 358.02,
+        "prefill_tok_s": 159.21
+      }
+    },
+    {
+      "group": "code",
+      "name": "gcd",
+      "ok": true,
+      "code": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a\n",
+      "outcomes": [
+        {
+          "args": [
+            48,
+            18
+          ],
+          "expected": 6,
+          "actual": 6,
+          "ok": true
+        },
+        {
+          "args": [
+            0,
+            7
+          ],
+          "expected": 7,
+          "actual": 7,
+          "ok": true
+        },
+        {
+          "args": [
+            17,
+            13
+          ],
+          "expected": 1,
+          "actual": 1,
+          "ok": true
+        },
+        {
+          "args": [
+            0,
+            0
+          ],
+          "expected": 0,
+          "actual": 0,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "group": "code",
+      "name": "two_sum",
+      "ok": true,
+      "code": "def two_sum(nums, target):\n    seen = {}\n    for i, num in enumerate(nums):\n        complement = target - num\n        if complement in seen:\n            return [seen[complement], i]\n        seen[num] = i\n",
+      "outcomes": [
+        {
+          "args": [
+            [
+              2,
+              7,
+              11,
+              15
+            ],
+            9
+          ],
+          "expected": [
+            0,
+            1
+          ],
+          "actual": [
+            0,
+            1
+          ],
+          "ok": true
+        },
+        {
+          "args": [
+            [
+              3,
+              3
+            ],
+            6
+          ],
+          "expected": [
+            0,
+            1
+          ],
+          "actual": [
+            0,
+            1
+          ],
+          "ok": true
+        },
+        {
+          "args": [
+            [
+              3,
+              2,
+              4
+            ],
+            6
+          ],
+          "expected": [
+            1,
+            2
+          ],
+          "actual": [
+            1,
+            2
+          ],
+          "ok": true
+        }
+      ]
+    },
+    {
+      "group": "code",
+      "name": "stable_unique",
+      "ok": false,
+      "code": "def stable_unique(items):\n    seen = set()\n    result = []\n    for item in items:\n        if item not in seen:\n            seen.add(item)\n            result.append(item)\n    return result\n",
+      "error": "AssertionError('unapproved call')"
+    },
+    {
+      "group": "code",
+      "name": "is_prime",
+      "ok": true,
+      "code": "def is_prime(n):\n    if n < 2:\n        return False\n    if n == 2:\n        return True\n    if n % 2 == 0:\n        return False\n    i = 3\n    while i * i <= n:\n        if n % i == 0:\n            return False\n        i += 2\n    return True\n",
+      "outcomes": [
+        {
+          "args": [
+            2
+          ],
+          "expected": true,
+          "actual": true,
+          "ok": true
+        },
+        {
+          "args": [
+            1
+          ],
+          "expected": false,
+          "actual": false,
+          "ok": true
+        },
+        {
+          "args": [
+            9
+          ],
+          "expected": false,
+          "actual": false,
+          "ok": true
+        },
+        {
+          "args": [
+            97
+          ],
+          "expected": true,
+          "actual": true,
+          "ok": true
+        },
+        {
+          "args": [
+            -3
+          ],
+          "expected": false,
+          "actual": false,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "group": "code",
+      "name": "binary_search",
+      "ok": true,
+      "code": "def binary_search(nums, target):\n    left, right = 0, len(nums) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        if nums[mid] == target:\n            return mid\n        elif nums[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    return -1\n",
+      "outcomes": [
+        {
+          "args": [
+            [
+              1,
+              3,
+              5,
+              7
+            ],
+            5
+          ],
+          "expected": 2,
+          "actual": 2,
+          "ok": true
+        },
+        {
+          "args": [
+            [],
+            3
+          ],
+          "expected": -1,
+          "actual": -1,
+          "ok": true
+        },
+        {
+          "args": [
+            [
+              1,
+              3
+            ],
+            2
+          ],
+          "expected": -1,
+          "actual": -1,
+          "ok": true
+        },
+        {
+          "args": [
+            [
+              4
+            ],
+            4
+          ],
+          "expected": 0,
+          "actual": 0,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "group": "code",
+      "name": "merge_intervals",
+      "ok": true,
+      "code": "def merge_intervals(intervals):\n    if not intervals:\n        return []\n    \n    sorted_intervals = sorted(intervals, key=lambda x: x[0])\n    merged = [sorted_intervals[0]]\n    \n    for current in sorted_intervals[1:]:\n        last = merged[-1]\n        if current[0] <= last[1]:\n            last[1] = max(last[1], current[1])\n        else:\n            merged.append(current)\n    \n    return merged\n",
+      "outcomes": [
+        {
+          "args": [
+            [
+              [
+                1,
+                3
+              ],
+              [
+                2,
+                6
+              ],
+              [
+                8,
+                10
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              6
+            ],
+            [
+              8,
+              10
+            ]
+          ],
+          "actual": [
+            [
+              1,
+              6
+            ],
+            [
+              8,
+              10
+            ]
+          ],
+          "ok": true
+        },
+        {
+          "args": [
+            []
+          ],
+          "expected": [],
+          "actual": [],
+          "ok": true
+        },
+        {
+          "args": [
+            [
+              [
+                4,
+                5
+              ],
+              [
+                1,
+                4
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              5
+            ]
+          ],
+          "actual": [
+            [
+              1,
+              5
+            ]
+          ],
+          "ok": true
+        }
+      ]
+    },
+    {
+      "group": "code",
+      "name": "is_palindrome",
+      "ok": false,
+      "code": "def is_palindrome(s):\n    cleaned = [c.lower() for c in s if c.isalnum() and c.isascii()]\n    return cleaned == cleaned[::-1]",
+      "error": "AssertionError('unapproved call')"
+    },
+    {
+      "group": "code",
+      "name": "longest_common_prefix",
+      "ok": true,
+      "code": "def longest_common_prefix(strs):\n    if not strs:\n        return \"\"\n    prefix = strs[0]\n    for s in strs[1:]:\n        while not s.startswith(prefix):\n            prefix = prefix[:-1]\n            if not prefix:\n                return \"\"\n    return prefix\n",
+      "outcomes": [
+        {
+          "args": [
+            [
+              "flower",
+              "flow",
+              "flight"
+            ]
+          ],
+          "expected": "fl",
+          "actual": "fl",
+          "ok": true
+        },
+        {
+          "args": [
+            []
+          ],
+          "expected": "",
+          "actual": "",
+          "ok": true
+        },
+        {
+          "args": [
+            [
+              "dog",
+              "racecar",
+              "car"
+            ]
+          ],
+          "expected": "",
+          "actual": "",
+          "ok": true
+        },
+        {
+          "args": [
+            [
+              "abc"
+            ]
+          ],
+          "expected": "abc",
+          "actual": "abc",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "group": "stream",
+      "name": "emoji",
+      "ok": false,
+      "plain": "𠮷🧪🚀 café Ελληνικά",
+      "stream": "���������� café Ελληνικά",
+      "replacement_count": 10,
+      "done": true
+    },
+    {
+      "group": "stream",
+      "name": "chinese",
+      "ok": true,
+      "plain": "昇腾推理，边界测试。",
+      "stream": "昇腾推理，边界测试。",
+      "replacement_count": 0,
+      "done": true
+    },
+    {
+      "group": "stream",
+      "name": "english",
+      "ok": true,
+      "plain": "Alpha beta 0123456789",
+      "stream": "Alpha beta 0123456789",
+      "replacement_count": 0,
+      "done": true
+    },
+    {
+      "group": "stream",
+      "name": "json",
+      "ok": false,
+      "plain": "{\"status\":\"成功\",\"emoji\":\"🧪\"}",
+      "stream": "{\"status\":\"成功\",\"emoji\":\"���\"}",
+      "replacement_count": 3,
+      "done": true
+    },
+    {
+      "group": "protocol",
+      "name": "stream_finish_reason",
+      "ok": false,
+      "nonstream_reason": "length",
+      "stream_reason": "stop",
+      "plain": "1",
+      "stream": "1",
+      "completion_tokens": 1
+    },
+    {
+      "group": "invalid_request",
+      "name": "invalid_json",
+      "ok": false,
+      "response": {
+        "status": 500,
+        "content_type": "text/plain; charset=utf-8",
+        "seconds": 0.0014695749850943685,
+        "body": "Internal Server Error"
+      }
+    },
+    {
+      "group": "invalid_request",
+      "name": "nonobject_body",
+      "ok": false,
+      "response": {
+        "status": 500,
+        "content_type": "text/plain; charset=utf-8",
+        "seconds": 0.005732757970690727,
+        "body": "Internal Server Error"
+      }
+    },
+    {
+      "group": "invalid_request",
+      "name": "missing_messages",
+      "ok": false,
+      "response": {
+        "status": 500,
+        "content_type": "text/plain; charset=utf-8",
+        "seconds": 0.001561904908157885,
+        "body": "Internal Server Error"
+      }
+    },
+    {
+      "group": "invalid_request",
+      "name": "bad_max_tokens",
+      "ok": false,
+      "response": {
+        "status": 500,
+        "content_type": "text/plain; charset=utf-8",
+        "seconds": 0.0021332569885998964,
+        "body": "Internal Server Error"
+      }
+    },
+    {
+      "group": "invalid_request",
+      "name": "zero_max_tokens",
+      "ok": false,
+      "response": {
+        "status": 200,
+        "content_type": "application/json",
+        "seconds": 0.48615795804653317,
+        "body": "{\"id\":\"chatcmpl-bbf8bd61367e422eaab57788\",\"object\":\"chat.completion\",\"created\":1793868391,\"model\":\"qwen3.8-flash-next-w4\",\"choices\":[{\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"OK\"},\"finish_reason\":\"stop\"}],\"usage\":{\"prompt_tokens\":16,\"completion_tokens\":2,\"total_tokens\":18},\"fnx_stats\":{\"ttft_ms\":437.9,\"seconds\":0.483,\"tpot_ms\":45.23,\"n_prefill\":12,\"prefill_ms\":378.92,\"prefill_tok_s\":31.67}}",
+        "json": {
+          "id": "chatcmpl-bbf8bd61367e422eaab57788",
+          "object": "chat.completion",
+          "created": 1793868391,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "OK"
+              },
+              "finish_reason": "stop"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 16,
+            "completion_tokens": 2,
+            "total_tokens": 18
+          },
+          "fnx_stats": {
+            "ttft_ms": 437.9,
+            "seconds": 0.483,
+            "tpot_ms": 45.23,
+            "n_prefill": 12,
+            "prefill_ms": 378.92,
+            "prefill_tok_s": 31.67
+          }
+        }
+      }
+    },
+    {
+      "group": "invalid_request",
+      "name": "negative_max_tokens",
+      "ok": true,
+      "response": {
+        "status": 400,
+        "content_type": "application/json",
+        "seconds": 0.0025118979392573237,
+        "body": "{\"error\":\"prompt (16) + max_tokens (-1) - 1 must be <= ctx (262144); both must be positive\"}",
+        "json": {
+          "error": "prompt (16) + max_tokens (-1) - 1 must be <= ctx (262144); both must be positive"
+        }
+      }
+    },
+    {
+      "group": "invalid_request",
+      "name": "bad_temperature",
+      "ok": false,
+      "response": {
+        "status": 500,
+        "content_type": "text/plain; charset=utf-8",
+        "seconds": 0.0013608840527012944,
+        "body": "Internal Server Error"
+      }
+    },
+    {
+      "group": "invalid_request",
+      "name": "wrong_model",
+      "ok": false,
+      "response": {
+        "status": 200,
+        "content_type": "application/json",
+        "seconds": 0.0981939360499382,
+        "body": "{\"id\":\"chatcmpl-c043d8e77f934131a702f591\",\"object\":\"chat.completion\",\"created\":1793868392,\"model\":\"qwen3.8-flash-next-w4\",\"choices\":[{\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"OK\"},\"finish_reason\":\"stop\"}],\"usage\":{\"prompt_tokens\":16,\"completion_tokens\":2,\"total_tokens\":18},\"fnx_stats\":{\"ttft_ms\":50.22,\"seconds\":0.096,\"tpot_ms\":45.11,\"n_prefill\":0,\"prefill_ms\":0.09,\"prefill_tok_s\":0.0}}",
+        "json": {
+          "id": "chatcmpl-c043d8e77f934131a702f591",
+          "object": "chat.completion",
+          "created": 1793868392,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "OK"
+              },
+              "finish_reason": "stop"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 16,
+            "completion_tokens": 2,
+            "total_tokens": 18
+          },
+          "fnx_stats": {
+            "ttft_ms": 50.22,
+            "seconds": 0.096,
+            "tpot_ms": 45.11,
+            "n_prefill": 0,
+            "prefill_ms": 0.09,
+            "prefill_tok_s": 0.0
+          }
+        }
+      }
+    },
+    {
+      "group": "invalid_request",
+      "name": "over_context_budget",
+      "ok": true,
+      "response": {
+        "status": 400,
+        "content_type": "application/json",
+        "seconds": 0.00244204793125391,
+        "body": "{\"error\":\"prompt (16) + max_tokens (262145) - 1 must be <= ctx (262144); both must be positive\"}",
+        "json": {
+          "error": "prompt (16) + max_tokens (262145) - 1 must be <= ctx (262144); both must be positive"
+        }
+      }
+    },
+    {
+      "group": "invalid_request",
+      "name": "unsupported_n",
+      "ok": false,
+      "response": {
+        "status": 200,
+        "content_type": "application/json",
+        "seconds": 0.09848310798406601,
+        "body": "{\"id\":\"chatcmpl-509f6e3c9ace409b8ce7aabd\",\"object\":\"chat.completion\",\"created\":1793868392,\"model\":\"qwen3.8-flash-next-w4\",\"choices\":[{\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"OK\"},\"finish_reason\":\"stop\"}],\"usage\":{\"prompt_tokens\":16,\"completion_tokens\":2,\"total_tokens\":18},\"fnx_stats\":{\"ttft_ms\":49.73,\"seconds\":0.095,\"tpot_ms\":45.12,\"n_prefill\":0,\"prefill_ms\":0.09,\"prefill_tok_s\":0.0}}",
+        "json": {
+          "id": "chatcmpl-509f6e3c9ace409b8ce7aabd",
+          "object": "chat.completion",
+          "created": 1793868392,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "OK"
+              },
+              "finish_reason": "stop"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 16,
+            "completion_tokens": 2,
+            "total_tokens": 18
+          },
+          "fnx_stats": {
+            "ttft_ms": 49.73,
+            "seconds": 0.095,
+            "tpot_ms": 45.12,
+            "n_prefill": 0,
+            "prefill_ms": 0.09,
+            "prefill_tok_s": 0.0
+          }
+        }
+      }
+    },
+    {
+      "group": "state",
+      "name": "repeat_and_switch_back",
+      "ok": true,
+      "answers": [
+        "481726",
+        "481726",
+        "903158",
+        "481726"
+      ],
+      "repeat_prefill": 0,
+      "switchback_prefill": 29
+    },
+    {
+      "group": "cache",
+      "name": "immediate_repeat",
+      "ok": true,
+      "stats": {
+        "ttft_ms": 50.03,
+        "seconds": 0.32,
+        "tpot_ms": 44.97,
+        "n_prefill": 0,
+        "prefill_ms": 0.11,
+        "prefill_tok_s": 0.0
+      }
+    }
+  ],
+  "initial_health": {
+    "status": 200,
+    "content_type": "application/json",
+    "seconds": 0.0078123449347913265,
+    "body": "{\"status\":\"ok\",\"engine_loaded\":true,\"ctx\":262144,\"pipeline_stages\":2,\"worker_alive\":true,\"prefill_chunk\":8192,\"pipeline_transport\":\"hybrid\",\"delta_compact\":true,\"index_score\":true,\"conv_native\":true,\"index_expand\":true,\"mix_reduce\":true,\"moe_reduce\":true,\"dual_write\":true,\"pipeline_transfers\":{\"peer_transfers\":101,\"peer_bytes\":6010961920,\"host_transfers\":2323,\"host_bytes\":85544960},\"index_caps\":[16384,32768,65536,98304,131072,196608,262144],\"native_sparse\":true,\"native_dual\":true,\"index_unique\":true,\"moe_inverse\":true,\"moe_inverse_sort\":true,\"state_dual_slim\":true,\"conversation_state_bytes\":117080096,\"rope_cache\":true,\"delta_window\":2048,\"delta_native\":true,\"chunk_graph\":true,\"qsa_indexer\":true,\"qsa_sparse\":true}",
+    "json": {
+      "status": "ok",
+      "engine_loaded": true,
+      "ctx": 262144,
+      "pipeline_stages": 2,
+      "worker_alive": true,
+      "prefill_chunk": 8192,
+      "pipeline_transport": "hybrid",
+      "delta_compact": true,
+      "index_score": true,
+      "conv_native": true,
+      "index_expand": true,
+      "mix_reduce": true,
+      "moe_reduce": true,
+      "dual_write": true,
+      "pipeline_transfers": {
+        "peer_transfers": 101,
+        "peer_bytes": 6010961920,
+        "host_transfers": 2323,
+        "host_bytes": 85544960
+      },
+      "index_caps": [
+        16384,
+        32768,
+        65536,
+        98304,
+        131072,
+        196608,
+        262144
+      ],
+      "native_sparse": true,
+      "native_dual": true,
+      "index_unique": true,
+      "moe_inverse": true,
+      "moe_inverse_sort": true,
+      "state_dual_slim": true,
+      "conversation_state_bytes": 117080096,
+      "rope_cache": true,
+      "delta_window": 2048,
+      "delta_native": true,
+      "chunk_graph": true,
+      "qsa_indexer": true,
+      "qsa_sparse": true
+    }
+  },
+  "initial_metrics": {
+    "status": 200,
+    "content_type": "text/plain; charset=utf-8",
+    "seconds": 0.0021298369392752647,
+    "body": "# TYPE fnx_requests_total counter\nfnx_requests_total 29\nfnx_requests_err_total 0\nfnx_tokens_out_total 2092\nfnx_prefill_tokens_total 295386\nfnx_prefix_hit_tokens_total 589714\n# TYPE fnx_queue_ms_avg gauge\nfnx_queue_ms_avg 0.042\nfnx_ttft_ms_avg 4094.660\nfnx_tpot_ms_avg 45.484\nfnx_prefill_hit_ratio 0.6663\nfnx_engine_loaded 1\n"
+  }
+}
