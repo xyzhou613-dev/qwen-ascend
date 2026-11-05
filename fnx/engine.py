@@ -1178,10 +1178,14 @@ class FnLayer:
             mq = lin(h, self.w_qkv).view(b, CONV_DIM)
             z = torch.sigmoid(lin(h, self.w_z).view(b, NVH, HVD).float())
             beta = a = None
-        buf = torch.cat([self.conv, mq.unsqueeze(-1)], dim=-1)              # [b,D,4]
-        y = (buf * self.conv_w.unsqueeze(0)).sum(-1)
-        y = F.silu(y)
-        self.conv.copy_(buf[..., 1:])
+        if b == 1 and os.environ.get("FNX_CONV_NATIVE", "0") == "1":
+            from .conv_native import step as native_conv
+            y = F.silu(native_conv(self.conv, mq, self.conv_w))
+        else:
+            buf = torch.cat([self.conv, mq.unsqueeze(-1)], dim=-1)
+            y = (buf * self.conv_w.unsqueeze(0)).sum(-1)
+            y = F.silu(y)
+            self.conv.copy_(buf[..., 1:])
         q, k, v = torch.split(y, [KEY_DIM, KEY_DIM, VAL_DIM], dim=-1)
         if beta is None:
             if self.w_ab is not None:
@@ -1309,15 +1313,23 @@ class FnLayer:
             scores = reduced / math.sqrt(128)
             complete = starts[None, :] + 4 <= p[:, None] + 1
             chosen = scores.masked_fill(~complete, NEG).topk(min(512, groups), -1).indices
-            tokens = (chosen[:, :, None] * 4 + torch.arange(4, device=self.dev)).reshape(end - begin, -1)
-            valid = tokens < ((p[:, None] + 1) // 4) * 4
-            tail = ((p[:, None] + 1) // 4) * 4 + torch.arange(3, device=self.dev)
-            tokens = torch.cat((tokens, tail), -1)
-            valid = torch.cat((valid, tail <= p[:, None]), -1)
-            # Physical order reproduces dense attention's accumulation order.
-            ordered = torch.where(valid, tokens, P).float().sort(-1).values.to(torch.int64)
-            selected.append(ordered.clamp_max(P - 1))
-            validity.append(ordered < P)
+            expanded = None
+            if os.environ.get("FNX_INDEX_EXPAND", "0") == "1":
+                from .index_expand import expand
+                expanded = expand(chosen, p, P)
+            if expanded is None:
+                tokens = (chosen[:, :, None] * 4 + torch.arange(4, device=self.dev)).reshape(end - begin, -1)
+                valid = tokens < ((p[:, None] + 1) // 4) * 4
+                tail = ((p[:, None] + 1) // 4) * 4 + torch.arange(3, device=self.dev)
+                tokens = torch.cat((tokens, tail), -1)
+                valid = torch.cat((valid, tail <= p[:, None]), -1)
+                # Physical order reproduces dense attention's accumulation order.
+                ordered = torch.where(valid, tokens, P).float().sort(-1).values.to(torch.int64)
+                selected.append(ordered.clamp_max(P - 1))
+                validity.append(ordered < P)
+            else:
+                selected.append(expanded[0])
+                validity.append(expanded[1])
         return torch.cat(selected), torch.cat(validity)
 
     def _record_index_keys(self, raw, pos):

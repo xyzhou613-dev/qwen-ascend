@@ -50,6 +50,7 @@ docker exec -d fnx bash -lc "cd /root/ascend-dev/fnx && \
   FNX_MOE_INVERSE_SORT=1 \
   FNX_DN_NATIVE=1 \
   FNX_DUAL_WRITE=1 FNX_DN_COMPACT=1 FNX_INDEX_SCORE=1 \
+  FNX_CONV_NATIVE=1 FNX_INDEX_EXPAND=1 \
   /root/ascend-dev/venv/bin/python -m fnx.server > $LOG 2>&1"
 H=""
 for i in $(seq 1 60); do

@@ -1,0 +1,348 @@
+{
+  "date": "2026-11-05",
+  "baseline_commit": "97c16109",
+  "records": {
+    "baseline": {
+      "ctx": 262144,
+      "prompt_tokens": 262016,
+      "ttft_s": 90.265,
+      "e2e_s": 96.756,
+      "stats": {
+        "ttft_ms": 89095.82,
+        "tokens": 128,
+        "seconds": 95.586,
+        "tpot_ms": 51.11,
+        "tok_decode_ms": 9.22,
+        "prefill_ms": 88940.08,
+        "prefill_tok_s": 2945.94,
+        "n_prefill": 262012
+      },
+      "answer": "根据资料内容，三个项目的验收码如下：\n\n1. 海棠：7319\n2. 松柏：8652\n3. 银杏：2946\n\n***\n\n**昇腾处理器推理服务优化与长文档处理技术详解**\n\n在昇腾处理器面向的大规模深度学习训练与推理场景中，软件栈以 CANN 为核心，其架构设计向上提供框架适配层，向下直接管理芯片的算力与内存资源。在实际的工程部署与性能调优过程中，一个极易被低估但至关重要的环节并非算子（Operator）本身的峰值计算性能，而是数据在",
+      "recall_hits": 3
+    },
+    "candidate": {
+      "ctx": 262144,
+      "prompt_tokens": 262016,
+      "ttft_s": 88.434,
+      "e2e_s": 94.708,
+      "stats": {
+        "ttft_ms": 87225.11,
+        "tokens": 128,
+        "seconds": 93.498,
+        "tpot_ms": 49.4,
+        "tok_decode_ms": 7.13,
+        "prefill_ms": 87077.07,
+        "prefill_tok_s": 3008.97,
+        "n_prefill": 262012
+      },
+      "answer": "根据资料内容，三个项目的验收码如下：\n\n1. 海棠：7319\n2. 松柏：8652\n3. 银杏：2946\n\n关于资料中涉及的推理服务和长文档处理技术，以下是详细的技术解析：\n\n在现代大规模深度学习推理场景中，尤其是针对昇腾处理器等专用硬件，性能优化的核心往往不在于单一算子的峰值算力，而在于对数据搬运开销的精细管理。资料指出，跨设备的数据拷贝虽然单次数据量看似不大，但若处于关键路径上，其累积延迟可能远超计算本身。因此，优化的首要步骤是拆解",
+      "recall_hits": 3
+    },
+    "production": {
+      "ctx": 262144,
+      "prompt_tokens": 262016,
+      "ttft_s": 88.286,
+      "e2e_s": 94.513,
+      "stats": {
+        "ttft_ms": 87157.91,
+        "tokens": 128,
+        "seconds": 93.385,
+        "tpot_ms": 49.03,
+        "tok_decode_ms": 7.65,
+        "prefill_ms": 87008.58,
+        "prefill_tok_s": 3011.34,
+        "n_prefill": 262012
+      },
+      "answer": "根据资料内容，三个项目的验收码如下：\n\n1. 海棠：7319\n2. 松柏：8652\n3. 银杏：2946\n\n关于资料中涉及的推理服务和长文档处理技术，以下是详细的技术解析：\n\n在现代大规模深度学习推理场景中，尤其是针对昇腾处理器等专用AI芯片，性能优化的核心往往不在于单一算子的峰值算力，而在于系统级的数据搬运效率与内存带宽利用率。资料指出，最容易被低估的性能瓶颈是数据在设备之间搬运所带来的固定开销。即使单次跨设备张量拷贝的数据量看似微小，一旦其",
+      "recall_hits": 3
+    },
+    "candidate_sustained": {
+      "ctx": 262144,
+      "prompt_tokens": 261120,
+      "ttft_s": 87.469,
+      "e2e_s": 137.848,
+      "stats": {
+        "ttft_ms": 86288.44,
+        "tokens": 1024,
+        "seconds": 136.667,
+        "tpot_ms": 49.25,
+        "tok_decode_ms": 53.89,
+        "prefill_ms": 86147.87,
+        "prefill_tok_s": 3031.02,
+        "n_prefill": 261116
+      },
+      "answer": "根据提供的资料，提取的项目验收码如下：\n\n1.  **海棠**：7319\n2.  **松柏**：8652\n3.  **银杏**：2946\n\n***\n\n### 昇腾处理器架构下的混合专家模型推理优化与量化技术深度解析\n\n在大规模深度学习训练与推理的广阔领域中，昇腾（Ascend）处理器及其核心软件栈 CANN（Compute Architecture for Neural Networks）构成了高性能计算的基础设施。随着现代混合专家模型（Mixture of Experts, MoE）将参数规模推向新的量级，推理服务的瓶颈已从单纯的算力限制转向了内存带宽的限制。本文旨在深入探讨在这一背景下，如何基于昇腾架构进行性能优化，特别是针对数据搬运开销、稀疏激活机制下的带宽利用率以及分组量化中的误差分配进行详细的技术剖析。\n\n#### 一、 昇腾架构与性能优化的核心逻辑：从直觉到测量\n\n昇腾处理器的软件栈以 CANN 为核心，其架构设计呈现出清晰的层次结构：向上提供框架适配层，以兼容主流深度学习框架；向下则直接管理芯片的算力与内存资源。这种架构设计旨在最大化硬件利用率，但在实际部署中，工程师往往容易陷入一个误区，即过分关注算子（Operator）本身的峰值性能，而低估了数据在设备之间搬运所带来的固定开销。\n\n**1. 数据搬运的隐性成本**\n\n在高性能计算场景中，计算本身往往不是唯一的瓶颈。一次跨设备的张量拷贝，从数据量上看可能仅有几兆字节，看似微不足道。然而，当这种拷贝操作出现在每个时间步的关键路径上时，其累积效应是惊人的。由于内存访问延迟和总线带宽的限制，这些看似微小的传输延迟会像滚雪球一样累积，最终导致整体延迟远远超过计算本身所消耗的时间。\n\n这一现象揭示了一个重要的工程教训：**测量优于直觉，且测量的顺序决定了浪费时间的多少。** 在性能优化过程中，任何关于时间消耗去向的猜测都应被替换为具体的计数器、时间戳或校验和。错误的猜测不仅毫无用处，更会主动消耗掉原本用于解决真正问题的预算。当系统产生看似合理但实际错误的输出时，最有价值的单一工具是一个能够随计算变化而变化的数字指纹（Numeric Fingerprint），这使得正确性的检查不再依赖于输出的可读性，而是依赖于数据的完整性校验。\n\n**2. 性能拆解的方法论**\n\n因此，性能优化的首要步骤并非直接改写代码，而是将每一段耗时的来源进行拆解。这要求工程师具备系统级的视角，能够区分计算耗时、通信耗时、同步耗时以及内存访问耗时。只有在明确了瓶颈所在之后，才能决定优化哪一段，而不是凭直觉去改写最显眼的那段代码。这种基于数据的优化策略，是昇腾架构下高效部署深度学习模型的前提。\n\n#### 二、 混合专家模型（MoE）与内存带宽瓶颈\n\n现代混合专家模型通过引入稀疏激活机制，将参数规模推向了前所未有的量级。这种架构设计的核心在于，虽然模型拥有数百甚至数千个专家网络，但在单个时间步（Token）的处理过程中，只会激活其中很小的一部分专家。\n\n**1. 稀疏激活与权重读取机制**\n\n在传统的稠密模型中，推理时的计算量和内存读取量与模型总参数量成正比。然而，在 MoE 模型中，权重的读取量不再由全部参数量决定，而是由激活专家的数量决定。这一特性带来了推理效率的巨大提升，但也改变了性能瓶颈的性质。\n\n**2. 瓶颈转移：从算力到带宽**\n\n由于激活的专家数量远小于总专家数量，计算单元（如 NPU 的 Cube 单元）往往处于等待数据的状态。此时，推理的瓶颈从算力（Compute-bound）转向了内存带宽（Memory-bound）。这意味着，衡量模型推理性能的关键指标，也应该从传统的每秒浮点运算次数（FLOPS），换成每秒能够读入多少字节的有效权重（Effective Weight Bandwidth）。\n\n**3. 量化对带宽利用率的影响**\n\n为了缓解带宽压力，权重量化成为必然选择。若模型权重量化到四位（4-bit），理论上每字节可以承载两个权重值，从而将带宽需求减半。然而，这并非简单的线性关系。在实际部署中，带宽利用率还需要额外考虑解包（Unpacking）与反量化（Dequantization）所引入的指令开销。\n\n在昇腾架构中，数据从内存加载到计算单元的过程中，如果采用低位宽量化，硬件或软件栈需要执行额外的指令来将压缩的数据还原为计算所需的格式。这些指令虽然单次耗时极短，但在高带宽吞吐的场景下，其累积开销可能抵消量化带来的带宽红利。因此，在评估量化方案时，必须综合考虑存储密度的提升与计算指令开销之间的平衡。\n\n#### 三、 量化技术中的误差分配与分组策略\n\n量化本身是一门关于误差",
+      "recall_hits": 3
+    }
+  },
+  "short": {
+    "baseline": [
+      {
+        "run": 1,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 5.576,
+        "end_to_end_s": 11.865,
+        "prefill_s": 5.446,
+        "prefill_tok_s": 1480.06,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 49.52,
+        "server_total_s": 11.822
+      },
+      {
+        "run": 2,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 5.446,
+        "end_to_end_s": 11.747,
+        "prefill_s": 5.341,
+        "prefill_tok_s": 1508.99,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 49.61,
+        "server_total_s": 11.71
+      },
+      {
+        "run": 3,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 5.447,
+        "end_to_end_s": 11.744,
+        "prefill_s": 5.346,
+        "prefill_tok_s": 1507.61,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 49.58,
+        "server_total_s": 11.711
+      }
+    ],
+    "candidate": [
+      {
+        "run": 1,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 5.482,
+        "end_to_end_s": 11.567,
+        "prefill_s": 5.359,
+        "prefill_tok_s": 1503.89,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 47.91,
+        "server_total_s": 11.528
+      },
+      {
+        "run": 2,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 5.364,
+        "end_to_end_s": 11.439,
+        "prefill_s": 5.267,
+        "prefill_tok_s": 1530.37,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 47.83,
+        "server_total_s": 11.406
+      },
+      {
+        "run": 3,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 5.373,
+        "end_to_end_s": 11.452,
+        "prefill_s": 5.276,
+        "prefill_tok_s": 1527.56,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 47.87,
+        "server_total_s": 11.42
+      }
+    ],
+    "production": [
+      {
+        "run": 1,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 5.487,
+        "end_to_end_s": 11.557,
+        "prefill_s": 5.365,
+        "prefill_tok_s": 1502.34,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 47.79,
+        "server_total_s": 11.518
+      },
+      {
+        "run": 2,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 5.375,
+        "end_to_end_s": 11.426,
+        "prefill_s": 5.279,
+        "prefill_tok_s": 1526.81,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 47.64,
+        "server_total_s": 11.393
+      },
+      {
+        "run": 3,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 5.383,
+        "end_to_end_s": 11.438,
+        "prefill_s": 5.286,
+        "prefill_tok_s": 1524.71,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 47.68,
+        "server_total_s": 11.405
+      }
+    ]
+  },
+  "quality": {
+    "candidate": [
+      {
+        "mean_nll": 2.165267,
+        "ppl": 8.7169,
+        "top1_acc": 0.485,
+        "n": 200
+      },
+      {
+        "mean_nll": 2.165267,
+        "ppl": 8.7169,
+        "top1_acc": 0.485,
+        "n": 200
+      }
+    ],
+    "production": [
+      {
+        "mean_nll": 2.165267,
+        "ppl": 8.7169,
+        "top1_acc": 0.485,
+        "n": 200
+      }
+    ]
+  },
+  "health": {
+    "status": "ok",
+    "engine_loaded": true,
+    "ctx": 262144,
+    "pipeline_stages": 2,
+    "worker_alive": true,
+    "prefill_chunk": 8192,
+    "pipeline_transport": "hybrid",
+    "delta_compact": true,
+    "index_score": true,
+    "conv_native": true,
+    "index_expand": true,
+    "dual_write": true,
+    "pipeline_transfers": {
+      "peer_transfers": 79,
+      "peer_bytes": 5851054080,
+      "host_transfers": 853,
+      "host_bytes": 28119040
+    },
+    "index_caps": [
+      16384,
+      32768,
+      65536,
+      98304,
+      131072,
+      196608,
+      262144
+    ],
+    "native_sparse": true,
+    "native_dual": true,
+    "index_unique": true,
+    "moe_inverse": true,
+    "moe_inverse_sort": true,
+    "state_dual_slim": true,
+    "conversation_state_bytes": 7763871776,
+    "rope_cache": true,
+    "delta_window": 2048,
+    "delta_native": true,
+    "chunk_graph": true,
+    "qsa_indexer": true,
+    "qsa_sparse": true
+  },
+  "convolution": {
+    "order": 1,
+    "recurrent_steps": 256,
+    "exact": true,
+    "samples": [
+      {
+        "order": 0,
+        "output_exact": false,
+        "history_exact": true,
+        "max_delta": 1.0
+      },
+      {
+        "order": 1,
+        "output_exact": true,
+        "history_exact": true,
+        "max_delta": 0.0
+      },
+      {
+        "order": 2,
+        "output_exact": false,
+        "history_exact": true,
+        "max_delta": 2.0
+      }
+    ],
+    "graph36_ms": {
+      "reference": 1.1599239660426974,
+      "native": 0.3258809447288513,
+      "reference_repeat": 1.1591989896260202
+    }
+  },
+  "index_expansion": [
+    {
+      "tokens": 1,
+      "exact": true,
+      "reference_ms": 0.07122803071979433,
+      "native_ms": 0.020289753592805937
+    },
+    {
+      "tokens": 17,
+      "exact": true,
+      "reference_ms": 0.16441931074950844,
+      "native_ms": 0.031131687137531117
+    },
+    {
+      "tokens": 128,
+      "exact": true,
+      "reference_ms": 0.3446680275374092,
+      "native_ms": 0.10345003101974726
+    },
+    {
+      "tokens": 512,
+      "exact": true,
+      "reference_ms": 0.8913532510632649,
+      "native_ms": 0.23474015324609354
+    }
+  ],
+  "real_layer": {
+    "layer": 0,
+    "steps": 256,
+    "graph_dynamic_input": true,
+    "state_fp32_bit_exact": true,
+    "conv_bf16_bit_exact": true,
+    "output_bf16_bit_exact": true,
+    "layer_graph_us": {
+      "baseline": 305.03860116004944,
+      "compact": 300.7109463214874,
+      "baseline_repeat": 304.6501576900482
+    }
+  },
+  "kernel_sha256": {
+    "libfnx_conv.so": "8d3c5fe603158803c293b561d6c9e8bc4841edf1d116fc2a8a81ba747ee69080",
+    "libfnx_index_expand.so": "375702b7d51ce416b17f6cb1c75869425e2eaf6cef30185196c2d1df4e692d18"
+  },
+  "notes": [
+    "Loaded model, server-local HTTP, fresh input262016/output128 for matched comparisons",
+    "Candidate sustained test uses input261120/output1024",
+    "r113 profiler drains at capture boundaries and disables conversation snapshots",
+    "Profiler kernel cumulative time is not request wall time"
+  ]
+}
