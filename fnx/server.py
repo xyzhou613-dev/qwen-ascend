@@ -46,6 +46,39 @@ _TAIL_RE = re.compile(
 def clean_text(text):
     return _TAIL_RE.sub("", text) if text else text
 
+# ★ 工具调用（OpenAI function calling）
+#   Qwen3 的 chat template 要求模型这样回答：
+#     <tool_call>
+#     <function=NAME>
+#     <parameter=KEY>value</parameter>
+#     </function>
+#     </tool_call>
+#   这里把它转成 OpenAI 的 tool_calls；正文与标记分离。
+_TOOL_CALL_RE = re.compile(r"<tool_call>\s*<function=([^>]+)>(.*?)</function>\s*</tool_call>", re.S)
+_TOOL_PARAM_RE = re.compile(r"<parameter=([^>]+)>(.*?)</parameter>", re.S)
+
+
+def _parse_tool_calls(text):
+    """返回 (正文, tool_calls 或 None)。"""
+    if not text or "<tool_call>" not in text:
+        return text, None
+    calls, spans = [], []
+    for m in _TOOL_CALL_RE.finditer(text):
+        name = m.group(1).strip()
+        args = {k.strip(): v.strip() for k, v in _TOOL_PARAM_RE.findall(m.group(2))}
+        calls.append({"id": "call_" + uuid.uuid4().hex[:16], "type": "function",
+                      "function": {"name": name,
+                                   "arguments": json.dumps(args, ensure_ascii=False)}})
+        spans.append(m.span())
+    if not calls:                     # 有 <tool_call> 但没闭合：原样返回，避免吞内容
+        return text, None
+    out, last = [], 0
+    for a, b in spans:
+        out.append(text[last:a])
+        last = b
+    out.append(text[last:])
+    return "".join(out).strip(), calls
+
 
 # ★ 服务指标（第30轮）：现在所有请求走一把全局锁、且只有 /fnx/prof 的"最后一次"快照，
 #   排队情况、累积吞吐、命中率都看不见。这里补一份累积计数器 + GET /metrics。
@@ -54,6 +87,40 @@ METRICS = {
     "prefill_tokens": 0, "prefix_hit_tokens": 0,
     "queue_ms_sum": 0.0, "ttft_ms_sum": 0.0, "tpot_ms_sum": 0.0, "tpot_n": 0,
 }
+
+
+def _normalize_tool_messages(msgs):
+    """把回传的 assistant.tool_calls[].function.arguments（JSON 字符串）转成 dict。
+
+    Qwen3 模板用 `tool_call.arguments|items` 遍历参数，传字符串会报
+    "Can only get item pairs from a mapping."。
+    """
+    out = []
+    for m in msgs:
+        if isinstance(m, dict) and m.get("role") == "assistant" and isinstance(m.get("tool_calls"), list):
+            m = dict(m)
+            tcs = []
+            for tc in m["tool_calls"]:
+                if not isinstance(tc, dict):
+                    tcs.append(tc)
+                    continue
+                tc = dict(tc)
+                fn = dict(tc.get("function") or {})
+                args = fn.get("arguments")
+                if isinstance(args, str):
+                    try:
+                        fn["arguments"] = json.loads(args)
+                    except (ValueError, TypeError):
+                        fn["arguments"] = {}
+                elif args is None:
+                    fn["arguments"] = {}
+                tc["function"] = fn
+                tcs.append(tc)
+            m["tool_calls"] = tcs
+            if m.get("content") is None:
+                m["content"] = ""
+        out.append(m)
+    return out
 
 
 def _metric_add(**kw):
@@ -528,6 +595,9 @@ async def chat(req: Request):
     try:
         body = await json_body(req)
         msgs, max_new, temp, stream = chat_parameters(body, MODEL_ID)
+        tools = body.get("tools")
+        if tools is not None and not isinstance(tools, list):
+            raise RequestError("tools must be a list", "tools")
     except RequestError as exc:
         return request_error(exc)
     eng = get_engine()
@@ -536,8 +606,12 @@ async def chat(req: Request):
     def prepare():
         with TOKENIZER_LOCK:
             t_t0 = time.perf_counter()
-            text = eng.tok.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True,
-                                               **tpl_kw)
+            extra = dict(tpl_kw)
+            if tools:
+                extra["tools"] = tools
+            text = eng.tok.apply_chat_template(_normalize_tool_messages(msgs), tokenize=False,
+                                               add_generation_prompt=True,
+                                               **extra)
             t_tk = time.perf_counter()
             ids = eng.tok(text, return_tensors="pt").input_ids[0].tolist()
             timings = {"chat_template_ms": round((t_tk - t_t0) * 1e3, 2),
@@ -584,11 +658,17 @@ async def chat(req: Request):
                     prefill_tokens=max(0, p.get("n_prefill", 0)),
                     ttft_ms_sum=p.get("ttft_ms", 0),
                     tpot_ms_sum=p.get("tpot_ms", 0), tpot_n=1)
+        clean_txt, tool_calls = _parse_tool_calls(txt)
+        message = {"role": "assistant", "content": clean_txt if (clean_txt or not tool_calls) else None}
+        if tool_calls:
+            message["tool_calls"] = tool_calls
+            finish = "tool_calls"
+        else:
+            finish = "stop" if (toks and toks[-1] in eng.stop_ids) else "length"
         return {
             "id": cid, "object": "chat.completion", "created": created,
             "model": MODEL_ID,
-            "choices": [{"index": 0, "message": {"role": "assistant", "content": txt},
-                         "finish_reason": "stop" if (toks and toks[-1] in eng.stop_ids) else "length"}],
+            "choices": [{"index": 0, "message": message, "finish_reason": finish}],
             "usage": {"prompt_tokens": len(ids), "completion_tokens": len(toks),
                       "total_tokens": len(ids) + len(toks)},
             "fnx_stats": {"ttft_ms": round(p.get("ttft_ms", 0) + qms, 2), "seconds": round(dt, 3),
@@ -604,6 +684,16 @@ async def chat(req: Request):
         t_dc = 0.0
         token_ids, emitted = [], []
         decoder = DecodeStream(skip_special_tokens=True)
+        held = ""            # 仅当请求带 tools：用于检测 <tool_call 的尾部缓冲
+        tool_mode = False
+        calls = None
+
+        def chunk(delta, finish=None):
+            d = {"id": cid, "object": "chat.completion.chunk", "created": created,
+                 "model": MODEL_ID,
+                 "choices": [{"index": 0, "delta": delta, "finish_reason": finish}]}
+            return "data: " + json.dumps(d, ensure_ascii=False) + "\n\n"
+
         LOCK.acquire()
         try:
             for ev in eng.generate(ids, max_new, temp, tpl_kw):
@@ -621,24 +711,48 @@ async def chat(req: Request):
                     emitted.append(piece)
                     if first is None:
                         first = time.perf_counter() - t0
-                d = {"id": cid, "object": "chat.completion.chunk", "created": created,
-                     "model": MODEL_ID,
-                     "choices": [{"index": 0, "delta": {"content": piece}, "finish_reason": None}]}
+                # ── 始终开启：保留可能属于 <tool_call> 的尾巴，其余照常流式发出 ──
+                out = ""
+                if piece:
+                    if not tool_mode:
+                        held += piece
+                        k = held.find("<tool_call")
+                        if k >= 0:
+                            out, held, tool_mode = held[:k], held[k:], True
+                        else:
+                            keep = 0
+                            for L in range(min(len(held), len("<tool_call>")), 0, -1):
+                                if "<tool_call>"[:L] == held[-L:]:
+                                    keep = L
+                                    break
+                            out = held[:len(held) - keep] if keep else held
+                            held = held[len(held) - keep:] if keep else ""
+                    else:
+                        held += piece
                 t_dc += time.perf_counter() - a
-                yield "data: " + json.dumps(d, ensure_ascii=False) + "\n\n"
-            # A length limit can split a character. Match the tokenizer's
-            # ordinary decode for the final incomplete suffix as well.
-            decoded = decode_text(eng, token_ids)
-            sent = "".join(emitted)
-            if decoded.startswith(sent) and len(decoded) > len(sent):
-                if first is None:
-                    first = time.perf_counter() - t0
-                d["choices"][0]["delta"]["content"] = decoded[len(sent):]
-                yield "data: " + json.dumps(d, ensure_ascii=False) + "\n\n"
+                if out:
+                    yield chunk({"content": out})
+            tail, calls = _parse_tool_calls(held) if tool_mode else (held, None)
+            if tail:
+                yield chunk({"content": tail})
+            if calls:
+                yield chunk({"tool_calls": calls})
+            if not tool_mode and not held:
+                # A length limit can split a character. Match the tokenizer's
+                # ordinary decode for the final incomplete suffix as well.
+                decoded = decode_text(eng, token_ids)
+                sent = "".join(emitted)
+                if decoded.startswith(sent) and len(decoded) > len(sent):
+                    if first is None:
+                        first = time.perf_counter() - t0
+                    yield chunk({"content": decoded[len(sent):]})
             dt = time.perf_counter() - t0
             # Capture request statistics before releasing the shared engine.
             p = dict(eng.last_prof or {})
-            reason = "stop" if token_ids and token_ids[-1] in eng.stop_ids else "length"
+            if calls:
+                reason = "tool_calls"
+            else:
+                reason = "stop" if token_ids and token_ids[-1] in eng.stop_ids else "length"
             done = {"id": cid, "object": "chat.completion.chunk", "created": created,
                     "model": MODEL_ID,
                     "choices": [{"index": 0, "delta": {}, "finish_reason": reason}],

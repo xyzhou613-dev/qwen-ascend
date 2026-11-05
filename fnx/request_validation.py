@@ -52,6 +52,8 @@ def chat_parameters(body, model_id):
             if not all(isinstance(p, dict) and p.get('type') == 'text' and isinstance(p.get('text'), str) for p in content):
                 raise RequestError('only text content parts are supported', param + '.content')
             content = ''.join(p['text'] for p in content)
+        if content is None and message.get('tool_calls'):
+            content = ''          # OpenAI: 带 tool_calls 的 assistant 消息 content 可为 null
         if not isinstance(content, str):
             raise RequestError('content must be a string or list of text parts', param + '.content')
         normalized.append(dict(message, content=content))
