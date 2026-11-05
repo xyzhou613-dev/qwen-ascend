@@ -8,7 +8,8 @@ export ASCEND_RT_VISIBLE_DEVICES=0,1
 exec vllm serve /models/Qwen3.8-27B \
   --served-model-name qwen3.8-27b \
   --tensor-parallel-size 2 \
-  --max-model-len 32768 \
+  --max-model-len 262144 \
+  --override-generation-config '{"max_new_tokens":8192}' \
   --gpu-memory-utilization 0.90 \
   --host 0.0.0.0 --port 8000 \
   --trust-remote-code \

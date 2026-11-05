@@ -16,17 +16,17 @@
     },
     "27b": {
       "kind": "vllm",
-      "desc": "Qwen3.8-27B dense bf16，vLLM-Ascend 0.23.0，TP=2",
+      "desc": "Qwen3.8-27B BF16 TP=2，262144 总窗口、8192 输出上限；新窗口待实测",
       "model_id": "qwen3.8-27b",
       "model_path": "/models/Qwen3.8-27B",
       "lqp_path": "/models/Qwen3.8-27B-LQP-tp2",
       "lqp_args": "--compilation-config '{\"mode\":3,\"cudagraph_mode\":\"FULL_DECODE_ONLY\",\"cudagraph_capture_sizes\":[1,2,4,8]}' --additional-config '{\"ascend_compilation_config\":{\"enable_npugraph_ex\":false}}'",
       "port": 8000,
       "tp": 2,
-      "max_model_len": 32768,
+      "max_model_len": 262144,
       "gpu_memory_utilization": 0.9,
       "devices": "0,1",
-      "vllm_args": "--trust-remote-code --enable-auto-tool-choice --tool-call-parser qwen3_xml --limit-mm-per-prompt '{\"image\": 0, \"video\": 0}'",
+      "vllm_args": "--trust-remote-code --enable-auto-tool-choice --tool-call-parser qwen3_xml --limit-mm-per-prompt '{\"image\": 0, \"video\": 0}' --override-generation-config '{\"max_new_tokens\":8192}'",
       "health": "/v1/models",
       "start_log": "/root/ascend-dev/logs/modelctl-27b.log"
     }

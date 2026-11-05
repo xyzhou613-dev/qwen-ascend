@@ -1,11 +1,16 @@
 # Qwen3.8-27B 部署到 2×910B4（vLLM-Ascend）
 
+> 2026-11-05 配置修订：27B 改为 **262144-token 总窗口、8192-token 输出上限**，尚未启动或实测，由用户验收。总窗口包含输入与输出，预留完整 8192 输出时，模板化输入最多 253952 token。LQP、BF16、TP=2 和显存利用率 0.90 保持不变。
+>
+> `models.json` 的 `max_model_len=262144`；`vllm_args` 增加 `--override-generation-config '{"max_new_tokens":8192}'`，对 LQP 和原始权重回退路径均生效。请求显式指定 `max_tokens:8192`，模型可因 EOS 提前结束。原文中的启动耗时、显存、速度及精度均为旧 32768 窗口记录，不能当作新窗口实测结果。
+
+
 > 2026-11-03 更新：`modelctl.sh start 27b` 可使用 BF16 TP=2 离线分片。见[离线分片与切换实测](#27b-lqp)。
 
 日期：2026-11-01
 机器：192.168.18.206，2 × Ascend 910B4（每卡 64 GB），容器 `fnx`（镜像 `quay.io/ascend/vllm-ascend:v0.23.0`）
 
-## 1. 现状（已部署并通过冒烟）
+## 1. 部署配置（262k 新窗口待验收；旧32k版本曾通过冒烟）
 
 | 项 | 值 |
 |---|---|
@@ -13,7 +18,7 @@
 | 模型 id | `qwen3.8-27b` |
 | 权重 | `/models/Qwen3.8-27B`（bf16，18 分片，**52 GB**） |
 | 并行 | `--tensor-parallel-size 2`，每卡权重 25.2 GB，进程占用 **57.2 GB/卡** |
-| 上下文 | `--max-model-len 32768`（模型本身支持 262144，可加） |
+| 上下文 | `--max-model-len 262144`，输出上限 8192；待用户实测 |
 | 实测 | 稳态 **TPOT 37.2 ms ≈ 26.9 tok/s**（首请求含图编译，约 50 s） |
 | 多模态 | 视觉塔已加载；启动时用 `--limit-mm-per-prompt '{"image":0,"video":0}'` 只走纯文本 |
 
@@ -49,7 +54,7 @@ tar cf - -C /home/server/bole Qwen3.8-27B \
 ```bash
 ASCEND_RT_VISIBLE_DEVICES=0,1 vllm serve /models/Qwen3.8-27B \
   --served-model-name qwen3.8-27b --tensor-parallel-size 2 \
-  --max-model-len 32768 --gpu-memory-utilization 0.90 \
+  --max-model-len 262144 --override-generation-config '{"max_new_tokens":8192}' --gpu-memory-utilization 0.90 \
   --host 0.0.0.0 --port 8000 --trust-remote-code \
   --limit-mm-per-prompt '{"image": 0, "video": 0}'
 ```
@@ -66,6 +71,8 @@ docker exec fnx bash -lc "pkill -f 'vllm serve'"
 **注意**：`max_model_len` 与请求的 `max_tokens` 共享预算。32768 上下文下，
 `max_tokens=32768` 的请求会被 400 拒绝（prompt 无处安放）；评测时把输出上限设为 16384 即可，
 或重启时把 `--max-model-len` 调大。
+
+新配置使用完整 8192 输出时，总输入预算为 253952（含聊天模板）；下述旧 32768 窗口说明仅用于解释预算共享规则。
 
 ## 5. 思考链默认是开的
 
@@ -105,7 +112,7 @@ curl -s http://127.0.0.1:8000/health
 <a id="27b-lqp"></a>
 ## 8. BF16 离线分片与模型切换
 
-27B 采用 vLLM 的 `sharded_state` 格式。导出时用原始 loader 完成 TP 切分和权重合并，在 Ascend 把权重转成算子布局之前按 rank 保存。启动时每张卡只读取自己的分片，仍走同一套 Ascend 权重后处理。模型保持 BF16、TP=2 和 32768 上下文，生成接口及模型 ID 与原部署相同。[vLLM Sharded State](https://docs.vllm.ai/en/stable/api/vllm/model_executor/model_loader/sharded_state_loader/)
+27B 采用 vLLM 的 `sharded_state` 格式。导出时用原始 loader 完成 TP 切分和权重合并，在 Ascend 把权重转成算子布局之前按 rank 保存。启动时每张卡只读取自己的分片，仍走同一套 Ascend 权重后处理。模型保持 BF16 和 TP=2；离线分片本身不固定窗口。当前启动配置为 262144 总窗口、8192 输出上限，待用户验收；后面的历史实测仍是旧 32768 窗口。生成接口及模型 ID 与原部署相同。[vLLM Sharded State](https://docs.vllm.ai/en/stable/api/vllm/model_executor/model_loader/sharded_state_loader/)
 
 快速配置单独缩减启动图准备，启用 `FULL_DECODE_ONLY` 并捕获 1/2/4/8 四种大小。Prefill 和超过捕获范围的批次走 eager。调度并发上限仍由 vLLM 配置控制。[vLLM-Ascend 0.23 图模式](https://docs.vllm.ai/projects/ascend/en/v0.23.0/user_guide/feature_guide/graph_mode.html)
 
@@ -142,7 +149,7 @@ python3 bench_model_switch.py 27b /tmp/flash-to-27b.json
 python3 bench_model_switch.py flash-next /tmp/27b-to-flash.json
 ```
 
-### 2026-11-03 实测
+### 2026-11-03 旧 32768 窗口实测（非新262k配置）
 
 双 910B4，27B 为 BF16 TP=2 文本模式，保留系统正常页缓存。原版 Flash Next → 27B 从切换命令到脚本健康检查为约 **238 秒**，首次流式请求 TTFT 为 **0.52 秒**。优化后两轮到目标模型接口就绪为 **179.23 / 181.48 秒**。
 
