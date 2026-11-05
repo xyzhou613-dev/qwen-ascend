@@ -446,6 +446,8 @@ def health():
             "index_score": os.environ.get("FNX_INDEX_SCORE", "0") == "1",
             "conv_native": os.environ.get("FNX_CONV_NATIVE", "0") == "1",
             "index_expand": os.environ.get("FNX_INDEX_EXPAND", "0") == "1",
+            "mix_reduce": os.environ.get("FNX_MIX_REDUCE", "0") == "1",
+            "moe_reduce": os.environ.get("FNX_MOE_REDUCE", "0") == "1",
             "dual_write": os.environ.get("FNX_DUAL_WRITE", "0") == "1",
             "pipeline_transfers": dict(getattr(model,"transport_stats",{})),
             "index_caps": sorted(getattr(model,"index_decode_graphs",{})),

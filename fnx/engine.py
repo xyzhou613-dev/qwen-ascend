@@ -811,7 +811,13 @@ def gated_residual(h, hc_norm_w, w_down, w_up, w_inj, n_inj=0):
         dp, ip = di, None
     mix = F.silu(dp / HC)
     mix = torch.sigmoid(lin(mix, w_up))
-    mixed = (mix.view(b, 1, HC, H) * hn.view(b, 1, HC, H)).mean(dim=-2).view(b, 1, H)
+    mixed = None
+    if os.environ.get("FNX_MIX_REDUCE", "0") == "1":
+        from .weighted_reduce import reduce
+        mixed = reduce(hn.view(b, HC, H), mix.view(b, HC, H), mean=True)
+    if mixed is None:
+        mixed = (mix.view(b, 1, HC, H) * hn.view(b, 1, HC, H)).mean(dim=-2)
+    mixed = mixed.view(b, 1, H)
     if n_inj:
         return mixed, (2.0 * torch.sigmoid(ip / HC)).view(b, 1, HC)
     if w_inj is None:
@@ -1707,6 +1713,7 @@ class FnLayer:
                        if os.environ.get("FNX_MOE_SWIGLU_FP32", "0") == "1" else
                        (F.silu(gu[:, :MI].float()) * gu[:, MI:].float()).to(torch.bfloat16))
                 yd = self.exp_dn.apply_grouped(act, ends, host_ends)
+                y = None
                 if b >= 512 and os.environ.get("FNX_MOE_INVERSE", "0") == "1":
                     # Invert only the small row permutation, then gather the
                     # large expert output. Keep token/expert order, BF16 multiply
@@ -1719,10 +1726,15 @@ class FnLayer:
                     else:
                         inverse = torch.empty_like(order).index_copy_(
                             0, order, torch.arange(order.numel(), device=x.device))
-                    restored = yd.index_select(0, inverse)
+                    if os.environ.get("FNX_MOE_REDUCE", "0") == "1":
+                        from .weighted_reduce import reduce
+                        y = reduce(yd, w, inverse=inverse)
+                    if y is None:
+                        restored = yd.index_select(0, inverse)
                 else:
                     restored = torch.empty_like(yd).index_copy_(0, order, yd)
-                y = (restored.view(b, TOPK, H) * w.unsqueeze(-1)).sum(1)
+                if y is None:
+                    y = (restored.view(b, TOPK, H) * w.unsqueeze(-1)).sum(1)
                 return (y + sh).view(b, 1, H)
             # ★★ 第 37 轮：aclnn per-group W4A16（解包/乘 scale/GEMM 全在 AI Core 内）
             #   实测（真实形状，E=512 分布，图内 replay）0.32 ms/层 vs torch 解包路径 1.0 ms。
@@ -1740,7 +1752,11 @@ class FnLayer:
                        if os.environ.get("FNX_MOE_SWIGLU_FP32", "0") == "1" else
                        (F.silu(y[:, :MI].float()) * y[:, MI:].float()).to(torch.bfloat16))
             y2 = self.exp_dn.apply_diag(act, idx[0])
-            y2 = (y2 * w[0].unsqueeze(-1)).sum(dim=0, keepdim=True)
+            reduced = None
+            if os.environ.get("FNX_MOE_REDUCE", "0") == "1":
+                from .weighted_reduce import reduce
+                reduced = reduce(y2, w)
+            y2 = reduced if reduced is not None else (y2 * w[0].unsqueeze(-1)).sum(dim=0, keepdim=True)
             return (y2 + sh).view(1, 1, H)
 
         if b > 1:

@@ -1,0 +1,449 @@
+{
+  "date": "2026-11-05",
+  "baseline_commit": "1fa72591ccb17fae0949e6a6b42263db32f122b5",
+  "records": {
+    "baseline": {
+      "ctx": 262144,
+      "prompt_tokens": 262016,
+      "ttft_s": 87.874,
+      "e2e_s": 94.089,
+      "stats": {
+        "ttft_ms": 86770.27,
+        "tokens": 128,
+        "seconds": 92.985,
+        "tpot_ms": 48.94,
+        "tok_decode_ms": 7.19,
+        "prefill_ms": 86632.73,
+        "prefill_tok_s": 3024.4,
+        "n_prefill": 262012
+      },
+      "answer": "根据资料内容，三个项目的验收码如下：\n\n1. 海棠：7319\n2. 松柏：8652\n3. 银杏：2946\n\n关于资料中涉及的推理服务和长文档处理技术，以下是详细的技术解析：\n\n在现代大规模深度学习推理场景中，尤其是针对昇腾处理器等专用AI芯片，性能优化的核心往往不在于单一算子的峰值算力，而在于系统级的数据搬运效率与内存带宽利用率。资料指出，最容易被低估的耗时环节是数据在设备之间的搬运。虽然单次跨设备张量拷贝的数据量看似不大，但若其出现在每个",
+      "recall_hits": 3
+    },
+    "candidate": {
+      "ctx": 262144,
+      "prompt_tokens": 262016,
+      "ttft_s": 86.666,
+      "e2e_s": 92.654,
+      "stats": {
+        "ttft_ms": 85539.12,
+        "tokens": 128,
+        "seconds": 91.527,
+        "tpot_ms": 47.15,
+        "tok_decode_ms": 7.7,
+        "prefill_ms": 85392.8,
+        "prefill_tok_s": 3068.31,
+        "n_prefill": 262012
+      },
+      "answer": "根据您提供的资料，提取的三个项目验收码如下：\n\n1.  **海棠**：7319\n2.  **松柏**：8652\n3.  **银杏**：2946\n\n***\n\n**关于昇腾处理器推理服务优化与长文档处理技术的详细解析**\n\n在昇腾处理器面向的大规模深度学习训练与推理场景中，软件栈以 CANN 为核心，其架构设计向上提供框架适配层，向下管理芯片的算力与内存资源。在实际的工程部署与性能调优过程中，一个极易被低估但至关重要的环节并非算子本身的峰值",
+      "recall_hits": 3
+    },
+    "production": {
+      "ctx": 262144,
+      "prompt_tokens": 262016,
+      "ttft_s": 86.703,
+      "e2e_s": 92.669,
+      "stats": {
+        "ttft_ms": 85586.02,
+        "tokens": 128,
+        "seconds": 91.552,
+        "tpot_ms": 46.98,
+        "tok_decode_ms": 9.45,
+        "prefill_ms": 85436.01,
+        "prefill_tok_s": 3066.76,
+        "n_prefill": 262012
+      },
+      "answer": "根据资料内容，三个项目的验收码如下：\n\n1. 海棠：7319\n2. 松柏：8652\n3. 银杏：2946\n\n***\n\n**昇腾处理器推理服务优化与长文档处理技术详解**\n\n在昇腾处理器面向的大规模深度学习训练与推理场景中，软件栈以 CANN 为核心，其架构设计向上提供框架适配层，向下直接管理芯片的算力与内存资源。在实际的工程部署与性能调优过程中，一个极易被低估但至关重要的环节并非算子本身的峰值计算性能，而是数据在设备之间搬运",
+      "recall_hits": 3
+    },
+    "candidate_sustained": {
+      "ctx": 262144,
+      "prompt_tokens": 261120,
+      "ttft_s": 85.748,
+      "e2e_s": 133.992,
+      "stats": {
+        "ttft_ms": 84668.88,
+        "tokens": 1024,
+        "seconds": 132.912,
+        "tpot_ms": 47.16,
+        "tok_decode_ms": 61.64,
+        "prefill_ms": 84531.38,
+        "prefill_tok_s": 3088.98,
+        "n_prefill": 261116
+      },
+      "answer": "根据资料内容，提取的三个项目验收码如下：\n\n1.  **海棠**：7319\n2.  **松柏**：8652\n3.  **银杏**：2946\n\n***\n\n**昇腾处理器架构下的混合专家模型推理优化与量化误差深度解析**\n\n在大规模深度学习训练与推理的广阔领域中，昇腾处理器（Ascend）及其核心软件栈 CANN（Compute Architecture for Neural Networks）构成了高性能计算的基础设施。随着现代混合专家模型（Mixture of Experts, MoE）将参数规模推向新的量级，推理服务的瓶颈已从单纯的算力限制转向了内存带宽的限制。与此同时，长文档处理中的量化技术，特别是分组量化中的误差分配，成为了影响模型精度的关键因素。本文将深入探讨这一技术栈中的核心挑战，包括数据搬运开销、稀疏激活带来的带宽瓶颈、以及量化过程中缩放因子与分组大小对误差的非线性影响，旨在通过精确的测量与理论分析，揭示那些反直觉但至关重要的工程结论。\n\n**一、 昇腾处理器与 CANN 软件栈：性能优化的基石**\n\n昇腾处理器面向大规模深度学习训练与推理场景，其软件栈以 CANN 为核心。CANN 向上提供框架适配层，向下管理芯片的算力与内存资源。这种分层架构旨在屏蔽底层硬件的复杂性，为上层应用提供统一的编程接口。然而，在实际部署中，最容易被低估的环节往往不是算子（Operator）本身的峰值性能，而是数据在设备之间搬运所带来的固定开销。\n\n在传统的性能优化直觉中，工程师往往倾向于优化计算密集型的算子，例如矩阵乘法或卷积操作，认为提升这些算子的执行效率能直接带来整体性能的提升。然而，这种直觉在现代大规模模型部署中往往是误导性的。一次跨设备的张量拷贝，看起来只有几兆字节，似乎微不足道，但当它出现在每个时间步的关键路径上时，累积起来的延迟可能远远超过计算本身。\n\n这种现象在长文档处理或自回归生成任务中尤为明显。在这些场景中，模型需要处理极长的上下文序列，或者在生成过程中不断累积历史状态。如果数据搬运策略不当，例如频繁地在主机内存与设备显存之间同步中间结果，或者在多卡并行推理中未能有效隐藏通信延迟，那么通信开销将成为系统吞吐量的主要限制因素。因此，性能优化应当先把每一段耗时的来源拆开，再决定优化哪一段，而不是凭直觉去改写最显眼的那段代码。\n\n工程上的教训是简单且略带不适的：测量胜过直觉，而测量的顺序决定了你浪费多少时间。每一个关于时间去向的猜测，都应该被替换为一个计数器、一个时间戳或一个校验和。因为一个错误的猜测不仅毫无用处，它还会主动消耗你原本用于真正修复问题的预算。当系统产生看似合理但实际错误的输出时，最有价值的单一工具是一个数值指纹，它在计算发生变化时会随之改变，从而使得正确性检查不依赖于输出的可读性。\n\n在昇腾处理器的优化实践中，这意味着我们需要建立精细的性能剖析体系。首先，需要区分计算时间、通信时间和同步等待时间。其次，需要识别关键路径上的阻塞点。例如，在混合专家模型中，专家路由（Routing）产生的动态调度可能导致负载不均，进而引发设备间的同步等待。如果优化者只关注单个专家的计算效率，而忽略了路由带来的通信与同步开销，那么优化效果将大打折扣。通过引入数值指纹（如输出张量的哈希值或统计矩），可以在不依赖人工阅读输出结果的情况下，快速验证优化后的计算逻辑是否保持了数值一致性，从而确保在追求性能的同时不牺牲模型的正确性。\n\n**二、 混合专家模型（MoE）：从算力瓶颈到带宽瓶颈的范式转移**\n\n现代混合专家模型把参数规模推到新的量级。以稀疏激活为例，一个拥有数百个专家的模型，在单个时间步只会激活其中很小的一部分。这种稀疏性设计旨在通过增加总参数量来提升模型容量，同时保持推理时的计算量（FLOPs）在可控范围内。于是，权重的读取量由激活专家的数量决定，而非全部参数量。\n\n这带来一个重要的结论：推理的瓶颈从算力转向了内存带宽。在传统的稠密模型中，计算强度（Arithmetic Intensity，即每字节内存访问对应的浮点运算次数）通常较高，处理器往往受限于计算单元的处理能力。然而，在 MoE 模型中，由于每次推理只激活少量专家，且这些专家可能分散在不同的内存位置，导致内存访问模式变得稀疏且随机。此时，衡量指标也应该从每秒浮点运算次数（FLOPS），换成每秒能够读入多少字节的有效权重（Bandwidth Utilization）。\n\n若模型权重量化到四位，每字节可以承载两个权重值，带宽利用率还需要额外考虑解包与反量化所引入的指令开销。四位量化（4-bit",
+      "recall_hits": 3
+    }
+  },
+  "short": {
+    "baseline": [
+      {
+        "run": 1,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 5.393,
+        "end_to_end_s": 11.442,
+        "prefill_s": 5.284,
+        "prefill_tok_s": 1525.32,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 47.62,
+        "server_total_s": 11.404
+      },
+      {
+        "run": 2,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 5.371,
+        "end_to_end_s": 11.411,
+        "prefill_s": 5.275,
+        "prefill_tok_s": 1528.08,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 47.56,
+        "server_total_s": 11.378
+      },
+      {
+        "run": 3,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 5.37,
+        "end_to_end_s": 11.411,
+        "prefill_s": 5.274,
+        "prefill_tok_s": 1528.21,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 47.56,
+        "server_total_s": 11.378
+      }
+    ],
+    "candidate": [
+      {
+        "run": 1,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 5.419,
+        "end_to_end_s": 11.236,
+        "prefill_s": 5.298,
+        "prefill_tok_s": 1521.36,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 45.8,
+        "server_total_s": 11.198
+      },
+      {
+        "run": 2,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 5.309,
+        "end_to_end_s": 11.119,
+        "prefill_s": 5.202,
+        "prefill_tok_s": 1549.36,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 45.75,
+        "server_total_s": 11.087
+      },
+      {
+        "run": 3,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 5.298,
+        "end_to_end_s": 11.133,
+        "prefill_s": 5.204,
+        "prefill_tok_s": 1548.7,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 45.94,
+        "server_total_s": 11.102
+      }
+    ],
+    "production": [
+      {
+        "run": 1,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 5.413,
+        "end_to_end_s": 11.183,
+        "prefill_s": 5.292,
+        "prefill_tok_s": 1523.12,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 45.43,
+        "server_total_s": 11.144
+      },
+      {
+        "run": 2,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 5.292,
+        "end_to_end_s": 11.054,
+        "prefill_s": 5.198,
+        "prefill_tok_s": 1550.52,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 45.37,
+        "server_total_s": 11.023
+      },
+      {
+        "run": 3,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 5.291,
+        "end_to_end_s": 11.045,
+        "prefill_s": 5.197,
+        "prefill_tok_s": 1550.77,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 45.3,
+        "server_total_s": 11.014
+      }
+    ]
+  },
+  "quality": {
+    "baseline": [
+      {
+        "mean_nll": 2.165267,
+        "ppl": 8.7169,
+        "top1_acc": 0.485,
+        "n": 200
+      }
+    ],
+    "candidate": [
+      {
+        "mean_nll": 2.165267,
+        "ppl": 8.7169,
+        "top1_acc": 0.485,
+        "n": 200
+      },
+      {
+        "mean_nll": 2.165267,
+        "ppl": 8.7169,
+        "top1_acc": 0.485,
+        "n": 200
+      }
+    ],
+    "production": [
+      {
+        "mean_nll": 2.165267,
+        "ppl": 8.7169,
+        "top1_acc": 0.485,
+        "n": 200
+      }
+    ]
+  },
+  "health": {
+    "status": "ok",
+    "engine_loaded": true,
+    "ctx": 262144,
+    "pipeline_stages": 2,
+    "worker_alive": true,
+    "prefill_chunk": 8192,
+    "pipeline_transport": "hybrid",
+    "delta_compact": true,
+    "index_score": true,
+    "conv_native": true,
+    "index_expand": true,
+    "mix_reduce": true,
+    "moe_reduce": true,
+    "dual_write": true,
+    "pipeline_transfers": {
+      "peer_transfers": 79,
+      "peer_bytes": 5851054080,
+      "host_transfers": 853,
+      "host_bytes": 28119040
+    },
+    "index_caps": [
+      16384,
+      32768,
+      65536,
+      98304,
+      131072,
+      196608,
+      262144
+    ],
+    "native_sparse": true,
+    "native_dual": true,
+    "index_unique": true,
+    "moe_inverse": true,
+    "moe_inverse_sort": true,
+    "state_dual_slim": true,
+    "conversation_state_bytes": 7763871776,
+    "rope_cache": true,
+    "delta_window": 2048,
+    "delta_native": true,
+    "chunk_graph": true,
+    "qsa_indexer": true,
+    "qsa_sparse": true
+  },
+  "real_layer": {
+    "layer": 0,
+    "decode_steps": 128,
+    "graph_dynamic_input": true,
+    "chunks": [
+      128,
+      512,
+      8192
+    ],
+    "state_fp32_bit_exact": true,
+    "conv_bf16_bit_exact": true,
+    "output_bf16_bit_exact": true
+  },
+  "microbenchmark": {
+    "orders": {
+      "mix": 0,
+      "moe": 0
+    },
+    "records": [
+      {
+        "kind": "mix",
+        "batch": 1,
+        "order": 0,
+        "exact": true,
+        "reference_ms": 0.012470967703848146,
+        "native_ms": 0.010183626727666706
+      },
+      {
+        "kind": "mix",
+        "batch": 128,
+        "order": 0,
+        "exact": true,
+        "reference_ms": 0.3248859429731965,
+        "native_ms": 0.3244259860366583
+      },
+      {
+        "kind": "mix",
+        "batch": 512,
+        "order": 0,
+        "exact": true,
+        "reference_ms": 0.3273409674875438,
+        "native_ms": 0.3235309268347919
+      },
+      {
+        "kind": "mix",
+        "batch": 8192,
+        "order": 0,
+        "exact": true,
+        "reference_ms": 0.7287925109267235,
+        "native_ms": 0.4996570060029626
+      },
+      {
+        "kind": "moe",
+        "batch": 1,
+        "order": 0,
+        "exact": true,
+        "reference_ms": 0.020171155483694747,
+        "native_ms": 0.010123156243935227
+      },
+      {
+        "kind": "moe",
+        "batch": 128,
+        "order": 0,
+        "exact": true,
+        "reference_ms": 0.3333810018375516,
+        "native_ms": 0.32441155053675175
+      },
+      {
+        "kind": "moe",
+        "batch": 512,
+        "order": 0,
+        "exact": true,
+        "reference_ms": 0.32867654226720333,
+        "native_ms": 0.32563600689172745
+      },
+      {
+        "kind": "moe",
+        "batch": 8192,
+        "order": 0,
+        "exact": true,
+        "reference_ms": 2.18573200982064,
+        "native_ms": 0.7493274169974029
+      }
+    ]
+  },
+  "rejected_first_kernel": {
+    "orders": {
+      "mix": 0,
+      "moe": 0
+    },
+    "records": [
+      {
+        "kind": "mix",
+        "batch": 1,
+        "order": 0,
+        "exact": true,
+        "reference_ms": 0.01257659459952265,
+        "native_ms": 0.009937373761204071
+      },
+      {
+        "kind": "mix",
+        "batch": 128,
+        "order": 0,
+        "exact": true,
+        "reference_ms": 0.32068596919998527,
+        "native_ms": 0.31780602876096964
+      },
+      {
+        "kind": "mix",
+        "batch": 512,
+        "order": 0,
+        "exact": true,
+        "reference_ms": 0.3312610788270831,
+        "native_ms": 0.32016600016504526
+      },
+      {
+        "kind": "mix",
+        "batch": 8192,
+        "order": 0,
+        "exact": true,
+        "reference_ms": 0.7307120249606669,
+        "native_ms": 1.8802760168910027
+      },
+      {
+        "kind": "moe",
+        "batch": 1,
+        "order": 0,
+        "exact": true,
+        "reference_ms": 0.02067773493763525,
+        "native_ms": 0.010159719749935903
+      },
+      {
+        "kind": "moe",
+        "batch": 128,
+        "order": 0,
+        "exact": true,
+        "reference_ms": 0.32882101368159056,
+        "native_ms": 0.32448599813506007
+      },
+      {
+        "kind": "moe",
+        "batch": 512,
+        "order": 0,
+        "exact": true,
+        "reference_ms": 0.3389560151845217,
+        "native_ms": 0.3178910119459033
+      },
+      {
+        "kind": "moe",
+        "batch": 8192,
+        "order": 0,
+        "exact": true,
+        "reference_ms": 2.180782030336559,
+        "native_ms": 3.961257927585393
+      }
+    ]
+  },
+  "runtime_sha256": {
+    "weighted_reduce.py": "55ce379e971fd1d0053474d811b26fefbf49b09e217485ba41df294399fc3e98",
+    "libfnx_reduce.so": "4fc2f8c447ac0804e83f769f2283f6c9c54ebc0527377fa5cfee496d41a82825",
+    "engine.py": "7b5fa86e809454d67ea6ea3b5ab4e8aae891a2f62832d9b86b2495996a7e12d4",
+    "server.py": "e63933585aa3245398cc616a0a302bdd5b48c02b3eb154116b450a7eba44a670"
+  },
+  "notes": [
+    "Loaded model, server-local HTTP, fresh 262016 input / 128 output for matched comparison",
+    "Candidate sustained test uses 261120 input / 1024 output",
+    "Microbenchmarks use synchronized graph wall time, not request wall time; B=1 amortizes over 32 invocations",
+    "Routing, TopK, quantization and recurrent precision are unchanged",
+    "No rerun of the historical 100-question suite in this round"
+  ]
+}
