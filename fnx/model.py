@@ -497,7 +497,7 @@ class FnModel:
         self.reset()
 
     @torch.no_grad()
-    def prefill_chunk(self, ids):
+    def prefill_chunk(self, ids, *, pipeline=False):
         """★ 第 46 轮：分块 prefill（一次算 T 个 token，eager）。
 
         为什么值得：prefill 原来逐 token 跑同一套 forward，每 token 都要把整层权重读一遍。
@@ -511,7 +511,8 @@ class FnModel:
         T = E._CHUNK
         if E.B != 1 or T < 1:
             raise ValueError("prefill_chunk requires FNX_BATCH=1 and a positive chunk size")
-        pos0 = int(self.pos0[0])
+        # Pipeline maintains this mirror and synchronizes at IPC publication.
+        pos0 = self._host_pos if pipeline else int(self.pos0[0])
         n = len(ids)
         if pos0 + n > self.kv0.P:
             raise ValueError("prefill exceeds allocated context")
@@ -559,7 +560,8 @@ class FnModel:
             self.ctx = (self.ctx + toks)[-len(self.ctx):]
             pos0 += m
             i += m
-        torch.npu.synchronize()
+        if not pipeline:
+            torch.npu.synchronize()
 
     def step(self, tok, with_head=True):
         """tok 可以是单个 int（B=1）或长度为 B 的列表（多请求批处理）。

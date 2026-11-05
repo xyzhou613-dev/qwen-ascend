@@ -88,7 +88,7 @@ class PipelineModel:
             choices=[size for size in getattr(self.stage0,'chunk_graphs',{}) if size<=remaining]
             size=max(choices) if choices else min(remaining,self.maximum)
             if self.stage0._host_pos<2048 and size>512:size=min(512,remaining)
-            self.stage0.prefill_chunk(ids[offset:offset+size])
+            self.stage0.prefill_chunk(ids[offset:offset+size], pipeline=True)
             if len(self.pending)==2:
                 self._receive();self.pending.popleft()
             if self.peer_owner is not None and (self.transport=='peer' or size>=128):

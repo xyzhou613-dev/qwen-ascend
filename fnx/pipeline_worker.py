@@ -84,8 +84,12 @@ def main():
                 else:body()
                 if with_head and not fused_head:m._head_device()
                 m.pos0.add_(1);m.pos1.add_(1);m._host_pos+=1
-                torch.npu.synchronize(0)
-                value=int(greedy if fused_head else m.row_logits().argmax()) if with_head else None
+                if with_head:
+                    # Reading the scalar already waits for the producing stream.
+                    value = int(greedy if fused_head else m.row_logits().argmax())
+                else:
+                    torch.npu.synchronize(0)
+                    value = None
             elif op=='sample':
                 temperature,=args
                 probs=torch.softmax(m.row_logits().float()/temperature,-1)

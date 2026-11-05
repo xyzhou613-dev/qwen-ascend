@@ -8,15 +8,20 @@ import torch
 import torch.nn.functional as F
 import torch_npu
 
-def write_and_view(store,ki,k,v,pos,P,short):
+def write_and_view(store,ki,k,v,pos,P,short,*,contiguous_positions=False):
     if getattr(store,"native_dual",False):
         original_k,original_v=store.k[ki][:,:,:P],store.v[ki][:,:,:P]
-        original_k[0].transpose(0,1).index_copy_(0,pos,k.contiguous())
-        original_v[0].transpose(0,1).index_copy_(0,pos,v.contiguous())
-        rows=(pos[None,:]+store.head_offsets).reshape(-1)
-        latent=F.pad(torch.cat((k[...,64:],v),-1),(0,64))
-        store.k[ki+store.n].view(2*store.P,512).index_copy_(0,rows,latent.transpose(0,1).contiguous().view(-1,512))
-        store.v[ki+store.n].view(2*store.P,64).index_copy_(0,rows,k[...,:64].transpose(0,1).contiguous().view(-1,64))
+        written = False
+        if contiguous_positions and store.dual_write:
+            from .dual_write import write
+            written = write(store, ki, k, v, pos)
+        if not written:
+            original_k[0].transpose(0,1).index_copy_(0,pos,k.contiguous())
+            original_v[0].transpose(0,1).index_copy_(0,pos,v.contiguous())
+            rows=(pos[None,:]+store.head_offsets).reshape(-1)
+            latent=F.pad(torch.cat((k[...,64:],v),-1),(0,64))
+            store.k[ki+store.n].view(2*store.P,512).index_copy_(0,rows,latent.transpose(0,1).contiguous().view(-1,512))
+            store.v[ki+store.n].view(2*store.P,64).index_copy_(0,rows,k[...,:64].transpose(0,1).contiguous().view(-1,64))
         if short or k.shape[0]==1:return original_k,original_v
         return store.k[ki+store.n][:,:,:P],store.v[ki+store.n][:,:,:P]
     kc,rc=store.k[ki][:,:,:P],store.v[ki][:,:,:P]

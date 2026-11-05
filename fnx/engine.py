@@ -775,6 +775,7 @@ class KVStore:
         self.P,self.n=P,n
         self.native_sparse=os.environ.get("FNX_NATIVE_SPARSE","0")=="1"
         self.native_dual=self.native_sparse and os.environ.get("FNX_NATIVE_DUAL","0")=="1"
+        self.dual_write=self.native_dual and os.environ.get("FNX_DUAL_WRITE","0")=="1"
         if self.native_sparse and (B!=1 or os.environ.get("FNX_QSA_SPARSE")!="1"):
             raise ValueError("native sparse cache requires batch=1 and sparse QSA")
         self.position_major=(not self.native_sparse or self.native_dual) and os.environ.get("FNX_KV_POSITION_MAJOR","0")=="1"
@@ -1028,7 +1029,7 @@ class FnLayer:
             self.w_a = W[p + "in_proj_a.weight"]
             self.w_out = W[p + "out_proj.weight"]
             self.conv_w = W[p + "conv1d.weight"].view(CONV_DIM, 4)
-            self.A_log = W[p + "A_log"].float()
+            self.neg_exp_a = -torch.exp(W[p + "A_log"].float())
             self.dt_bias = W[p + "dt_bias"].float()
             self.dn_norm_w = W[p + "norm.weight"].float()
             # rms_norm() 是 (1+w) 语义，这里需要直接乘，预先减 1
@@ -1190,18 +1191,23 @@ class FnLayer:
             else:
                 beta = torch.sigmoid(lin(h, self.w_b)).view(b, NVH, 1)
                 a = lin(h, self.w_a)
-        g = (-torch.exp(self.A_log) * F.softplus(a.float() + self.dt_bias)).view(b, NVH)
+        g = (self.neg_exp_a * F.softplus(a.float() + self.dt_bias)).view(b, NVH)
 
-        rep = NVH // NKH
-        # 第 40 轮试过：把 S 看成 [b,NKH,rep,HKD,HVD] 直接广播，免掉 repeat_interleave。
-        # 实测 **反而慢 0.7 ms**（5 维张量的逐元素效率不如物化两次 + 4 维），已回退。
-        q = l2norm(q.view(b, NKH, HKD)).repeat_interleave(rep, dim=1) / math.sqrt(HKD)
-        k = l2norm(k.view(b, NKH, HKD)).repeat_interleave(rep, dim=1)
+        native = b == 1 and os.environ.get("FNX_DN_NATIVE", "0") == "1" and os.environ.get("FNX_DN_DECODE_BMM", "0") != "1"
+        compact = native and os.environ.get("FNX_DN_COMPACT", "0") == "1"
+        q = l2norm(q.view(b, NKH, HKD))
+        k = l2norm(k.view(b, NKH, HKD))
         v = v.view(b, NVH, HVD)
+        if compact:
+            q = q / math.sqrt(HKD)
+        else:
+            rep = NVH // NKH
+            q = q.repeat_interleave(rep, dim=1) / math.sqrt(HKD)
+            k = k.repeat_interleave(rep, dim=1)
 
-        if b == 1 and os.environ.get("FNX_DN_NATIVE", "0") == "1" and os.environ.get("FNX_DN_DECODE_BMM", "0") != "1":
+        if native:
             from .delta_native import step as native_delta_step
-            o = native_delta_step(self.S, q, k, v, beta, torch.exp(g)[..., None, None])
+            o = native_delta_step(self.S, q, k, v, beta, torch.exp(g)[..., None, None], compact=compact)
         else:
             S = self.S * torch.exp(g)[..., None, None]                          # 先衰减
             if os.environ.get("FNX_DN_DECODE_BMM", "0") == "1":
@@ -1288,11 +1294,19 @@ class FnLayer:
             keys = apply_rope(keys, cos, sin).float().transpose(0, 1)
         selected, validity = [], []
         tile = int(os.environ.get("FNX_INDEX_TILE", "32"))
+        fuse_scores = T >= 128 and groups >= 16384 and os.environ.get("FNX_INDEX_SCORE", "0") == "1"
+        if fuse_scores:
+            from .score import score as native_score
         for begin in range(0, T, tile):
             end = min(begin + tile, T)
             p = pos[begin:end]
             scores = torch.matmul(q[begin:end].float().reshape(-1, 128), keys)
-            scores = scores.view(end - begin, 4, groups).relu().sum(1) / math.sqrt(128)
+            reduced = None
+            if fuse_scores and end - begin >= 128:
+                reduced = native_score(scores, p)
+            if reduced is None:
+                reduced = scores.view(end - begin, 4, groups).relu().sum(1)
+            scores = reduced / math.sqrt(128)
             complete = starts[None, :] + 4 <= p[:, None] + 1
             chosen = scores.masked_fill(~complete, NEG).topk(min(512, groups), -1).indices
             tokens = (chosen[:, :, None] * 4 + torch.arange(4, device=self.dev)).reshape(end - begin, -1)
@@ -1401,7 +1415,7 @@ class FnLayer:
         kc, vc = self.kv.k[self.ki][:, :, :P], self.kv.v[self.ki][:, :, :P]
         sparse = os.environ.get("FNX_QSA_SPARSE", "0") == "1" and b == 1
         if self.kv.native_sparse:
-            kc,vc=native_write(self.kv,self.ki,k,v,pos,P,self.short_qsa)
+            kc,vc=native_write(self.kv,self.ki,k,v,pos,P,self.short_qsa,contiguous_positions=True)
         elif sparse:
             if self.kv.position_major:
                 kc[0].transpose(0, 1).index_copy_(0, pos, k.contiguous())
@@ -1464,7 +1478,7 @@ class FnLayer:
             else:
                 beta = torch.sigmoid(lin(h, self.w_b)).view(T, NVH, 1)
                 a = lin(h, self.w_a)
-        log_g = (-torch.exp(self.A_log) * F.softplus(a.float() + self.dt_bias)).view(T, NVH)
+        log_g = (self.neg_exp_a * F.softplus(a.float() + self.dt_bias)).view(T, NVH)
         g = torch.exp(log_g)
 
         # 卷积：把 3 列历史拼在左边，再按 4 个位移求和（与逐 token 的滑窗等价）
@@ -1550,7 +1564,7 @@ class FnLayer:
         kc, vc = self.kv.k[self.ki][:, :, :P], self.kv.v[self.ki][:, :, :P]
         # 逐行写 pos（分块时一次写 T 行；eager 下 index_copy_ 可用，不必用 one-hot 广播）
         if self.kv.native_sparse:
-            kc,vc=native_write(self.kv,self.ki,k,v,pos,P,self.short_qsa)
+            kc,vc=native_write(self.kv,self.ki,k,v,pos,P,self.short_qsa,contiguous_positions=True)
         elif self.kv.position_major:
             kc[0].transpose(0, 1).index_copy_(0, pos, k.contiguous())
             vc[0].transpose(0, 1).index_copy_(0, pos, v.contiguous())

@@ -1,0 +1,236 @@
+{
+  "baseline": {
+    "ttft_s": 92.675,
+    "prefill_s": 91.33058,
+    "tpot_ms": 52.13,
+    "tokens_s": 19.182812200268557,
+    "e2e_s": 99.296,
+    "prompt_tokens": 262016,
+    "output_tokens": 128,
+    "recall_hits": 3
+  },
+  "r110": {
+    "ttft_s": 92.949,
+    "prefill_s": 91.56053999999999,
+    "tpot_ms": 51.64,
+    "tokens_s": 19.364833462432223,
+    "e2e_s": 99.507,
+    "prompt_tokens": 262016,
+    "output_tokens": 128,
+    "recall_hits": 3
+  },
+  "production": {
+    "ttft_s": 90.805,
+    "prefill_s": 89.46158,
+    "tpot_ms": 50.98,
+    "tokens_s": 19.615535504119265,
+    "e2e_s": 97.279,
+    "prompt_tokens": 262016,
+    "output_tokens": 128,
+    "recall_hits": 3
+  },
+  "production_sustained": {
+    "ttft_s": 89.716,
+    "prefill_s": 88.39460000000001,
+    "tpot_ms": 50.9,
+    "tokens_s": 19.64636542239686,
+    "e2e_s": 141.786,
+    "prompt_tokens": 261120,
+    "output_tokens": 1024,
+    "recall_hits": 3
+  },
+  "r111": {
+    "ttft_s": 92.217,
+    "prefill_s": 90.85402,
+    "tpot_ms": 51.07,
+    "tokens_s": 19.58096729978461,
+    "e2e_s": 98.704,
+    "prompt_tokens": 262016,
+    "output_tokens": 128,
+    "recall_hits": 3
+  },
+  "r112": {
+    "ttft_s": 90.76,
+    "prefill_s": 89.41844,
+    "tpot_ms": 50.95,
+    "tokens_s": 19.62708537782139,
+    "e2e_s": 97.231,
+    "prompt_tokens": 262016,
+    "output_tokens": 128,
+    "recall_hits": 3
+  },
+  "baseline8k": {
+    "ttft_s": 5.481,
+    "decode_tpot_ms": 50.62,
+    "prefill_s": 5.381
+  },
+  "r110_8k": {
+    "ttft_s": 5.478,
+    "decode_tpot_ms": 50.16,
+    "prefill_s": 5.379
+  },
+  "r111_8k": {
+    "ttft_s": 5.465,
+    "decode_tpot_ms": 49.47,
+    "prefill_s": 5.367
+  },
+  "r112_8k": {
+    "ttft_s": 5.468,
+    "decode_tpot_ms": 49.39,
+    "prefill_s": 5.369
+  },
+  "production8k": {
+    "ttft_s": 5.463,
+    "decode_tpot_ms": 49.33,
+    "prefill_s": 5.368
+  },
+  "quality": [
+    {
+      "mean_nll": 2.165267,
+      "ppl": 8.7169,
+      "top1_acc": 0.485,
+      "n": 200
+    },
+    {
+      "mean_nll": 2.165267,
+      "ppl": 8.7169,
+      "top1_acc": 0.485,
+      "n": 200
+    }
+  ],
+  "kv_write_graph_us": [
+    {
+      "tokens": 1,
+      "exact": true,
+      "baseline_us": 296.0045099258423,
+      "candidate_us": 287.45100498199463
+    },
+    {
+      "tokens": 17,
+      "exact": true,
+      "baseline_us": 295.6542491912842,
+      "candidate_us": 287.7194881439209
+    },
+    {
+      "tokens": 128,
+      "exact": true,
+      "baseline_us": 304.7562599182129,
+      "candidate_us": 289.79625701904297
+    },
+    {
+      "tokens": 512,
+      "exact": true,
+      "baseline_us": 310.80775260925293,
+      "candidate_us": 290.55349826812744
+    },
+    {
+      "tokens": 4096,
+      "exact": true,
+      "baseline_us": 879.2332649230957,
+      "candidate_us": 289.8045063018799
+    },
+    {
+      "tokens": 8192,
+      "exact": true,
+      "baseline_us": 1530.568790435791,
+      "candidate_us": 290.09149074554443
+    }
+  ],
+  "delta_layer": {
+    "layer": 0,
+    "steps": 256,
+    "graph_dynamic_input": true,
+    "state_fp32_bit_exact": true,
+    "conv_bf16_bit_exact": true,
+    "output_bf16_bit_exact": true,
+    "layer_graph_us": {
+      "baseline": 301.6609251499176,
+      "compact": 302.0923435688019,
+      "baseline_repeat": 301.327645778656
+    }
+  },
+  "score_graph_ms": [
+    {
+      "tokens": 1,
+      "groups": 4096,
+      "exact": true,
+      "selected": true,
+      "max_delta": 0.0,
+      "baseline_ms": 0.2889508406321208,
+      "candidate_ms": 0.29242666562398273
+    },
+    {
+      "tokens": 17,
+      "groups": 4096,
+      "exact": true,
+      "selected": true,
+      "max_delta": 0.0,
+      "baseline_ms": 0.29158417383829754,
+      "candidate_ms": 0.29642250140508014
+    },
+    {
+      "tokens": 512,
+      "groups": 16384,
+      "exact": true,
+      "selected": true,
+      "max_delta": 0.0,
+      "baseline_ms": 0.7686308224995931,
+      "candidate_ms": 0.5376633405685425
+    },
+    {
+      "tokens": 512,
+      "groups": 65536,
+      "exact": true,
+      "selected": true,
+      "max_delta": 0.0,
+      "baseline_ms": 3.2061182657877603,
+      "candidate_ms": 2.275045871734619
+    }
+  ],
+  "health": {
+    "status": "ok",
+    "engine_loaded": true,
+    "ctx": 262144,
+    "pipeline_stages": 2,
+    "worker_alive": true,
+    "prefill_chunk": 8192,
+    "pipeline_transport": "hybrid",
+    "delta_compact": true,
+    "index_score": true,
+    "dual_write": true,
+    "pipeline_transfers": {
+      "peer_transfers": 127,
+      "peer_bytes": 11196170240,
+      "host_transfers": 2078,
+      "host_bytes": 55726080
+    },
+    "index_caps": [
+      16384,
+      32768,
+      65536,
+      98304,
+      131072,
+      196608,
+      262144
+    ],
+    "native_sparse": true,
+    "native_dual": true,
+    "index_unique": true,
+    "moe_inverse": true,
+    "moe_inverse_sort": true,
+    "state_dual_slim": true,
+    "conversation_state_bytes": 7736878112,
+    "rope_cache": true,
+    "delta_window": 2048,
+    "delta_native": true,
+    "chunk_graph": true,
+    "qsa_indexer": true,
+    "qsa_sparse": true
+  },
+  "kernel_sha256": {
+    "libfnx_dual_write.so": "4722ace1c5d1543f2616e56a3f92d30365ce83533ec8c31a13c411ec56292a9e",
+    "libfnx_delta.so": "6318e01624627ef88d35c32c36feaccc1729f1d4e097352e22e3f0b8ff845686",
+    "libfnx_score.so": "90accb61173cdde3182629c148433354fa62d635c4aa0cda9e7f83700974d7f2"
+  },
+  "round": 112
+}
