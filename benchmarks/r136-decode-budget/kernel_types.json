@@ -1,0 +1,320 @@
+{
+  "aclnnInplaceFillScalar_FillAiCore_Fill": {
+    "calls": 1.0,
+    "timing_us": 1.5464516129032262,
+    "pmu_read": 1408.0,
+    "pmu_write": 128.0
+  },
+  "aclnnRepeat_TileAiCore_Tile": {
+    "calls": 1.0,
+    "timing_us": 5.433677419354839,
+    "pmu_read": 71680.0,
+    "pmu_write": 20480.0
+  },
+  "aclnnInplaceCopy_CastAiCore_Cast": {
+    "calls": 858.0,
+    "timing_us": 1414.4109354838574,
+    "pmu_read": 25421733.16129032,
+    "pmu_write": 28469760.0
+  },
+  "RmsNorm": {
+    "calls": 181.0,
+    "timing_us": 1118.7526451612928,
+    "pmu_read": 25702672.51612903,
+    "pmu_write": 5623808.0
+  },
+  "aclnnMul_MulAiCore_Mul": {
+    "calls": 615.0,
+    "timing_us": 2277.497580645172,
+    "pmu_read": 58497643.35483871,
+    "pmu_write": 22390784.0
+  },
+  "aclnnMatmul_MatMulCommon_MatMulV2": {
+    "calls": 530.0,
+    "timing_us": 14097.477903225697,
+    "pmu_read": 7360955804.903226,
+    "pmu_write": 5615616.0
+  },
+  "aclnnDivs_RealDivAiCore_RealDiv": {
+    "calls": 241.0,
+    "timing_us": 328.34532258064087,
+    "pmu_read": 945536.0,
+    "pmu_write": 418432.0
+  },
+  "aclnnSilu_SiluAiCore_Swish": {
+    "calls": 181.0,
+    "timing_us": 244.11845161290742,
+    "pmu_read": 1482368.0,
+    "pmu_write": 860800.0
+  },
+  "aclnnSigmoid_SigmoidAiCore_Sigmoid": {
+    "calls": 325.0,
+    "timing_us": 576.8622903226066,
+    "pmu_read": 4889360.516129033,
+    "pmu_write": 3041792.0
+  },
+  "weighted_reduce": {
+    "calls": 145.0,
+    "timing_us": 584.000000000001,
+    "pmu_read": 11678212.129032258,
+    "pmu_write": 1113600.0
+  },
+  "aclnnMuls_Muls_Muls": {
+    "calls": 96.0,
+    "timing_us": 98.23490322580645,
+    "pmu_read": 122880.0,
+    "pmu_write": 12288.0
+  },
+  "conv_four": {
+    "calls": 36.0,
+    "timing_us": 317.9532580645165,
+    "pmu_read": 15209670.193548387,
+    "pmu_write": 3133440.0
+  },
+  "aclnnAdd_AddAiCore_Add": {
+    "calls": 240.0,
+    "timing_us": 500.7100645161295,
+    "pmu_read": 5996444.903225807,
+    "pmu_write": 2270208.0
+  },
+  "aclnnSoftplus_SoftplusV2_SoftplusV2": {
+    "calls": 36.0,
+    "timing_us": 65.28232258064483,
+    "pmu_read": 133376.0,
+    "pmu_write": 9216.0
+  },
+  "aclnnReduceSum_ReduceSumOpAiCore_ReduceSum": {
+    "calls": 132.0,
+    "timing_us": 848.8430967741898,
+    "pmu_read": 15157334.709677419,
+    "pmu_write": 396288.0
+  },
+  "aclnnAdds_AddAiCore_Add": {
+    "calls": 100.0,
+    "timing_us": 180.24074193548353,
+    "pmu_read": 1009325.4193548387,
+    "pmu_write": 404480.0
+  },
+  "aclnnRsqrt_RsqrtAiCore_Rsqrt": {
+    "calls": 72.0,
+    "timing_us": 78.75364516129045,
+    "pmu_read": 96768.0,
+    "pmu_write": 9216.0
+  },
+  "aclnnExp_ExpAiCore_Exp": {
+    "calls": 36.0,
+    "timing_us": 41.57745161290319,
+    "pmu_read": 50688.0,
+    "pmu_write": 9216.0
+  },
+  "delta_sequential": {
+    "calls": 36.0,
+    "timing_us": 1330.6346774193516,
+    "pmu_read": 119044096.0,
+    "pmu_write": 114315264.0
+  },
+  "aclnnSoftmax_SoftmaxAiCore_SoftmaxV2": {
+    "calls": 48.0,
+    "timing_us": 278.14690322580606,
+    "pmu_read": 647296.0,
+    "pmu_write": 98304.0
+  },
+  "aclnnTopk_TopkV2AiCore_TopKV2": {
+    "calls": 60.0,
+    "timing_us": 293.9120967741935,
+    "pmu_read": 660632.7741935484,
+    "pmu_write": 61440.0
+  },
+  "aclnnTopk_CastAiCore_Cast": {
+    "calls": 60.0,
+    "timing_us": 66.46699999999906,
+    "pmu_read": 96768.0,
+    "pmu_write": 55296.0
+  },
+  "aclnnDiv_RealDivAiCore_RealDiv": {
+    "calls": 48.0,
+    "timing_us": 54.053258064516704,
+    "pmu_read": 66048.0,
+    "pmu_write": 6144.0
+  },
+  "aclnnIndexSelect_GatherV3AiCore_GatherV3": {
+    "calls": 264.0,
+    "timing_us": 3706.746483870959,
+    "pmu_read": 1328676888.7741935,
+    "pmu_write": 1305656832.0
+  },
+  "aclnnInplaceCopy_TransposeAiCore_Transpose": {
+    "calls": 96.0,
+    "timing_us": 2058.9115483871037,
+    "pmu_read": 848485157.1612903,
+    "pmu_write": 835584000.0
+  },
+  "aclnnWeightQuantBatchMatmulV2_WeightQuantBatchMatmulV2_WeightQuantBatchMatmulV2": {
+    "calls": 64.0,
+    "timing_us": 4072.8890967741877,
+    "pmu_read": 3336741231.483871,
+    "pmu_write": 1655600128.0
+  },
+  "SwiGlu": {
+    "calls": 48.0,
+    "timing_us": 182.94661290322543,
+    "pmu_read": 2795008.0,
+    "pmu_write": 1234944.0
+  },
+  "aclnnGroupedMatmulV5_GroupedMatmul_GroupedMatmul": {
+    "calls": 48.0,
+    "timing_us": 4265.820677419359,
+    "pmu_read": 2098355439.483871,
+    "pmu_write": 1594736640.0
+  },
+  "aclnnInplaceCopy_SliceAiCore_Slice": {
+    "calls": 24.0,
+    "timing_us": 58.72877419354854,
+    "pmu_read": 702695.2258064516,
+    "pmu_write": 294912.0
+  },
+  "aclnnMul_SliceAiCore_Slice": {
+    "calls": 36.0,
+    "timing_us": 56.96354838709646,
+    "pmu_read": 298124.3870967742,
+    "pmu_write": 46080.0
+  },
+  "aclnnNeg_SliceAiCore_Slice": {
+    "calls": 36.0,
+    "timing_us": 57.42012903225786,
+    "pmu_read": 313422.4516129032,
+    "pmu_write": 33792.0
+  },
+  "aclnnNeg_NegAiCore_Neg": {
+    "calls": 48.0,
+    "timing_us": 53.48070967741888,
+    "pmu_read": 84480.0,
+    "pmu_write": 24576.0
+  },
+  "aclnnCat_SliceAiCore_Slice": {
+    "calls": 72.0,
+    "timing_us": 113.56854838709761,
+    "pmu_read": 575335.2258064516,
+    "pmu_write": 159744.0
+  },
+  "aclnnCat_ConcatD_ConcatD": {
+    "calls": 96.0,
+    "timing_us": 267.6575806451602,
+    "pmu_read": 1123802.8387096773,
+    "pmu_write": 236544.0
+  },
+  "write_dual_kv": {
+    "calls": 12.0,
+    "timing_us": 26.97848387096776,
+    "pmu_read": 55296.0,
+    "pmu_write": 53760.0
+  },
+  "aclnnInplaceIndexCopy_ScatterUpdateAiCore_ScatterUpdate": {
+    "calls": 24.0,
+    "timing_us": 199.8104838709676,
+    "pmu_read": 2917437.935483871,
+    "pmu_write": 9216.0
+  },
+  "aclnnFloorDivides_FloorDivAiCore_FloorDiv": {
+    "calls": 12.0,
+    "timing_us": 25.09403225806452,
+    "pmu_read": 42281.290322580644,
+    "pmu_write": 1536.0
+  },
+  "aclnnMuls_MulAiCore_Mul": {
+    "calls": 36.0,
+    "timing_us": 116.63212903225785,
+    "pmu_read": 670748.9032258064,
+    "pmu_write": 396288.0
+  },
+  "aclnnArange_ArangeAiCore_Range": {
+    "calls": 24.0,
+    "timing_us": 185.6248709677421,
+    "pmu_read": 1804754.5806451612,
+    "pmu_write": 456192.0
+  },
+  "aclnnMean_ReduceMeanAiCore_ReduceMean": {
+    "calls": 12.0,
+    "timing_us": 108.79935483870958,
+    "pmu_read": 2145870.4516129033,
+    "pmu_write": 24576.0
+  },
+  "aclnnRelu_Relu_Relu": {
+    "calls": 12.0,
+    "timing_us": 45.06841935483862,
+    "pmu_read": 998775.7419354839,
+    "pmu_write": 786432.0
+  },
+  "aclnnLeTensor_LessEqualAiCore_LessEqual": {
+    "calls": 12.0,
+    "timing_us": 48.03909677419362,
+    "pmu_read": 712704.0,
+    "pmu_write": 49152.0
+  },
+  "aclnnBitwiseNot_LogicalNotAiCore_LogicalNot": {
+    "calls": 24.0,
+    "timing_us": 32.965032258064554,
+    "pmu_read": 121839.48387096774,
+    "pmu_write": 75264.0
+  },
+  "aclnnInplaceMaskedFillScalar_MaskedFillAiCore_MaskedFill": {
+    "calls": 12.0,
+    "timing_us": 40.282806451612906,
+    "pmu_read": 446187.3548387097,
+    "pmu_write": 196608.0
+  },
+  "expand_groups": {
+    "calls": 12.0,
+    "timing_us": 31.4165806451613,
+    "pmu_read": 256512.0,
+    "pmu_write": 101376.0
+  },
+  "aclnnClampMax_ClipByValueV2AiCore_ClipByValueV2": {
+    "calls": 12.0,
+    "timing_us": 75.20483870967743,
+    "pmu_read": 690576.5161290322,
+    "pmu_write": 198144.0
+  },
+  "aclnnLtScalar_LessAiCore_Less": {
+    "calls": 12.0,
+    "timing_us": 48.19922580645168,
+    "pmu_read": 241152.0,
+    "pmu_write": 26112.0
+  },
+  "FusedInferAttentionScore": {
+    "calls": 12.0,
+    "timing_us": 449.725806451613,
+    "pmu_read": 59435581.93548387,
+    "pmu_write": 7643136.0
+  },
+  "aclnnMatmul_SliceAiCore_Slice": {
+    "calls": 1.0,
+    "timing_us": 10.446064516129033,
+    "pmu_read": 6656169.29032258,
+    "pmu_write": 6553600.0
+  },
+  "aclnnMatmul_TransposeAiCore_Transpose": {
+    "calls": 1.0,
+    "timing_us": 20.237322580645166,
+    "pmu_read": 8040064.0,
+    "pmu_write": 6553600.0
+  },
+  "aclnnInplaceCopy_TensorMoveAiCore_TensorMove": {
+    "calls": 1.0,
+    "timing_us": 7.982645161290321,
+    "pmu_read": 548100.1290322581,
+    "pmu_write": 496640.0
+  },
+  "aclnnArgMax_ArgMaxV2AiCore_ArgMaxV2": {
+    "calls": 1.0,
+    "timing_us": 32.618064516129024,
+    "pmu_read": 500608.0,
+    "pmu_write": 128.0
+  },
+  "aclnnArgMax_CastAiCore_Cast": {
+    "calls": 1.0,
+    "timing_us": 1.060064516129032,
+    "pmu_read": 1280.0,
+    "pmu_write": 128.0
+  }
+}

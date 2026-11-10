@@ -1,0 +1,130 @@
+{
+  "window_start_event": 8,
+  "window_end_event": 247,
+  "periods": 239,
+  "start_ns": 1794302742631843658,
+  "end_ns": 1794302753026894803,
+  "duration_s": 10.395051145,
+  "tpot_ms": 43.493937845188285,
+  "bandwidth_internal_db_unit": "MiB/s (2**20 B/s); verified installed hbm_model.py SCALE=32/2**20",
+  "devices": [
+    {
+      "device": 0,
+      "channels": [
+        {
+          "hbmid": 0,
+          "event": "read",
+          "bytes": 308088682761.11707,
+          "avg_GBps": 29.63801509618422
+        },
+        {
+          "hbmid": 0,
+          "event": "write",
+          "bytes": 100991029587.48848,
+          "avg_GBps": 9.715298960896884
+        },
+        {
+          "hbmid": 1,
+          "event": "read",
+          "bytes": 308232486447.3467,
+          "avg_GBps": 29.651848956568713
+        },
+        {
+          "hbmid": 1,
+          "event": "write",
+          "bytes": 97671899144.44756,
+          "avg_GBps": 9.395999863976384
+        },
+        {
+          "hbmid": 2,
+          "event": "read",
+          "bytes": 308440654258.99384,
+          "avg_GBps": 29.67187462154558
+        },
+        {
+          "hbmid": 2,
+          "event": "write",
+          "bytes": 97618287050.1529,
+          "avg_GBps": 9.390842400723264
+        },
+        {
+          "hbmid": 3,
+          "event": "read",
+          "bytes": 312404794765.3893,
+          "avg_GBps": 30.053223443316618
+        },
+        {
+          "hbmid": 3,
+          "event": "write",
+          "bytes": 100976294456.71088,
+          "avg_GBps": 9.713881446872946
+        }
+      ],
+      "read_bytes": 1237166618232.8467,
+      "write_bytes": 397257510238.7998,
+      "bytes_per_token": 6838594679.797684,
+      "average_read_write_GBps": 157.2309847900846
+    },
+    {
+      "device": 1,
+      "channels": [
+        {
+          "hbmid": 0,
+          "event": "read",
+          "bytes": 351886987418.4482,
+          "avg_GBps": 33.85139548714055
+        },
+        {
+          "hbmid": 0,
+          "event": "write",
+          "bytes": 129297725661.18517,
+          "avg_GBps": 12.438392448254294
+        },
+        {
+          "hbmid": 1,
+          "event": "read",
+          "bytes": 346022890237.80066,
+          "avg_GBps": 33.28727154981215
+        },
+        {
+          "hbmid": 1,
+          "event": "write",
+          "bytes": 98889796529.33852,
+          "avg_GBps": 9.513161133113263
+        },
+        {
+          "hbmid": 2,
+          "event": "read",
+          "bytes": 346230285775.9984,
+          "avg_GBps": 33.307222922374415
+        },
+        {
+          "hbmid": 2,
+          "event": "write",
+          "bytes": 98809027113.14893,
+          "avg_GBps": 9.505391145735333
+        },
+        {
+          "hbmid": 3,
+          "event": "read",
+          "bytes": 356198954276.2046,
+          "avg_GBps": 34.266205072741336
+        },
+        {
+          "hbmid": 3,
+          "event": "write",
+          "bytes": 129754730992.84204,
+          "avg_GBps": 12.482356188815274
+        }
+      ],
+      "read_bytes": 1400339117708.4517,
+      "write_bytes": 456751280296.51465,
+      "bytes_per_token": 7770252711.317851,
+      "average_read_write_GBps": 178.65139594798657
+    }
+  ],
+  "total_bytes_per_token": 14608847391.115536,
+  "total_read_bytes_per_token": 11035588853.310871,
+  "total_write_bytes_per_token": 3573258537.804663,
+  "aggregate_GBps": 335.88238073807116
+}

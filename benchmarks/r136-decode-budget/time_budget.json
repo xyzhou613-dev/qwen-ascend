@@ -1,0 +1,170 @@
+{
+  "timing": {
+    "period_ms": 43.35143551612903,
+    "kernel_raw_sum_ms": 41.20457370968171,
+    "kernel_union_ms": 41.20457370968169,
+    "kernel_overlap_ms": 2.2531997772955125e-14,
+    "memcpy_exclusive_ms": 0.029168967741917098,
+    "device_idle_ms": 2.117692838705423,
+    "stages": [
+      {
+        "stage": 0,
+        "kernel_us": 610709.8830000556,
+        "copy_us": 363.1849999995902,
+        "active_us": 611073.0680000552,
+        "kernel_count": 79360,
+        "memcpy_count": 589
+      },
+      {
+        "stage": 1,
+        "kernel_us": 666631.9020000768,
+        "copy_us": 541.052999999607,
+        "active_us": 667172.9550000764,
+        "kernel_count": 80073,
+        "memcpy_count": 744
+      }
+    ],
+    "groups": {
+      "Other vector/scalar kernels": {
+        "count_per_token": 3476.0,
+        "ms": 8.72679977419699,
+        "pmu_read_bytes": 0.0,
+        "pmu_write_bytes": 0.0
+      },
+      "RMSNorm": {
+        "count_per_token": 181.0,
+        "ms": 1.1187526451613732,
+        "pmu_read_bytes": 0.0,
+        "pmu_write_bytes": 0.0
+      },
+      "Dense + index MatMul": {
+        "count_per_token": 530.0,
+        "ms": 14.097477903226338,
+        "pmu_read_bytes": 0.0,
+        "pmu_write_bytes": 0.0
+      },
+      "HC/MoE fused reductions": {
+        "count_per_token": 145.0,
+        "ms": 0.5840000000002592,
+        "pmu_read_bytes": 0.0,
+        "pmu_write_bytes": 0.0
+      },
+      "FP32 DeltaNet": {
+        "count_per_token": 36.0,
+        "ms": 1.3306346774192688,
+        "pmu_read_bytes": 0.0,
+        "pmu_write_bytes": 0.0
+      },
+      "Gather/layout/cache writes": {
+        "count_per_token": 651.0,
+        "ms": 6.558473129032399,
+        "pmu_read_bytes": 0.0,
+        "pmu_write_bytes": 0.0
+      },
+      "W4/W8 quantized matmul": {
+        "count_per_token": 64.0,
+        "ms": 4.072889096774177,
+        "pmu_read_bytes": 0.0,
+        "pmu_write_bytes": 0.0
+      },
+      "MoE down GMM": {
+        "count_per_token": 48.0,
+        "ms": 4.265820677419296,
+        "pmu_read_bytes": 0.0,
+        "pmu_write_bytes": 0.0
+      },
+      "Sparse selected attention": {
+        "count_per_token": 12.0,
+        "ms": 0.4497258064516159,
+        "pmu_read_bytes": 0.0,
+        "pmu_write_bytes": 0.0
+      }
+    },
+    "intra_stage_gap_ms": 1.1756693870967367,
+    "outer_host_gap_ms": 0.9420234516129102
+  },
+  "memory": {
+    "period_ms": 45.00517906451613,
+    "kernel_raw_sum_ms": 42.723903161289584,
+    "kernel_union_ms": 42.7239031612896,
+    "kernel_overlap_ms": -1.502133184863675e-14,
+    "memcpy_exclusive_ms": 0.029150225806455578,
+    "device_idle_ms": 2.252125677420074,
+    "stages": [
+      {
+        "stage": 0,
+        "kernel_us": 634280.5669999928,
+        "copy_us": 363.86600000062026,
+        "active_us": 634644.4329999934,
+        "kernel_count": 79360,
+        "memcpy_count": 589
+      },
+      {
+        "stage": 1,
+        "kernel_us": 690160.4309999847,
+        "copy_us": 539.7909999995027,
+        "active_us": 690700.221999984,
+        "kernel_count": 80073,
+        "memcpy_count": 744
+      }
+    ],
+    "groups": {
+      "Other vector/scalar kernels": {
+        "count_per_token": 3476.0,
+        "ms": 9.753122096773467,
+        "pmu_read_bytes": 142125035.3548387,
+        "pmu_write_bytes": 65292928.0
+      },
+      "RMSNorm": {
+        "count_per_token": 181.0,
+        "ms": 1.1719605483872482,
+        "pmu_read_bytes": 25702672.51612903,
+        "pmu_write_bytes": 5623808.0
+      },
+      "Dense + index MatMul": {
+        "count_per_token": 530.0,
+        "ms": 14.258856451612658,
+        "pmu_read_bytes": 7360955804.903226,
+        "pmu_write_bytes": 5615616.0
+      },
+      "HC/MoE fused reductions": {
+        "count_per_token": 145.0,
+        "ms": 0.6287170000002955,
+        "pmu_read_bytes": 11678212.129032258,
+        "pmu_write_bytes": 1113600.0
+      },
+      "FP32 DeltaNet": {
+        "count_per_token": 36.0,
+        "ms": 1.3415575483870408,
+        "pmu_read_bytes": 119044096.0,
+        "pmu_write_bytes": 114315264.0
+      },
+      "Gather/layout/cache writes": {
+        "count_per_token": 651.0,
+        "ms": 6.755094096774123,
+        "pmu_read_bytes": 2198337197.419355,
+        "pmu_write_bytes": 2155624960.0
+      },
+      "W4/W8 quantized matmul": {
+        "count_per_token": 64.0,
+        "ms": 4.090971419354799,
+        "pmu_read_bytes": 3336741231.483871,
+        "pmu_write_bytes": 1655600128.0
+      },
+      "MoE down GMM": {
+        "count_per_token": 48.0,
+        "ms": 4.271439258064505,
+        "pmu_read_bytes": 2098355439.483871,
+        "pmu_write_bytes": 1594736640.0
+      },
+      "Sparse selected attention": {
+        "count_per_token": 12.0,
+        "ms": 0.45218474193544944,
+        "pmu_read_bytes": 59435581.93548387,
+        "pmu_write_bytes": 7643136.0
+      }
+    },
+    "intra_stage_gap_ms": 1.205941774194614,
+    "outer_host_gap_ms": 1.0461839032258062
+  }
+}

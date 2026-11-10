@@ -1,0 +1,22 @@
+{
+  "revision": "r135",
+  "diagnostic": "r136",
+  "input_tokens": 8064,
+  "complete_timing_periods": 31,
+  "ledger_ms": {
+    "kernel_active": 41.20457370968169,
+    "exclusive_memcpy": 0.029168967741917098,
+    "intra_stage_gap": 1.1756693870967367,
+    "outer_gap": 0.9420234516129102
+  },
+  "period_ms": 43.35143551612903,
+  "kernel_calls": 5143,
+  "useful_main_math_GFLOPs": 14.124875776,
+  "minimum_active_weight_GB": 9.15581952,
+  "core_interface_PMU_read_GB": 15.352375271225807,
+  "core_interface_PMU_write_GB": 5.60556608,
+  "HBM_controller_GB_per_token": 14.608847391115535,
+  "tiny_AIV_dispatch_proxy_ms": 1.437965326756239,
+  "streaming_copy_reference_ms": 11.801480544217151,
+  "note": "Calibration references are NOT additive measured kernel subcomponents; physical Arithmetic PMU coverage incomplete."
+}

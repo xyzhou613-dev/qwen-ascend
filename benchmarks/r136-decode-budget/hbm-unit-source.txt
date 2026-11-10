@@ -1,0 +1,21 @@
+# Installed CANN HBM internal-db units
+Source: /usr/local/Ascend/cann/tools/profiler/profiler_tool/analysis/msmodel/hardware/hbm_model.py
+
+
+30:     acsq task model class
+31:     """
+32:     SCALE = 0.000030517578125  # equal to HBMC(256) / HBM_EVENT(8) / KILOBYTE(1024.0) / KILOBYTE(1024.0)
+33: 
+34:     def __init__(self: any, result_dir: str, db_name: str, table_list: list) -> None:
+
+99:             if bw_data[i][1] - bw_data[i - check_len][1]:
+100:                 dur_time = bw_data[i][1] - bw_data[i - check_len][1]
+101:                 tmp_counts = bw_data[i][2] * self.SCALE / dur_time * Constant.TIME_RATE
+102:                 sys_counts = max((tmp_counts, 0))
+103:                 item = (bw_data[i][0], bw_data[i][1], sys_counts, bw_data[i][3], bw_data[i][4])
+
+100:                 dur_time = bw_data[i][1] - bw_data[i - check_len][1]
+101:                 tmp_counts = bw_data[i][2] * self.SCALE / dur_time * Constant.TIME_RATE
+102:                 sys_counts = max((tmp_counts, 0))
+103:                 item = (bw_data[i][0], bw_data[i][1], sys_counts, bw_data[i][3], bw_data[i][4])
+104:             else:

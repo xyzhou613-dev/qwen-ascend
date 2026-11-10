@@ -1,0 +1,93 @@
+{
+  "HC down/up projections": {
+    "calls": 192.0,
+    "flops": 1266155520.0,
+    "timing_us": 3039.4010967741906,
+    "pmu_read": 1300724967.2258065,
+    "pmu_write": 2101248.0
+  },
+  "Delta qkv/z projections": {
+    "calls": 72.0,
+    "flops": 3019898880.0,
+    "timing_us": 5401.585322580646,
+    "pmu_read": 3043975597.419355,
+    "pmu_write": 1368576.0
+  },
+  "Delta beta/decay projections": {
+    "calls": 72.0,
+    "flops": 17694720.0,
+    "timing_us": 458.91083870968174,
+    "pmu_read": 19165943.741935484,
+    "pmu_write": 27648.0
+  },
+  "Delta output projection": {
+    "calls": 36.0,
+    "flops": 1132462080.0,
+    "timing_us": 1702.7631612903215,
+    "pmu_read": 1141585920.0,
+    "pmu_write": 184320.0
+  },
+  "Shared expert/router projections": {
+    "calls": 96.0,
+    "flops": 597934080.0,
+    "timing_us": 1366.7292580645178,
+    "pmu_read": 604586780.9032258,
+    "pmu_write": 479232.0
+  },
+  "QSA q/k/v projections": {
+    "calls": 36.0,
+    "flops": 817889280.0,
+    "timing_us": 1450.1798387096774,
+    "pmu_read": 828117235.6129032,
+    "pmu_write": 344064.0
+  },
+  "Indexer FP32 score": {
+    "calls": 12.0,
+    "flops": 50331648.0,
+    "timing_us": 114.51525806451612,
+    "pmu_read": 27408379.870967742,
+    "pmu_write": 1026048.0
+  },
+  "QSA output projection": {
+    "calls": 12.0,
+    "flops": 377487360.0,
+    "timing_us": 545.2985806451613,
+    "pmu_read": 381651278.4516129,
+    "pmu_write": 61440.0
+  },
+  "MoE gate/up W4": {
+    "calls": 48.0,
+    "flops": 3145728000.0,
+    "timing_us": 2012.695806451612,
+    "pmu_read": 1275732963.096774,
+    "pmu_write": 332771328.0
+  },
+  "Indexer W8 projection": {
+    "calls": 12.0,
+    "flops": 39321600.0,
+    "timing_us": 338.12532258064556,
+    "pmu_read": 108319380.64516129,
+    "pmu_write": 47493120.0
+  },
+  "MoE down W4 GMM": {
+    "calls": 48.0,
+    "flops": 1572864000.0,
+    "timing_us": 4265.820677419359,
+    "pmu_read": 2098355439.483871,
+    "pmu_write": 1594736640.0
+  },
+  "LM head mixer": {
+    "calls": 2.0,
+    "flops": 13107200.0,
+    "timing_us": 18.094548387096776,
+    "pmu_read": 13739701.677419355,
+    "pmu_write": 23040.0
+  },
+  "LM head W8": {
+    "calls": 4.0,
+    "flops": 1271398400.0,
+    "timing_us": 1722.0679677419353,
+    "pmu_read": 1952688887.7419355,
+    "pmu_write": 1275335680.0
+  }
+}
