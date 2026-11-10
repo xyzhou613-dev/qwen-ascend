@@ -1,0 +1,242 @@
+{
+  "revision": "r139",
+  "baseline_revision": "r138",
+  "acceptance_time": "2026-11-11T00:07:51+08:00",
+  "requests": {
+    "baseline": [
+      {
+        "run": 1,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 4.342,
+        "end_to_end_s": 9.303,
+        "prefill_s": 4.245,
+        "prefill_tok_s": 1898.67,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 39.06,
+        "server_total_s": 9.268
+      },
+      {
+        "run": 2,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 4.326,
+        "end_to_end_s": 9.282,
+        "prefill_s": 4.241,
+        "prefill_tok_s": 1900.38,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 39.02,
+        "server_total_s": 9.252
+      },
+      {
+        "run": 3,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 4.323,
+        "end_to_end_s": 9.28,
+        "prefill_s": 4.237,
+        "prefill_tok_s": 1902.45,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 39.03,
+        "server_total_s": 9.249
+      }
+    ],
+    "baseline-after": [
+      {
+        "run": 1,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 4.444,
+        "end_to_end_s": 9.414,
+        "prefill_s": 4.328,
+        "prefill_tok_s": 1862.27,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 39.13,
+        "server_total_s": 9.372
+      },
+      {
+        "run": 2,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 4.33,
+        "end_to_end_s": 9.294,
+        "prefill_s": 4.242,
+        "prefill_tok_s": 1900.26,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 39.09,
+        "server_total_s": 9.262
+      },
+      {
+        "run": 3,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 4.323,
+        "end_to_end_s": 9.292,
+        "prefill_s": 4.235,
+        "prefill_tok_s": 1903.01,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 39.12,
+        "server_total_s": 9.26
+      }
+    ],
+    "candidate8k": [
+      {
+        "run": 1,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 4.444,
+        "end_to_end_s": 9.253,
+        "prefill_s": 4.33,
+        "prefill_tok_s": 1861.36,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 37.86,
+        "server_total_s": 9.212
+      },
+      {
+        "run": 2,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 4.334,
+        "end_to_end_s": 9.128,
+        "prefill_s": 4.247,
+        "prefill_tok_s": 1897.75,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 37.75,
+        "server_total_s": 9.097
+      },
+      {
+        "run": 3,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 4.326,
+        "end_to_end_s": 9.125,
+        "prefill_s": 4.239,
+        "prefill_tok_s": 1901.25,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 37.78,
+        "server_total_s": 9.093
+      }
+    ],
+    "production8k": [
+      {
+        "run": 1,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 4.438,
+        "end_to_end_s": 9.206,
+        "prefill_s": 4.325,
+        "prefill_tok_s": 1863.72,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 37.54,
+        "server_total_s": 9.165
+      },
+      {
+        "run": 2,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 4.326,
+        "end_to_end_s": 9.094,
+        "prefill_s": 4.24,
+        "prefill_tok_s": 1900.82,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 37.54,
+        "server_total_s": 9.062
+      },
+      {
+        "run": 3,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 4.32,
+        "end_to_end_s": 9.098,
+        "prefill_s": 4.234,
+        "prefill_tok_s": 1903.71,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 37.62,
+        "server_total_s": 9.067
+      }
+    ]
+  },
+  "speedup_vs_baseline_before_percent": 3.969099627064465,
+  "speedup_vs_baseline_after_percent": 4.208843899840176,
+  "long_context": {
+    "baseline-after256": {
+      "ctx": 262144,
+      "prompt_tokens": 262016,
+      "ttft_s": 73.782,
+      "e2e_s": 78.913,
+      "stats": {
+        "ttft_ms": 72569.78,
+        "tokens": 128,
+        "seconds": 77.7,
+        "tpot_ms": 40.4,
+        "tok_decode_ms": 4.08,
+        "prefill_ms": 72417.01,
+        "prefill_tok_s": 3618.1,
+        "n_prefill": 262012
+      },
+      "recall_hits": 3
+    },
+    "candidate256": {
+      "ctx": 262144,
+      "prompt_tokens": 262016,
+      "ttft_s": 73.818,
+      "e2e_s": 78.788,
+      "stats": {
+        "ttft_ms": 72598.71,
+        "tokens": 128,
+        "seconds": 77.568,
+        "tpot_ms": 39.13,
+        "tok_decode_ms": 4.56,
+        "prefill_ms": 72450.73,
+        "prefill_tok_s": 3616.42,
+        "n_prefill": 262012
+      },
+      "recall_hits": 3
+    },
+    "production256": {
+      "ctx": 262144,
+      "prompt_tokens": 262016,
+      "ttft_s": 73.691,
+      "e2e_s": 78.648,
+      "stats": {
+        "ttft_ms": 72525.73,
+        "tokens": 128,
+        "seconds": 77.482,
+        "tpot_ms": 39.03,
+        "tok_decode_ms": 4.06,
+        "prefill_ms": 72380.22,
+        "prefill_tok_s": 3619.94,
+        "n_prefill": 262012
+      },
+      "recall_hits": 3
+    }
+  },
+  "precision": {
+    "micro_dynamic_inputs": 32,
+    "real_layer_T": [
+      1,
+      128,
+      512,
+      2048
+    ],
+    "layer_dynamic_inputs_per_T": 8,
+    "output_state_history_exact": true,
+    "three_8k_answers_byte_equal": true,
+    "nll": 2.165267,
+    "recall_hits": 3,
+    "historical_100_questions_rerun": false
+  },
+  "change": "Direct K-major packing for decode down Cartesian matmul with diagonal extraction; original GMM remains selectable; no lm_head change."
+}

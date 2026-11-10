@@ -1,0 +1,22 @@
+{
+  "baseline": {
+    "1": "58847f195a2e0204a6efc79bb05dda3d2bc527143079b705fc0f7b6577aa3a23",
+    "2": "713f0a0d99c67e05d6064651eb99fca9c22ec59e350b7905cdb6fb00df5992d0",
+    "3": "c1d30c2bba42e6e7fbf2a6bdc335c04d0526bc43b5fbc6fa009bc8c377fd742a"
+  },
+  "baseline-after": {
+    "1": "58847f195a2e0204a6efc79bb05dda3d2bc527143079b705fc0f7b6577aa3a23",
+    "2": "713f0a0d99c67e05d6064651eb99fca9c22ec59e350b7905cdb6fb00df5992d0",
+    "3": "c1d30c2bba42e6e7fbf2a6bdc335c04d0526bc43b5fbc6fa009bc8c377fd742a"
+  },
+  "candidate8k": {
+    "1": "58847f195a2e0204a6efc79bb05dda3d2bc527143079b705fc0f7b6577aa3a23",
+    "2": "713f0a0d99c67e05d6064651eb99fca9c22ec59e350b7905cdb6fb00df5992d0",
+    "3": "c1d30c2bba42e6e7fbf2a6bdc335c04d0526bc43b5fbc6fa009bc8c377fd742a"
+  },
+  "production8k": {
+    "1": "58847f195a2e0204a6efc79bb05dda3d2bc527143079b705fc0f7b6577aa3a23",
+    "2": "713f0a0d99c67e05d6064651eb99fca9c22ec59e350b7905cdb6fb00df5992d0",
+    "3": "c1d30c2bba42e6e7fbf2a6bdc335c04d0526bc43b5fbc6fa009bc8c377fd742a"
+  }
+}
