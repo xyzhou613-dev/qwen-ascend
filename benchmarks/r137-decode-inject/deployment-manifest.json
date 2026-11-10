@@ -1,0 +1,10 @@
+{
+  "revision": "r137",
+  "files": {
+    "/root/ascend-dev/fnx/fnx/engine.py": "2882517fd380ef9705189fabc2b284d49988d3700736f8e56c5dc33ae6fb3995",
+    "/root/ascend-dev/fnx/fnx/server.py": "332441d5a47800e6fc975a8131b4746f5c40ab8d6c094a30d850b800b61fe317",
+    "/root/ascend-dev/fnx/fnx/native_inject.py": "37b390e2c9e938ed63f2eb11e3158d823dad566852770f3fda456c31edce5715",
+    "/root/ascend-dev/fnx/fnx/libfnx_inject.so": "63c83ab927384d0c06b78420aeb3a3cfa3a2de76b8823e68baf20d9dab2e3db8",
+    "/root/ascend-dev/p275.sh": "8318bb33d11ff7d28a70ab87873eaaeaef6b79c8c4c2178ea3cf36e01ee78eb0"
+  }
+}
