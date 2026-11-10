@@ -678,6 +678,13 @@ class ExpW4:
 
     def apply(self, x, ids):
         """x [M,K] bf16（M=1 或 k），ids [k] -> [M, k*N]。"""
+        if x.numel() == self.K and os.environ.get("FNX_EXPERT_GATHER", "0") == "1":
+            from .expert_gather import gather
+            selected = gather(self, ids)
+            if selected is not None:
+                weights, scales = selected
+                return torch_npu.npu_weight_quant_batchmatmul(
+                    x, weights, scales, antiquant_group_size=self.gs)
         return torch_npu.npu_weight_quant_batchmatmul(
             x, self._wcat(ids), self._scat(ids), antiquant_group_size=self.gs)
 
