@@ -1,0 +1,186 @@
+[
+  {
+    "T": 1,
+    "accuracy": {
+      "all": {
+        "output_exact": true,
+        "state_exact": true,
+        "conv_exact": true,
+        "output_max_abs": 0,
+        "state_max_abs": 0
+      },
+      "qk": {
+        "output_exact": true,
+        "state_exact": true,
+        "conv_exact": true,
+        "output_max_abs": 0,
+        "state_max_abs": 0
+      }
+    },
+    "timings": [
+      {
+        "mode": "baseline",
+        "ms": 0.7926574945449829
+      },
+      {
+        "mode": "all",
+        "ms": 0.7946400046348572
+      },
+      {
+        "mode": "qk",
+        "ms": 0.7980149984359741
+      },
+      {
+        "mode": "baseline",
+        "ms": 0.7928950190544128
+      },
+      {
+        "mode": "all",
+        "ms": 0.7951174974441528
+      },
+      {
+        "mode": "qk",
+        "ms": 0.7988849878311157
+      }
+    ],
+    "dynamic_steps": 8
+  },
+  {
+    "T": 128,
+    "accuracy": {
+      "all": {
+        "output_exact": true,
+        "state_exact": true,
+        "conv_exact": true,
+        "output_max_abs": 0,
+        "state_max_abs": 0
+      },
+      "qk": {
+        "output_exact": true,
+        "state_exact": true,
+        "conv_exact": true,
+        "output_max_abs": 0,
+        "state_max_abs": 0
+      }
+    },
+    "timings": [
+      {
+        "mode": "baseline",
+        "ms": 6.928894996643066
+      },
+      {
+        "mode": "all",
+        "ms": 6.8904924392700195
+      },
+      {
+        "mode": "qk",
+        "ms": 6.900394916534424
+      },
+      {
+        "mode": "baseline",
+        "ms": 6.9674201011657715
+      },
+      {
+        "mode": "all",
+        "ms": 6.940642356872559
+      },
+      {
+        "mode": "qk",
+        "ms": 6.9419426918029785
+      }
+    ],
+    "dynamic_steps": 8
+  },
+  {
+    "T": 512,
+    "accuracy": {
+      "all": {
+        "output_exact": true,
+        "state_exact": true,
+        "conv_exact": true,
+        "output_max_abs": 0,
+        "state_max_abs": 0
+      },
+      "qk": {
+        "output_exact": true,
+        "state_exact": true,
+        "conv_exact": true,
+        "output_max_abs": 0,
+        "state_max_abs": 0
+      }
+    },
+    "timings": [
+      {
+        "mode": "baseline",
+        "ms": 10.678732872009277
+      },
+      {
+        "mode": "all",
+        "ms": 10.687190055847168
+      },
+      {
+        "mode": "qk",
+        "ms": 10.683794975280762
+      },
+      {
+        "mode": "baseline",
+        "ms": 10.771027565002441
+      },
+      {
+        "mode": "all",
+        "ms": 10.770557403564453
+      },
+      {
+        "mode": "qk",
+        "ms": 10.757877349853516
+      }
+    ],
+    "dynamic_steps": 8
+  },
+  {
+    "T": 2048,
+    "accuracy": {
+      "all": {
+        "output_exact": true,
+        "state_exact": true,
+        "conv_exact": true,
+        "output_max_abs": 0,
+        "state_max_abs": 0
+      },
+      "qk": {
+        "output_exact": true,
+        "state_exact": true,
+        "conv_exact": true,
+        "output_max_abs": 0,
+        "state_max_abs": 0
+      }
+    },
+    "timings": [
+      {
+        "mode": "baseline",
+        "ms": 27.076255798339844
+      },
+      {
+        "mode": "all",
+        "ms": 27.09292984008789
+      },
+      {
+        "mode": "qk",
+        "ms": 26.968442916870117
+      },
+      {
+        "mode": "baseline",
+        "ms": 27.05399513244629
+      },
+      {
+        "mode": "all",
+        "ms": 27.073673248291016
+      },
+      {
+        "mode": "qk",
+        "ms": 26.930492401123047
+      }
+    ],
+    "dynamic_steps": 8
+  }
+]

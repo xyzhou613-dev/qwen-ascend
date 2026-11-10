@@ -353,6 +353,21 @@ ops:
     hardware: [{chip: Ascend910B4}]
     target_perf: {acceptance_rate: ">=0.6", speedup: "1.5~2.0x"}
 
+  - name: conv4_prefill_bf16
+    version: 0.1.0
+    category: elementwise
+    status: alpha
+    desc: "四点卷积预填融合：BF16乘积舍入、FP32成对累加、BF16输出；避免四份大中间张量"
+    source: kernels/conv_prefill/conv_prefill.cpp
+    wrapper: fnx/conv_prefill.py
+    hardware: [{chip: Ascend910B4, cann: "9.1.0", units: [Vector]}]
+    shape: {sequence: "[D,T+3] contiguous BF16", weights: "[D,4] contiguous BF16", d_align: 4}
+    perf: {machine: 910b4x2-206, measured_at: 2026-11-10, shape: "D=10240,T=8192", reference_ms: 14.73, fused_ms: 1.14}
+    precision: "7形状动态输入逐位一致；真实L00 decode与128/512/2048/8192分块输出、FP32状态、BF16历史逐位一致"
+    known_issues:
+      - "SiLU和history更新由调用方执行；不能改成BF16逐次累加"
+      - "未进行30天稳定性与其他CANN/芯片版本认证；框架默认关闭，需FNX_CONV_PREFILL=1"
+
 # ============ 质量门禁 ============
 gates:
   L1_available: {require: ["精度对 CPU 参考通过", "3 个 shape 跑通"], verify: ci/precision_gate.py}

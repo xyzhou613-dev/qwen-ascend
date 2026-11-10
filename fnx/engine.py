@@ -1506,8 +1506,12 @@ class FnLayer:
         #   再经 MoE topk 边界放大成整句 logits 偏 6.9e-2。改成同一种归约后逐位相等。
         seq = torch.cat([self.conv[0], mq.transpose(0, 1)], dim=-1)      # [D, T+3]
         w = self.conv_w                                                   # [D,4]
-        y = torch.stack([w[:, j:j + 1] * seq[:, j:j + T] for j in range(4)],
-                        dim=-1).sum(-1)                                   # [D,T]
+        if os.environ.get("FNX_CONV_PREFILL", "0") == "1" and T >= 128:
+            from .conv_prefill import run as conv_prefill
+            y = conv_prefill(seq, w)
+        else:
+            y = torch.stack([w[:, j:j + 1] * seq[:, j:j + T] for j in range(4)],
+                            dim=-1).sum(-1)                               # [D,T]
         y = F.silu(y).transpose(0, 1)                                     # [T,D]
         self.conv.copy_(seq[:, T:T + 3].unsqueeze(0))
         q, k, v = torch.split(y, [KEY_DIM, KEY_DIM, VAL_DIM], dim=-1)
