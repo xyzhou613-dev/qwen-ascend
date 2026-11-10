@@ -7,7 +7,7 @@
   "models": {
     "flash-next": {
       "kind": "fnx",
-      "desc": "Qwen3.8-Flash-Next 121B MoE W4，自研 fnx 引擎（r55：双进程流水 24+24、分块图 prefill、稀疏 QSA）",
+      "desc": "Qwen3.8-Flash-Next 121B MoE W4，自研 fnx r135：24+24、262144窗口、hybrid IPC、预填卷积融合",
       "model_id": "qwen3.8-flash-next-w4",
       "port": 8000,
       "systemd": "fnx.service",
