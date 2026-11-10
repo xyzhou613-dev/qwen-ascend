@@ -544,7 +544,8 @@ def health():
     worker=getattr(model,"process",None)
     if worker is not None and worker.poll() is not None:
         return JSONResponse(status_code=503,content={"status":"worker_unavailable","ctx":P})
-    return {"status": "ok", "engine_loaded": "e" in STATE, "ctx": P, "service_revision": "r135",
+    return {"status": "ok", "engine_loaded": "e" in STATE, "ctx": P, "service_revision": "r137",
+            "inject_native": os.environ.get("FNX_INJECT_NATIVE", "0") == "1",
             "conv_prefill": os.environ.get("FNX_CONV_PREFILL", "0") == "1",
             "raw_compact": os.environ.get("FNX_RAW_COMPACT", "0") == "1",
             "cpu_threads": torch.get_num_threads(),

@@ -834,6 +834,11 @@ def inject(hyper, inj, y):
     只是没有中间的 reshape 物化）。张量只有 10240 个元素，比当年那个 16.4M 元素的
     dequant 场景小三个数量级，所以第 34 轮"addcmul 更慢"的结论在这里不适用——需实测。
     """
+    if os.environ.get("FNX_INJECT_NATIVE", "0") == "1":
+        from .native_inject import inject as native_inject
+        result = native_inject(hyper, inj, y)
+        if result is not None:
+            return result
     b = hyper.shape[0]
     if _INJECT_CM:
         # addcmul 要求三者能广播到同一形状：把 hyper 也看成 [b,1,HC,H]

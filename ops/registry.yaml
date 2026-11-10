@@ -368,6 +368,22 @@ ops:
       - "SiLU和history更新由调用方执行；不能改成BF16逐次累加"
       - "未进行30天稳定性与其他CANN/芯片版本认证；框架默认关闭，需FNX_CONV_PREFILL=1"
 
+  - name: residual_inject_bf16_decode
+    version: 0.1.0
+    category: elementwise
+    status: alpha
+    desc: "单 token 残差注入：BF16乘积先舍入，再FP32加残差并舍入BF16；不做FMA合并"
+    source: kernels/inject/inject.cpp
+    wrapper: fnx/native_inject.py
+    hardware: [{chip: Ascend910B4, cann: "9.1.0", units: [Vector]}]
+    shape: {hyper: "[1,1,10240] contiguous BF16", values: "2560 contiguous BF16", gate: "4 contiguous BF16"}
+    perf: {machine: 910b4x2-206, measured_at: 2026-11-10, reference_us: 7.282, fused_us: 2.525}
+    precision: "32组动态输入逐位一致；真实L00 decode及128/512/2048分块输出、FP32状态、BF16历史逐位一致；3份8k请求输出一致"
+    known_issues:
+      - "仅在单token启用；批量prefill走原路径，避免大batch退化"
+      - "默认关闭，需构建共享库后启用FNX_INJECT_NATIVE=1；可通过置0回退"
+      - "只在本机CANN/驱动矩阵验证，未达L2性能认证或长期稳定性认证"
+
 # ============ 质量门禁 ============
 gates:
   L1_available: {require: ["精度对 CPU 参考通过", "3 个 shape 跑通"], verify: ci/precision_gate.py}

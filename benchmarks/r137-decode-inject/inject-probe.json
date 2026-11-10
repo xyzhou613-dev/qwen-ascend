@@ -1,0 +1,74 @@
+[
+  {
+    "batch": 1,
+    "exact": true,
+    "max_abs": 0.0,
+    "dynamic_steps": 32,
+    "timings": [
+      {
+        "mode": "baseline",
+        "ms": 0.007280527148395777
+      },
+      {
+        "mode": "native",
+        "ms": 0.0025159765500575304
+      },
+      {
+        "mode": "baseline",
+        "ms": 0.007282753940671682
+      },
+      {
+        "mode": "native",
+        "ms": 0.0025253125932067633
+      }
+    ]
+  },
+  {
+    "batch": 8,
+    "exact": true,
+    "max_abs": 0.0,
+    "dynamic_steps": 32,
+    "timings": [
+      {
+        "mode": "baseline",
+        "ms": 0.00780160166323185
+      },
+      {
+        "mode": "native",
+        "ms": 0.0051266406662762165
+      },
+      {
+        "mode": "baseline",
+        "ms": 0.007803769316524267
+      },
+      {
+        "mode": "native",
+        "ms": 0.005023593548685312
+      }
+    ]
+  },
+  {
+    "batch": 128,
+    "exact": true,
+    "max_abs": 0.0,
+    "dynamic_steps": 32,
+    "timings": [
+      {
+        "mode": "baseline",
+        "ms": 0.016474785283207893
+      },
+      {
+        "mode": "native",
+        "ms": 0.04715203121304512
+      },
+      {
+        "mode": "baseline",
+        "ms": 0.016472987830638885
+      },
+      {
+        "mode": "native",
+        "ms": 0.04749693349003792
+      }
+    ]
+  }
+]
