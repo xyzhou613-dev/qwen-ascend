@@ -5,7 +5,7 @@ Source: /usr/local/Ascend/cann/tools/profiler/profiler_tool/analysis/msmodel/har
 30:     acsq task model class
 31:     """
 32:     SCALE = 0.000030517578125  # equal to HBMC(256) / HBM_EVENT(8) / KILOBYTE(1024.0) / KILOBYTE(1024.0)
-33: 
+33:
 34:     def __init__(self: any, result_dir: str, db_name: str, table_list: list) -> None:
 
 99:             if bw_data[i][1] - bw_data[i - check_len][1]:

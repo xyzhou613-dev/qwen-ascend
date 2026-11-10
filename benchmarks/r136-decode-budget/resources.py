@@ -38,5 +38,5 @@ extra=dict(index_score_flops=12*2*4*128*4096,attention_valid_flops=12*4*24*256*2
 result=dict(groups=dict(groups),matrix_flops=sum(x['flops'] for x in records),weight_min_bytes=sum(x['weight_min_bytes'] for x in records),extra=extra,records=records)
 (P/'resources.json').write_text(json.dumps(result,indent=2))
 with (P/'projection_flops_bytes.csv').open('w',newline='') as f:
- w=csv.DictWriter(f,fieldnames=records[0]);w.writeheader();w.writerows(records)
+ w=csv.DictWriter(f,fieldnames=records[0],lineterminator='\n');w.writeheader();w.writerows(records)
 print(json.dumps({k:v for k,v in result.items() if k!='records'},indent=2))

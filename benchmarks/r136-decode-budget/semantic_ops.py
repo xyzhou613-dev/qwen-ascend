@@ -56,6 +56,6 @@ for data in (out,byname):
 for name,data in (('semantic_matrices',out),('kernel_types',byname)):
  rows=[dict(name=n,**o) for n,o in sorted(data.items(),key=lambda p:-p[1]['timing_us'])]
  with (P/(name+'.csv')).open('w',newline='') as f:
-  w=csv.DictWriter(f,fieldnames=rows[0]);w.writeheader();w.writerows(rows)
+  w=csv.DictWriter(f,fieldnames=rows[0],lineterminator='\n');w.writeheader();w.writerows(rows)
 print('SEMANTIC_MATMUL_TOTAL_GFLOPS',sum(x['flops'] for x in out.values())/1e9)
 print(json.dumps(out,indent=2))
