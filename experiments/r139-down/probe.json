@@ -1,0 +1,134 @@
+[
+  {
+    "mode": "base_0_-1_3",
+    "exact": true,
+    "max_abs": 0.0,
+    "ms": 0.10266656428575516
+  },
+  {
+    "mode": "native_0_-1_3",
+    "exact": true,
+    "max_abs": 0.0,
+    "ms": 0.096133753657341
+  },
+  {
+    "mode": "base_0_1_2",
+    "exact": true,
+    "max_abs": 0.0,
+    "ms": 0.10267218947410583
+  },
+  {
+    "mode": "base_0_1_3",
+    "exact": true,
+    "max_abs": 0.0,
+    "ms": 0.10272156447172165
+  },
+  {
+    "mode": "base_0_2_2",
+    "exact": true,
+    "max_abs": 0.0,
+    "ms": 0.10262499749660492
+  },
+  {
+    "mode": "base_0_2_3",
+    "exact": true,
+    "max_abs": 0.0,
+    "ms": 0.10260327905416489
+  },
+  {
+    "mode": "base_0_4_2",
+    "exact": true,
+    "max_abs": 0.0,
+    "ms": 0.10248281061649323
+  },
+  {
+    "mode": "base_0_4_3",
+    "exact": true,
+    "max_abs": 0.0,
+    "ms": 0.10266140848398209
+  },
+  {
+    "mode": "base_0_8_2",
+    "exact": true,
+    "max_abs": 0.0,
+    "ms": 0.1027103140950203
+  },
+  {
+    "mode": "base_0_8_3",
+    "exact": true,
+    "max_abs": 0.0,
+    "ms": 0.1026601567864418
+  },
+  {
+    "mode": "base_0_10_2",
+    "exact": true,
+    "max_abs": 0.0,
+    "ms": 0.10265687853097916
+  },
+  {
+    "mode": "base_0_10_3",
+    "exact": true,
+    "max_abs": 0.0,
+    "ms": 0.10250703245401382
+  },
+  {
+    "mode": "base_1_1_2",
+    "exact": true,
+    "max_abs": 0.0,
+    "ms": 0.10411718487739563
+  },
+  {
+    "mode": "base_1_1_3",
+    "exact": true,
+    "max_abs": 0.0,
+    "ms": 0.10401984304189682
+  },
+  {
+    "mode": "base_1_2_2",
+    "exact": true,
+    "max_abs": 0.0,
+    "ms": 0.10377609729766846
+  },
+  {
+    "mode": "base_1_2_3",
+    "exact": true,
+    "max_abs": 0.0,
+    "ms": 0.10398765653371811
+  },
+  {
+    "mode": "base_1_4_2",
+    "exact": true,
+    "max_abs": 0.0,
+    "ms": 0.10389547049999237
+  },
+  {
+    "mode": "base_1_4_3",
+    "exact": true,
+    "max_abs": 0.0,
+    "ms": 0.10395734012126923
+  },
+  {
+    "mode": "base_1_8_2",
+    "exact": true,
+    "max_abs": 0.0,
+    "ms": 0.10403218865394592
+  },
+  {
+    "mode": "base_1_8_3",
+    "exact": true,
+    "max_abs": 0.0,
+    "ms": 0.1038106232881546
+  },
+  {
+    "mode": "base_1_10_2",
+    "exact": true,
+    "max_abs": 0.0,
+    "ms": 0.10388718545436859
+  },
+  {
+    "mode": "base_1_10_3",
+    "exact": true,
+    "max_abs": 0.0,
+    "ms": 0.10392171889543533
+  }
+]

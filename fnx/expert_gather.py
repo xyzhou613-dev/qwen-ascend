@@ -8,7 +8,7 @@ _lib = None
 
 def gather(projection, ids):
     if (not projection.expert_major or projection._scales is None
-            or (projection.K, projection.G, projection.N, projection.E) != (2560, 40, 1280, 512)
+            or (projection.K, projection.G, projection.N, projection.E) not in ((2560, 40, 1280, 512), (640, 10, 2560, 512))
             or ids.shape != (10,) or ids.dtype != torch.int64 or not ids.is_contiguous()):
         return None
     w, s = projection.w4, projection._scales
@@ -22,10 +22,10 @@ def gather(projection, ids):
         lib.fnx_gather_pair.argtypes = [ctypes.c_void_p]*5+[ctypes.c_int]*3+[ctypes.c_void_p]
         lib.fnx_gather_pair.restype = ctypes.c_int
         _lib = lib
-    ow = torch.empty((2560,1600),dtype=torch.int32,device=w.device)
-    oscale = torch.empty((40,12800),dtype=torch.bfloat16,device=w.device)
+    ow = torch.empty((projection.K,10*projection.N//8),dtype=torch.int32,device=w.device)
+    oscale = torch.empty((projection.G,10*projection.N),dtype=torch.bfloat16,device=w.device)
     rc = _lib.fnx_gather_pair(w.data_ptr(),s.data_ptr(),ids.data_ptr(),ow.data_ptr(),oscale.data_ptr(),
-                              2560,40,1280,torch.npu.current_stream(w.device).npu_stream)
+                              projection.K,projection.G,projection.N,torch.npu.current_stream(w.device).npu_stream)
     if rc:
         raise RuntimeError(f'expert gather launch rejected: {rc}')
     return ow, oscale

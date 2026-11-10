@@ -385,7 +385,7 @@ ops:
       - "只在本机CANN/驱动矩阵验证，未达L2性能认证或长期稳定性认证"
 
   - name: expert_gather_kmajor_decode
-    version: 0.1.0
+    version: 0.2.0
     category: layout
     status: alpha
     desc: "动态top10专家W4打包位与BF16 scale一次收拢为K-major，避免中间Gather+Transpose物化"
@@ -393,11 +393,12 @@ ops:
     wrapper: fnx/expert_gather.py
     hardware: [{chip: Ascend910B4, cann: "9.1.0", units: [Vector]}]
     shape: {E: 512, K: 2560, N: 1280, G: 40, topk: 10}
+    variants: [{K: 640, N: 2560, G: 10, layout: "K-major for diagonal down"}]
     perf: {machine: 910b4x2-206, measured_at: 2026-11-10, path: "gather plus up matmul", reference_us: 98.75, fused_us: 52.61}
     precision: "32组动态路由含重复/边界ID；真实L00 decode及128/512/2048分块输出、FP32状态、BF16历史逐位一致"
     known_issues:
-      - "仅gate/up单token且权重expert-major、缓存BF16 scale；其他路径回退"
-      - "默认关闭，构建共享库后通过FNX_EXPERT_GATHER=1启用"
+      - "支持gate/up单token和down对角矩阵的10行；要求expert-major与缓存BF16 scale；其他路径回退"
+      - "默认关闭，构建共享库后通过FNX_EXPERT_GATHER=1启用；down需FNX_DECODE_DN_GMM=0"
       - "微基准需要每图多次运算摊薄宿侧发射下限；不将孤立Gather计时当作精确kernel时长"
       - "仅当前软硬件矩阵验证，未做长期稳定性或L2性能认证"
 

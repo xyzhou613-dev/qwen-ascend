@@ -1,0 +1,118 @@
+[
+  {
+    "T": 1,
+    "accuracy": {
+      "output_exact": true,
+      "state_exact": true,
+      "conv_exact": true,
+      "output_max_abs": 0,
+      "state_max_abs": 0
+    },
+    "timings": [
+      {
+        "mode": "baseline",
+        "ms": 0.6994950175285339
+      },
+      {
+        "mode": "fused",
+        "ms": 0.6486750245094299
+      },
+      {
+        "mode": "baseline",
+        "ms": 0.6977124810218811
+      },
+      {
+        "mode": "fused",
+        "ms": 0.6503649950027466
+      }
+    ],
+    "dynamic_steps": 8
+  },
+  {
+    "T": 128,
+    "accuracy": {
+      "output_exact": true,
+      "state_exact": true,
+      "conv_exact": true,
+      "output_max_abs": 0,
+      "state_max_abs": 0
+    },
+    "timings": [
+      {
+        "mode": "baseline",
+        "ms": 6.762057304382324
+      },
+      {
+        "mode": "fused",
+        "ms": 6.796212673187256
+      },
+      {
+        "mode": "baseline",
+        "ms": 6.810540199279785
+      },
+      {
+        "mode": "fused",
+        "ms": 6.850187301635742
+      }
+    ],
+    "dynamic_steps": 8
+  },
+  {
+    "T": 512,
+    "accuracy": {
+      "output_exact": true,
+      "state_exact": true,
+      "conv_exact": true,
+      "output_max_abs": 0,
+      "state_max_abs": 0
+    },
+    "timings": [
+      {
+        "mode": "baseline",
+        "ms": 9.951905250549316
+      },
+      {
+        "mode": "fused",
+        "ms": 9.981972694396973
+      },
+      {
+        "mode": "baseline",
+        "ms": 10.03258228302002
+      },
+      {
+        "mode": "fused",
+        "ms": 10.073832511901855
+      }
+    ],
+    "dynamic_steps": 8
+  },
+  {
+    "T": 2048,
+    "accuracy": {
+      "output_exact": true,
+      "state_exact": true,
+      "conv_exact": true,
+      "output_max_abs": 0,
+      "state_max_abs": 0
+    },
+    "timings": [
+      {
+        "mode": "baseline",
+        "ms": 23.587879180908203
+      },
+      {
+        "mode": "fused",
+        "ms": 23.66957664489746
+      },
+      {
+        "mode": "baseline",
+        "ms": 23.561609268188477
+      },
+      {
+        "mode": "fused",
+        "ms": 23.637014389038086
+      }
+    ],
+    "dynamic_steps": 8
+  }
+]

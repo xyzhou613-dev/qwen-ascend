@@ -678,7 +678,7 @@ class ExpW4:
 
     def apply(self, x, ids):
         """x [M,K] bf16（M=1 或 k），ids [k] -> [M, k*N]。"""
-        if x.numel() == self.K and os.environ.get("FNX_EXPERT_GATHER", "0") == "1":
+        if x.ndim == 2 and x.shape[0] in (1, TOPK) and x.shape[1] == self.K and os.environ.get("FNX_EXPERT_GATHER", "0") == "1":
             from .expert_gather import gather
             selected = gather(self, ids)
             if selected is not None:

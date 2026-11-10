@@ -1,0 +1,17 @@
+{
+  "weight_equal": true,
+  "weight_diff_count": 0,
+  "weight_max_diff": 0.0,
+  "outputs": {
+    "cpu_deq": {
+      "exact": false,
+      "max_abs": 0.001953125,
+      "different": 191
+    },
+    "cann_deq": {
+      "exact": false,
+      "max_abs": 0.001953125,
+      "different": 191
+    }
+  }
+}

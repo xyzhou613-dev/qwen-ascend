@@ -1,0 +1,30 @@
+[
+  {
+    "mode": "gmm",
+    "exact": true,
+    "max_abs": 0.0,
+    "rel_l2": 0.0,
+    "ms": 0.10221515595912933
+  },
+  {
+    "mode": "diag",
+    "exact": true,
+    "max_abs": 0.0,
+    "rel_l2": 0.0,
+    "ms": 0.13212250173091888
+  },
+  {
+    "mode": "native_diag",
+    "exact": true,
+    "max_abs": 0.0,
+    "rel_l2": 0.0,
+    "ms": 0.09164171665906906
+  },
+  {
+    "mode": "gmm",
+    "exact": true,
+    "max_abs": 0.0,
+    "rel_l2": 0.0,
+    "ms": 0.10215703397989273
+  }
+]

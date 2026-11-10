@@ -8,7 +8,7 @@ extern "C" __global__ __aicore__ void gather_pair(GM_ADDR weights,GM_ADDR scales
  const int expert_slot=GetBlockIdx()%10, worker=GetBlockIdx()/10, expert=static_cast<int>(gi.GetValue(expert_slot));
  TPipe pipe;TBuf<TPosition::VECCALC> buffer;pipe.InitBuffer(buffer,65536);auto tmp=buffer.Get<uint8_t>();
  for(int part=0;part<2;++part) {
-  const int rows=part?G:K,row_bytes=part?N*2:N/2,tile_rows=part?16:64;
+  const int rows=part?G:K,row_bytes=part?N*2:N/2,tile_rows=part?(N==2560?8:16):(N==2560?32:64);
   for(int begin=worker*tile_rows;begin<rows;begin+=4*tile_rows) {
    const int count=rows-begin<tile_rows?rows-begin:tile_rows;
    if(part)DataCopy(tmp,gs[(static_cast<int64_t>(expert)*rows+begin)*row_bytes],count*row_bytes);
@@ -22,6 +22,6 @@ extern "C" __global__ __aicore__ void gather_pair(GM_ADDR weights,GM_ADDR scales
  }
 }
 extern "C" int fnx_gather_pair(void*w,void*s,void*i,void*ow,void*os,int K,int G,int N,void*stream) {
- if(K<1||G<1||N!=1280)return -1;
+ if(K<1||G<1||(N!=1280&&N!=2560))return -1;
  gather_pair<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)ow,(GM_ADDR)os,K,G,N);return 0;
 }
