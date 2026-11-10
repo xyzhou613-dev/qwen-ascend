@@ -1,0 +1,10 @@
+{
+  "revision": "r138",
+  "files": {
+    "/root/ascend-dev/fnx/fnx/engine.py": "97bed88f528b0a5e03b8707b6b4546e6ad08ce072f58592a1b0f0789cf5eac23",
+    "/root/ascend-dev/fnx/fnx/server.py": "2bb9e08b066837e18fb28ec33a74c68c1917264965d8a9ef9de0ac53cf48a34d",
+    "/root/ascend-dev/fnx/fnx/expert_gather.py": "0c8ca4431df0e4266bf3124dd7917e8f3e05b7f19ceb1cad3e3f8975148e4877",
+    "/root/ascend-dev/fnx/fnx/libfnx_expert_gather.so": "8bb30eba8e4605edd8e20cc48387a5bc1b108b527ea9413164bd315932422715",
+    "/root/ascend-dev/p275.sh": "1fa3961f0ae5a8487b100e0c8eae4d7c98bb6afdb18b93516aecfb783d6361dd"
+  }
+}
