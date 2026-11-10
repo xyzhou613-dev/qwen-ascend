@@ -377,7 +377,8 @@ class Raw:
     __slots__ = ("w",)
 
     def __init__(self, w):
-        self.w = w
+        # QW.deq_w() can retain group padding in its row stride.
+        self.w = w.contiguous() if os.environ.get("FNX_RAW_COMPACT", "0") == "1" else w
 
 
 def pack4(q, chunk=64):

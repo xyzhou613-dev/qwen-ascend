@@ -1,0 +1,118 @@
+[
+  {
+    "T": 1,
+    "accuracy": {
+      "output_exact": true,
+      "state_exact": true,
+      "conv_exact": true,
+      "output_max_abs": 0,
+      "state_max_abs": 0
+    },
+    "timings": [
+      {
+        "mode": "baseline",
+        "ms": 0.8441774845123291
+      },
+      {
+        "mode": "compact",
+        "ms": 0.7929025292396545
+      },
+      {
+        "mode": "baseline",
+        "ms": 0.841884970664978
+      },
+      {
+        "mode": "compact",
+        "ms": 0.7927975058555603
+      }
+    ],
+    "dynamic_steps": 8
+  },
+  {
+    "T": 128,
+    "accuracy": {
+      "output_exact": true,
+      "state_exact": true,
+      "conv_exact": true,
+      "output_max_abs": 0,
+      "state_max_abs": 0
+    },
+    "timings": [
+      {
+        "mode": "baseline",
+        "ms": 6.955552577972412
+      },
+      {
+        "mode": "compact",
+        "ms": 6.914547443389893
+      },
+      {
+        "mode": "baseline",
+        "ms": 7.012784957885742
+      },
+      {
+        "mode": "compact",
+        "ms": 6.969207286834717
+      }
+    ],
+    "dynamic_steps": 8
+  },
+  {
+    "T": 512,
+    "accuracy": {
+      "output_exact": true,
+      "state_exact": true,
+      "conv_exact": true,
+      "output_max_abs": 0,
+      "state_max_abs": 0
+    },
+    "timings": [
+      {
+        "mode": "baseline",
+        "ms": 10.707354545593262
+      },
+      {
+        "mode": "compact",
+        "ms": 10.68966293334961
+      },
+      {
+        "mode": "baseline",
+        "ms": 10.780590057373047
+      },
+      {
+        "mode": "compact",
+        "ms": 10.77001953125
+      }
+    ],
+    "dynamic_steps": 8
+  },
+  {
+    "T": 2048,
+    "accuracy": {
+      "output_exact": true,
+      "state_exact": true,
+      "conv_exact": true,
+      "output_max_abs": 0,
+      "state_max_abs": 0
+    },
+    "timings": [
+      {
+        "mode": "baseline",
+        "ms": 27.173267364501953
+      },
+      {
+        "mode": "compact",
+        "ms": 27.111183166503906
+      },
+      {
+        "mode": "baseline",
+        "ms": 27.130632400512695
+      },
+      {
+        "mode": "compact",
+        "ms": 27.07159996032715
+      }
+    ],
+    "dynamic_steps": 8
+  }
+]

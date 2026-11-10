@@ -1,0 +1,703 @@
+[
+  {
+    "name": "a_di",
+    "shape": [
+      324,
+      10240
+    ],
+    "accuracy": {
+      "nd": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_t": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_pad": {
+        "exact": false,
+        "max_abs": 0.0009765625
+      },
+      "nd_pad_t": {
+        "exact": false,
+        "max_abs": 0.0009765625
+      },
+      "nd_view": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_pad_view": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nz": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nz_t": {
+        "exact": true,
+        "max_abs": 0
+      }
+    },
+    "timings": [
+      {
+        "kind": "nd",
+        "ms": 0.018151171505451202
+      },
+      {
+        "kind": "nd_t",
+        "ms": 0.03877289220690727
+      },
+      {
+        "kind": "nd_pad",
+        "ms": 0.01815660111606121
+      },
+      {
+        "kind": "nd_pad_t",
+        "ms": 0.027429530397057533
+      },
+      {
+        "kind": "nd_view",
+        "ms": 0.0387457013130188
+      },
+      {
+        "kind": "nd_pad_view",
+        "ms": 0.059544920921325684
+      },
+      {
+        "kind": "nz",
+        "ms": 0.01817999966442585
+      },
+      {
+        "kind": "nz_t",
+        "ms": 0.018185976892709732
+      },
+      {
+        "kind": "nd",
+        "ms": 0.018161563202738762
+      }
+    ]
+  },
+  {
+    "name": "a_up",
+    "shape": [
+      10240,
+      320
+    ],
+    "accuracy": {
+      "nz": {
+        "error": "RuntimeError('mm:../third_party/op-plugin/op_plugin/ops/opapi/MmKernelNpuOpApi.cpp:70 NPU function error: call aclnnMatmulWeightNz failed, error code is 161002\\n[ERROR] 2026-11-10-02:22:53 (PID:20867, Device:0, RankID:-1) ERR00100 PTA call acl api failed.\\n[PID: 20867] 2026-11-10-02:22:53.291.808 AclNN_Parameter_Error(EZ1001): Only support mat2 storageShapeDim is 4, which are [5].\\n')"
+      },
+      "nd": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_t": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_pad": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_pad_t": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_view": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_pad_view": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nz_t": {
+        "exact": true,
+        "max_abs": 0
+      }
+    },
+    "timings": [
+      {
+        "kind": "nd",
+        "ms": 0.03162187337875366
+      },
+      {
+        "kind": "nd_t",
+        "ms": 0.01815812475979328
+      },
+      {
+        "kind": "nd_pad",
+        "ms": 0.018199492245912552
+      },
+      {
+        "kind": "nd_pad_t",
+        "ms": 0.018124453723430634
+      },
+      {
+        "kind": "nd_view",
+        "ms": 0.01812906190752983
+      },
+      {
+        "kind": "nd_pad_view",
+        "ms": 0.018067577853798866
+      },
+      {
+        "kind": "nz_t",
+        "ms": 0.01818324252963066
+      },
+      {
+        "kind": "nd",
+        "ms": 0.031595781445503235
+      }
+    ]
+  },
+  {
+    "name": "m_di",
+    "shape": [
+      324,
+      10240
+    ],
+    "accuracy": {
+      "nd": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_t": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_pad": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_pad_t": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_view": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_pad_view": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nz": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nz_t": {
+        "exact": true,
+        "max_abs": 0
+      }
+    },
+    "timings": [
+      {
+        "kind": "nd",
+        "ms": 0.018176328390836716
+      },
+      {
+        "kind": "nd_t",
+        "ms": 0.038742147386074066
+      },
+      {
+        "kind": "nd_pad",
+        "ms": 0.01817808672785759
+      },
+      {
+        "kind": "nd_pad_t",
+        "ms": 0.027408594265580177
+      },
+      {
+        "kind": "nd_view",
+        "ms": 0.038806404918432236
+      },
+      {
+        "kind": "nd_pad_view",
+        "ms": 0.05958132818341255
+      },
+      {
+        "kind": "nz",
+        "ms": 0.01822359301149845
+      },
+      {
+        "kind": "nz_t",
+        "ms": 0.018211210146546364
+      },
+      {
+        "kind": "nd",
+        "ms": 0.01817445270717144
+      }
+    ]
+  },
+  {
+    "name": "m_up",
+    "shape": [
+      10240,
+      320
+    ],
+    "accuracy": {
+      "nz": {
+        "error": "RuntimeError('mm:../third_party/op-plugin/op_plugin/ops/opapi/MmKernelNpuOpApi.cpp:70 NPU function error: call aclnnMatmulWeightNz failed, error code is 161002\\n[ERROR] 2026-11-10-02:22:55 (PID:20867, Device:0, RankID:-1) ERR00100 PTA call acl api failed.\\n[PID: 20867] 2026-11-10-02:22:55.241.648 AclNN_Parameter_Error(EZ1001): Only support mat2 storageShapeDim is 4, which are [5].\\n')"
+      },
+      "nd": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_t": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_pad": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_pad_t": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_view": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_pad_view": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nz_t": {
+        "exact": true,
+        "max_abs": 0
+      }
+    },
+    "timings": [
+      {
+        "kind": "nd",
+        "ms": 0.032120391726493835
+      },
+      {
+        "kind": "nd_t",
+        "ms": 0.018213046714663506
+      },
+      {
+        "kind": "nd_pad",
+        "ms": 0.018290547654032707
+      },
+      {
+        "kind": "nd_pad_t",
+        "ms": 0.01814218796789646
+      },
+      {
+        "kind": "nd_view",
+        "ms": 0.018174218013882637
+      },
+      {
+        "kind": "nd_pad_view",
+        "ms": 0.018181875348091125
+      },
+      {
+        "kind": "nz_t",
+        "ms": 0.01813996024429798
+      },
+      {
+        "kind": "nd",
+        "ms": 0.032115742564201355
+      }
+    ]
+  },
+  {
+    "name": "w_b",
+    "shape": [
+      48,
+      2560
+    ],
+    "accuracy": {
+      "nd": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_t": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_pad": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_pad_t": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_view": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_pad_view": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nz": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nz_t": {
+        "exact": true,
+        "max_abs": 0
+      }
+    },
+    "timings": [
+      {
+        "kind": "nd",
+        "ms": 0.01822921819984913
+      },
+      {
+        "kind": "nd_t",
+        "ms": 0.018141796812415123
+      },
+      {
+        "kind": "nd_pad",
+        "ms": 0.018164414912462234
+      },
+      {
+        "kind": "nd_pad_t",
+        "ms": 0.01812168024480343
+      },
+      {
+        "kind": "nd_view",
+        "ms": 0.018144257366657257
+      },
+      {
+        "kind": "nd_pad_view",
+        "ms": 0.01822074130177498
+      },
+      {
+        "kind": "nz",
+        "ms": 0.01813933625817299
+      },
+      {
+        "kind": "nz_t",
+        "ms": 0.018183046951889992
+      },
+      {
+        "kind": "nd",
+        "ms": 0.018161093816161156
+      }
+    ]
+  },
+  {
+    "name": "w_a",
+    "shape": [
+      48,
+      2560
+    ],
+    "accuracy": {
+      "nd": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_t": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_pad": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_pad_t": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_view": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_pad_view": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nz": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nz_t": {
+        "exact": true,
+        "max_abs": 0
+      }
+    },
+    "timings": [
+      {
+        "kind": "nd",
+        "ms": 0.018077539280056953
+      },
+      {
+        "kind": "nd_t",
+        "ms": 0.018143046647310257
+      },
+      {
+        "kind": "nd_pad",
+        "ms": 0.018112149089574814
+      },
+      {
+        "kind": "nd_pad_t",
+        "ms": 0.01819535158574581
+      },
+      {
+        "kind": "nd_view",
+        "ms": 0.018174024298787117
+      },
+      {
+        "kind": "nd_pad_view",
+        "ms": 0.01813378930091858
+      },
+      {
+        "kind": "nz",
+        "ms": 0.018163397908210754
+      },
+      {
+        "kind": "nz_t",
+        "ms": 0.018148358911275864
+      },
+      {
+        "kind": "nd",
+        "ms": 0.01812945306301117
+      }
+    ]
+  },
+  {
+    "name": "w_out",
+    "shape": [
+      2560,
+      6144
+    ],
+    "accuracy": {
+      "nd": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_t": {
+        "exact": false,
+        "max_abs": 7.62939453125e-06
+      },
+      "nd_pad": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_pad_t": {
+        "exact": false,
+        "max_abs": 7.62939453125e-06
+      },
+      "nd_view": {
+        "exact": false,
+        "max_abs": 7.62939453125e-06
+      },
+      "nd_pad_view": {
+        "exact": false,
+        "max_abs": 7.62939453125e-06
+      },
+      "nz": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nz_t": {
+        "exact": false,
+        "max_abs": 7.62939453125e-06
+      }
+    },
+    "timings": [
+      {
+        "kind": "nd",
+        "ms": 0.018366562202572823
+      },
+      {
+        "kind": "nd_t",
+        "ms": 0.018276171758770943
+      },
+      {
+        "kind": "nd_pad",
+        "ms": 0.018334101885557175
+      },
+      {
+        "kind": "nd_pad_t",
+        "ms": 0.018301639705896378
+      },
+      {
+        "kind": "nd_view",
+        "ms": 0.01824800856411457
+      },
+      {
+        "kind": "nd_pad_view",
+        "ms": 0.018277538940310478
+      },
+      {
+        "kind": "nz",
+        "ms": 0.01823507808148861
+      },
+      {
+        "kind": "nz_t",
+        "ms": 0.018382344394922256
+      },
+      {
+        "kind": "nd",
+        "ms": 0.018245819956064224
+      }
+    ]
+  },
+  {
+    "name": "sh_gu",
+    "shape": [
+      1793,
+      2560
+    ],
+    "accuracy": {
+      "nd": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_t": {
+        "exact": false,
+        "max_abs": 1.52587890625e-05
+      },
+      "nd_pad": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_pad_t": {
+        "exact": false,
+        "max_abs": 1.52587890625e-05
+      },
+      "nd_view": {
+        "exact": false,
+        "max_abs": 1.52587890625e-05
+      },
+      "nd_pad_view": {
+        "exact": false,
+        "max_abs": 1.52587890625e-05
+      },
+      "nz": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nz_t": {
+        "exact": false,
+        "max_abs": 0.0001220703125
+      }
+    },
+    "timings": [
+      {
+        "kind": "nd",
+        "ms": 0.018214453011751175
+      },
+      {
+        "kind": "nd_t",
+        "ms": 0.020120937377214432
+      },
+      {
+        "kind": "nd_pad",
+        "ms": 0.018180975690484047
+      },
+      {
+        "kind": "nd_pad_t",
+        "ms": 0.01829542964696884
+      },
+      {
+        "kind": "nd_view",
+        "ms": 0.020124686881899834
+      },
+      {
+        "kind": "nd_pad_view",
+        "ms": 0.0317540243268013
+      },
+      {
+        "kind": "nz",
+        "ms": 0.01818867214024067
+      },
+      {
+        "kind": "nz_t",
+        "ms": 0.0182693749666214
+      },
+      {
+        "kind": "nd",
+        "ms": 0.01815035194158554
+      }
+    ]
+  },
+  {
+    "name": "sh_down",
+    "shape": [
+      2560,
+      640
+    ],
+    "accuracy": {
+      "nd": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_t": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_pad": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_pad_t": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_view": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nd_pad_view": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nz": {
+        "exact": true,
+        "max_abs": 0
+      },
+      "nz_t": {
+        "exact": true,
+        "max_abs": 0
+      }
+    },
+    "timings": [
+      {
+        "kind": "nd",
+        "ms": 0.018191680312156677
+      },
+      {
+        "kind": "nd_t",
+        "ms": 0.018222538754343987
+      },
+      {
+        "kind": "nd_pad",
+        "ms": 0.01809293031692505
+      },
+      {
+        "kind": "nd_pad_t",
+        "ms": 0.018194297328591347
+      },
+      {
+        "kind": "nd_view",
+        "ms": 0.018218984827399254
+      },
+      {
+        "kind": "nd_pad_view",
+        "ms": 0.018161680549383163
+      },
+      {
+        "kind": "nz",
+        "ms": 0.01815043017268181
+      },
+      {
+        "kind": "nz_t",
+        "ms": 0.018188750371336937
+      },
+      {
+        "kind": "nd",
+        "ms": 0.018147539347410202
+      }
+    ]
+  }
+]
