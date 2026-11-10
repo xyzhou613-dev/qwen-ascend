@@ -1,0 +1,28 @@
+{
+  "accuracy": {
+    "native": {
+      "exact": true,
+      "max_abs": 0,
+      "mismatched_steps": 0
+    }
+  },
+  "records": [
+    {
+      "mode": "baseline",
+      "ms": 0.3018215596675873
+    },
+    {
+      "mode": "native",
+      "ms": 0.2999018728733063
+    },
+    {
+      "mode": "baseline",
+      "ms": 0.3023006319999695
+    },
+    {
+      "mode": "native",
+      "ms": 0.30004188418388367
+    }
+  ],
+  "dynamic_steps": 32
+}

@@ -1,0 +1,69 @@
+PAYLOAD 1 prompt_tokens 8064 max_output 128
+PAYLOAD 2 prompt_tokens 8064 max_output 128
+PAYLOAD 3 prompt_tokens 8064 max_output 128
+{"run": 1, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 5.01, "end_to_end_s": 10.801, "prefill_s": 4.892, "prefill_tok_s": 1647.51, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 45.6, "server_total_s": 10.764}
+{"run": 2, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 4.887, "end_to_end_s": 10.67, "prefill_s": 4.79, "prefill_tok_s": 1682.54, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 45.54, "server_total_s": 10.636}
+{"run": 3, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 4.874, "end_to_end_s": 10.66, "prefill_s": 4.78, "prefill_tok_s": 1686.24, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 45.56, "server_total_s": 10.628}
+E2E_COMPLETE
+EDGE 4 True
+EDGE 8 True
+EDGE 16 True
+EDGE 32 True
+EDGE 60 True
+EDGE 63 True
+EDGE 64 True
+EDGE 65 True
+EDGE 120 True
+EDGE 123 True
+EDGE 124 True
+EDGE 125 True
+EDGE 127 True
+EDGE 128 True
+EDGE 129 True
+EDGES_COMPLETE 15
+PAYLOAD 1 prompt_tokens 8064 max_output 128
+PAYLOAD 2 prompt_tokens 8064 max_output 128
+PAYLOAD 3 prompt_tokens 8064 max_output 128
+{"run": 1, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 4.67, "end_to_end_s": 10.457, "prefill_s": 4.574, "prefill_tok_s": 1762.13, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 45.57, "server_total_s": 10.423}
+{"run": 2, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 4.637, "end_to_end_s": 10.429, "prefill_s": 4.542, "prefill_tok_s": 1774.68, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 45.61, "server_total_s": 10.396}
+{"run": 3, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 4.639, "end_to_end_s": 10.429, "prefill_s": 4.544, "prefill_tok_s": 1773.93, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 45.59, "server_total_s": 10.396}
+E2E_COMPLETE
+EDGE 4 True
+EDGE 8 True
+EDGE 16 True
+EDGE 32 True
+EDGE 60 True
+EDGE 63 True
+EDGE 64 True
+EDGE 65 True
+EDGE 120 True
+EDGE 123 True
+EDGE 124 True
+EDGE 125 True
+EDGE 127 True
+EDGE 128 True
+EDGE 129 True
+EDGES_COMPLETE 15
+QUALITY 262144 {'mean_nll': 2.165267, 'ppl': 8.7169, 'top1_acc': 0.485, 'n': 200}
+PROGRESS 262144 : prefill 32768/262012 elapsed 10.75
+PROGRESS 262144 : prefill 65536/262012 elapsed 19.61
+PROGRESS 262144 : prefill 98304/262012 elapsed 28.68
+PROGRESS 262144 : prefill 131072/262012 elapsed 38.02
+PROGRESS 262144 : prefill 163840/262012 elapsed 47.79
+PROGRESS 262144 : prefill 196608/262012 elapsed 57.52
+PROGRESS 262144 : prefill 229376/262012 elapsed 67.72
+PROGRESS 262144 : prefill 262012/262012 elapsed 81.71
+LONG_RESULT {"ctx": 262144, "prompt_tokens": 262016, "ttft_s": 81.763, "e2e_s": 87.717, "stats": {"ttft_ms": 80637.81, "tokens": 128, "seconds": 86.592, "tpot_ms": 46.88, "tok_decode_ms": 4.45, "prefill_ms": 80492.29, "prefill_tok_s": 3255.12, "n_prefill": 262012}, "answer": "根据资料内容，三个项目的验收码如下：\n\n1. 海棠：7319\n2. 松柏：8652\n3. 银杏：2946\n\n关于资料中涉及的推理服务和长文档处理技术，以下是详细的技术解析：\n\n在现代大规模深度学习推理场景中，尤其是针对昇腾处理器等专用AI芯片，性能优化的核心往往不在于单一算子的峰值算力，而在于系统级的数据搬运效率与内存带宽利用率。资料指出，最容易被低估的性能瓶颈是数据在设备之间搬运所带来的固定开销。即使单次跨设备张量拷贝的数据量看似微小，一旦其", "recall_hits": 3}
+REPEAT 262144 seconds 7.145 stats {'ttft_ms': 151.91, 'seconds': 6.045, 'tpot_ms': 46.39, 'n_prefill': 0, 'prefill_ms': 0.13, 'prefill_tok_s': 0.0} answer 根据资料内容，三个项目的验收码如下：
+
+1. 海棠：7319
+2. 松柏：8652
+3. 银杏：2946
+
+关于资料中涉及的推理服务和长文档处理技术，以下是详细的技术解析：
+
+在现代大规模深度学习推理场景中，尤其是针对昇腾处理器等专用AI芯片，性能优化的核心往往不在于单一算子的峰值算力，而在于系统级的数据搬运效率与内存带宽利用率。资料指出，最容易被低估的性能瓶颈是数据在设备之间搬运所带来的固定开销。即使单次跨设备张量拷贝的数据量看似微小，一旦其
+LONG_ACCEPT 262144
+CONTINUATION {"seconds": 1.9043091549974633, "prompt_tokens": 262045, "answer": "7319", "stats": {"ttft_ms": 644.91, "seconds": 0.831, "tpot_ms": 46.37, "n_prefill": 29, "prefill_ms": 410.78, "prefill_tok_s": 70.6}}
+CONTINUATION_ACCEPT
+CANDIDATE_COMPLETE

@@ -394,6 +394,8 @@ class Engine:
         #   这里按 1/8 刻度发进度事件（流式时变成 SSE 注释行，客户端可显示"正在读 prompt"）。
         pre = prompt_ids[n0:-1]
         n_pre = len(pre)
+        if hasattr(m, "plan_prefill"):
+            m.plan_prefill(n_pre)
         every = max(1, n_pre // 8)
         # ★ 第 46 轮：分块 prefill（FNX_CHUNK>1）。一次算 T 个 token，稠密 GEMM 摊薄 ~30×；
         #   DeltaNet 递推与 MoE 仍逐 token（第 ② 步再说）。最后一个 prompt token 不在这里算，
@@ -542,7 +544,10 @@ def health():
     worker=getattr(model,"process",None)
     if worker is not None and worker.poll() is not None:
         return JSONResponse(status_code=503,content={"status":"worker_unavailable","ctx":P})
-    return {"status": "ok", "engine_loaded": "e" in STATE, "ctx": P, "service_revision": "r120",
+    return {"status": "ok", "engine_loaded": "e" in STATE, "ctx": P, "service_revision": "r131",
+            "cpu_threads": torch.get_num_threads(),
+            "short_prefill_chunk": getattr(model,"short_prefill_chunk",0),
+            "short_prefill_tokens": getattr(model,"short_prefill_tokens",0),
             "pipeline_stages": 2 if worker is not None else 1,
             "worker_alive": worker is not None and worker.poll() is None,
             "prefill_chunk": _CHUNK,

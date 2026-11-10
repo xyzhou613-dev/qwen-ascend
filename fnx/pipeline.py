@@ -23,6 +23,11 @@ class PipelineModel:
         self.P, self.n = P, nlayers or 48
         self.split = int(os.environ.get('FNX_PIPELINE_SPLIT', str(lpc)))
         self.maximum = E._CHUNK
+        self.short_prefill_chunk = int(os.environ.get('FNX_PIPELINE_SHORT_CHUNK', '0'))
+        self.short_prefill_tokens = int(os.environ.get('FNX_PIPELINE_SHORT_TOKENS', '16384'))
+        if not 0 <= self.short_prefill_chunk <= self.maximum or self.short_prefill_tokens < 1:
+            raise ValueError('invalid short prefill chunk policy')
+        self.prefill_limit = self.maximum
         self.transport=os.environ.get('FNX_PIPELINE_TRANSPORT','host')
         if self.transport not in ('host','peer','hybrid'):
             raise ValueError('pipeline transport must be host, peer or hybrid')
@@ -67,6 +72,11 @@ class PipelineModel:
         if status!='ok':raise RuntimeError('pipeline worker: '+str(value))
         return value
 
+    def plan_prefill(self, tokens):
+        self.prefill_limit = (self.short_prefill_chunk
+                              if self.short_prefill_chunk and tokens <= self.short_prefill_tokens
+                              else self.maximum)
+
     def finish_prefill(self):
         while self.pending:
             self._receive();self.pending.popleft()
@@ -85,8 +95,8 @@ class PipelineModel:
         offset=0
         while offset<len(ids):
             remaining=len(ids)-offset
-            choices=[size for size in getattr(self.stage0,'chunk_graphs',{}) if size<=remaining]
-            size=max(choices) if choices else min(remaining,self.maximum)
+            choices=[size for size in getattr(self.stage0,'chunk_graphs',{}) if size<=remaining and size<=self.prefill_limit]
+            size=max(choices) if choices else min(remaining,self.maximum,self.prefill_limit)
             if self.stage0._host_pos<2048 and size>512:size=min(512,remaining)
             self.stage0.prefill_chunk(ids[offset:offset+size], pipeline=True)
             if len(self.pending)==2:

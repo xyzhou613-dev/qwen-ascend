@@ -1,0 +1,33 @@
+{
+  "accuracy": {
+    "selected": {
+      "exact": false,
+      "max_abs": 1.52587890625e-05,
+      "mismatched_steps": 32
+    },
+    "full": {
+      "exact": false,
+      "max_abs": 1.52587890625e-05,
+      "mismatched_steps": 32
+    }
+  },
+  "records": [
+    {
+      "mode": "baseline",
+      "ms": 0.30059999227523804
+    },
+    {
+      "mode": "selected",
+      "ms": 0.3105821907520294
+    },
+    {
+      "mode": "full",
+      "ms": 0.5049984455108643
+    },
+    {
+      "mode": "baseline",
+      "ms": 0.3004699945449829
+    }
+  ],
+  "dynamic_steps": 32
+}

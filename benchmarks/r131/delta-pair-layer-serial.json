@@ -1,0 +1,89 @@
+[
+  {
+    "T": 128,
+    "accuracy": {
+      "output_exact": true,
+      "state_exact": true,
+      "conv_exact": true,
+      "output_max_abs": 0,
+      "state_max_abs": 0
+    },
+    "timings": [
+      {
+        "mode": "baseline",
+        "ms": 6.7943902015686035
+      },
+      {
+        "mode": "pair",
+        "ms": 6.855932712554932
+      },
+      {
+        "mode": "baseline",
+        "ms": 7.086184978485107
+      },
+      {
+        "mode": "pair",
+        "ms": 7.123495101928711
+      }
+    ],
+    "dynamic_steps": 8
+  },
+  {
+    "T": 512,
+    "accuracy": {
+      "output_exact": true,
+      "state_exact": true,
+      "conv_exact": true,
+      "output_max_abs": 0,
+      "state_max_abs": 0
+    },
+    "timings": [
+      {
+        "mode": "baseline",
+        "ms": 12.095197677612305
+      },
+      {
+        "mode": "pair",
+        "ms": 12.234492301940918
+      },
+      {
+        "mode": "baseline",
+        "ms": 11.988719940185547
+      },
+      {
+        "mode": "pair",
+        "ms": 12.091927528381348
+      }
+    ],
+    "dynamic_steps": 8
+  },
+  {
+    "T": 2048,
+    "accuracy": {
+      "output_exact": true,
+      "state_exact": true,
+      "conv_exact": true,
+      "output_max_abs": 0,
+      "state_max_abs": 0
+    },
+    "timings": [
+      {
+        "mode": "baseline",
+        "ms": 26.520090103149414
+      },
+      {
+        "mode": "pair",
+        "ms": 27.23089027404785
+      },
+      {
+        "mode": "baseline",
+        "ms": 26.42666244506836
+      },
+      {
+        "mode": "pair",
+        "ms": 27.164188385009766
+      }
+    ],
+    "dynamic_steps": 8
+  }
+]

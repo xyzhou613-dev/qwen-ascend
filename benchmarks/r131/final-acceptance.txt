@@ -1,0 +1,48 @@
+PAYLOAD 1 prompt_tokens 8064 max_output 128
+PAYLOAD 2 prompt_tokens 8064 max_output 128
+PAYLOAD 3 prompt_tokens 8064 max_output 128
+{"run": 1, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 4.748, "end_to_end_s": 10.591, "prefill_s": 4.627, "prefill_tok_s": 1742.12, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 46.01, "server_total_s": 10.554}
+{"run": 2, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 4.651, "end_to_end_s": 10.499, "prefill_s": 4.554, "prefill_tok_s": 1769.89, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 46.05, "server_total_s": 10.466}
+{"run": 3, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 4.643, "end_to_end_s": 10.477, "prefill_s": 4.547, "prefill_tok_s": 1772.71, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 45.93, "server_total_s": 10.443}
+E2E_COMPLETE
+EDGE 4 True
+EDGE 8 True
+EDGE 16 True
+EDGE 32 True
+EDGE 60 True
+EDGE 63 True
+EDGE 64 True
+EDGE 65 True
+EDGE 120 True
+EDGE 123 True
+EDGE 124 True
+EDGE 125 True
+EDGE 127 True
+EDGE 128 True
+EDGE 129 True
+EDGES_COMPLETE 15
+QUALITY 262144 {'mean_nll': 2.165267, 'ppl': 8.7169, 'top1_acc': 0.485, 'n': 200}
+PROGRESS 262144 : prefill 32768/262012 elapsed 10.79
+PROGRESS 262144 : prefill 65536/262012 elapsed 19.64
+PROGRESS 262144 : prefill 98304/262012 elapsed 28.72
+PROGRESS 262144 : prefill 131072/262012 elapsed 38.07
+PROGRESS 262144 : prefill 163840/262012 elapsed 47.84
+PROGRESS 262144 : prefill 196608/262012 elapsed 57.57
+PROGRESS 262144 : prefill 229376/262012 elapsed 67.79
+PROGRESS 262144 : prefill 262012/262012 elapsed 81.78
+LONG_RESULT {"ctx": 262144, "prompt_tokens": 262016, "ttft_s": 81.839, "e2e_s": 87.839, "stats": {"ttft_ms": 80710.94, "tokens": 128, "seconds": 86.711, "tpot_ms": 47.24, "tok_decode_ms": 4.32, "prefill_ms": 80564.17, "prefill_tok_s": 3252.22, "n_prefill": 262012}, "answer": "根据资料内容，三个项目的验收码如下：\n\n1. 项目海棠的验收码是7319。\n2. 项目松柏的验收码是8652。\n3. 项目银杏的验收码是2946。\n\n关于资料中涉及的推理服务和长文档处理技术，资料主要围绕昇腾处理器在大规模深度学习训练与推理场景下的性能优化展开，其核心软件栈以CANN为核心，向上提供框架适配层，向下管理芯片的算力与内存资源。在实际部署中，最容易被低估的环节往往不是算子本身的峰值性能，而是数据", "recall_hits": 3}
+REPEAT 262144 seconds 7.182 stats {'ttft_ms': 152.63, 'seconds': 6.085, 'tpot_ms': 46.7, 'n_prefill': 0, 'prefill_ms': 0.12, 'prefill_tok_s': 0.0} answer 根据资料内容，三个项目的验收码如下：
+
+1. 项目海棠的验收码是7319。
+2. 项目松柏的验收码是8652。
+3. 项目银杏的验收码是2946。
+
+关于资料中涉及的推理服务和长文档处理技术，资料主要围绕昇腾处理器在大规模深度学习训练与推理场景下的性能优化展开，其核心软件栈以CANN为核心，向上提供框架适配层，向下管理芯片的算力与内存资源。在实际部署中，最容易被低估的环节往往不是算子本身的峰值性能，而是数据
+LONG_ACCEPT 262144
+CONTINUATION {"seconds": 1.907441008996102, "prompt_tokens": 262045, "answer": "7319", "stats": {"ttft_ms": 635.12, "seconds": 0.822, "tpot_ms": 46.67, "n_prefill": 29, "prefill_ms": 406.71, "prefill_tok_s": 71.3}}
+CONTINUATION_ACCEPT
+EDGE 14335 True
+EDGE 14336 True
+EDGE 14337 True
+EDGES_COMPLETE 3
+CANDIDATE_COMPLETE

@@ -1,0 +1,50 @@
+PAYLOAD 1 prompt_tokens 8064 max_output 128
+PAYLOAD 2 prompt_tokens 8064 max_output 128
+PAYLOAD 3 prompt_tokens 8064 max_output 128
+{"run": 1, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 5.071, "end_to_end_s": 10.855, "prefill_s": 4.953, "prefill_tok_s": 1627.35, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 45.54, "server_total_s": 10.817}
+{"run": 2, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 4.949, "end_to_end_s": 10.727, "prefill_s": 4.852, "prefill_tok_s": 1661.09, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 45.5, "server_total_s": 10.693}
+{"run": 3, "transport": "server-local HTTP", "prompt_tokens": 8064, "output_tokens": 128, "ttft_s": 4.943, "end_to_end_s": 10.725, "prefill_s": 4.847, "prefill_tok_s": 1662.77, "fresh_prefill_tokens": 8060, "decode_tpot_ms": 45.53, "server_total_s": 10.692}
+E2E_COMPLETE
+EDGE 4 True
+EDGE 8 True
+EDGE 16 True
+EDGE 32 True
+EDGE 60 True
+EDGE 63 True
+EDGE 64 True
+EDGE 65 True
+EDGE 120 True
+EDGE 123 True
+EDGE 124 True
+EDGE 125 True
+EDGE 127 True
+EDGE 128 True
+EDGE 129 True
+EDGES_COMPLETE 15
+QUALITY 262144 {'mean_nll': 2.165267, 'ppl': 8.7169, 'top1_acc': 0.485, 'n': 200}
+PROGRESS 262144 : prefill 32768/262012 elapsed 11.1
+PROGRESS 262144 : prefill 65536/262012 elapsed 20.31
+PROGRESS 262144 : prefill 98304/262012 elapsed 29.74
+PROGRESS 262144 : prefill 131072/262012 elapsed 39.44
+PROGRESS 262144 : prefill 163840/262012 elapsed 49.57
+PROGRESS 262144 : prefill 196608/262012 elapsed 59.66
+PROGRESS 262144 : prefill 229376/262012 elapsed 70.22
+PROGRESS 262144 : prefill 262012/262012 elapsed 84.4
+LONG_RESULT {"ctx": 262144, "prompt_tokens": 262016, "ttft_s": 84.454, "e2e_s": 90.419, "stats": {"ttft_ms": 83339.85, "tokens": 128, "seconds": 89.305, "tpot_ms": 46.97, "tok_decode_ms": 3.79, "prefill_ms": 83189.14, "prefill_tok_s": 3149.59, "n_prefill": 262012}, "answer": "根据资料内容，三个项目的验收码如下：\n\n1. 海棠：7319\n2. 松柏：8652\n3. 银杏：2946\n\n***\n\n**推理服务与长文档处理技术详解**\n\n在现代大规模深度学习推理场景中，尤其是针对昇腾处理器等专用硬件，性能优化的核心往往不在于单一算子的峰值算力，而在于对数据搬运开销、内存带宽瓶颈以及量化误差分配的精细管理。以下从系统架构、内存带宽瓶颈、量化技术以及工程方法论四个维度，详细解析资料中涉及的推理服务与长文档处理技术。\n\n**", "recall_hits": 3}
+REPEAT 262144 seconds 7.142 stats {'ttft_ms': 154.55, 'seconds': 6.059, 'tpot_ms': 46.49, 'n_prefill': 0, 'prefill_ms': 0.13, 'prefill_tok_s': 0.0} answer 根据资料内容，三个项目的验收码如下：
+
+1. 海棠：7319
+2. 松柏：8652
+3. 银杏：2946
+
+***
+
+**推理服务与长文档处理技术详解**
+
+在现代大规模深度学习推理场景中，尤其是针对昇腾处理器等专用硬件，性能优化的核心往往不在于单一算子的峰值算力，而在于对数据搬运开销、内存带宽瓶颈以及量化误差分配的精细管理。以下从系统架构、内存带宽瓶颈、量化技术以及工程方法论四个维度，详细解析资料中涉及的推理服务与长文档处理技术。
+
+**
+LONG_ACCEPT 262144
+CONTINUATION {"seconds": 1.9093281849927735, "prompt_tokens": 262045, "answer": "7319", "stats": {"ttft_ms": 641.18, "seconds": 0.827, "tpot_ms": 46.49, "n_prefill": 29, "prefill_ms": 409.96, "prefill_tok_s": 70.74}}
+CONTINUATION_ACCEPT
+CANDIDATE_COMPLETE

@@ -1,0 +1,1002 @@
+{
+  "decode_256k_stage0/localhost.localdomain_17231_20261110021305076_ascend_pt/ASCEND_PROFILER_OUTPUT/kernel_details.csv": {
+    "device_total_ms": 343.25704999999977,
+    "ops": [
+      {
+        "op": "aclnnMatmul_MatMulCommon_MatMulV2",
+        "ms": 108.8313269999998,
+        "percent": 31.705489224474743,
+        "count": 4224
+      },
+      {
+        "op": "aclnnGroupedMatmulV5_GroupedMatmul_GroupedMatmul",
+        "ms": 34.060046000000014,
+        "percent": 9.92260639657657,
+        "count": 384
+      },
+      {
+        "op": "aclnnIndexSelect_GatherV3AiCore_GatherV3",
+        "ms": 26.822110000000016,
+        "percent": 7.814001198227402,
+        "count": 2112
+      },
+      {
+        "op": "aclnnMul_MulAiCore_Mul",
+        "ms": 19.060454999999962,
+        "percent": 5.552822585872592,
+        "count": 4896
+      },
+      {
+        "op": "aclnnWeightQuantBatchMatmulV2_WeightQuantBatchMatmulV2_WeightQuantBatchMatmulV2",
+        "ms": 18.313048,
+        "percent": 5.335082848261969,
+        "count": 480
+      },
+      {
+        "op": "aclnnMatmul_TransposeAiCore_Transpose",
+        "ms": 16.59205400000001,
+        "percent": 4.833711062890048,
+        "count": 768
+      },
+      {
+        "op": "aclnnInplaceCopy_TransposeAiCore_Transpose",
+        "ms": 16.402184000000002,
+        "percent": 4.778396831179436,
+        "count": 768
+      },
+      {
+        "op": "aclnnMatmul_SliceAiCore_Slice",
+        "ms": 11.688330000000006,
+        "percent": 3.4051245269398,
+        "count": 768
+      },
+      {
+        "op": "aclnnInplaceCopy_CastAiCore_Cast",
+        "ms": 10.895705999999908,
+        "percent": 3.174211862509427,
+        "count": 6816
+      },
+      {
+        "op": "delta_sequential",
+        "ms": 10.770888000000003,
+        "percent": 3.137849025970482,
+        "count": 288
+      },
+      {
+        "op": "RmsNorm",
+        "ms": 8.982205999999994,
+        "percent": 2.616757907812819,
+        "count": 1440
+      },
+      {
+        "op": "aclnnReduceSum_ReduceSumOpAiCore_ReduceSum",
+        "ms": 6.8035270000000025,
+        "percent": 1.9820501865875757,
+        "count": 1056
+      },
+      {
+        "op": "weighted_reduce",
+        "ms": 5.025811000000012,
+        "percent": 1.4641537588230205,
+        "count": 1152
+      },
+      {
+        "op": "aclnnSigmoid_SigmoidAiCore_Sigmoid",
+        "ms": 4.452830999999993,
+        "percent": 1.297229292158747,
+        "count": 2592
+      },
+      {
+        "op": "aclnnAdd_AddAiCore_Add",
+        "ms": 3.9580829999999745,
+        "percent": 1.1530959087366095,
+        "count": 1920
+      },
+      {
+        "op": "FusedInferAttentionScore",
+        "ms": 3.5931270000000004,
+        "percent": 1.0467744216761181,
+        "count": 96
+      },
+      {
+        "op": "aclnnTopk_TopkV2AiCore_TopKV2",
+        "ms": 3.1028799999999985,
+        "percent": 0.9039523004698669,
+        "count": 480
+      },
+      {
+        "op": "aclnnDivs_RealDivAiCore_RealDiv",
+        "ms": 3.094246000000051,
+        "percent": 0.901436984324154,
+        "count": 1920
+      },
+      {
+        "op": "conv_four",
+        "ms": 2.5493829999999975,
+        "percent": 0.7427037551013153,
+        "count": 288
+      },
+      {
+        "op": "aclnnArange_ArangeAiCore_Range",
+        "ms": 2.4204229999999987,
+        "percent": 0.7051342426907183,
+        "count": 192
+      }
+    ]
+  },
+  "prefill256k_late_stage1/localhost.localdomain_17235_20261110021203072_ascend_pt/ASCEND_PROFILER_OUTPUT/kernel_details.csv": {
+    "device_total_ms": 5069.629308,
+    "ops": [
+      {
+        "op": "SparseFlashAttention",
+        "ms": 688.1010869999999,
+        "percent": 13.573005937814024,
+        "count": 24
+      },
+      {
+        "op": "aclnnGroupedMatmulV5_GroupedMatmul_GroupedMatmul",
+        "ms": 619.5646019999998,
+        "percent": 12.221102655815717,
+        "count": 96
+      },
+      {
+        "op": "aclnnBatchMatMul_BatchMatMulNd_BatchMatMulV2",
+        "ms": 476.0513059999998,
+        "percent": 9.390258677272106,
+        "count": 20448
+      },
+      {
+        "op": "aclnnReduceSum_ReduceSumOpAiCore_ReduceSum",
+        "ms": 400.2930300000002,
+        "percent": 7.895903342840629,
+        "count": 156
+      },
+      {
+        "op": "aclnnMatmul_MatMulV3Common_MatMulV3",
+        "ms": 334.18251300000003,
+        "percent": 6.591853027057656,
+        "count": 468
+      },
+      {
+        "op": "aclnnMul_MulAiCore_Mul",
+        "ms": 302.58148199999897,
+        "percent": 5.968512954635914,
+        "count": 6372
+      },
+      {
+        "op": "aclnnTopk_TopkV2AiCore_TopKV2",
+        "ms": 301.9604229999999,
+        "percent": 5.956262374519158,
+        "count": 240
+      },
+      {
+        "op": "aclnnAdd_AddAiCore_Add",
+        "ms": 202.49536600000005,
+        "percent": 3.9942834810517094,
+        "count": 10344
+      },
+      {
+        "op": "aclnnInplaceCopy_CastAiCore_Cast",
+        "ms": 192.4760240000001,
+        "percent": 3.7966488732473644,
+        "count": 2184
+      },
+      {
+        "op": "aclnnLeTensor_LessEqualAiCore_LessEqual",
+        "ms": 177.984401,
+        "percent": 3.510797144855073,
+        "count": 192
+      },
+      {
+        "op": "score_groups",
+        "ms": 128.2960219999999,
+        "percent": 2.5306785606108444,
+        "count": 192
+      },
+      {
+        "op": "aclnnTril_Tril_Tril",
+        "ms": 101.05932399999995,
+        "percent": 1.9934263012194178,
+        "count": 144
+      },
+      {
+        "op": "RmsNorm",
+        "ms": 93.60214199999999,
+        "percent": 1.8463310887897368,
+        "count": 180
+      },
+      {
+        "op": "aclnnCat_ConcatD_ConcatD",
+        "ms": 85.38993900000011,
+        "percent": 1.6843428545209942,
+        "count": 492
+      },
+      {
+        "op": "weighted_reduce",
+        "ms": 82.38090400000006,
+        "percent": 1.6249887120938205,
+        "count": 144
+      },
+      {
+        "op": "aclnnInplaceMaskedFillScalar_MaskedFillAiCore_MaskedFill",
+        "ms": 72.59768399999994,
+        "percent": 1.4320116834861876,
+        "count": 480
+      },
+      {
+        "op": "aclnnCat_TransposeAiCore_Transpose",
+        "ms": 66.89571700000009,
+        "percent": 1.3195386276948695,
+        "count": 4644
+      },
+      {
+        "op": "aclnnInplaceCopy_TensorMoveAiCore_TensorMove",
+        "ms": 60.54439799999998,
+        "percent": 1.194256903644995,
+        "count": 518
+      },
+      {
+        "op": "aclnnMatmul_MatMulCommon_MatMulV2",
+        "ms": 50.65187,
+        "percent": 0.9991237410607144,
+        "count": 240
+      },
+      {
+        "op": "aclnnMul_SliceAiCore_Slice",
+        "ms": 49.08909699999997,
+        "percent": 0.9682975621617179,
+        "count": 480
+      }
+    ]
+  },
+  "decode_8k_stage0/localhost.localdomain_17231_20261110021037228_ascend_pt/ASCEND_PROFILER_OUTPUT/kernel_details.csv": {
+    "device_total_ms": 332.34347399999984,
+    "ops": [
+      {
+        "op": "aclnnMatmul_MatMulCommon_MatMulV2",
+        "ms": 103.92333900000006,
+        "percent": 31.26985998828432,
+        "count": 4224
+      },
+      {
+        "op": "aclnnGroupedMatmulV5_GroupedMatmul_GroupedMatmul",
+        "ms": 34.174013999999985,
+        "percent": 10.282739597287836,
+        "count": 384
+      },
+      {
+        "op": "aclnnIndexSelect_GatherV3AiCore_GatherV3",
+        "ms": 27.37576200000002,
+        "percent": 8.237189576949548,
+        "count": 2112
+      },
+      {
+        "op": "aclnnMul_MulAiCore_Mul",
+        "ms": 19.003939999999986,
+        "percent": 5.718162529648466,
+        "count": 4896
+      },
+      {
+        "op": "aclnnWeightQuantBatchMatmulV2_WeightQuantBatchMatmulV2_WeightQuantBatchMatmulV2",
+        "ms": 18.460548000000003,
+        "percent": 5.554659394334913,
+        "count": 480
+      },
+      {
+        "op": "aclnnMatmul_TransposeAiCore_Transpose",
+        "ms": 16.999686999999994,
+        "percent": 5.115095775883958,
+        "count": 768
+      },
+      {
+        "op": "aclnnInplaceCopy_TransposeAiCore_Transpose",
+        "ms": 16.256233999999992,
+        "percent": 4.891395580705761,
+        "count": 768
+      },
+      {
+        "op": "aclnnMatmul_SliceAiCore_Slice",
+        "ms": 11.320010999999976,
+        "percent": 3.4061180331767194,
+        "count": 768
+      },
+      {
+        "op": "aclnnInplaceCopy_CastAiCore_Cast",
+        "ms": 10.840084999999908,
+        "percent": 3.261711406434872,
+        "count": 6816
+      },
+      {
+        "op": "delta_sequential",
+        "ms": 10.825604,
+        "percent": 3.2573541672733444,
+        "count": 288
+      },
+      {
+        "op": "RmsNorm",
+        "ms": 8.956870999999992,
+        "percent": 2.695064504260431,
+        "count": 1440
+      },
+      {
+        "op": "aclnnReduceSum_ReduceSumOpAiCore_ReduceSum",
+        "ms": 6.810799999999998,
+        "percent": 2.0493256323125517,
+        "count": 1056
+      },
+      {
+        "op": "weighted_reduce",
+        "ms": 5.042912000000004,
+        "percent": 1.5173795770095386,
+        "count": 1152
+      },
+      {
+        "op": "aclnnSigmoid_SigmoidAiCore_Sigmoid",
+        "ms": 4.459930999999994,
+        "percent": 1.3419643678635904,
+        "count": 2592
+      },
+      {
+        "op": "aclnnAdd_AddAiCore_Add",
+        "ms": 3.9310479999999655,
+        "percent": 1.1828268967303288,
+        "count": 1920
+      },
+      {
+        "op": "FusedInferAttentionScore",
+        "ms": 3.583316000000001,
+        "percent": 1.078196588869984,
+        "count": 96
+      },
+      {
+        "op": "aclnnDivs_RealDivAiCore_RealDiv",
+        "ms": 2.617315000000029,
+        "percent": 0.7875331410900609,
+        "count": 1920
+      },
+      {
+        "op": "conv_four",
+        "ms": 2.549114999999999,
+        "percent": 0.7670122025624612,
+        "count": 288
+      },
+      {
+        "op": "aclnnSoftmax_SoftmaxAiCore_SoftmaxV2",
+        "ms": 2.320604000000001,
+        "percent": 0.6982547218604335,
+        "count": 384
+      },
+      {
+        "op": "aclnnTopk_TopkV2AiCore_TopKV2",
+        "ms": 2.29122,
+        "percent": 0.6894132664690149,
+        "count": 480
+      }
+    ]
+  },
+  "prefill8k_stage1/localhost.localdomain_17235_20261110020949162_ascend_pt/ASCEND_PROFILER_OUTPUT/kernel_details.csv": {
+    "device_total_ms": 3953.463814999995,
+    "ops": [
+      {
+        "op": "aclnnGroupedMatmulV5_GroupedMatmul_GroupedMatmul",
+        "ms": 1877.678745999997,
+        "percent": 47.49452211692999,
+        "count": 528
+      },
+      {
+        "op": "SparseFlashAttention",
+        "ms": 275.9022119999999,
+        "percent": 6.978746357894772,
+        "count": 96
+      },
+      {
+        "op": "aclnnBatchMatMul_BatchMatMulNd_BatchMatMulV2",
+        "ms": 251.9726859999994,
+        "percent": 6.373466352315652,
+        "count": 12384
+      },
+      {
+        "op": "aclnnReduceSum_ReduceSumOpAiCore_ReduceSum",
+        "ms": 210.703382,
+        "percent": 5.329589237684734,
+        "count": 1020
+      },
+      {
+        "op": "aclnnMul_MulAiCore_Mul",
+        "ms": 182.54663099999948,
+        "percent": 4.617384641472928,
+        "count": 7974
+      },
+      {
+        "op": "aclnnMatmul_MatMulCommon_MatMulV2",
+        "ms": 161.01149599999974,
+        "percent": 4.072669019736556,
+        "count": 2838
+      },
+      {
+        "op": "aclnnInplaceCopy_CastAiCore_Cast",
+        "ms": 91.3225169999999,
+        "percent": 2.309936836996193,
+        "count": 6156
+      },
+      {
+        "op": "aclnnAdd_AddAiCore_Add",
+        "ms": 89.86832999999979,
+        "percent": 2.2731542314622115,
+        "count": 7242
+      },
+      {
+        "op": "aclnnMatmul_MatMulV3Common_MatMulV3",
+        "ms": 51.16970499999998,
+        "percent": 1.294300577783334,
+        "count": 90
+      },
+      {
+        "op": "RmsNorm",
+        "ms": 50.79325399999994,
+        "percent": 1.2847785227547353,
+        "count": 972
+      },
+      {
+        "op": "aclnnTril_Tril_Tril",
+        "ms": 47.911636000000065,
+        "percent": 1.2118900853023267,
+        "count": 216
+      },
+      {
+        "op": "weighted_reduce",
+        "ms": 45.91649700000003,
+        "percent": 1.1614244912470528,
+        "count": 720
+      },
+      {
+        "op": "aclnnInplaceIndexCopy_ScatterUpdateAiCore_ScatterUpdate",
+        "ms": 36.45555999999999,
+        "percent": 0.9221169512588554,
+        "count": 372
+      },
+      {
+        "op": "aclnnMul_SliceAiCore_Slice",
+        "ms": 35.637767000000046,
+        "percent": 0.9014314704180513,
+        "count": 2586
+      },
+      {
+        "op": "aclnnCat_TransposeAiCore_Transpose",
+        "ms": 34.630982,
+        "percent": 0.8759655740013405,
+        "count": 2610
+      },
+      {
+        "op": "aclnnCat_ConcatD_ConcatD",
+        "ms": 34.554738000000036,
+        "percent": 0.8740370373163533,
+        "count": 1218
+      },
+      {
+        "op": "ScatterElements",
+        "ms": 32.844233,
+        "percent": 0.8307710538638138,
+        "count": 168
+      },
+      {
+        "op": "aclnnInplaceCopy_TransposeAiCore_Transpose",
+        "ms": 23.64410200000004,
+        "percent": 0.5980604124993127,
+        "count": 1440
+      },
+      {
+        "op": "aclnnSigmoid_SigmoidAiCore_Sigmoid",
+        "ms": 22.882382000000025,
+        "percent": 0.5787932575272616,
+        "count": 1782
+      },
+      {
+        "op": "aclnnInplaceMaskedFillScalar_MaskedFillAiCore_MaskedFill",
+        "ms": 20.251282000000014,
+        "percent": 0.5122414911997882,
+        "count": 666
+      }
+    ]
+  },
+  "decode_8k_stage1/localhost.localdomain_17235_20261110021037163_ascend_pt/ASCEND_PROFILER_OUTPUT/kernel_details.csv": {
+    "device_total_ms": 364.0875130000002,
+    "ops": [
+      {
+        "op": "aclnnMatmul_MatMulCommon_MatMulV2",
+        "ms": 104.75234100000014,
+        "percent": 28.77119847831752,
+        "count": 4256
+      },
+      {
+        "op": "aclnnWeightQuantBatchMatmulV2_WeightQuantBatchMatmulV2_WeightQuantBatchMatmulV2",
+        "ms": 46.10039700000003,
+        "percent": 12.661900052584338,
+        "count": 544
+      },
+      {
+        "op": "aclnnGroupedMatmulV5_GroupedMatmul_GroupedMatmul",
+        "ms": 34.151303999999975,
+        "percent": 9.37997123784906,
+        "count": 384
+      },
+      {
+        "op": "aclnnIndexSelect_GatherV3AiCore_GatherV3",
+        "ms": 27.44279800000004,
+        "percent": 7.537418071242676,
+        "count": 2112
+      },
+      {
+        "op": "aclnnMul_MulAiCore_Mul",
+        "ms": 19.426841000000064,
+        "percent": 5.335761405253153,
+        "count": 4944
+      },
+      {
+        "op": "aclnnMatmul_TransposeAiCore_Transpose",
+        "ms": 16.816497000000005,
+        "percent": 4.618806303307633,
+        "count": 784
+      },
+      {
+        "op": "aclnnInplaceCopy_TransposeAiCore_Transpose",
+        "ms": 15.83737899999998,
+        "percent": 4.349882496519449,
+        "count": 768
+      },
+      {
+        "op": "aclnnMatmul_SliceAiCore_Slice",
+        "ms": 12.260219,
+        "percent": 3.3673824457692936,
+        "count": 784
+      },
+      {
+        "op": "aclnnInplaceCopy_CastAiCore_Cast",
+        "ms": 11.720061999999894,
+        "percent": 3.219023334096023,
+        "count": 6912
+      },
+      {
+        "op": "delta_sequential",
+        "ms": 10.530430999999997,
+        "percent": 2.8922801864946113,
+        "count": 288
+      },
+      {
+        "op": "RmsNorm",
+        "ms": 8.987049999999995,
+        "percent": 2.4683763323681993,
+        "count": 1456
+      },
+      {
+        "op": "aclnnReduceSum_ReduceSumOpAiCore_ReduceSum",
+        "ms": 6.858523000000008,
+        "percent": 1.8837567219725015,
+        "count": 1056
+      },
+      {
+        "op": "weighted_reduce",
+        "ms": 5.704757000000005,
+        "percent": 1.566864228051678,
+        "count": 1168
+      },
+      {
+        "op": "aclnnSigmoid_SigmoidAiCore_Sigmoid",
+        "ms": 4.435337000000006,
+        "percent": 1.2182062942653031,
+        "count": 2608
+      },
+      {
+        "op": "aclnnAdd_AddAiCore_Add",
+        "ms": 4.082167999999995,
+        "percent": 1.1212051647593837,
+        "count": 1920
+      },
+      {
+        "op": "FusedInferAttentionScore",
+        "ms": 3.589473000000001,
+        "percent": 0.9858819299853329,
+        "count": 96
+      },
+      {
+        "op": "aclnnDivs_RealDivAiCore_RealDiv",
+        "ms": 2.605549000000016,
+        "percent": 0.7156381108846254,
+        "count": 1936
+      },
+      {
+        "op": "conv_four",
+        "ms": 2.4750900000000007,
+        "percent": 0.6798063409551757,
+        "count": 288
+      },
+      {
+        "op": "aclnnTopk_TopkV2AiCore_TopKV2",
+        "ms": 2.3710840000000006,
+        "percent": 0.6512401319294903,
+        "count": 480
+      },
+      {
+        "op": "aclnnSoftmax_SoftmaxAiCore_SoftmaxV2",
+        "ms": 2.321541,
+        "percent": 0.6376326891496548,
+        "count": 384
+      }
+    ]
+  },
+  "prefill256k_late_stage0/localhost.localdomain_17231_20261110021203137_ascend_pt/ASCEND_PROFILER_OUTPUT/kernel_details.csv": {
+    "device_total_ms": 5034.655840000001,
+    "ops": [
+      {
+        "op": "SparseFlashAttention",
+        "ms": 687.074065,
+        "percent": 13.646892396124533,
+        "count": 24
+      },
+      {
+        "op": "aclnnGroupedMatmulV5_GroupedMatmul_GroupedMatmul",
+        "ms": 599.4396140000001,
+        "percent": 11.906267936677873,
+        "count": 96
+      },
+      {
+        "op": "aclnnBatchMatMul_BatchMatMulNd_BatchMatMulV2",
+        "ms": 475.87142200000187,
+        "percent": 9.451915624882151,
+        "count": 20448
+      },
+      {
+        "op": "aclnnReduceSum_ReduceSumOpAiCore_ReduceSum",
+        "ms": 400.2839969999999,
+        "percent": 7.950573181582154,
+        "count": 156
+      },
+      {
+        "op": "aclnnMatmul_MatMulV3Common_MatMulV3",
+        "ms": 334.22015200000044,
+        "percent": 6.638391235099803,
+        "count": 468
+      },
+      {
+        "op": "aclnnTopk_TopkV2AiCore_TopKV2",
+        "ms": 302.061841,
+        "percent": 5.999652222504248,
+        "count": 240
+      },
+      {
+        "op": "aclnnMul_MulAiCore_Mul",
+        "ms": 297.140745999999,
+        "percent": 5.901907805479687,
+        "count": 6372
+      },
+      {
+        "op": "aclnnAdd_AddAiCore_Add",
+        "ms": 202.60629700000052,
+        "percent": 4.02423330290637,
+        "count": 10344
+      },
+      {
+        "op": "aclnnInplaceCopy_CastAiCore_Cast",
+        "ms": 194.16324000000014,
+        "percent": 3.856534511403665,
+        "count": 2184
+      },
+      {
+        "op": "aclnnLeTensor_LessEqualAiCore_LessEqual",
+        "ms": 178.20801199999988,
+        "percent": 3.5396264941120545,
+        "count": 192
+      },
+      {
+        "op": "score_groups",
+        "ms": 127.69530799999987,
+        "percent": 2.536326455235912,
+        "count": 192
+      },
+      {
+        "op": "aclnnTril_Tril_Tril",
+        "ms": 100.20091900000001,
+        "percent": 1.9902238044537315,
+        "count": 144
+      },
+      {
+        "op": "RmsNorm",
+        "ms": 92.394267,
+        "percent": 1.835165499614368,
+        "count": 180
+      },
+      {
+        "op": "aclnnCat_ConcatD_ConcatD",
+        "ms": 84.589924,
+        "percent": 1.6801530568969334,
+        "count": 492
+      },
+      {
+        "op": "weighted_reduce",
+        "ms": 81.816355,
+        "percent": 1.625063511789119,
+        "count": 144
+      },
+      {
+        "op": "aclnnInplaceMaskedFillScalar_MaskedFillAiCore_MaskedFill",
+        "ms": 74.28848200000003,
+        "percent": 1.475542407681237,
+        "count": 480
+      },
+      {
+        "op": "aclnnCat_TransposeAiCore_Transpose",
+        "ms": 67.15664399999999,
+        "percent": 1.3338874817707493,
+        "count": 4644
+      },
+      {
+        "op": "aclnnInplaceCopy_TensorMoveAiCore_TensorMove",
+        "ms": 59.77753699999998,
+        "percent": 1.1873212171738032,
+        "count": 518
+      },
+      {
+        "op": "aclnnMatmul_MatMulCommon_MatMulV2",
+        "ms": 50.786735999999976,
+        "percent": 1.008742953123087,
+        "count": 240
+      },
+      {
+        "op": "aclnnMul_SliceAiCore_Slice",
+        "ms": 48.46626400000003,
+        "percent": 0.9626529705355196,
+        "count": 480
+      }
+    ]
+  },
+  "decode_256k_stage1/localhost.localdomain_17235_20261110021305011_ascend_pt/ASCEND_PROFILER_OUTPUT/kernel_details.csv": {
+    "device_total_ms": 374.72491499999995,
+    "ops": [
+      {
+        "op": "aclnnMatmul_MatMulCommon_MatMulV2",
+        "ms": 109.65732799999994,
+        "percent": 29.263420608154636,
+        "count": 4256
+      },
+      {
+        "op": "aclnnWeightQuantBatchMatmulV2_WeightQuantBatchMatmulV2_WeightQuantBatchMatmulV2",
+        "ms": 45.97411000000003,
+        "percent": 12.268762540115603,
+        "count": 544
+      },
+      {
+        "op": "aclnnGroupedMatmulV5_GroupedMatmul_GroupedMatmul",
+        "ms": 34.20267600000001,
+        "percent": 9.12740910222103,
+        "count": 384
+      },
+      {
+        "op": "aclnnIndexSelect_GatherV3AiCore_GatherV3",
+        "ms": 26.794257000000012,
+        "percent": 7.150380433070486,
+        "count": 2112
+      },
+      {
+        "op": "aclnnMul_MulAiCore_Mul",
+        "ms": 19.136446000000067,
+        "percent": 5.1067984097081105,
+        "count": 4944
+      },
+      {
+        "op": "aclnnMatmul_TransposeAiCore_Transpose",
+        "ms": 16.537107999999993,
+        "percent": 4.413132764337273,
+        "count": 784
+      },
+      {
+        "op": "aclnnInplaceCopy_TransposeAiCore_Transpose",
+        "ms": 15.856701999999999,
+        "percent": 4.2315579683299145,
+        "count": 768
+      },
+      {
+        "op": "aclnnMatmul_SliceAiCore_Slice",
+        "ms": 12.352485999999995,
+        "percent": 3.296414384402488,
+        "count": 784
+      },
+      {
+        "op": "aclnnInplaceCopy_CastAiCore_Cast",
+        "ms": 11.772590999999943,
+        "percent": 3.1416621977217463,
+        "count": 6912
+      },
+      {
+        "op": "delta_sequential",
+        "ms": 10.442331,
+        "percent": 2.786665786554385,
+        "count": 288
+      },
+      {
+        "op": "RmsNorm",
+        "ms": 8.992247999999996,
+        "percent": 2.399693118884288,
+        "count": 1456
+      },
+      {
+        "op": "aclnnReduceSum_ReduceSumOpAiCore_ReduceSum",
+        "ms": 6.942875000000005,
+        "percent": 1.8527924677759968,
+        "count": 1056
+      },
+      {
+        "op": "weighted_reduce",
+        "ms": 5.743049000000007,
+        "percent": 1.5326039903164719,
+        "count": 1168
+      },
+      {
+        "op": "aclnnSigmoid_SigmoidAiCore_Sigmoid",
+        "ms": 4.423861000000004,
+        "percent": 1.1805622799327353,
+        "count": 2608
+      },
+      {
+        "op": "aclnnAdd_AddAiCore_Add",
+        "ms": 4.097149999999995,
+        "percent": 1.0933753897842622,
+        "count": 1920
+      },
+      {
+        "op": "FusedInferAttentionScore",
+        "ms": 3.605649999999998,
+        "percent": 0.9622125072735016,
+        "count": 96
+      },
+      {
+        "op": "aclnnTopk_TopkV2AiCore_TopKV2",
+        "ms": 3.2829440000000014,
+        "percent": 0.8760944011422357,
+        "count": 480
+      },
+      {
+        "op": "aclnnDivs_RealDivAiCore_RealDiv",
+        "ms": 3.0740810000000285,
+        "percent": 0.8203567142046129,
+        "count": 1936
+      },
+      {
+        "op": "aclnnArange_ArangeAiCore_Range",
+        "ms": 2.6182489999999996,
+        "percent": 0.6987122807139738,
+        "count": 192
+      },
+      {
+        "op": "conv_four",
+        "ms": 2.473872000000003,
+        "percent": 0.6601834841966682,
+        "count": 288
+      }
+    ]
+  },
+  "prefill8k_stage0/localhost.localdomain_17231_20261110020949249_ascend_pt/ASCEND_PROFILER_OUTPUT/kernel_details.csv": {
+    "device_total_ms": 3909.566160000003,
+    "ops": [
+      {
+        "op": "aclnnGroupedMatmulV5_GroupedMatmul_GroupedMatmul",
+        "ms": 1845.9498460000027,
+        "percent": 47.21623245275893,
+        "count": 528
+      },
+      {
+        "op": "SparseFlashAttention",
+        "ms": 275.58784799999995,
+        "percent": 7.04906469724507,
+        "count": 96
+      },
+      {
+        "op": "aclnnBatchMatMul_BatchMatMulNd_BatchMatMulV2",
+        "ms": 250.09722399999967,
+        "percent": 6.397058235228828,
+        "count": 12384
+      },
+      {
+        "op": "aclnnReduceSum_ReduceSumOpAiCore_ReduceSum",
+        "ms": 210.89471500000013,
+        "percent": 5.394325261910902,
+        "count": 1020
+      },
+      {
+        "op": "aclnnMul_MulAiCore_Mul",
+        "ms": 179.7273240000005,
+        "percent": 4.597116832011877,
+        "count": 7974
+      },
+      {
+        "op": "aclnnMatmul_MatMulCommon_MatMulV2",
+        "ms": 161.474411,
+        "percent": 4.130238609390866,
+        "count": 2838
+      },
+      {
+        "op": "aclnnInplaceCopy_CastAiCore_Cast",
+        "ms": 90.2729939999998,
+        "percent": 2.309028426826769,
+        "count": 6156
+      },
+      {
+        "op": "aclnnAdd_AddAiCore_Add",
+        "ms": 89.50376099999998,
+        "percent": 2.2893527654229517,
+        "count": 7260
+      },
+      {
+        "op": "aclnnMatmul_MatMulV3Common_MatMulV3",
+        "ms": 51.257944999999985,
+        "percent": 1.3110903589363978,
+        "count": 90
+      },
+      {
+        "op": "RmsNorm",
+        "ms": 50.98790099999995,
+        "percent": 1.3041830963668848,
+        "count": 972
+      },
+      {
+        "op": "aclnnTril_Tril_Tril",
+        "ms": 47.423967000000026,
+        "percent": 1.2130237744844812,
+        "count": 216
+      },
+      {
+        "op": "weighted_reduce",
+        "ms": 44.623371999999996,
+        "percent": 1.1413893555902879,
+        "count": 720
+      },
+      {
+        "op": "ScatterElements",
+        "ms": 42.39195500000002,
+        "percent": 1.084313534164619,
+        "count": 240
+      },
+      {
+        "op": "aclnnInplaceIndexCopy_ScatterUpdateAiCore_ScatterUpdate",
+        "ms": 36.532627,
+        "percent": 0.9344419688756457,
+        "count": 372
+      },
+      {
+        "op": "aclnnMul_SliceAiCore_Slice",
+        "ms": 36.39184500000003,
+        "percent": 0.930841006665558,
+        "count": 2586
+      },
+      {
+        "op": "aclnnCat_TransposeAiCore_Transpose",
+        "ms": 34.60231000000006,
+        "percent": 0.8850677692585727,
+        "count": 2610
+      },
+      {
+        "op": "aclnnCat_ConcatD_ConcatD",
+        "ms": 33.950960999999985,
+        "percent": 0.8684073784800705,
+        "count": 1218
+      },
+      {
+        "op": "aclnnInplaceCopy_TransposeAiCore_Transpose",
+        "ms": 23.572644999999998,
+        "percent": 0.6029478472874846,
+        "count": 1440
+      },
+      {
+        "op": "aclnnSigmoid_SigmoidAiCore_Sigmoid",
+        "ms": 22.343088000000044,
+        "percent": 0.5714978871210618,
+        "count": 1782
+      },
+      {
+        "op": "aclnnInplaceMaskedFillScalar_MaskedFillAiCore_MaskedFill",
+        "ms": 21.60424399999999,
+        "percent": 0.5525995242397937,
+        "count": 666
+      }
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+[
+  {
+    "rows": 1,
+    "steps": 8,
+    "bit_exact": true
+  },
+  {
+    "rows": 128,
+    "steps": 8,
+    "bit_exact": true
+  },
+  {
+    "rows": 512,
+    "steps": 8,
+    "bit_exact": true
+  },
+  {
+    "rows": 4096,
+    "steps": 8,
+    "bit_exact": true
+  },
+  {
+    "rows": 8192,
+    "steps": 8,
+    "bit_exact": true
+  }
+]
