@@ -402,6 +402,23 @@ ops:
       - "微基准需要每图多次运算摊薄宿侧发射下限；不将孤立Gather计时当作精确kernel时长"
       - "仅当前软硬件矩阵验证，未做长期稳定性或L2性能认证"
 
+  - name: decode_postprocess_bf16
+    version: 0.1.0
+    category: elementwise
+    status: alpha
+    desc: "单token门控、加权归约与归一化后处理融合，保留全部中间BF16舍入"
+    source: kernels/post_ops/post_ops.cpp
+    wrapper: fnx/post_ops.py
+    hardware: [{chip: Ascend910B4, cann: "9.1.0", units: [Vector]}]
+    shape: {hc_projection: 324, hc_mix: 10240, output: 2560, delta_gate: 6144, batch: 1}
+    perf: {machine: 910b4x2-206, measured_at: 2026-11-11, hc_activation_ref_us: 6.00, hc_activation_fused_us: 1.15, mix_ref_us: 3.18, mix_fused_us: 1.82}
+    precision: "有限BF16值覆盖与32组动态输入；FP32后处理64组动态输入；真实L00输出/FP32状态/BF16历史逐位一致"
+    known_issues:
+      - "仅FNX_POST_NATIVE=1启用；框架默认关闭，不支持的shape/dtype/layout回退"
+      - "HC激活固定mode0：不能以reciprocal或乘法重排代替Div"
+      - "DeltaNet门控必须保留norm结果的中间BF16舍入，不可直接FP32相乘"
+      - "单独Mul+Cast收益接近噪声；以完整请求测量为准，未做长期稳定性或跨矩阵认证"
+
 # ============ 质量门禁 ============
 gates:
   L1_available: {require: ["精度对 CPU 参考通过", "3 个 shape 跑通"], verify: ci/precision_gate.py}

@@ -1,0 +1,24 @@
+[
+  {
+    "n": 10240,
+    "mode": 0,
+    "dynamic_steps": 64,
+    "exact": true,
+    "different": 0,
+    "timings_ms": {
+      "baseline": 0.002381933620199561,
+      "native": 0.002212636638432741
+    }
+  },
+  {
+    "n": 6144,
+    "mode": 1,
+    "dynamic_steps": 64,
+    "exact": true,
+    "different": 0,
+    "timings_ms": {
+      "baseline": 0.003957812674343586,
+      "native": 0.0016772362869232893
+    }
+  }
+]

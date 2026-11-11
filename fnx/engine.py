@@ -153,7 +153,7 @@ def _ones(n, dev):
     return t
 
 
-def rms_norm(x, w, gs=None):
+def rms_norm(x, w, gs=None, return_float=False):
     """对齐 Qwen4ExpTextRMSNorm：(1+weight)，fp32 内部计算。
 
     注意：`gs` 不为空时是**分组**归一化（每 gs 个元素一组），而 `w` 的长度等于 x 的
@@ -167,10 +167,17 @@ def rms_norm(x, w, gs=None):
             xf = x.float()
             if gs is None:
                 out, _ = torch_npu.npu_rms_norm(xf, _gamma(w), EPS)
-                return out.type_as(x)
+                return out if return_float else out.type_as(x)
             xg = xf.view(*xf.shape[:-1], -1, gs)
             out, _ = torch_npu.npu_rms_norm(xg, _ones(gs, x.device), EPS)
-            return (out.flatten(-2) * _gamma(w)).type_as(x)
+            flat = out.flatten(-2)
+            if not return_float and x.dtype == torch.bfloat16 and os.environ.get("FNX_POST_NATIVE", "0") == "1":
+                from .post_ops import mul_cast
+                result = mul_cast(flat, _gamma(w))
+                if result is not None:
+                    return result
+            result = flat * _gamma(w)
+            return result if return_float else result.type_as(x)
         except Exception:  # noqa: BLE001
             pass
     xf = x.float()
@@ -180,7 +187,7 @@ def rms_norm(x, w, gs=None):
     if gs is not None:
         out = out.flatten(-2)
     out = out * (1.0 + w.float())
-    return out.type_as(x)
+    return out if return_float else out.type_as(x)
 
 
 def l2norm(x):
@@ -817,17 +824,27 @@ def gated_residual(h, hc_norm_w, w_down, w_up, w_inj, n_inj=0):
         dp, ip = di[..., :-n_inj], di[..., -n_inj:]
     else:
         dp, ip = di, None
-    mix = F.silu(dp / HC)
-    mix = torch.sigmoid(lin(mix, w_up))
+    activated = None
+    if n_inj == HC and os.environ.get("FNX_POST_NATIVE", "0") == "1":
+        from .post_ops import activate
+        activated = activate(di)
+    mix = activated[0] if activated is not None else F.silu(dp / HC)
+    logits = lin(mix, w_up)
     mixed = None
-    if os.environ.get("FNX_MIX_REDUCE", "0") == "1":
+    if os.environ.get("FNX_POST_NATIVE", "0") == "1":
+        from .post_ops import mix_reduce
+        mixed = mix_reduce(hn, logits)
+    mix = torch.sigmoid(logits) if mixed is None else None
+    del logits
+    if mixed is None and os.environ.get("FNX_MIX_REDUCE", "0") == "1":
         from .weighted_reduce import reduce
         mixed = reduce(hn.view(b, HC, H), mix.view(b, HC, H), mean=True)
     if mixed is None:
         mixed = (mix.view(b, 1, HC, H) * hn.view(b, 1, HC, H)).mean(dim=-2)
     mixed = mixed.view(b, 1, H)
     if n_inj:
-        return mixed, (2.0 * torch.sigmoid(ip / HC)).view(b, 1, HC)
+        inj = activated[1] if activated is not None else (2.0 * torch.sigmoid(ip / HC)).view(b, 1, HC)
+        return mixed, inj
     if w_inj is None:
         return mixed
     inj = 2.0 * torch.sigmoid(lin(hn, w_inj) / HC)
@@ -1251,7 +1268,15 @@ class FnLayer:
             #   换成引擎里已有的融合 `npu_rms_norm`（内部 fp32 计算）。
             #   ⚠️ rms_norm() 内部用 (1+weight) 语义，而这里要的是**直接乘** dn_norm_w，
             #   所以装载期预存了 dn_norm_g = dn_norm_w - 1。第一版漏了这一步，nll 直接炸到 2.52。
-            xf = rms_norm(o, self.dn_norm_g).float() * z
+            if b == 1 and os.environ.get("FNX_POST_NATIVE", "0") == "1":
+                from .post_ops import mul_cast
+                normalized = rms_norm(o, self.dn_norm_g, return_float=True)
+                result = mul_cast(normalized, z, round_input=True)
+                if result is not None:
+                    return lin(result.view(b, VAL_DIM), self.w_out)
+                xf = normalized.to(torch.bfloat16).float() * z
+            else:
+                xf = rms_norm(o, self.dn_norm_g).float() * z
         else:
             xf = o.float()
             xf = xf * torch.rsqrt(xf.pow(2).mean(-1, keepdim=True) + EPS)
@@ -1688,12 +1713,16 @@ class FnLayer:
     def _moe(self, x):
         b = x.shape[0]
         x2 = x.view(b, H)
+        shared_gate = None
         if self.sh_gu is not None:
             gu = lin(x2, self.sh_gu)                         # [b, 2*MI (+1 gate2) (+V)]
             sh = lin(F.silu(gu[:, :MI]) * gu[:, MI:2 * MI], self.sh_down)
             if self.sh_gw:
                 # gate2(1 列) 与 gate_w(V 列) 也在这块里：一次 GEMM 全出
-                sh = torch.sigmoid(gu[:, 2 * MI:2 * MI + 1]) * sh
+                if b == 1 and isinstance(self.exp_gu, ExpW4) and os.environ.get("FNX_POST_NATIVE", "0") == "1":
+                    shared_gate = gu[:, 2 * MI:2 * MI + 1]
+                else:
+                    sh = torch.sigmoid(gu[:, 2 * MI:2 * MI + 1]) * sh
                 logits = gu[:, 2 * MI + 1:]
             else:
                 sh = torch.sigmoid(lin(x2, self.sh_gate2)) * sh
@@ -1774,6 +1803,12 @@ class FnLayer:
                 from .weighted_reduce import reduce
                 reduced = reduce(y2, w)
             y2 = reduced if reduced is not None else (y2 * w[0].unsqueeze(-1)).sum(dim=0, keepdim=True)
+            if shared_gate is not None:
+                from .post_ops import moe_merge
+                merged = moe_merge(y2, sh, shared_gate)
+                if merged is not None:
+                    return merged.view(1, 1, H)
+                sh = torch.sigmoid(shared_gate) * sh
             return (y2 + sh).view(1, 1, H)
 
         if b > 1:
