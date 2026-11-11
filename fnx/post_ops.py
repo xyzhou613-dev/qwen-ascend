@@ -30,10 +30,10 @@ def mix_reduce(values,logits):
     _check(_library().fnx_hc_sigmoid_reduce(values.data_ptr(),logits.data_ptr(),out.data_ptr(),1,torch.npu.current_stream(values.device).npu_stream));return out
 def mul_cast(values,weights,round_input=False):
     n=values.numel()
-    if (values.shape[0]!=1 or n not in (6144,10240) or weights.numel()!=n or not _same(torch.float32,values,weights)):return None
+    if (n not in (6144,10240) or values.shape[0]!=1 or weights.numel()!=n or not _same(torch.float32,values,weights)):return None
     out=torch.empty_like(values,dtype=torch.bfloat16)
     _check(_library().fnx_post_mul(values.data_ptr(),weights.data_ptr(),out.data_ptr(),n,int(round_input),torch.npu.current_stream(values.device).npu_stream));return out
 def moe_merge(experts,shared,gate):
-    if experts.numel()!=2560 or shared.numel()!=2560 or gate.numel()!=1 or not _same(torch.bfloat16,experts,shared,gate):return None
+    if experts.numel()!=2560 or shared.shape!=experts.shape or gate.numel()!=1 or not _same(torch.bfloat16,experts,shared,gate):return None
     out=torch.empty_like(experts)
     _check(_library().fnx_moe_merge(experts.data_ptr(),shared.data_ptr(),gate.data_ptr(),out.data_ptr(),1,torch.npu.current_stream(experts.device).npu_stream));return out
