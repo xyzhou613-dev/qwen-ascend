@@ -1,0 +1,42 @@
+[W1111 02:49:52.055290175 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+nonlayer 完成 0.0s
+  layer  0 type=linear load    0.2s init   0.1s 累计    0.3s  hbm0= 7.77GiB hbm1= 7.77GiB
+  layer  1 type=ple   load    0.2s init   0.0s 累计    0.5s  hbm0= 9.20GiB hbm1= 9.20GiB
+  layer  2 type=linear load    0.2s init   0.0s 累计    0.7s  hbm0=10.59GiB hbm1=10.59GiB
+  layer  3 type=full  load    0.2s init   0.0s 累计    0.9s  hbm0=12.04GiB hbm1=12.04GiB
+  layer  4 type=linear load    0.2s init   0.0s 累计    1.1s  hbm0=13.43GiB hbm1=13.43GiB
+  layer  5 type=linear load    0.3s init   0.0s 累计    1.3s  hbm0=14.82GiB hbm1=14.82GiB
+  layer  6 type=linear load    0.2s init   0.0s 累计    1.6s  hbm0=16.22GiB hbm1=16.22GiB
+  layer  7 type=full  load    0.2s init   0.0s 累计    1.8s  hbm0=17.66GiB hbm1=17.66GiB
+  layer  8 type=linear load    0.2s init   0.0s 累计    1.9s  hbm0=19.05GiB hbm1=19.05GiB
+  layer  9 type=linear load    0.2s init   0.0s 累计    2.1s  hbm0=20.44GiB hbm1=20.44GiB
+  layer 10 type=linear load    0.2s init   0.0s 累计    2.3s  hbm0=21.84GiB hbm1=21.84GiB
+  layer 11 type=full  load    0.2s init   0.0s 累计    2.5s  hbm0=23.28GiB hbm1=23.28GiB
+  layer 12 type=linear load    0.2s init   0.0s 累计    2.7s  hbm0=24.67GiB hbm1=24.67GiB
+  layer 13 type=linear load    0.2s init   0.0s 累计    2.9s  hbm0=26.07GiB hbm1=26.07GiB
+  layer 14 type=linear load    0.2s init   0.0s 累计    3.1s  hbm0=27.46GiB hbm1=27.46GiB
+  layer 15 type=full  load    0.2s init   0.0s 累计    3.2s  hbm0=28.90GiB hbm1=28.90GiB
+  layer 16 type=linear load    0.2s init   0.0s 累计    3.4s  hbm0=30.29GiB hbm1=30.29GiB
+  layer 17 type=linear load    0.2s init   0.0s 累计    3.6s  hbm0=31.69GiB hbm1=31.69GiB
+  layer 18 type=linear load    0.2s init   0.0s 累计    3.8s  hbm0=33.08GiB hbm1=33.08GiB
+  layer 19 type=full  load    0.2s init   0.0s 累计    4.0s  hbm0=34.52GiB hbm1=34.52GiB
+  layer 20 type=linear load    0.2s init   0.0s 累计    4.3s  hbm0=35.91GiB hbm1=35.91GiB
+  layer 21 type=linear load    0.2s init   0.0s 累计    4.5s  hbm0=37.31GiB hbm1=37.31GiB
+  layer 22 type=linear load    0.2s init   0.0s 累计    4.7s  hbm0=38.70GiB hbm1=38.70GiB
+  layer 23 type=full  load    0.2s init   0.0s 累计    4.9s  hbm0=40.14GiB hbm1=40.14GiB
+装配完成 4.9s  hbm0=40.18GiB hbm1=40.18GiB
+[pipeline] worker ready {'pid': 24408, 'layers': 24, 'visible': '1', 'ipc_pid': 107129}
+[fnx] 装配 14.0s
+[fnx] 停止符 = [248044, 248046]
+[W1111 02:50:08.150374441 TensorFactories.cpp:423] Warning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (function operator())
+[fnx] 前缀缓存[{"enable_thinking": false}] 3 token, 状态 111.1 MiB(主机), 建缓存 2.1s
+图捕获完成 body0
+[index-bucket] captured 196608
+[index-bucket] captured 131072
+[index-bucket] captured 98304
+[index-bucket] captured 65536
+[index-bucket] captured 32768
+[index-bucket] captured 16384
+[fnx] 图捕获 224.3s
+[fnx] hbm0: alloc=42.62 GiB reserved=48.42 GiB
+PREFILL_NLL {"first_block": "1", "tokens": 8064, "scored": 199, "mean_nll": 15.765902, "ppl": 7031440.4019, "top1": 0.0402}
