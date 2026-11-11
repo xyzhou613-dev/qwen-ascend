@@ -1,50 +1,50 @@
 {
-  "revision": "r142-ttft",
+  "revision": "r142",
   "base_revision": "r141",
-  "deployed": false,
-  "production_after_round": "r141 (files byte-identical, answers byte-identical)",
-  "device": "192.168.18.206, 2x Ascend 910B4-1",
-  "protocol": "server-local HTTP, temperature 0, 128 output tokens; 8k = 8064 prompt tokens x3 median; 256k = 262016 prompt tokens, single run",
-  "baseline_8k": {"ttft_s": 4.335, "prefill_s": 4.251, "tpot_ms": 34.77, "runs": [4.441, 4.335, 4.324]},
-  "baseline_256k": {"ttft_s": 73.653, "prefill_s": 72.408, "tpot_ms": 35.99, "source": "r141 acceptance 2026-11-11 09:14"},
-  "candidate_B_first_block_2048": {
-    "change": "fnx/pipeline.py FNX_PIPELINE_FIRST_BLOCK=1: one 2048-row block instead of four 512-row blocks while pos+T<=2048",
-    "gain": {"8k_ttft_pct": -10.70, "8k_prefill_pct": -10.91, "256k_ttft_pct": -0.58},
-    "numbers": {
-      "8k": {"ttft_s": 3.871, "prefill_s": 3.787, "tpot_ms": 34.61, "runs": [3.970, 3.871, 3.867]},
-      "256k": {"ttft_s": 73.228, "prefill_s": 71.951, "tpot_ms": 35.89, "recall_hits": 3}
-    },
-    "precision": {
-      "three_8k_answers_byte_equal_to_r141": false,
-      "first_divergence_char": [23, 20, 20],
-      "short_text_nll": 2.165267,
-      "short_text_nll_note": "/fnx/loss is a per-token decode path and does not exercise chunked prefill",
-      "long_document_chunked_nll": {"baseline": 14.907697, "candidate": 15.765902, "top1": 0.0402,
-                                    "note": "text is repetitive filler with the question at the end; NLL ~15 is the guessing regime and cannot rank quality"}
-    },
-    "verdict": "rejected: re-associates the FP32 attention/MoE/DeltaNet path and changes every long-prompt answer; no discriminating quality metric available"
+  "deployed": true,
+  "acceptance_time": "2026-11-11T18:53+08:00",
+  "device": "192.168.18.206, 2x Ascend 910B4-1 (64 GiB), CANN 9.1.0, driver 26.1.1, torch 2.10.0, torch_npu 2.10.0.post4",
+  "protocol": "server-local HTTP, temperature 0, 128 output tokens; 8k = 8064 prompt tokens x3 median; 256k = 262016 prompt tokens, single run, fresh nonce",
+  "change": "fnx/pipeline.py FNX_PIPELINE_FIRST_BLOCK: the first dense-attention prefill block (pos+T<=2048) goes from a fixed 512 rows to 2048 rows; p275.sh default 1",
+  "why": "every prefill chunk re-reads all dense weights and all 512 experts' W4 (about 125 ms/stage fixed cost); 4x512 paid it four times",
+  "rollback": "FNX_PIPELINE_FIRST_BLOCK=0 and restart (or restore fnx/pipeline.py + fnx/server.py to r141)",
+  "baseline_8k": {"ttft_s": 4.335, "prefill_s": 4.251, "tpot_ms": 34.77, "e2e_s": 8.751, "runs": [4.441, 4.335, 4.324]},
+  "shipped_8k": {"ttft_s": 3.866, "prefill_s": 3.782, "tpot_ms": 34.77, "e2e_s": 8.282,
+                 "runs": [3.966, 3.866, 3.863], "prefill_runs": [3.858, 3.782, 3.781],
+                 "e2e_runs": [8.379, 8.282, 8.280], "gain_ttft_pct": -10.82, "gain_prefill_pct": -11.03, "gain_e2e_pct": -5.36},
+  "baseline_256k": {"ttft_s": 73.653, "prefill_s": 72.408, "tpot_ms": 35.99, "recall_hits": 3},
+  "shipped_256k": {"ttft_s": 73.215, "prefill_s": 71.902, "tpot_ms": 35.90, "recall_hits": 3, "n_prefill": 262012,
+                   "gain_ttft_pct": -0.59, "gain_prefill_pct": -0.70},
+  "quality_gate": {
+    "natural_long_text_6000_tokens_teacher_forced_nll": {"baseline": 1.745571, "candidate": 1.722880, "top1": [0.593, 0.6131],
+      "method": "production plan_prefill/prefill_chunk, then score the last 200 positions"},
+    "decode_path_nll_200_tokens": 2.165267,
+    "decode_path_nll_note": "/fnx/loss feeds tokens one at a time and never exercises chunked prefill; it only guards the decode path",
+    "long_context_recall_256k": "3/3",
+    "answers_changed": true,
+    "answers_changed_reason": "chunk re-association changes dense-attention online-softmax blocking, MoE group sizes and DeltaNet block batch shapes"
   },
-  "candidate_C_index_score_columns": {
-    "change": "fnx/engine.py FNX_INDEX_SCORE_TILE=4096: score index columns in cache-sized slices (same per-column matmul and relu/sum)",
-    "numbers": {
-      "8k": {"ttft_s": 4.332, "tpot_ms": 34.43, "answers_byte_equal": true},
-      "256k": {"ttft_s": 74.051, "prefill_s": 72.777, "tpot_ms": 35.69, "recall_hits": 3}
-    },
-    "gain": {"8k_ttft_pct": -0.07, "256k_ttft_pct": 0.54},
-    "verdict": "rejected: no measurable gain; the extra 8x kernel launches and the strided key-slice copies cancel the cache benefit"
+  "answers_sha256_r142": [
+    "f711cb62bad0a1b26af4e0babc492a74a08aeacc846dee72e0e6490be1a3a9b2",
+    "b0ffc39e0576c9d1fd47d71602672b0f18be943617f5c56f6d5cff1e151db7fc",
+    "0dd57e9fc0b515eaf7a6d2299c9c012174bf0dce5a154bf7681885776906f036"
+  ],
+  "answers_sha256_r141": [
+    "1626894660911718b81fc4ebb7452b3f93eb5c7cdc69d488a285684a921d7e22",
+    "b600d0707294385aaf08525d61d83b4613c714dc50387615b2192e0c4e88c63a",
+    "713f0a0d99c67e05d6064651eb99fca9c22ec59e350b7905cdb6fb00df5992d0"
+  ],
+  "reproducible": "candidate run (10:29), production run (18:47) and revision run (18:53) produced identical answer hashes",
+  "rejected": {
+    "index_score_columns": {
+      "change": "FNX_INDEX_SCORE_TILE=4096: column-tiled index scoring (bitwise per column)",
+      "8k_answers_byte_equal": true,
+      "8k_ttft_s": 4.332,
+      "256k_prefill_s": 72.777,
+      "verdict": "no measurable gain; 8x more launches and strided key slices cancel the cache benefit",
+      "patch": "ops/r143-score-tile.py (default off)"
+    }
   },
-  "final_verification": {
-    "8k_ttft_s": 4.329,
-    "8k_tpot_ms": 34.55,
-    "answers_sha256": [
-      "1626894660911718b81fc4ebb7452b3f93eb5c7cdc69d488a285684a921d7e22",
-      "b600d0707294385aaf08525d61d83b4613c714dc50387615b2192e0c4e88c63a",
-      "713f0a0d99c67e05d6064651eb99fca9c22ec59e350b7905cdb6fb00df5992d0"
-    ],
-    "answers_equal_to_r141": true,
-    "deployed_files_equal_repo": ["fnx/engine.py", "fnx/pipeline.py"],
-    "manager": "active, RefuseManualStart=no"
-  },
-  "harness_gap": "POST /fnx/loss scores tokens one at a time (decode path), so it cannot detect any prefill-chunking change. prefill_nll.py adds a chunked-prefill teacher-forced NLL, but needs a natural long text with NLL 2-4 to become a quality gate.",
-  "patches_kept_default_off": ["ops/r142-first-block.py", "ops/r143-score-tile.py"]
+  "health": {"service_revision": "r142", "ctx": 262144, "worker_alive": true, "manager": "active", "refuse_manual_start": "no"},
+  "next": "MTP weights exist (31 mtp.* tensors, mtp.num_hidden_layers=1); exact-greedy speculative decoding is the remaining multi-x decode lever"
 }

@@ -27,6 +27,10 @@ class PipelineModel:
         self.short_prefill_tokens = int(os.environ.get('FNX_PIPELINE_SHORT_TOKENS', '16384'))
         if not 0 <= self.short_prefill_chunk <= self.maximum or self.short_prefill_tokens < 1:
             raise ValueError('invalid short prefill chunk policy')
+        # r142: first-block size while the short (dense-attention) regime is active.
+        # Every chunk re-reads all dense and expert weights, so 4x512 pays that
+        # fixed cost four times; one 2048 block covers the same tokens.
+        self.first_block = 2048 if os.environ.get('FNX_PIPELINE_FIRST_BLOCK', '0') == '1' else 512
         self.prefill_limit = self.maximum
         self.transport=os.environ.get('FNX_PIPELINE_TRANSPORT','host')
         if self.transport not in ('host','peer','hybrid'):
@@ -97,7 +101,7 @@ class PipelineModel:
             remaining=len(ids)-offset
             choices=[size for size in getattr(self.stage0,'chunk_graphs',{}) if size<=remaining and size<=self.prefill_limit]
             size=max(choices) if choices else min(remaining,self.maximum,self.prefill_limit)
-            if self.stage0._host_pos<2048 and size>512:size=min(512,remaining)
+            if self.stage0._host_pos<2048 and size>self.first_block:size=min(self.first_block,remaining)
             self.stage0.prefill_chunk(ids[offset:offset+size], pipeline=True)
             if len(self.pending)==2:
                 self._receive();self.pending.popleft()
