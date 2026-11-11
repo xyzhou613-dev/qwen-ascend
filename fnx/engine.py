@@ -1797,7 +1797,17 @@ class FnLayer:
                 act = (torch_npu.npu_swiglu(y.float(), dim=-1).to(torch.bfloat16)
                        if os.environ.get("FNX_MOE_SWIGLU_FP32", "0") == "1" else
                        (F.silu(y[:, :MI].float()) * y[:, MI:].float()).to(torch.bfloat16))
-            y2 = self.exp_dn.apply_diag(act, idx[0])
+            if (shared_gate is not None and os.environ.get("FNX_MOE_EPILOGUE", "0") == "1"
+                    and os.environ.get("FNX_DECODE_DN_GMM", "0") != "1"
+                    and os.environ.get("FNX_MOE_REDUCE", "0") == "1"):
+                from .moe_epilogue import merge
+                cartesian = self.exp_dn.apply(act, idx[0])
+                result = merge(cartesian, w, sh, shared_gate)
+                if result is not None:
+                    return result.view(1, 1, H)
+                y2 = cartesian.view(TOPK, TOPK, H)[self.exp_dn._dg, self.exp_dn._dg]
+            else:
+                y2 = self.exp_dn.apply_diag(act, idx[0])
             reduced = None
             if os.environ.get("FNX_MOE_REDUCE", "0") == "1":
                 from .weighted_reduce import reduce

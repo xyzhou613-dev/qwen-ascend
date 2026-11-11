@@ -419,6 +419,22 @@ ops:
       - "DeltaNet门控必须保留norm结果的中间BF16舍入，不可直接FP32相乘"
       - "单独Mul+Cast收益接近噪声；以完整请求测量为准，未做长期稳定性或跨矩阵认证"
 
+  - name: moe_cartesian_epilogue_bf16
+    version: 0.1.0
+    category: elementwise
+    status: alpha
+    desc: "MoE对角提取、路由加权归约和共享专家门控合并，保留中间BF16舍入"
+    source: kernels/moe_epilogue/epilogue.cpp
+    wrapper: fnx/moe_epilogue.py
+    hardware: [{chip: Ascend910B4, cann: "9.1.0", units: [Vector]}]
+    shape: {cartesian: "[10,25600] BF16", weights: "[1,10] BF16", shared: "[1,2560] BF16", gate: "1 BF16"}
+    perf: {machine: 910b4x2-206, measured_at: 2026-11-11, reference_us: 14.90, fused_us: 4.57}
+    precision: "128组动态输入；真实L00 decode及128/512/2048分块输出、FP32状态与BF16历史逐位一致"
+    known_issues:
+      - "默认关闭，需FNX_MOE_EPILOGUE=1，配合r139 Cartesian down、FNX_MOE_REDUCE=1与r140共享门控"
+      - "保留权重乘积及归约结果的BF16舍入，不能直接FP32全程累加后合并"
+      - "仅本机软件矩阵验证，未做跨矩阵或长期稳定性认证"
+
 # ============ 质量门禁 ============
 gates:
   L1_available: {require: ["精度对 CPU 参考通过", "3 个 shape 跑通"], verify: ci/precision_gate.py}

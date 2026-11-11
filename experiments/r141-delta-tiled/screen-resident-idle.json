@@ -1,0 +1,217 @@
+{
+  "context": "r140 resident and idle; screening only, not a full-model acceptance",
+  "accuracy": [
+    {
+      "rows": 4,
+      "columns": 128,
+      "dynamic_steps": 128,
+      "all_output_and_state_bitwise_equal": true
+    },
+    {
+      "rows": 8,
+      "columns": 128,
+      "dynamic_steps": 128,
+      "all_output_and_state_bitwise_equal": true
+    },
+    {
+      "rows": 16,
+      "columns": 128,
+      "dynamic_steps": 128,
+      "all_output_and_state_bitwise_equal": true
+    },
+    {
+      "rows": 32,
+      "columns": 128,
+      "dynamic_steps": 128,
+      "all_output_and_state_bitwise_equal": true
+    },
+    {
+      "rows": 4,
+      "columns": 64,
+      "dynamic_steps": 128,
+      "all_output_and_state_bitwise_equal": true
+    },
+    {
+      "rows": 8,
+      "columns": 64,
+      "dynamic_steps": 128,
+      "all_output_and_state_bitwise_equal": true
+    },
+    {
+      "rows": 16,
+      "columns": 64,
+      "dynamic_steps": 128,
+      "all_output_and_state_bitwise_equal": true
+    },
+    {
+      "rows": 32,
+      "columns": 64,
+      "dynamic_steps": 128,
+      "all_output_and_state_bitwise_equal": true
+    }
+  ],
+  "timings": [
+    {
+      "kind": "timing",
+      "sweep": 0,
+      "rows": 0,
+      "ms": 0.03092624992132187
+    },
+    {
+      "kind": "timing",
+      "sweep": 0,
+      "rows": 4,
+      "ms": 0.03398875147104263
+    },
+    {
+      "kind": "timing",
+      "sweep": 0,
+      "rows": 8,
+      "ms": 0.03100375086069107
+    },
+    {
+      "kind": "timing",
+      "sweep": 0,
+      "rows": 16,
+      "ms": 0.03114374913275242
+    },
+    {
+      "kind": "timing",
+      "sweep": 0,
+      "rows": 32,
+      "ms": 0.03038875013589859
+    },
+    {
+      "kind": "timing",
+      "sweep": 0,
+      "rows": 104,
+      "ms": 0.037796251475811005
+    },
+    {
+      "kind": "timing",
+      "sweep": 0,
+      "rows": 108,
+      "ms": 0.03346249833703041
+    },
+    {
+      "kind": "timing",
+      "sweep": 0,
+      "rows": 116,
+      "ms": 0.03303749859333038
+    },
+    {
+      "kind": "timing",
+      "sweep": 0,
+      "rows": 132,
+      "ms": 0.032180000096559525
+    },
+    {
+      "kind": "timing",
+      "sweep": 1,
+      "rows": 0,
+      "ms": 0.03111499920487404
+    },
+    {
+      "kind": "timing",
+      "sweep": 1,
+      "rows": 4,
+      "ms": 0.033742498606443405
+    },
+    {
+      "kind": "timing",
+      "sweep": 1,
+      "rows": 8,
+      "ms": 0.03087249957025051
+    },
+    {
+      "kind": "timing",
+      "sweep": 1,
+      "rows": 16,
+      "ms": 0.03096500039100647
+    },
+    {
+      "kind": "timing",
+      "sweep": 1,
+      "rows": 32,
+      "ms": 0.029963750392198563
+    },
+    {
+      "kind": "timing",
+      "sweep": 1,
+      "rows": 104,
+      "ms": 0.03750874847173691
+    },
+    {
+      "kind": "timing",
+      "sweep": 1,
+      "rows": 108,
+      "ms": 0.03353999927639961
+    },
+    {
+      "kind": "timing",
+      "sweep": 1,
+      "rows": 116,
+      "ms": 0.033361248672008514
+    },
+    {
+      "kind": "timing",
+      "sweep": 1,
+      "rows": 132,
+      "ms": 0.03233499825000763
+    },
+    {
+      "kind": "timing",
+      "sweep": 2,
+      "rows": 0,
+      "ms": 0.031363751739263535
+    },
+    {
+      "kind": "timing",
+      "sweep": 2,
+      "rows": 4,
+      "ms": 0.03379875048995018
+    },
+    {
+      "kind": "timing",
+      "sweep": 2,
+      "rows": 8,
+      "ms": 0.030959999188780785
+    },
+    {
+      "kind": "timing",
+      "sweep": 2,
+      "rows": 16,
+      "ms": 0.03100625053048134
+    },
+    {
+      "kind": "timing",
+      "sweep": 2,
+      "rows": 32,
+      "ms": 0.03043374978005886
+    },
+    {
+      "kind": "timing",
+      "sweep": 2,
+      "rows": 104,
+      "ms": 0.03729625046253204
+    },
+    {
+      "kind": "timing",
+      "sweep": 2,
+      "rows": 108,
+      "ms": 0.03376375138759613
+    },
+    {
+      "kind": "timing",
+      "sweep": 2,
+      "rows": 116,
+      "ms": 0.03337375074625015
+    },
+    {
+      "kind": "timing",
+      "sweep": 2,
+      "rows": 132,
+      "ms": 0.03212124854326248
+    }
+  ]
+}
