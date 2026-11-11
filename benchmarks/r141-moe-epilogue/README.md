@@ -9,3 +9,5 @@ The kernel reads the 10 diagonal expert blocks directly, preserving BF16 product
 128 dynamic component inputs and real L00 T=1/128/512/2048 (8 dynamic inputs each) passed bitwise output/state/history checks. Graph component timings are not model speedups. Full request evidence is added only after acceptance.
 
 With an installed/built runtime, run from repository root using PYTHONPATH="$PWD" python benchmarks/r141-moe-epilogue/probe.py. All native wrappers acquire the current NPU stream for each call; input preparation must be submitted before raw CANN launches. Use isolated NPU timing for final calibration.
+
+Formal production acceptance: 8k median 34.75ms, 256k 35.99ms; see summary.json and docs/r141-moe-epilogue.md.

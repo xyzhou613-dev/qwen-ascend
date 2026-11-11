@@ -1,0 +1,10 @@
+{
+  "revision": "r141",
+  "files": {
+    "/root/ascend-dev/fnx/fnx/engine.py": "a157c35e550d0e99dc680cc5c3391754add0a33ab901e9d6599c59f5abe9c3d6",
+    "/root/ascend-dev/fnx/fnx/server.py": "ee683d61568146b7102675a472da88bec03bd50c1de92e83bc0f2c4c3789c5b2",
+    "/root/ascend-dev/fnx/fnx/moe_epilogue.py": "966f77cf8a67cf69e7846d0c4a0ba0b7e9424d22fa475046472f59361594b4a5",
+    "/root/ascend-dev/fnx/fnx/libfnx_moe_epilogue.so": "ca8f19c041cf84539dc975d8c357032081358dc15ebe51a5e2584789f6a65e43",
+    "/root/ascend-dev/p275.sh": "579f14bfbd8a265d4fcff4a13c61424574bd69b6cbdba865669622a433745072"
+  }
+}

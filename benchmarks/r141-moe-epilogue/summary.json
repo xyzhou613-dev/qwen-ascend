@@ -1,0 +1,283 @@
+{
+  "revision": "r141",
+  "baseline_revision": "r140",
+  "implementation_commit": "a4eea951adaf53841c622b10bb64794422e926ff",
+  "acceptance_time": "2026-11-11T09:14:32+08:00",
+  "requests": {
+    "baseline": [
+      {
+        "run": 1,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 4.345,
+        "end_to_end_s": 9.043,
+        "prefill_s": 4.248,
+        "prefill_tok_s": 1897.24,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 36.99,
+        "server_total_s": 9.006
+      },
+      {
+        "run": 2,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 4.334,
+        "end_to_end_s": 9.022,
+        "prefill_s": 4.248,
+        "prefill_tok_s": 1897.4,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 36.91,
+        "server_total_s": 8.99
+      },
+      {
+        "run": 3,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 4.324,
+        "end_to_end_s": 9.003,
+        "prefill_s": 4.239,
+        "prefill_tok_s": 1901.39,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 36.84,
+        "server_total_s": 8.972
+      }
+    ],
+    "baseline-after": [
+      {
+        "run": 1,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 4.447,
+        "end_to_end_s": 9.138,
+        "prefill_s": 4.334,
+        "prefill_tok_s": 1859.52,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 36.94,
+        "server_total_s": 9.098
+      },
+      {
+        "run": 2,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 4.333,
+        "end_to_end_s": 9.018,
+        "prefill_s": 4.247,
+        "prefill_tok_s": 1897.66,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 36.88,
+        "server_total_s": 8.986
+      },
+      {
+        "run": 3,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 4.329,
+        "end_to_end_s": 9.02,
+        "prefill_s": 4.243,
+        "prefill_tok_s": 1899.43,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 36.94,
+        "server_total_s": 8.989
+      }
+    ],
+    "candidate8k": [
+      {
+        "run": 1,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 4.44,
+        "end_to_end_s": 8.822,
+        "prefill_s": 4.33,
+        "prefill_tok_s": 1861.38,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 34.51,
+        "server_total_s": 8.782
+      },
+      {
+        "run": 2,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 4.331,
+        "end_to_end_s": 8.709,
+        "prefill_s": 4.248,
+        "prefill_tok_s": 1897.44,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 34.47,
+        "server_total_s": 8.678
+      },
+      {
+        "run": 3,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 4.323,
+        "end_to_end_s": 8.7,
+        "prefill_s": 4.24,
+        "prefill_tok_s": 1900.92,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 34.47,
+        "server_total_s": 8.669
+      }
+    ],
+    "production8k": [
+      {
+        "run": 1,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 4.444,
+        "end_to_end_s": 8.862,
+        "prefill_s": 4.333,
+        "prefill_tok_s": 1859.97,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 34.79,
+        "server_total_s": 8.821
+      },
+      {
+        "run": 2,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 4.333,
+        "end_to_end_s": 8.745,
+        "prefill_s": 4.25,
+        "prefill_tok_s": 1896.57,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 34.74,
+        "server_total_s": 8.713
+      },
+      {
+        "run": 3,
+        "transport": "server-local HTTP",
+        "prompt_tokens": 8064,
+        "output_tokens": 128,
+        "ttft_s": 4.328,
+        "end_to_end_s": 8.741,
+        "prefill_s": 4.244,
+        "prefill_tok_s": 1898.95,
+        "fresh_prefill_tokens": 8060,
+        "decode_tpot_ms": 34.75,
+        "server_total_s": 8.71
+      }
+    ]
+  },
+  "speedup_before_percent": 6.215827338129487,
+  "speedup_after_percent": 6.3021582733812975,
+  "long_speedup_percent": 6.279522089469292,
+  "long_context": {
+    "baseline256": {
+      "ctx": 262144,
+      "prompt_tokens": 262016,
+      "ttft_s": 73.095,
+      "e2e_s": 77.935,
+      "stats": {
+        "ttft_ms": 71964.76,
+        "tokens": 128,
+        "seconds": 76.805,
+        "tpot_ms": 38.11,
+        "tok_decode_ms": 3.69,
+        "prefill_ms": 71840.61,
+        "prefill_tok_s": 3647.13,
+        "n_prefill": 262012
+      },
+      "recall_hits": 3
+    },
+    "baseline-after256": {
+      "ctx": 262144,
+      "prompt_tokens": 262016,
+      "ttft_s": 73.637,
+      "e2e_s": 78.496,
+      "stats": {
+        "ttft_ms": 72515.09,
+        "tokens": 128,
+        "seconds": 77.373,
+        "tpot_ms": 38.25,
+        "tok_decode_ms": 4.16,
+        "prefill_ms": 72368.79,
+        "prefill_tok_s": 3620.51,
+        "n_prefill": 262012
+      },
+      "recall_hits": 3
+    },
+    "candidate256": {
+      "ctx": 262144,
+      "prompt_tokens": 262016,
+      "ttft_s": 73.584,
+      "e2e_s": 78.123,
+      "stats": {
+        "ttft_ms": 72475.3,
+        "tokens": 128,
+        "seconds": 77.013,
+        "tpot_ms": 35.73,
+        "tok_decode_ms": 3.52,
+        "prefill_ms": 72333.65,
+        "prefill_tok_s": 3622.27,
+        "n_prefill": 262012
+      },
+      "recall_hits": 3
+    },
+    "production256": {
+      "ctx": 262144,
+      "prompt_tokens": 262016,
+      "ttft_s": 73.653,
+      "e2e_s": 78.224,
+      "stats": {
+        "ttft_ms": 72549.41,
+        "tokens": 128,
+        "seconds": 77.12,
+        "tpot_ms": 35.99,
+        "tok_decode_ms": 3.89,
+        "prefill_ms": 72407.68,
+        "prefill_tok_s": 3618.57,
+        "n_prefill": 262012
+      },
+      "recall_hits": 3
+    }
+  },
+  "answer_sha256": {
+    "baseline": [
+      "1626894660911718b81fc4ebb7452b3f93eb5c7cdc69d488a285684a921d7e22",
+      "b600d0707294385aaf08525d61d83b4613c714dc50387615b2192e0c4e88c63a",
+      "713f0a0d99c67e05d6064651eb99fca9c22ec59e350b7905cdb6fb00df5992d0"
+    ],
+    "baseline-after": [
+      "1626894660911718b81fc4ebb7452b3f93eb5c7cdc69d488a285684a921d7e22",
+      "b600d0707294385aaf08525d61d83b4613c714dc50387615b2192e0c4e88c63a",
+      "713f0a0d99c67e05d6064651eb99fca9c22ec59e350b7905cdb6fb00df5992d0"
+    ],
+    "candidate8k": [
+      "1626894660911718b81fc4ebb7452b3f93eb5c7cdc69d488a285684a921d7e22",
+      "b600d0707294385aaf08525d61d83b4613c714dc50387615b2192e0c4e88c63a",
+      "713f0a0d99c67e05d6064651eb99fca9c22ec59e350b7905cdb6fb00df5992d0"
+    ],
+    "production8k": [
+      "1626894660911718b81fc4ebb7452b3f93eb5c7cdc69d488a285684a921d7e22",
+      "b600d0707294385aaf08525d61d83b4613c714dc50387615b2192e0c4e88c63a",
+      "713f0a0d99c67e05d6064651eb99fca9c22ec59e350b7905cdb6fb00df5992d0"
+    ]
+  },
+  "precision": {
+    "component_dynamic_inputs": 128,
+    "real_layer_T": [
+      1,
+      128,
+      512,
+      2048
+    ],
+    "layer_dynamic_inputs_per_T": 8,
+    "output_state_history_bitwise_equal": true,
+    "three_8k_answers_byte_equal": true,
+    "nll": 2.165267,
+    "recall_hits": 3,
+    "historical_100_questions_rerun": false
+  },
+  "change": "Read Cartesian diagonal blocks directly; preserve rounded expert products, ordered FP32 sum, BF16 reduced result, shared sigmoid/product and final addition; original matmuls and prefill unchanged."
+}
