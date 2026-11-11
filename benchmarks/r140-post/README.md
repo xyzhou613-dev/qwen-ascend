@@ -9,3 +9,5 @@ All 65280 finite BF16 bit patterns were covered for HC activation/gate and for s
 Micro timings are not extrapolated to model speed. Standalone normalization Mul+Cast was nearly flat (2.38 ->2.21us), while activation, mix and rounded DeltaNet gating reduced calls. All graph microbenchmarks amortize launch overhead over 256/512 operations.
 
 layer_probe.py runs the component checks first and needs the same runtime profile and real L00 artifact. Build/install libfnx_reduce.so for its reference implementation. Optional FNX_POST_SO/FNX_REDUCE_SO override library locations. Runtime integration releases pre-sigmoid logits immediately after their consumer to preserve large-prefill temporary lifetimes.
+
+Formal acceptance: production8k median 36.88ms; production256 38.12ms. summary.json includes bracketing baselines, request metrics and answer SHA256. Final-build component and layer evidence replaces earlier exploratory timings. See docs/r140-post.md.

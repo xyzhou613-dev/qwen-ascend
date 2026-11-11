@@ -1,0 +1,10 @@
+{
+  "revision": "r140",
+  "files": {
+    "/root/ascend-dev/fnx/fnx/engine.py": "f516e07f577c840947e8fd1d99bbb6481445ee79794747d1db589c1131cb0f57",
+    "/root/ascend-dev/fnx/fnx/server.py": "79840d991dd9344f83b222f41c685ea5a78cfe8610b78f2bcbf7b132bca375c0",
+    "/root/ascend-dev/fnx/fnx/post_ops.py": "c27410007720549e22d699f1107d99725e095d3e67a05a89345f7ff360789cb7",
+    "/root/ascend-dev/fnx/fnx/libfnx_post.so": "ce0cd7a539109a01f5680e4d2a4233f0cb7f94b6d56a63dea7efab042d33ec7a",
+    "/root/ascend-dev/p275.sh": "b2aa2983583e8edf3ba4523f94928de3e7a001cdabe5bd365001ffb476a2ea6f"
+  }
+}
