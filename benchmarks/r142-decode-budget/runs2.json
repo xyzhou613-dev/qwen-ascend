@@ -1,0 +1,24 @@
+[
+  {
+    "tag": "prefill8k",
+    "kind": "prefill_chunk",
+    "offset": 2048,
+    "size": 2048,
+    "window": [
+      1794362852381669842,
+      1794362853738270957
+    ],
+    "wall_ms": 1356.591745
+  },
+  {
+    "tag": "prefillLate",
+    "kind": "prefill_chunk",
+    "offset": 247808,
+    "size": 8192,
+    "window": [
+      1794362941425646844,
+      1794362946098342722
+    ],
+    "wall_ms": 4672.690748
+  }
+]

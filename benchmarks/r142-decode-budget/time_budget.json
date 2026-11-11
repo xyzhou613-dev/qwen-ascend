@@ -1,0 +1,712 @@
+{
+  "baseline8k": {
+    "tag": "baseline8k",
+    "kind": "decode_window_unprofiled",
+    "n_periods": 39,
+    "h2d_period_mean_ms": 34.26242048717949,
+    "h2d_period_median_ms": 34.224393,
+    "periods_ms": [
+      34.224944,
+      34.229563,
+      34.253414,
+      34.461455,
+      34.324884,
+      34.305274,
+      34.264134,
+      34.202133,
+      34.234324,
+      34.156593,
+      34.196494,
+      34.195353,
+      34.172184,
+      34.220064,
+      34.132073,
+      34.197334,
+      34.439714,
+      34.344794,
+      34.377214,
+      34.265514,
+      34.201824,
+      34.220373,
+      34.210024,
+      34.256374,
+      34.215564,
+      34.217143,
+      34.182864,
+      34.188093,
+      34.312964,
+      34.544775,
+      34.392844,
+      34.367455,
+      34.279334,
+      34.201533,
+      34.380024,
+      34.212464,
+      34.217894,
+      34.224393,
+      34.211004
+    ],
+    "groups": {},
+    "top_kernels": [],
+    "stage_kernel_ms": [],
+    "unit_ms": 34.26242048717949
+  },
+  "decode8k": {
+    "tag": "decode8k",
+    "kind": "decode_window",
+    "n_periods": 31,
+    "window_ms": 1116.793166,
+    "unit_ms": 36.025586,
+    "kernel_union_ms": 33.53022316128331,
+    "copy_exclusive_ms": 0.029049032258050098,
+    "intra_stage_gap_ms": 37.00416935483871,
+    "outer_host_gap_ms": 0.042634387096773176,
+    "closure_ms": 70.60607593547685,
+    "stage_kernel_ms": [
+      15.924346774193548,
+      17.74166935483871
+    ],
+    "groups": {
+      "Dense + index MatMul": {
+        "count": 547.0967741935484,
+        "ms": 12.284169516129147,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      },
+      "Other vector/scalar kernels": {
+        "count": 2521.8064516129034,
+        "ms": 6.657071387095683,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      },
+      "W4/W8 quantized matmul": {
+        "count": 115.61290322580645,
+        "ms": 6.647113096774208,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      },
+      "Native fusion kernels": {
+        "count": 222.96774193548387,
+        "ms": 3.2880820322581896,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      },
+      "FP32 DeltaNet": {
+        "count": 37.16129032258065,
+        "ms": 1.3241540322580516,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      },
+      "Gather/layout/cache writes": {
+        "count": 374.7096774193548,
+        "ms": 1.2188683225806678,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      },
+      "RMSNorm": {
+        "count": 186.83870967741936,
+        "ms": 1.155645806451666,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      },
+      "Sparse selected attention": {
+        "count": 12.387096774193548,
+        "ms": 0.4621270967742035,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      },
+      "Convolution": {
+        "count": 37.16129032258065,
+        "ms": 0.316955774193572,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      },
+      "MoE epilogue fused (r141)": {
+        "count": 49.54838709677419,
+        "ms": 0.28042635483869194,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      }
+    },
+    "top_kernels": [
+      [
+        "aclnnMatmul_MatMulCommon_MatMulV2",
+        547.1,
+        12.284
+      ],
+      [
+        "aclnnWeightQuantBatchMatmulV2_WeightQuantBatchMatmulV2_WeightQuantBatchMatmulV2",
+        115.61,
+        6.647
+      ],
+      [
+        "gather_pair",
+        99.1,
+        2.547
+      ],
+      [
+        "delta_sequential",
+        37.16,
+        1.324
+      ],
+      [
+        "RmsNorm",
+        186.84,
+        1.156
+      ],
+      [
+        "aclnnMul_MulAiCore_Mul",
+        348.9,
+        0.99
+      ],
+      [
+        "aclnnInplaceCopy_CastAiCore_Cast",
+        624.52,
+        0.983
+      ],
+      [
+        "aclnnReduceSum_ReduceSumOpAiCore_ReduceSum",
+        136.26,
+        0.89
+      ],
+      [
+        "post_mul",
+        137.29,
+        0.716
+      ],
+      [
+        "residual_inject",
+        99.1,
+        0.681
+      ],
+      [
+        "FusedInferAttentionScore",
+        12.39,
+        0.462
+      ],
+      [
+        "aclnnIndexSelect_GatherV3AiCore_GatherV3",
+        74.32,
+        0.416
+      ],
+      [
+        "hc_sigmoid_reduce",
+        100.13,
+        0.339
+      ],
+      [
+        "conv_four",
+        37.16,
+        0.317
+      ],
+      [
+        "aclnnSoftmax_SoftmaxAiCore_SoftmaxV2",
+        49.55,
+        0.294
+      ],
+      [
+        "moe_cartesian_epilogue",
+        49.55,
+        0.28
+      ],
+      [
+        "aclnnCat_ConcatD_ConcatD",
+        99.1,
+        0.274
+      ],
+      [
+        "aclnnTopk_TopkV2AiCore_TopKV2",
+        61.94,
+        0.265
+      ],
+      [
+        "aclnnInplaceIndexCopy_ScatterUpdateAiCore_ScatterUpdate",
+        24.77,
+        0.204
+      ],
+      [
+        "SwiGlu",
+        49.55,
+        0.193
+      ]
+    ],
+    "h2d_period_mean_ms": 34.68558987096774,
+    "h2d_period_median_ms": 34.666365,
+    "periods_ms": [
+      34.926487,
+      34.738315,
+      34.514185,
+      34.571355,
+      34.592745,
+      34.610945,
+      34.753806,
+      34.707225,
+      34.636065,
+      34.691696,
+      34.957066,
+      34.689645,
+      34.847166,
+      34.688766,
+      34.704495,
+      34.734135,
+      34.608576,
+      34.574124,
+      34.555665,
+      34.573865,
+      34.534935,
+      34.607025,
+      34.592205,
+      34.562225,
+      34.861986,
+      34.881456,
+      34.881226,
+      34.748916,
+      34.593965,
+      34.646655,
+      34.666365
+    ]
+  },
+  "prefill0": {
+    "tag": "prefill0",
+    "kind": "prefill_chunk",
+    "n_periods": 1,
+    "window_ms": 619.408358,
+    "unit_ms": 619.408358,
+    "kernel_union_ms": 498.84065099999657,
+    "copy_exclusive_ms": 0.7168479999999982,
+    "intra_stage_gap_ms": 112.63,
+    "outer_host_gap_ms": 16.68260800000001,
+    "closure_ms": 628.8701069999966,
+    "stage_kernel_ms": [
+      248.797,
+      241.29875
+    ],
+    "groups": {
+      "MoE down GMM": {
+        "count": 96.0,
+        "ms": 285.00533600000034,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      },
+      "Other vector/scalar kernels": {
+        "count": 6971.0,
+        "ms": 79.16111699999877,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      },
+      "Dense + index MatMul": {
+        "count": 2880.0,
+        "ms": 72.73579800000175,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      },
+      "Gather/layout/cache writes": {
+        "count": 2725.0,
+        "ms": 40.53984399999888,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      },
+      "Convolution": {
+        "count": 36.0,
+        "ms": 9.260163999999982,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      },
+      "HC/MoE fused reductions": {
+        "count": 144.0,
+        "ms": 5.9653059999996625,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      },
+      "RMSNorm": {
+        "count": 168.0,
+        "ms": 5.9088959999999044,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      },
+      "W4/W8 quantized matmul": {
+        "count": 12.0,
+        "ms": 0.3862489999999743,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      },
+      "Native fusion kernels": {
+        "count": 12.0,
+        "ms": 0.19708399999998075,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      }
+    },
+    "top_kernels": [
+      [
+        "aclnnGroupedMatmulV5_GroupedMatmul_GroupedMatmul",
+        96.0,
+        285.005
+      ],
+      [
+        "aclnnBatchMatMul_BatchMatMulNd_BatchMatMulV2",
+        1848.0,
+        34.584
+      ],
+      [
+        "aclnnMatmul_MatMulCommon_MatMulV2",
+        516.0,
+        32.914
+      ],
+      [
+        "aclnnMul_MulAiCore_Mul",
+        1128.0,
+        18.827
+      ],
+      [
+        "aclnnInplaceCopy_CastAiCore_Cast",
+        1176.0,
+        9.643
+      ],
+      [
+        "conv_prefill",
+        36.0,
+        9.26
+      ],
+      [
+        "aclnnAdd_AddAiCore_Add",
+        1038.0,
+        9.145
+      ],
+      [
+        "weighted_reduce",
+        144.0,
+        5.965
+      ],
+      [
+        "RmsNorm",
+        168.0,
+        5.909
+      ],
+      [
+        "aclnnInplaceIndexCopy_ScatterUpdateAiCore_ScatterUpdate",
+        72.0,
+        5.829
+      ],
+      [
+        "aclnnTril_Tril_Tril",
+        36.0,
+        5.726
+      ],
+      [
+        "aclnnCat_TransposeAiCore_Transpose",
+        420.0,
+        4.817
+      ],
+      [
+        "aclnnInplaceMaskedFillScalar_MaskedFillAiCore_MaskedFill",
+        168.0,
+        4.758
+      ],
+      [
+        "aclnnInplaceCopy_TransposeAiCore_Transpose",
+        312.0,
+        4.368
+      ],
+      [
+        "aclnnScatterAdd_ScatterElements_ScatterElements",
+        24.0,
+        4.089
+      ],
+      [
+        "ScatterElements",
+        24.0,
+        3.94
+      ],
+      [
+        "aclnnSoftmax_SoftmaxAiCore_SoftmaxV2",
+        144.0,
+        3.81
+      ],
+      [
+        "aclnnBatchMatMul_TransposeAiCore_Transpose",
+        192.0,
+        3.606
+      ],
+      [
+        "aclnnCat_ConcatD_ConcatD",
+        192.0,
+        3.443
+      ],
+      [
+        "aclnnMul_TransposeAiCore_Transpose",
+        216.0,
+        3.089
+      ]
+    ],
+    "chunk_wall_ms": 619.399748,
+    "chunk_size": 512
+  },
+  "baseline256": {
+    "tag": "baseline256",
+    "kind": "decode_window_unprofiled",
+    "n_periods": 39,
+    "h2d_period_mean_ms": 35.47424415384615,
+    "h2d_period_median_ms": 35.455758,
+    "periods_ms": [
+      35.505298,
+      35.409978,
+      35.426858,
+      35.481648,
+      35.488228,
+      35.410698,
+      35.503778,
+      35.671749,
+      35.557908,
+      35.559748,
+      35.496078,
+      35.491048,
+      35.454498,
+      35.360228,
+      35.451678,
+      35.430768,
+      35.415037,
+      35.419528,
+      35.476898,
+      35.402818,
+      35.509728,
+      35.639669,
+      35.502728,
+      35.611258,
+      35.502768,
+      35.424638,
+      35.474908,
+      35.428258,
+      35.455758,
+      35.392557,
+      35.425198,
+      35.454798,
+      35.445648,
+      35.399678,
+      35.469908,
+      35.418348,
+      35.456467,
+      35.455328,
+      35.613409
+    ],
+    "groups": {},
+    "top_kernels": [],
+    "stage_kernel_ms": [],
+    "unit_ms": 35.47424415384615
+  },
+  "decode256": {
+    "tag": "decode256",
+    "kind": "decode_window",
+    "n_periods": 31,
+    "window_ms": 1155.883311,
+    "unit_ms": 37.28655841935484,
+    "kernel_union_ms": 34.77082135483191,
+    "copy_exclusive_ms": 0.03485606451610464,
+    "intra_stage_gap_ms": 38.286983870967745,
+    "outer_host_gap_ms": 0.028735838709676997,
+    "closure_ms": 73.12139712902542,
+    "stage_kernel_ms": [
+      16.541056451612903,
+      18.37056451612903
+    ],
+    "groups": {
+      "Dense + index MatMul": {
+        "count": 547.0967741935484,
+        "ms": 12.77975232258093,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      },
+      "Other vector/scalar kernels": {
+        "count": 2521.8064516129034,
+        "ms": 7.466309354838108,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      },
+      "W4/W8 quantized matmul": {
+        "count": 115.61290322580645,
+        "ms": 6.61162003225808,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      },
+      "Native fusion kernels": {
+        "count": 222.96774193548387,
+        "ms": 3.2575077741938707,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      },
+      "FP32 DeltaNet": {
+        "count": 37.16129032258065,
+        "ms": 1.315996806451623,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      },
+      "Gather/layout/cache writes": {
+        "count": 374.7096774193548,
+        "ms": 1.2434501290322708,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      },
+      "RMSNorm": {
+        "count": 186.83870967741936,
+        "ms": 1.1443761935485126,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      },
+      "Sparse selected attention": {
+        "count": 12.387096774193548,
+        "ms": 0.46376654838708675,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      },
+      "Convolution": {
+        "count": 37.16129032258065,
+        "ms": 0.31707745161289336,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      },
+      "MoE epilogue fused (r141)": {
+        "count": 49.54838709677419,
+        "ms": 0.2765919032258349,
+        "pmu_read_gb": 0.0,
+        "pmu_write_gb": 0.0
+      }
+    },
+    "top_kernels": [
+      [
+        "aclnnMatmul_MatMulCommon_MatMulV2",
+        547.1,
+        12.78
+      ],
+      [
+        "aclnnWeightQuantBatchMatmulV2_WeightQuantBatchMatmulV2_WeightQuantBatchMatmulV2",
+        115.61,
+        6.612
+      ],
+      [
+        "gather_pair",
+        99.1,
+        2.515
+      ],
+      [
+        "delta_sequential",
+        37.16,
+        1.316
+      ],
+      [
+        "RmsNorm",
+        186.84,
+        1.144
+      ],
+      [
+        "aclnnMul_MulAiCore_Mul",
+        348.9,
+        0.988
+      ],
+      [
+        "aclnnInplaceCopy_CastAiCore_Cast",
+        624.52,
+        0.979
+      ],
+      [
+        "aclnnReduceSum_ReduceSumOpAiCore_ReduceSum",
+        136.26,
+        0.894
+      ],
+      [
+        "post_mul",
+        137.29,
+        0.687
+      ],
+      [
+        "residual_inject",
+        99.1,
+        0.683
+      ],
+      [
+        "FusedInferAttentionScore",
+        12.39,
+        0.464
+      ],
+      [
+        "aclnnIndexSelect_GatherV3AiCore_GatherV3",
+        74.32,
+        0.452
+      ],
+      [
+        "aclnnTopk_TopkV2AiCore_TopKV2",
+        61.94,
+        0.364
+      ],
+      [
+        "hc_sigmoid_reduce",
+        100.13,
+        0.338
+      ],
+      [
+        "conv_four",
+        37.16,
+        0.317
+      ],
+      [
+        "aclnnArange_ArangeAiCore_Range",
+        24.77,
+        0.31
+      ],
+      [
+        "aclnnAdds_AddAiCore_Add",
+        103.23,
+        0.29
+      ],
+      [
+        "aclnnMuls_MulAiCore_Mul",
+        37.16,
+        0.289
+      ],
+      [
+        "aclnnSoftmax_SoftmaxAiCore_SoftmaxV2",
+        49.55,
+        0.288
+      ],
+      [
+        "moe_cartesian_epilogue",
+        49.55,
+        0.277
+      ]
+    ],
+    "h2d_period_mean_ms": 35.94991938709678,
+    "h2d_period_median_ms": 35.920869,
+    "periods_ms": [
+      36.0205,
+      35.824349,
+      35.826359,
+      35.96954,
+      36.476812,
+      36.336441,
+      36.285741,
+      35.99245,
+      36.06853,
+      35.942729,
+      35.96417,
+      35.85969,
+      35.920869,
+      36.00799,
+      35.9211,
+      35.862499,
+      35.818869,
+      35.800289,
+      35.78824,
+      35.792509,
+      35.837599,
+      35.95764,
+      36.24002,
+      36.0247,
+      35.97667,
+      35.82867,
+      35.843069,
+      35.839899,
+      35.781889,
+      35.754929,
+      35.88274
+    ]
+  }
+}

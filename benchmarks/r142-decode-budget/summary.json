@@ -1,0 +1,139 @@
+{
+  "revision": "r142",
+  "sampled_revision": "r141",
+  "device": "192.168.18.206, 2x Ascend 910B4-1 (64 GiB each)",
+  "software": "CANN 9.1.0, driver 26.1.1, torch 2.10.0, torch_npu 2.10.0.post4",
+  "method": {
+    "harness": "/models/fnx-diagnostics/r142-budget-20261111 (exclusive; model-switch.service paused, RefuseManualStart drop-in)",
+    "profiler": "torch_npu.profiler, ProfilerActivity.CPU+NPU, profiler_level=Level1, AiCoreNone (timing pass)",
+    "code": "diagnostic copy of the deployed r141 package, only pipeline_worker.py patched with prof_start/prof_stop/inventory RPCs",
+    "window": "decode: 32 profiled steps, 31 token periods accounted between consecutive step ends; prefill: one chunk interval",
+    "closure": "width = device_busy + intra_stage_gap + outer_host_gap (per token period)"
+  },
+  "unprofiled_baselines_ms": {
+    "decode_8k": {"mean": 34.262, "median": 34.224, "periods": 39},
+    "decode_256k": {"mean": 35.474, "median": 35.456, "periods": 39}
+  },
+  "decode": {
+    "8k": {
+      "prompt_tokens_prefilled": 8063,
+      "host_period_ms": 34.686,
+      "device_ms": 32.607,
+      "intra_stage_gap_ms": 1.135,
+      "outer_host_gap_ms": 0.944,
+      "groups": {
+        "Dense + index MatMul": {"calls": 530, "ms": 11.897},
+        "W4/W8 quantized matmul": {"calls": 112, "ms": 6.435},
+        "Other vector/scalar": {"calls": 2117, "ms": 5.290},
+        "Native fusion kernels": {"calls": 542, "ms": 4.348},
+        "FP32 DeltaNet": {"calls": 36, "ms": 1.283},
+        "Gather/layout/cache writes": {"calls": 363, "ms": 1.181},
+        "RMSNorm": {"calls": 181, "ms": 1.119},
+        "Sparse selected attention": {"calls": 12, "ms": 0.448},
+        "Convolution": {"calls": 36, "ms": 0.307},
+        "MoE epilogue fused (r141)": {"calls": 48, "ms": 0.272}
+      }
+    },
+    "256k": {
+      "prompt_tokens_prefilled": 262015,
+      "host_period_ms": 35.950,
+      "device_ms": 33.821,
+      "intra_stage_gap_ms": 1.154,
+      "outer_host_gap_ms": 0.975,
+      "groups": {
+        "Dense + index MatMul": {"calls": 530, "ms": 12.378},
+        "W4/W8 quantized matmul": {"calls": 112, "ms": 6.405},
+        "Other vector/scalar": {"calls": 2117, "ms": 6.103},
+        "Native fusion kernels": {"calls": 542, "ms": 4.290},
+        "FP32 DeltaNet": {"calls": 36, "ms": 1.275},
+        "Gather/layout/cache writes": {"calls": 363, "ms": 1.205},
+        "RMSNorm": {"calls": 181, "ms": 1.108},
+        "Sparse selected attention": {"calls": 12, "ms": 0.449},
+        "Convolution": {"calls": 36, "ms": 0.307},
+        "MoE epilogue fused (r141)": {"calls": 48, "ms": 0.268}
+      }
+    },
+    "per_gemm_ms": {
+      "w_qkv [10240,2560]": {"calls": 36, "ms": 2.308},
+      "w_z [6144,2560]": {"calls": 36, "ms": 2.124},
+      "w_out [2560,6144]": {"calls": 48, "ms": 1.841},
+      "a_up+m_up [10240,320]": {"calls": 96, "ms": 1.515},
+      "a_di+m_di [324,10240]": {"calls": 96, "ms": 1.234},
+      "w_q [12288,2560]": {"calls": 12, "ms": 0.960},
+      "sh_gu [1793,2560]": {"calls": 48, "ms": 0.752},
+      "w_a/w_b [48,2560]": {"calls": 72, "ms": 0.468},
+      "sh_down [2560,640]": {"calls": 48, "ms": 0.384},
+      "w_k/w_v [512,2560]": {"calls": 24, "ms": 0.180},
+      "exp_dn [10,640]x[640,25600]": {"calls": 48, "ms": 2.416},
+      "exp_gu [1,2560]x[2560,12800]": {"calls": 48, "ms": 2.021},
+      "lm_head [1,2560]x[2560,62080]": {"calls": 4, "ms": 1.685},
+      "indexer W8 [1,2560]x[2560,640]": {"calls": 12, "ms": 0.317}
+    },
+    "top_kernels_per_token": [
+      ["aclnnMatmul_MatMulCommon", 530, 11.900],
+      ["aclnnWeightQuantBatchMatmulV2", 112, 6.439],
+      ["gather_pair", 96, 2.468],
+      ["delta_sequential", 36, 1.283],
+      ["RmsNorm", 181, 1.120],
+      ["aclnnMul", 338, 0.959],
+      ["aclnnCast", 605, 0.952],
+      ["aclnnReduceSum", 132, 0.862],
+      ["post_mul", 133, 0.694],
+      ["residual_inject", 96, 0.660],
+      ["FusedInferAttentionScore", 12, 0.448],
+      ["aclnnGatherV3", 72, 0.403],
+      ["hc_sigmoid_reduce", 97, 0.329],
+      ["conv_four", 36, 0.307],
+      ["aclnnSoftmax", 48, 0.285],
+      ["moe_cartesian_epilogue", 48, 0.272],
+      ["aclnnConcatD", 96, 0.266],
+      ["aclnnTopk", 60, 0.257],
+      ["aclnnScatterUpdate", 24, 0.198],
+      ["SwiGlu", 48, 0.187]
+    ]
+  },
+  "candidates": [
+    {
+      "id": "r142-a-l2norm-fuse",
+      "what": "Fuse the DeltaNet q/k l2norm chain (mul, sum, add, rsqrt, mul: 5 kernels x 72 per token, ~1.25 ms measured) into one kernel.",
+      "result": "rejected before implementation",
+      "evidence": "sum_order_probe.py: a hand-written fp32 sum over the last dim of [64,16,128] reproduces torch ReduceSum bitwise on at most 72.9% of rows (best order: block8+tree; sequential 25.8%). No association order tested matches, so the fusion cannot preserve the FP32 reduction order.",
+      "consequence": "not implemented, not deployed"
+    },
+    {
+      "id": "r142-b-gather-double-buffer",
+      "what": "Double-buffer the expert gather (2 x 40 KiB UB staging buffers) so the MTE2 load of the next tile overlaps the MTE3 store of the current one; output bytes unchanged.",
+      "result": "rejected after measurement",
+      "evidence": "component A/B (probe_gather.py): gu 13.75 -> 12.46 us (1.10x), dn 7.09 -> 7.10 us (1.00x). Real L00 decode graph (layer_probe.py, 8 replays x 5): deployed 1.91346 ms vs double-buffered 1.91374 ms, i.e. no gain; output, FP32 state and BF16 conv history bitwise identical.",
+      "consequence": "not deployed; production .so untouched"
+    }
+  ],
+  "side_finding": {
+    "what": "The deployed libfnx_expert_gather.so (sha256 b7c4eaef...) is not reproducible from kernels/expert_gather/gather.cpp: a rebuild (5e9457b1...) and the double-buffered variant (fc68d351...) both match a torch reference on a standalone intake probe (3/3 deterministic) for the K=2560/G=40/N=1280 shape, while the deployed binary is non-deterministic and does not match the reference there.",
+    "model_impact": "In the real L00 decode graph all three binaries give bitwise-identical outputs, so production numerics are unaffected in the verified path; the discrepancy is not deployed and is left for follow-up."
+  },
+  "prefill": {
+    "status": "see prefill section of the report; 512-token early chunk shows MoE grouped GMM at 58% of device time",
+    "chunk512": {
+      "device_ms": 490.096,
+      "idle_ms": 129.313,
+      "stage_busy_ms": [248.8, 241.3],
+      "groups": {
+        "MoE grouped GMM": {"calls": 96, "ms": 285.006},
+        "Other vector/scalar": {"calls": 6971, "ms": 79.164},
+        "Dense + index MatMul": {"calls": 2880, "ms": 72.731},
+        "Gather/layout/cache writes": {"calls": 2725, "ms": 40.542},
+        "Convolution": {"calls": 36, "ms": 9.261},
+        "HC/MoE fused reductions": {"calls": 144, "ms": 5.965},
+        "RMSNorm": {"calls": 168, "ms": 5.908},
+        "W4/W8 quantized matmul": {"calls": 12, "ms": 0.386},
+        "Native fusion kernels": {"calls": 12, "ms": 0.197}
+      }
+    }
+  },
+  "notes": [
+    "TTFT and TPOT were not re-measured through HTTP in this round; production numbers are the r141 acceptance (8k TPOT 34.75 ms, 256k TPOT 35.99 ms).",
+    "The profiled decode windows run 1.2-3.6% slower than the unprofiled baseline in the same process (profiler overhead), so the ledger is used for attribution, not as a target number.",
+    "Two cards do not overlap in decode: stage0 and stage1 execute serially, so per-token device time is the sum of both stages."
+  ]
+}
