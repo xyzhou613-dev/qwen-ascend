@@ -1,5 +1,19 @@
 # Qwen3.8-Flash-Next（W4 MoE）在 2×Ascend 910B4 上的部署与优化实测
 
+<!-- r145-profile-current -->
+## 2026-11-12 r144 双进程与硬件计数器补采（r145 数据集）
+
+采样实现仍为794a22e的r144，未修改正式模型、数值路径或启动参数。两进程/两卡在同机epoch时间与共同token序号上对齐；完整Chrome Trace、原始kernel/task CSV和HBM/PCIe系统导出已归档。
+
+8k / 256k 无profiler runtime基线约33.35 / 34.22 ms；timing轮34.143 / 34.910 ms，设备任务并集31.720 / 32.500 ms，级内间隙1.130 / 1.094 ms，外部间隙1.293 / 1.315 ms，严格闭合。timing扰动约2.39% / 2.02%，不与HTTP/SSE TPOT混用。约7%的非设备间隙仍包含同步和交接，不能全部归为Host调度；本轮没有NPUGraph开关消融。
+
+每token共3749个kernel，阶段间空档0.720 / 0.740 ms，全部设备Memcpy区间并集约0.0215 ms。MAC指令周期约8.3%–8.8%、Vector约20.7%–29.9%、AIC MTE2约63%–70%；不是峰值FLOPS百分比。物理HBM平均读约135–187 GB/s/卡，包含另一阶段执行时的等待。证据更支持访存搬运与小kernel执行效率限制，尚不能量化每个kernel的计算/带宽瓶颈。
+
+L2读命中率约33%–46%，已保留请求计数与GM逻辑流量；直接L2 GB/s全部返回零，因此不可用。PCIe吞吐采样也未解析出稀疏小消息，不能据零值认定零通信或给出占用百分比。20组阶段×指标覆盖检查通过；从交付的原始CSV/系统JSON重新分析，summary逐项完全一致。恢复后fresh 8k完整回答与r144参考相同，单次HTTP TPOT 33.88 ms；正式入口、manager和一份正常watchdog已恢复。
+
+详见[r144 双进程与硬件计数器报告](r145-hardware-profile.md)及`benchmarks/r145-hardware-profile/`。以下生产性能验收仍以r144原记录为准。
+<!-- /r145-profile-current -->
+
 <!-- r144-current -->
 ## 2026-11-12 r144 当前生产验收
 

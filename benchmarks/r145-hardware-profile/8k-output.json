@@ -1,0 +1,8 @@
+{
+  "context": "8k",
+  "prompt_tokens": 8064,
+  "generated_tokens": 124,
+  "input_ids_sha256": "cbf3446fb46eaff3bd3a1e2cdcb6ffcfa0baa125f342de8844950596bf9f75a5",
+  "answer": "在昇腾处理器面向大规模深度学习训练与推理场景的软件栈中，以 CANN 为核心的架构虽然提供了强大的算力管理，但在实际部署混合专家模型时，性能优化的核心往往不在于算子本身的峰值性能，而在于对推理服务不同阶段延迟特征的精准拆解。要深入理解推理服务的性能表现，必须严格区分首 Token 延迟、Prefill 吞吐和 Decode 速度这三个关键指标，因为它们分别对应着计算密集型和内存带宽密集型两种截然不同的瓶颈模式。\n\n首先，首 Token 延迟（Time to First Token, TTFT）是用户感知响应速度的第一",
+  "reference_starts_with_output": true
+}

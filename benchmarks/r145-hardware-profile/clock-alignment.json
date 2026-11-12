@@ -1,0 +1,204 @@
+[
+  {
+    "context": "8k",
+    "samples": [
+      {
+        "parent_start_ns": 1794466635939905671,
+        "parent_end_ns": 1794466635940366972,
+        "child_ns": 1794466635940252162,
+        "rtt_ns": 453141,
+        "child_mono_ns": 272397325992332,
+        "parent_mono_mid_ns": 272397325867451
+      },
+      {
+        "parent_start_ns": 1794466635940379592,
+        "parent_end_ns": 1794466635940491843,
+        "child_ns": 1794466635940434003,
+        "rtt_ns": 111431,
+        "child_mono_ns": 272397326162313,
+        "parent_mono_mid_ns": 272397326163337
+      },
+      {
+        "parent_start_ns": 1794466635940496483,
+        "parent_end_ns": 1794466635940587043,
+        "child_ns": 1794466635940537943,
+        "rtt_ns": 90060,
+        "child_mono_ns": 272397326265953,
+        "parent_mono_mid_ns": 272397326269403
+      },
+      {
+        "parent_start_ns": 1794466635940589873,
+        "parent_end_ns": 1794466635940673723,
+        "child_ns": 1794466635940628663,
+        "rtt_ns": 83420,
+        "child_mono_ns": 272397326356603,
+        "parent_mono_mid_ns": 272397326359413
+      },
+      {
+        "parent_start_ns": 1794466635940676363,
+        "parent_end_ns": 1794466635940756894,
+        "child_ns": 1794466635940713253,
+        "rtt_ns": 79991,
+        "child_mono_ns": 272397326441223,
+        "parent_mono_mid_ns": 272397326444228
+      },
+      {
+        "parent_start_ns": 1794466635940759854,
+        "parent_end_ns": 1794466635940843344,
+        "child_ns": 1794466635940795224,
+        "rtt_ns": 83040,
+        "child_mono_ns": 272397326523114,
+        "parent_mono_mid_ns": 272397326529214
+      },
+      {
+        "parent_start_ns": 1794466635940845704,
+        "parent_end_ns": 1794466635940922284,
+        "child_ns": 1794466635940880314,
+        "rtt_ns": 76160,
+        "child_mono_ns": 272397326608254,
+        "parent_mono_mid_ns": 272397326611624
+      },
+      {
+        "parent_start_ns": 1794466635940924964,
+        "parent_end_ns": 1794466635941000574,
+        "child_ns": 1794466635940959164,
+        "rtt_ns": 75200,
+        "child_mono_ns": 272397326687074,
+        "parent_mono_mid_ns": 272397326690384
+      },
+      {
+        "parent_start_ns": 1794466635941002984,
+        "parent_end_ns": 1794466635941077585,
+        "child_ns": 1794466635941036804,
+        "rtt_ns": 74201,
+        "child_mono_ns": 272397326764724,
+        "parent_mono_mid_ns": 272397326767904
+      },
+      {
+        "parent_start_ns": 1794466635941079985,
+        "parent_end_ns": 1794466635941154045,
+        "child_ns": 1794466635941113265,
+        "rtt_ns": 73700,
+        "child_mono_ns": 272397326841185,
+        "parent_mono_mid_ns": 272397326844655
+      },
+      {
+        "parent_start_ns": 1794466635941156285,
+        "parent_end_ns": 1794466635941230105,
+        "child_ns": 1794466635941188845,
+        "rtt_ns": 73420,
+        "child_mono_ns": 272397326916775,
+        "parent_mono_mid_ns": 272397326920795
+      },
+      {
+        "parent_start_ns": 1794466635941232515,
+        "parent_end_ns": 1794466635941306075,
+        "child_ns": 1794466635941265415,
+        "rtt_ns": 73070,
+        "child_mono_ns": 272397326993375,
+        "parent_mono_mid_ns": 272397326996930
+      }
+    ]
+  },
+  {
+    "context": "256k",
+    "samples": [
+      {
+        "parent_start_ns": 1794467284454661050,
+        "parent_end_ns": 1794467284455011991,
+        "child_ns": 1794467284454898331,
+        "rtt_ns": 340781,
+        "child_mono_ns": 273045840637231,
+        "parent_mono_mid_ns": 273045840568800
+      },
+      {
+        "parent_start_ns": 1794467284455020891,
+        "parent_end_ns": 1794467284455119982,
+        "child_ns": 1794467284455067111,
+        "rtt_ns": 98261,
+        "child_mono_ns": 273045840795651,
+        "parent_mono_mid_ns": 273045840798051
+      },
+      {
+        "parent_start_ns": 1794467284455124062,
+        "parent_end_ns": 1794467284455206952,
+        "child_ns": 1794467284455159752,
+        "rtt_ns": 82370,
+        "child_mono_ns": 273045840887752,
+        "parent_mono_mid_ns": 273045840893137
+      },
+      {
+        "parent_start_ns": 1794467284455209602,
+        "parent_end_ns": 1794467284455286382,
+        "child_ns": 1794467284455244512,
+        "rtt_ns": 76300,
+        "child_mono_ns": 273045840972472,
+        "parent_mono_mid_ns": 273045840975622
+      },
+      {
+        "parent_start_ns": 1794467284455288782,
+        "parent_end_ns": 1794467284455363212,
+        "child_ns": 1794467284455321922,
+        "rtt_ns": 73970,
+        "child_mono_ns": 273045841049892,
+        "parent_mono_mid_ns": 273045841053637
+      },
+      {
+        "parent_start_ns": 1794467284455366052,
+        "parent_end_ns": 1794467284455439283,
+        "child_ns": 1794467284455398652,
+        "rtt_ns": 72791,
+        "child_mono_ns": 273045841126612,
+        "parent_mono_mid_ns": 273045841130287
+      },
+      {
+        "parent_start_ns": 1794467284455441443,
+        "parent_end_ns": 1794467284455511993,
+        "child_ns": 1794467284455472753,
+        "rtt_ns": 70080,
+        "child_mono_ns": 273045841200653,
+        "parent_mono_mid_ns": 273045841204313
+      },
+      {
+        "parent_start_ns": 1794467284455514083,
+        "parent_end_ns": 1794467284455584263,
+        "child_ns": 1794467284455544913,
+        "rtt_ns": 69750,
+        "child_mono_ns": 273045841272853,
+        "parent_mono_mid_ns": 273045841276788
+      },
+      {
+        "parent_start_ns": 1794467284455586303,
+        "parent_end_ns": 1794467284455655633,
+        "child_ns": 1794467284455616823,
+        "rtt_ns": 68880,
+        "child_mono_ns": 273045841344743,
+        "parent_mono_mid_ns": 273045841348583
+      },
+      {
+        "parent_start_ns": 1794467284455657963,
+        "parent_end_ns": 1794467284455727063,
+        "child_ns": 1794467284455688633,
+        "rtt_ns": 68670,
+        "child_mono_ns": 273045841416543,
+        "parent_mono_mid_ns": 273045841420148
+      },
+      {
+        "parent_start_ns": 1794467284455728983,
+        "parent_end_ns": 1794467284455796514,
+        "child_ns": 1794467284455758764,
+        "rtt_ns": 67121,
+        "child_mono_ns": 273045841486654,
+        "parent_mono_mid_ns": 273045841490363
+      },
+      {
+        "parent_start_ns": 1794467284455798664,
+        "parent_end_ns": 1794467284455867164,
+        "child_ns": 1794467284455828944,
+        "rtt_ns": 68000,
+        "child_mono_ns": 273045841556884,
+        "parent_mono_mid_ns": 273045841560534
+      }
+    ]
+  }
+]

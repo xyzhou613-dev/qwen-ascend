@@ -1,0 +1,162 @@
+[
+  {
+    "tag": "8k_timing",
+    "stage": 0,
+    "periods": 23,
+    "kernel_count_min": 1864,
+    "kernel_count_max": 1864,
+    "identical_kernel_signatures": true
+  },
+  {
+    "tag": "8k_timing",
+    "stage": 1,
+    "periods": 23,
+    "kernel_count_min": 1885,
+    "kernel_count_max": 1885,
+    "identical_kernel_signatures": true
+  },
+  {
+    "tag": "8k_pipe",
+    "stage": 0,
+    "periods": 7,
+    "kernel_count_min": 1864,
+    "kernel_count_max": 1864,
+    "identical_kernel_signatures": true
+  },
+  {
+    "tag": "8k_pipe",
+    "stage": 1,
+    "periods": 7,
+    "kernel_count_min": 1885,
+    "kernel_count_max": 1885,
+    "identical_kernel_signatures": true
+  },
+  {
+    "tag": "8k_memory",
+    "stage": 0,
+    "periods": 7,
+    "kernel_count_min": 1864,
+    "kernel_count_max": 1864,
+    "identical_kernel_signatures": true
+  },
+  {
+    "tag": "8k_memory",
+    "stage": 1,
+    "periods": 7,
+    "kernel_count_min": 1885,
+    "kernel_count_max": 1885,
+    "identical_kernel_signatures": true
+  },
+  {
+    "tag": "8k_access",
+    "stage": 0,
+    "periods": 7,
+    "kernel_count_min": 1864,
+    "kernel_count_max": 1864,
+    "identical_kernel_signatures": true
+  },
+  {
+    "tag": "8k_access",
+    "stage": 1,
+    "periods": 7,
+    "kernel_count_min": 1885,
+    "kernel_count_max": 1885,
+    "identical_kernel_signatures": true
+  },
+  {
+    "tag": "8k_l2",
+    "stage": 0,
+    "periods": 7,
+    "kernel_count_min": 1864,
+    "kernel_count_max": 1864,
+    "identical_kernel_signatures": true
+  },
+  {
+    "tag": "8k_l2",
+    "stage": 1,
+    "periods": 7,
+    "kernel_count_min": 1885,
+    "kernel_count_max": 1885,
+    "identical_kernel_signatures": true
+  },
+  {
+    "tag": "256k_timing",
+    "stage": 0,
+    "periods": 23,
+    "kernel_count_min": 1864,
+    "kernel_count_max": 1864,
+    "identical_kernel_signatures": true
+  },
+  {
+    "tag": "256k_timing",
+    "stage": 1,
+    "periods": 23,
+    "kernel_count_min": 1885,
+    "kernel_count_max": 1885,
+    "identical_kernel_signatures": true
+  },
+  {
+    "tag": "256k_pipe",
+    "stage": 0,
+    "periods": 7,
+    "kernel_count_min": 1864,
+    "kernel_count_max": 1864,
+    "identical_kernel_signatures": true
+  },
+  {
+    "tag": "256k_pipe",
+    "stage": 1,
+    "periods": 7,
+    "kernel_count_min": 1885,
+    "kernel_count_max": 1885,
+    "identical_kernel_signatures": true
+  },
+  {
+    "tag": "256k_memory",
+    "stage": 0,
+    "periods": 7,
+    "kernel_count_min": 1864,
+    "kernel_count_max": 1864,
+    "identical_kernel_signatures": true
+  },
+  {
+    "tag": "256k_memory",
+    "stage": 1,
+    "periods": 7,
+    "kernel_count_min": 1885,
+    "kernel_count_max": 1885,
+    "identical_kernel_signatures": true
+  },
+  {
+    "tag": "256k_access",
+    "stage": 0,
+    "periods": 7,
+    "kernel_count_min": 1864,
+    "kernel_count_max": 1864,
+    "identical_kernel_signatures": true
+  },
+  {
+    "tag": "256k_access",
+    "stage": 1,
+    "periods": 7,
+    "kernel_count_min": 1885,
+    "kernel_count_max": 1885,
+    "identical_kernel_signatures": true
+  },
+  {
+    "tag": "256k_l2",
+    "stage": 0,
+    "periods": 7,
+    "kernel_count_min": 1864,
+    "kernel_count_max": 1864,
+    "identical_kernel_signatures": true
+  },
+  {
+    "tag": "256k_l2",
+    "stage": 1,
+    "periods": 7,
+    "kernel_count_min": 1885,
+    "kernel_count_max": 1885,
+    "identical_kernel_signatures": true
+  }
+]

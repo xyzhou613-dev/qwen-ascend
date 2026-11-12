@@ -1,0 +1,52 @@
+{
+  "python": "3.12.13 (main, Aug  3 2026, 03:44:26) [GCC 11.4.0]",
+  "torch": "2.10.0+cpu",
+  "torch_npu": "2.10.0.post4",
+  "processes": [
+    {
+      "pid": 49917,
+      "module": "fnx.server",
+      "cwd": "/root/ascend-dev/fnx",
+      "selected_env": {
+        "ASCEND_RT_VISIBLE_DEVICES": "0",
+        "OMP_NUM_THREADS": "16",
+        "MKL_NUM_THREADS": "16",
+        "FNX_CTX": "262144",
+        "FNX_PIPELINE": "1",
+        "FNX_PIPELINE_TRANSPORT": "hybrid",
+        "FNX_NORM_POST": "1",
+        "FNX_DELTA_REUSE": "1",
+        "FNX_INDEX_POST": "1"
+      }
+    },
+    {
+      "pid": 49936,
+      "module": "fnx.pipeline_worker",
+      "cwd": "/root/ascend-dev/fnx",
+      "selected_env": {
+        "ASCEND_RT_VISIBLE_DEVICES": "1",
+        "OMP_NUM_THREADS": "16",
+        "MKL_NUM_THREADS": "16",
+        "FNX_CTX": "262144",
+        "FNX_PIPELINE": "1",
+        "FNX_PIPELINE_TRANSPORT": "hybrid",
+        "FNX_NORM_POST": "1",
+        "FNX_DELTA_REUSE": "1",
+        "FNX_INDEX_POST": "1"
+      }
+    }
+  ],
+  "cann": "9.1.0",
+  "driver": "26.1.1",
+  "physical_devices": [
+    3,
+    5
+  ],
+  "logical_devices": [
+    0,
+    1
+  ],
+  "sampled_implementation": "794a22e2599ba4ca7240f54afdf1c2b9bbdb51a1",
+  "service_revision": "r144",
+  "sample_id": "r145"
+}

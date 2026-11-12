@@ -1,0 +1,31 @@
+{
+  "verified_at_utc": "2026-11-12T07:35:12.562347+00:00",
+  "service_revision": "r144",
+  "production_manifest_entries": 39,
+  "pipeline_files_match_repo": true,
+  "canonical_p275_unchanged": true,
+  "manager": [
+    "ActiveState=active",
+    "SubState=running",
+    "RefuseManualStart=no"
+  ],
+  "watchdog": [
+    {
+      "pid": 2094606,
+      "ppid": 1
+    }
+  ],
+  "temporary_units": {
+    "fnx-profile-watchdog.service": "inactive",
+    "fnx-r145-rescue.timer": "inactive",
+    "fnx-r145-rescue2.timer": "inactive"
+  },
+  "private_env_removed": true,
+  "lease_removed": true,
+  "manager_dropin_removed": true,
+  "metric_stage_audits": 20,
+  "minimum_hbm_window_coverage": 0.9999999999999993,
+  "closed_timing_budget": true,
+  "output_prefixes_match": true,
+  "post_restore_http_exact": true
+}
