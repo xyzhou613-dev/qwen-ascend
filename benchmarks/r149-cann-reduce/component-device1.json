@@ -1,0 +1,2635 @@
+{
+  "container_selector": 1,
+  "server_physical_device": 5,
+  "scale_encodings": 65536,
+  "scale_differences": 0,
+  "cases": [
+    {
+      "case": 0,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 1,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 2,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 3,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 4,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 5,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 6,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 7,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 8,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 9,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 10,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 11,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 12,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 13,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 14,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 15,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 16,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 17,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 18,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 19,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 20,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 21,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 22,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 23,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 24,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 25,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 26,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 27,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 28,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 29,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 30,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 31,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 32,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 33,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 34,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 35,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 36,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 37,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 38,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 39,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 40,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 41,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 42,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 43,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 44,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 45,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 46,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 47,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 48,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 49,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 50,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 51,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 52,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 53,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 54,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 55,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 56,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 57,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 58,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 59,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 60,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 61,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 62,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 63,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 64,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 65,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 66,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 67,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 68,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 69,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 70,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 71,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 72,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 73,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 74,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 75,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 76,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 77,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 78,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 79,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 80,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 81,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 82,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 83,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 84,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 85,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 86,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 87,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 88,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 89,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 90,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 91,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 92,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 93,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 94,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 95,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 96,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 97,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 98,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 99,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 100,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 101,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 102,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 103,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 104,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 105,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 106,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 107,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 108,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 109,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 110,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 111,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 112,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 113,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 114,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 115,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 116,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 117,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 118,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 119,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 120,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 121,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 122,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 123,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 124,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 125,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 126,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 127,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 128,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 129,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 130,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 131,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 132,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 133,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 134,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 135,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 136,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 137,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 138,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 139,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 140,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 141,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 142,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 143,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 144,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 145,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 146,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 147,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 148,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 149,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 150,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 151,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 152,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 153,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 154,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 155,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 156,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 157,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 158,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 159,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 160,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 161,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 162,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 163,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 164,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 165,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 166,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 167,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 168,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 169,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 170,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 171,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 172,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 173,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 174,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 175,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 176,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 177,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 178,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 179,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 180,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 181,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 182,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 183,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 184,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 185,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 186,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 187,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 188,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 189,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 190,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 191,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 192,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 193,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 194,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 195,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 196,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 197,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 198,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 199,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 200,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 201,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 202,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 203,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 204,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 205,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 206,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 207,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 208,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 209,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 210,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 211,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 212,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 213,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 214,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 215,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 216,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 217,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 218,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 219,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 220,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 221,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 222,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 223,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 224,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 225,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 226,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 227,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 228,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 229,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 230,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 231,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 232,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 233,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 234,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 235,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 236,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 237,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 238,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 239,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 240,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 241,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 242,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 243,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 244,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 245,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 246,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 247,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 248,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 249,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 250,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 251,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 252,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 253,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 254,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 255,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 256,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 257,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 258,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 259,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 260,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 261,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 262,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 263,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 264,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 265,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 266,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 267,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 268,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 269,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 270,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 271,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 272,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 273,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 274,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 275,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 276,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 277,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 278,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 279,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 280,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 281,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 282,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 283,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 284,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 285,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 286,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 287,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 288,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 289,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 290,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 291,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 292,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 293,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 294,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 295,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 296,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 297,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 298,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 299,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 300,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 301,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 302,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 303,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 304,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 305,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 306,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 307,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 308,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 309,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 310,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 311,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 312,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 313,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 314,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 315,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 316,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 317,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 318,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 319,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 320,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 321,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 322,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 323,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 324,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 325,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 326,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 327,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 328,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 329,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 330,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 331,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 332,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 333,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 334,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 335,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 336,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 337,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 338,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 339,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 340,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 341,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 342,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 343,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 344,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 345,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 346,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 347,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 348,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 349,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 350,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 351,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 352,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 353,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 354,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 355,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 356,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 357,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 358,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 359,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 360,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 361,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 362,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 363,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 364,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 365,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 366,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 367,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 368,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 369,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 370,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 371,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 372,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 373,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 374,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 375,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 376,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 377,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 378,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 379,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 380,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 381,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 382,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 383,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 384,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 385,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 386,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 387,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 388,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 389,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 390,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 391,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 392,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 393,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 394,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 395,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 396,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 397,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 398,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 399,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 400,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 401,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 402,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 403,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 404,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 405,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 406,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 407,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 408,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 409,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 410,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 411,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 412,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 413,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 414,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 415,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 416,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 417,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 418,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 419,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 420,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 421,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 422,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 423,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 424,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 425,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 426,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 427,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 428,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 429,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 430,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 431,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 432,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 433,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 434,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 435,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 436,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 437,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 438,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 439,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 440,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 441,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 442,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 443,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 444,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 445,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 446,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 447,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 448,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 449,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 450,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 451,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 452,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 453,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 454,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 455,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 456,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 457,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 458,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 459,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 460,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 461,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 462,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 463,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 464,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 465,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 466,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 467,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 468,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 469,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 470,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 471,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 472,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 473,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 474,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 475,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 476,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 477,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 478,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 479,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 480,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 481,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 482,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 483,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 484,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 485,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 486,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 487,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 488,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 489,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 490,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 491,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 492,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 493,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 494,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 495,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 496,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 497,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 498,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 499,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 500,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 501,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 502,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 503,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 504,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 505,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 506,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 507,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 508,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 509,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 510,
+      "split_exact": true,
+      "joint_exact": true
+    },
+    {
+      "case": 511,
+      "split_exact": true,
+      "joint_exact": true
+    }
+  ],
+  "saved_counterexamples": 4,
+  "graph_cases": 32,
+  "graph_exact": true,
+  "times_us": {
+    "r144": [
+      17.5164844840765,
+      16.690703108906746,
+      16.72453060746193,
+      16.80929772555828,
+      16.76984317600727,
+      16.755077987909317,
+      16.80656336247921,
+      16.78125001490116,
+      16.79656282067299,
+      16.78476482629776,
+      20.447812974452972,
+      16.713514924049377,
+      16.74281246960163,
+      16.730155795812607,
+      16.790859401226044,
+      16.770703718066216
+    ],
+    "split": [
+      15.33460896462202,
+      14.679531566798687,
+      14.651796780526638,
+      14.701484702527523,
+      14.684687368571758,
+      14.650625176727772,
+      14.68929648399353,
+      14.725937508046627,
+      14.665234833955765,
+      14.674453064799309,
+      14.669609256088734,
+      14.681641012430191,
+      14.706875197589397,
+      14.72031231969595,
+      14.680859632790089,
+      14.664062298834324
+    ],
+    "joint": [
+      10.770234279334545,
+      10.263905860483646,
+      10.237421840429306,
+      10.250000283122063,
+      10.244687087833881,
+      10.310937650501728,
+      10.245312936604023,
+      10.26687491685152,
+      10.2533595636487,
+      10.242655873298645,
+      10.255547240376472,
+      10.286875069141388,
+      10.204296559095383,
+      10.211249813437462,
+      10.227265767753124,
+      10.242968797683716
+    ]
+  },
+  "median_us": {
+    "r144": 16.77597686648369,
+    "split": 14.68125032261014,
+    "joint": 10.247656609863043
+  },
+  "max_allocated_bytes": 1984512,
+  "elapsed_s": 5.709481330006383,
+  "exclusive": false
+}

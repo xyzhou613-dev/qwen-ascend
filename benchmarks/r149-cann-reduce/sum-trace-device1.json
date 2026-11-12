@@ -1,0 +1,102 @@
+[
+  {
+    "case": "rounding-sparse-case-2.pt",
+    "reference_bf16_sum": 1.0,
+    "reference_bf16_sum_bits": 16256,
+    "torch_fp32_sum": 1.00390625,
+    "exact_real_sum": 1.0039063692092896,
+    "native_modes": [
+      {
+        "mode": 0,
+        "square_bits_equal": true,
+        "native_fp32_sum": 1.0039063692092896,
+        "native_bf16_sum": 1.0078125,
+        "native_bf16_sum_bits": 16257
+      },
+      {
+        "mode": 1,
+        "square_bits_equal": true,
+        "native_fp32_sum": 1.00390625,
+        "native_bf16_sum": 1.0,
+        "native_bf16_sum_bits": 16256
+      }
+    ],
+    "partial_split_exact": true,
+    "partial_joint_exact": true
+  },
+  {
+    "case": "rounding-sparse-case-1.pt",
+    "reference_bf16_sum": 1.0078125,
+    "reference_bf16_sum_bits": 16257,
+    "torch_fp32_sum": 1.0039063692092896,
+    "exact_real_sum": 1.0039063692092896,
+    "native_modes": [
+      {
+        "mode": 0,
+        "square_bits_equal": true,
+        "native_fp32_sum": 1.00390625,
+        "native_bf16_sum": 1.0,
+        "native_bf16_sum_bits": 16256
+      },
+      {
+        "mode": 1,
+        "square_bits_equal": true,
+        "native_fp32_sum": 1.0039063692092896,
+        "native_bf16_sum": 1.0078125,
+        "native_bf16_sum_bits": 16257
+      }
+    ],
+    "partial_split_exact": true,
+    "partial_joint_exact": true
+  },
+  {
+    "case": "rounding-sparse-case-3.pt",
+    "reference_bf16_sum": 1.0,
+    "reference_bf16_sum_bits": 16256,
+    "torch_fp32_sum": 1.00390625,
+    "exact_real_sum": 1.0039063692092896,
+    "native_modes": [
+      {
+        "mode": 0,
+        "square_bits_equal": true,
+        "native_fp32_sum": 1.0039063692092896,
+        "native_bf16_sum": 1.0078125,
+        "native_bf16_sum_bits": 16257
+      },
+      {
+        "mode": 1,
+        "square_bits_equal": true,
+        "native_fp32_sum": 1.00390625,
+        "native_bf16_sum": 1.0,
+        "native_bf16_sum_bits": 16256
+      }
+    ],
+    "partial_split_exact": true,
+    "partial_joint_exact": true
+  },
+  {
+    "case": "rounding-sparse-case-0.pt",
+    "reference_bf16_sum": 1.0078125,
+    "reference_bf16_sum_bits": 16257,
+    "torch_fp32_sum": 1.0039063692092896,
+    "exact_real_sum": 1.0039063692092896,
+    "native_modes": [
+      {
+        "mode": 0,
+        "square_bits_equal": true,
+        "native_fp32_sum": 1.00390625,
+        "native_bf16_sum": 1.0,
+        "native_bf16_sum_bits": 16256
+      },
+      {
+        "mode": 1,
+        "square_bits_equal": true,
+        "native_fp32_sum": 1.0039063692092896,
+        "native_bf16_sum": 1.0078125,
+        "native_bf16_sum_bits": 16257
+      }
+    ],
+    "partial_split_exact": true,
+    "partial_joint_exact": true
+  }
+]

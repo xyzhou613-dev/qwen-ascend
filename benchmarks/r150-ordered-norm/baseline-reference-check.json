@@ -1,0 +1,14 @@
+{
+  "natural6000": {
+    "nll_exact": true,
+    "argmax_exact": true
+  },
+  "service12000": {
+    "nll_exact": true,
+    "argmax_exact": true
+  },
+  "technical24000": {
+    "nll_exact": true,
+    "argmax_exact": true
+  }
+}

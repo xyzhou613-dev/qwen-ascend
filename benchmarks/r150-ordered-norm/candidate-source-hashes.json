@@ -1,0 +1,6 @@
+{
+  "candidate/fnx/engine.py": "b58d887784644827094b07425cf5f61215304ce5267a69975e368b51544a29cf",
+  "candidate/fnx/norm_ordered.py": "18ba0f972aad37abe12ba13e2f147f7568f7fb57a7c0d59f20729af0c6d4512a",
+  "candidate/fnx/libfnx_norm_ordered.so": "b9dcad28b6208bbce58f9063b72f79f571cd8f4b91c3219a3ecdfc085a1f4320",
+  "norm_ordered.cpp": "cd241d2b08abfe598e99f7df63b99da9bd94052fac06ea1524ff1e0a88904456"
+}

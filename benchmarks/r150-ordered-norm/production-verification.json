@@ -1,0 +1,8 @@
+{
+  "answers_exact": true,
+  "speedups_pct": {
+    "median_8k_tpot_ms": 2.3622047244094224,
+    "tpot_256k_ms": 2.5252525252525304
+  },
+  "accepted": true
+}

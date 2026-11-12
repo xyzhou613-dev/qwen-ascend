@@ -1,0 +1,40 @@
+{
+  "all_passed": true,
+  "checks": {
+    "manager_active": true,
+    "manager_start_allowed": true,
+    "temporary_units_inactive": true,
+    "private_files_removed": true,
+    "dropin_removed": true,
+    "one_normal_watchdog": true,
+    "diagnostic_port_closed": true,
+    "production_ready": true,
+    "release_hashes_match": true,
+    "other_production_files_unchanged": true,
+    "only_canonical_model_pair": true
+  },
+  "temporary_unit_states": {
+    "fnx-r150-controller.service": "inactive",
+    "fnx-r150-rescue.timer": "inactive",
+    "fnx-r150-deploy.service": "inactive",
+    "fnx-r150-deploy-rescue.timer": "inactive",
+    "fnx-r149-watchdog.service": "inactive",
+    "fnx-r150-watchdog.service": "inactive"
+  },
+  "watchdogs": [
+    {
+      "pid": 562827,
+      "ppid": 1
+    }
+  ],
+  "models": [
+    {
+      "pid": 55097,
+      "cwd": "/root/ascend-dev/fnx"
+    },
+    {
+      "pid": 55116,
+      "cwd": "/root/ascend-dev/fnx"
+    }
+  ]
+}

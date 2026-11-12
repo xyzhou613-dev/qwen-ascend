@@ -1,0 +1,50 @@
+{
+  "state": "installed",
+  "entries": [
+    {
+      "name": "engine.py",
+      "target": "/root/ascend-dev/fnx/fnx/engine.py",
+      "stage": "/models/fnx-diagnostics/r150-ordered-norm-20261112/release/fnx/engine.py",
+      "old_exists": true,
+      "old_sha": "832f179298bfd63e339dd124ac6f3d8105d46e1e60549e19f899fc5c50faffd2",
+      "new_sha": "b58d887784644827094b07425cf5f61215304ce5267a69975e368b51544a29cf",
+      "mode": 420
+    },
+    {
+      "name": "norm_ordered.py",
+      "target": "/root/ascend-dev/fnx/fnx/norm_ordered.py",
+      "stage": "/models/fnx-diagnostics/r150-ordered-norm-20261112/release/fnx/norm_ordered.py",
+      "old_exists": false,
+      "old_sha": null,
+      "new_sha": "18ba0f972aad37abe12ba13e2f147f7568f7fb57a7c0d59f20729af0c6d4512a",
+      "mode": 420
+    },
+    {
+      "name": "libfnx_norm_ordered.so",
+      "target": "/root/ascend-dev/fnx/fnx/libfnx_norm_ordered.so",
+      "stage": "/models/fnx-diagnostics/r150-ordered-norm-20261112/release/fnx/libfnx_norm_ordered.so",
+      "old_exists": false,
+      "old_sha": null,
+      "new_sha": "b9dcad28b6208bbce58f9063b72f79f571cd8f4b91c3219a3ecdfc085a1f4320",
+      "mode": 493
+    },
+    {
+      "name": "server.py",
+      "target": "/root/ascend-dev/fnx/fnx/server.py",
+      "stage": "/models/fnx-diagnostics/r150-ordered-norm-20261112/release/fnx/server.py",
+      "old_exists": true,
+      "old_sha": "cc9ffa43691b70328000a1152b488bd07fe02c3a8e931ce094880abad1098e18",
+      "new_sha": "46a5a17ba01880b1a8a0ad5670335f8a789e93775d65d599beeae97892b9bd0b",
+      "mode": 420
+    },
+    {
+      "name": "p275.sh",
+      "target": "/root/ascend-dev/p275.sh",
+      "stage": "/models/fnx-diagnostics/r150-ordered-norm-20261112/release/p275.sh",
+      "old_exists": true,
+      "old_sha": "49ac50543221ba236f00d245f89e761d6fb09598d82b5d84417f1f9e65957f45",
+      "new_sha": "fb4aaeef1c014a609a0812d57fde2de2f5cae17aee2750ddb24d2d81a5583eb5",
+      "mode": 493
+    }
+  ]
+}

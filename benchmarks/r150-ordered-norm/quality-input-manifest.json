@@ -1,0 +1,100 @@
+{
+  "sources": [
+    {
+      "file": "aq-page.html",
+      "url": "https://zh.wikisource.org/zh-hans/阿Ｑ正傳",
+      "html_sha256": "cf810885805499912157a7adf493ad5ef148111fa54051c3b20819cf214b17e5",
+      "text_sha256": "86bae888d5e12ed2eafeaf01749ef09bf19d6bd53117bb44dfd42e70f887cb17",
+      "characters": 22327,
+      "tokens": 16253,
+      "paragraphs": 318
+    },
+    {
+      "file": "zhufu.html",
+      "url": "https://zh.wikisource.org/wiki/祝福",
+      "html_sha256": "3e33187e3d93936ec810b1d72840d7685793fb73de53371e1869606f33b5ced8",
+      "text_sha256": "d3004779b55da3c1369cf74fa88810b3869bbd65b927f1294c7d127c51a3b564",
+      "characters": 9445,
+      "tokens": 7252,
+      "paragraphs": 113
+    },
+    {
+      "file": "dixiong.html",
+      "url": "https://zh.wikisource.org/wiki/弟兄",
+      "html_sha256": "38a0d01597ddba05afe5e40b540a07c1fe4e474a15651646d8128b15bc5507af",
+      "text_sha256": "876853506c91025fc51fae276895951b9fee613caf60002e5de92dd1be74c9ed",
+      "characters": 5923,
+      "tokens": 4445,
+      "paragraphs": 122
+    },
+    {
+      "file": "lihun.html",
+      "url": "https://zh.wikisource.org/wiki/離婚",
+      "html_sha256": "a7122eb9b0080eab5d1b579e36b0b56913fe555ba9c4a980f46cb7cd7c349a17",
+      "text_sha256": "1ed6a2ba3f2d5808cf28caf3137a29b48c47a34b646857e8b503a71eb5c47989",
+      "characters": 5329,
+      "tokens": 4036,
+      "paragraphs": 87
+    },
+    {
+      "file": "xingfu.html",
+      "url": "https://zh.wikisource.org/wiki/幸福的家庭",
+      "html_sha256": "05e0988baec1db2ae2efbcd1628413a6c4cea43794bbd6479f55310b860069ad",
+      "text_sha256": "0fe249c24c58c875b4ebee88851fc82599970f4a28e2c7baaa3bab24df24f0d8",
+      "characters": 4350,
+      "tokens": 3165,
+      "paragraphs": 46
+    },
+    {
+      "file": "shangshi.html",
+      "url": "https://zh.wikisource.org/wiki/傷逝_(魯迅)",
+      "html_sha256": "7b0360118fdbbe987df493d6de236bc7e2fef5741b56e6973a699a2d3cfab66a",
+      "text_sha256": "99f246bce2dc7cb402522b39d512f7a4bde20fb9bad7550b6f22a5d84442ac8c",
+      "characters": 11028,
+      "tokens": 8070,
+      "paragraphs": 130
+    },
+    {
+      "file": "guduzhe.html",
+      "url": "https://zh.wikisource.org/wiki/孤獨者",
+      "html_sha256": "034e735374bc562ed7b30bc73b9f328fdc762dad8752b7591c3d5101e8728197",
+      "text_sha256": "ce7c31521b557e6941eaaa69be78bd4c1ce853be5571b332c0fe5d4c3b5b1efc",
+      "characters": 12221,
+      "tokens": 9065,
+      "paragraphs": 151
+    },
+    {
+      "file": "jiulou.html",
+      "url": "https://zh.wikisource.org/wiki/在酒樓上",
+      "html_sha256": "ded872b50dce4c921e684d7c842e42b0efc95d6c9c55579db50b80c174f003af",
+      "text_sha256": "bc68db45f836c1adc5f2f087283de66bcd7a6099391eef655e463da40247a922",
+      "characters": 6315,
+      "tokens": 4711,
+      "paragraphs": 53
+    }
+  ],
+  "author": "鲁迅",
+  "method": "mw-parser-output paragraph extraction, concatenate sources once in manifest order; disjoint 0:18000 and 18000:54000 token slices; no repeated padding",
+  "fixtures": {
+    "natural6000": {
+      "tokens": 6000,
+      "token_ids_sha256": "960417b1e85c87d2ac220b43dce9c4ab49f6ba12c43be09c643a49469adac39b"
+    },
+    "service12000": {
+      "tokens": 12000,
+      "token_ids_sha256": "4468c4984d57bb9af71637ae89289890a4cc525a213b508dbb23a2b367085196"
+    },
+    "technical24000": {
+      "tokens": 24000,
+      "token_ids_sha256": "c89232a82cc1d7878df5a4220b821c64df1d9663c5524df9dfd5cbc75b90b689"
+    },
+    "natural18000": {
+      "tokens": 18000,
+      "token_ids_sha256": "a32bb3bd987289d8099aa4b571a325511224da4bd1f3fc17c767f1416ae62d26"
+    },
+    "natural36000": {
+      "tokens": 36000,
+      "token_ids_sha256": "2674788c144d07c2514ecfa04bc276b4c225be7e1d32d6099f3618c477d87bf3"
+    }
+  }
+}
