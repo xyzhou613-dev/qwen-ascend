@@ -129,6 +129,10 @@ MatMulCommon 530 次 11.900 ms、WeightQuantBatchMatmul 112 次 6.439 ms、gathe
 
 生产 `libfnx_expert_gather.so`（sha256 `b7c4eaef…`）**不能由仓库源码复现**：用 `kernels/expert_gather/gather.cpp` 重新编译得到 `5e9457b1…`，双缓冲版为 `fc68d351…`。在独立测试里，重编版与双缓冲版对 torch 参考实现 3/3 逐位一致且确定性，生产二进制在 gu 形状（K=2560/G=40/N=1280）上不确定且与参考不符；但在真实 L00 decode 图内三者输出逐位相同，已验证路径不受影响。该差异未部署，留作后续核查（重新构建/替换该 `.so` 前必须先解释这一差异）。
 
+### 4.4 2026-11-12 r143补充复核
+
+通过生产wrapper、在输入准备同步就绪后，对生产gather库检查两种实际形状、边界/重复ID，共18次，均与Torch参考逐位一致且重复可复现。本轮未复现旧独立probe中的不确定性。旧probe缓存stream后又异步zero_等调用时序需先排除；不同构建路径产生的ELF SHA差异本身也不能证明源码语义不一致。本轮未替换生产gather库。此复核不等于已经完成可复现构建追踪，详情和源测试见[r143记录](r143-index-post.md)及benchmarks/r143-index-post/gather_check.py。
+
 ## 5. 证据与复现
 
 - 远程原始目录：`/models/fnx-diagnostics/r142-budget-20261111/`（`traces/`、`traces2/` 为原始 profiler 文本导出，约 0.6 GB，不入库）。

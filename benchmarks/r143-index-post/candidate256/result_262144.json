@@ -1,0 +1,18 @@
+{
+  "ctx": 262144,
+  "prompt_tokens": 262016,
+  "ttft_s": 69.928,
+  "e2e_s": 74.376,
+  "stats": {
+    "ttft_ms": 68819.69,
+    "tokens": 128,
+    "seconds": 73.268,
+    "tpot_ms": 35.03,
+    "tok_decode_ms": 3.68,
+    "prefill_ms": 68687.8,
+    "prefill_tok_s": 3814.53,
+    "n_prefill": 262012
+  },
+  "answer": "根据资料内容，三个项目的验收码如下：\n\n1. 海棠：7319\n2. 松柏：8652\n3. 银杏：2946\n\n***\n\n**昇腾处理器推理服务与长文档处理技术详解**\n\n资料中详细阐述了基于昇腾处理器（Ascend）及其核心软件栈 CANN（Compute Architecture for Neural Networks）的大规模深度学习推理服务优化策略，特别是针对现代混合专家模型（MoE）和长文档处理场景下的性能瓶颈分析与量化技术。\n\n首先，在推理服务的整体架构与性能优化理念上，资料强调",
+  "recall_hits": 3
+}

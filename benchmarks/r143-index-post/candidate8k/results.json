@@ -1,0 +1,41 @@
+[
+  {
+    "run": 1,
+    "transport": "server-local HTTP",
+    "prompt_tokens": 8064,
+    "output_tokens": 128,
+    "ttft_s": 3.89,
+    "end_to_end_s": 8.243,
+    "prefill_s": 3.788,
+    "prefill_tok_s": 2127.58,
+    "fresh_prefill_tokens": 8060,
+    "decode_tpot_ms": 34.27,
+    "server_total_s": 8.203
+  },
+  {
+    "run": 2,
+    "transport": "server-local HTTP",
+    "prompt_tokens": 8064,
+    "output_tokens": 128,
+    "ttft_s": 3.857,
+    "end_to_end_s": 8.209,
+    "prefill_s": 3.775,
+    "prefill_tok_s": 2135.33,
+    "fresh_prefill_tokens": 8060,
+    "decode_tpot_ms": 34.26,
+    "server_total_s": 8.178
+  },
+  {
+    "run": 3,
+    "transport": "server-local HTTP",
+    "prompt_tokens": 8064,
+    "output_tokens": 128,
+    "ttft_s": 3.85,
+    "end_to_end_s": 8.204,
+    "prefill_s": 3.767,
+    "prefill_tok_s": 2139.48,
+    "fresh_prefill_tokens": 8060,
+    "decode_tpot_ms": 34.29,
+    "server_total_s": 8.173
+  }
+]

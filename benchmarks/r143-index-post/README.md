@@ -11,3 +11,5 @@ The component probe can use FNX_SCORE_SO pointing to the installed reference lib
 Natural prefill NLL follows r142: prefill5800 tokens using the production policy, then score199 next-token targets in the final200-token tail of the same6000-token natural document. The candidate reuses its already-loaded model through a diagnostic-only route; that route is not installed in production. Formal model verification uses source/binary hashes, byte-equal8k answers, and fresh256k retrieval/cache tests. /fnx/loss remains a decode-only check.
 
 A deployed gather check using its production wrapper and synchronized prepared inputs passed18/18 bitwise reference comparisons. The older cached-stream/zeroing probes are insufficient to establish a production binary defect. Binary SHA differences alone also do not establish semantic differences. The gather binary is unchanged.
+
+Formal production acceptance: 8k34.11ms, 256k34.85ms and TTFT69.978s. See summary.json and docs/r143-index-post.md. Recovery harness copies require a fresh private environment snapshot and the verified machine paths; they are not production launch scripts.

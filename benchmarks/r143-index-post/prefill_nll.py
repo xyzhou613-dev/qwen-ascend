@@ -25,6 +25,14 @@ def score_model(model,ids,tail=200):
 if __name__=='__main__':
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('--ids',type=Path,default=Path(__file__).with_name('quality-input-ids.json'));p.add_argument('--output',type=Path)
  args=p.parse_args();ids=json.loads(args.ids.read_text());assert len(ids)==6000
+ active=[]
+ for proc in Path('/proc').iterdir():
+  if not proc.name.isdigit():continue
+  try:
+   cmd=proc.joinpath('cmdline').read_bytes().split(b'\0')
+   if b'fnx.server' in cmd or b'fnx.pipeline_worker' in cmd:active.append(proc.name)
+  except (FileNotFoundError,PermissionError,ProcessLookupError):pass
+ if active:raise SystemExit('REFUSED_SECOND_ENGINE: use an exclusive diagnostic run or the existing model; active PIDs='+','.join(active))
  from fnx.server import Engine
  e=Engine()
  try:
