@@ -1,0 +1,50 @@
+{
+  "state": "installed",
+  "entries": [
+    {
+      "name": "engine.py",
+      "target": "/root/ascend-dev/fnx/fnx/engine.py",
+      "stage": "/models/fnx-diagnostics/r151-prefill-post-20261112/release/fnx/engine.py",
+      "old_exists": true,
+      "old_sha": "b58d887784644827094b07425cf5f61215304ce5267a69975e368b51544a29cf",
+      "new_sha": "c32a6dc8231747d2ed39e8c7417102445b4c7e3bbbf5376ea55f704fc17c9ed9",
+      "mode": 420
+    },
+    {
+      "name": "prefill_output.py",
+      "target": "/root/ascend-dev/fnx/fnx/prefill_output.py",
+      "stage": "/models/fnx-diagnostics/r151-prefill-post-20261112/release/fnx/prefill_output.py",
+      "old_exists": false,
+      "old_sha": null,
+      "new_sha": "cc5a1f82862be609c9f2c8c675004fe7e28f91c92cc0b3f9921b77a7f646b925",
+      "mode": 420
+    },
+    {
+      "name": "libfnx_prefill_output.so",
+      "target": "/root/ascend-dev/fnx/fnx/libfnx_prefill_output.so",
+      "stage": "/models/fnx-diagnostics/r151-prefill-post-20261112/release/fnx/libfnx_prefill_output.so",
+      "old_exists": false,
+      "old_sha": null,
+      "new_sha": "053c9ab211e071c02c5e9d2cf0075a00287ca864ffd096e25ce5b1f5e0afed62",
+      "mode": 493
+    },
+    {
+      "name": "server.py",
+      "target": "/root/ascend-dev/fnx/fnx/server.py",
+      "stage": "/models/fnx-diagnostics/r151-prefill-post-20261112/release/fnx/server.py",
+      "old_exists": true,
+      "old_sha": "46a5a17ba01880b1a8a0ad5670335f8a789e93775d65d599beeae97892b9bd0b",
+      "new_sha": "9d792957003606c20d54af53ba0d90f292c2cac3e713eaeafa8b3ccebe14f72b",
+      "mode": 420
+    },
+    {
+      "name": "p275.sh",
+      "target": "/root/ascend-dev/p275.sh",
+      "stage": "/models/fnx-diagnostics/r151-prefill-post-20261112/release/p275.sh",
+      "old_exists": true,
+      "old_sha": "fb4aaeef1c014a609a0812d57fde2de2f5cae17aee2750ddb24d2d81a5583eb5",
+      "new_sha": "b5394513efbc1532127f3565b713b7e8956c46f0499074127c4e89bad7280b35",
+      "mode": 493
+    }
+  ]
+}

@@ -1,0 +1,898 @@
+{
+  "status": "passed",
+  "container_selector": 1,
+  "server_physical_device": 5,
+  "cases": [
+    {
+      "case": 0,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 1,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 2,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 3,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 4,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 5,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 6,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 7,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 8,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 9,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 10,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 11,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 12,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 13,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 14,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 15,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 16,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 17,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 18,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 19,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 20,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 21,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 22,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 23,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 24,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 25,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 26,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 27,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 28,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 29,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 30,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 31,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 32,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 33,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 34,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 35,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 36,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 37,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 38,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 39,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 40,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 41,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 42,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 43,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 44,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 45,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 46,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 47,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 48,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 49,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 50,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 51,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 52,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 53,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 54,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 55,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 56,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 57,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 58,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 59,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 60,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 61,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 62,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    },
+    {
+      "case": 63,
+      "modes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "exact": true,
+      "untouched_neighbors": true
+    }
+  ],
+  "output_2048_assembly": {
+    "times_us": {
+      "torch": [
+        799.3000149726868,
+        713.8500213623047,
+        771.8700170516968,
+        713.6600017547607,
+        771.4700102806091,
+        720.7300066947937,
+        771.3299989700317,
+        715.5500054359436,
+        771.7199921607971,
+        713.0799889564514,
+        770.4499959945679,
+        715.2799963951111,
+        769.5199847221375,
+        715.4800295829773,
+        770.3700065612793,
+        714.6499752998352
+      ],
+      "direct1": [
+        398.7100124359131,
+        302.2100031375885,
+        341.43999218940735,
+        311.89998984336853,
+        346.7499911785126,
+        284.7200036048889,
+        331.88000321388245,
+        310.589998960495,
+        335.2600038051605,
+        301.0300099849701,
+        340.2700126171112,
+        288.5800004005432,
+        333.5700035095215,
+        285.93000769615173,
+        316.9800043106079,
+        303.1199872493744
+      ],
+      "direct2": [
+        373.56001138687134,
+        305.6100010871887,
+        314.88001346588135,
+        285.970002412796,
+        319.35998797416687,
+        311.3200068473816,
+        310.49999594688416,
+        284.50000286102295,
+        298.0000078678131,
+        307.7700138092041,
+        303.4999966621399,
+        295.960009098053,
+        309.83999371528625,
+        309.00999903678894,
+        296.07000946998596,
+        290.039986371994
+      ],
+      "direct3": [
+        360.5000078678131,
+        304.5400083065033,
+        297.3499894142151,
+        307.02000856399536,
+        293.8799858093262,
+        298.50998520851135,
+        295.80000042915344,
+        283.41999650001526,
+        303.47999930381775,
+        299.890011548996,
+        298.8100051879883,
+        301.8200099468231,
+        299.3200123310089,
+        299.2900013923645,
+        300.570011138916,
+        296.13998532295227
+      ],
+      "direct4": [
+        365.42999744415283,
+        300.55999755859375,
+        298.92000555992126,
+        304.9600124359131,
+        302.30000615119934,
+        303.2299876213074,
+        302.3099899291992,
+        286.4699959754944,
+        296.8499958515167,
+        289.9099886417389,
+        295.02999782562256,
+        292.62998700141907,
+        300.8800148963928,
+        305.3799867630005,
+        296.6099977493286,
+        303.75999212265015
+      ],
+      "direct5": [
+        367.249995470047,
+        317.220002412796,
+        307.68999457359314,
+        314.11001086235046,
+        312.26998567581177,
+        321.1100101470947,
+        303.739994764328,
+        313.6900067329407,
+        313.87999653816223,
+        314.07999992370605,
+        310.8600080013275,
+        300.98000168800354,
+        301.05000734329224,
+        316.1900043487549,
+        303.86999249458313,
+        315.8699870109558
+      ]
+    },
+    "median_us": {
+      "torch": 745.1249957084656,
+      "direct1": 314.4399970769882,
+      "direct2": 306.6900074481964,
+      "direct3": 299.3050068616867,
+      "direct4": 300.7200062274933,
+      "direct5": 313.78500163555145
+    }
+  },
+  "max_allocated_bytes": 281039360,
+  "elapsed_s": 5.435324545018375,
+  "exclusive": false
+}

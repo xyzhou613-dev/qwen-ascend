@@ -1,0 +1,7 @@
+{
+  "python_syntax": true,
+  "shell_syntax": true,
+  "enable_matches_staged_launcher": true,
+  "enable_idempotent": true,
+  "engine_patch_applies_to_r150": true
+}

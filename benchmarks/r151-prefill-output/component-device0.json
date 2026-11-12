@@ -1,0 +1,712 @@
+{
+  "status": "passed",
+  "container_selector": 0,
+  "server_physical_device": 3,
+  "cases": [
+    {
+      "case": 0,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 1,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 2,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 3,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 4,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 5,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 6,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 7,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 8,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 9,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 10,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 11,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 12,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 13,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 14,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 15,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 16,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 17,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 18,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 19,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 20,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 21,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 22,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 23,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 24,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 25,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 26,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 27,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 28,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 29,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 30,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 31,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 32,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 33,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 34,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 35,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 36,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 37,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 38,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 39,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 40,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 41,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 42,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 43,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 44,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 45,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 46,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 47,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 48,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 49,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 50,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 51,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 52,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 53,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 54,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 55,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 56,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 57,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 58,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 59,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 60,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 61,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 62,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    },
+    {
+      "case": 63,
+      "tiles": [
+        2048,
+        4096
+      ],
+      "state_exact": true,
+      "output_exact": true
+    }
+  ],
+  "state_eight_updates": {
+    "times_us": {
+      "torch": [
+        336.6299867630005,
+        290.149986743927,
+        294.6549952030182,
+        295.2449917793274,
+        291.53499007225037,
+        291.8049991130829,
+        290.4149889945984,
+        292.820006608963,
+        291.78500175476074,
+        294.09998655319214,
+        292.3550009727478,
+        300.790011882782,
+        294.55000162124634,
+        296.0500121116638,
+        298.18999767303467,
+        290.3200089931488
+      ],
+      "native2048": [
+        315.530002117157,
+        295.46499252319336,
+        294.04500126838684,
+        288.4500026702881,
+        294.1499948501587,
+        285.54999828338623,
+        296.22000455856323,
+        290.7150089740753,
+        295.3749895095825,
+        290.7550036907196,
+        294.8000133037567,
+        287.64501214027405,
+        287.7199947834015,
+        292.69999265670776,
+        296.5399920940399,
+        291.3399934768677
+      ],
+      "native4096": [
+        322.284996509552,
+        290.21498560905457,
+        293.8550114631653,
+        289.52500224113464,
+        288.9299988746643,
+        293.6600148677826,
+        292.05501079559326,
+        292.25000739097595,
+        294.7799861431122,
+        289.07498717308044,
+        294.0849959850311,
+        291.48000478744507,
+        293.4649884700775,
+        290.47998785972595,
+        293.88999938964844,
+        290.134996175766
+      ]
+    },
+    "median_us": {
+      "torch": 293.4599965810776,
+      "native2048": 293.3724969625473,
+      "native4096": 292.1525090932846
+    }
+  },
+  "output_2048_assembly": {
+    "times_us": {
+      "torch": [
+        754.4400095939636,
+        748.3900189399719,
+        775.0700116157532,
+        753.1599998474121,
+        773.6999988555908,
+        750.9700059890747,
+        776.1399745941162,
+        753.4099817276001,
+        773.5300064086914,
+        746.7300295829773,
+        771.7400193214417,
+        751.4399886131287,
+        773.5400199890137,
+        748.3299970626831,
+        772.2100019454956,
+        748.9699721336365
+      ],
+      "native2048": [
+        711.6400003433228,
+        696.5699791908264,
+        713.0900025367737,
+        694.6899890899658,
+        721.5200066566467,
+        699.4100213050842,
+        711.8399739265442,
+        699.5000243186951,
+        718.2499766349792,
+        699.7699737548828,
+        713.379979133606,
+        701.520025730133,
+        713.9400243759155,
+        693.5499906539917,
+        717.5899744033813,
+        694.5199966430664
+      ],
+      "native4096": [
+        675.3299832344055,
+        676.8100261688232,
+        673.5100150108337,
+        678.380012512207,
+        678.3400177955627,
+        676.8900156021118,
+        675.029993057251,
+        675.4699945449829,
+        676.5499711036682,
+        675.3100156784058,
+        675.2200126647949,
+        678.3300042152405,
+        672.2599864006042,
+        678.9100170135498,
+        675.6299734115601,
+        682.919979095459
+      ]
+    },
+    "median_us": {
+      "torch": 753.9249956607819,
+      "native2048": 706.5800130367279,
+      "native4096": 676.0899722576141
+    }
+  },
+  "max_allocated_bytes": 255350784,
+  "elapsed_s": 6.072608377027791,
+  "exclusive": false
+}

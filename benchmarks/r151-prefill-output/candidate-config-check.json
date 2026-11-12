@@ -1,0 +1,16 @@
+[
+  {
+    "role": "server",
+    "pid": 55992,
+    "matching_inference_settings": 88,
+    "prefill_output": true,
+    "visible": "0"
+  },
+  {
+    "role": "worker",
+    "pid": 56011,
+    "matching_inference_settings": 88,
+    "prefill_output": true,
+    "visible": "1"
+  }
+]
