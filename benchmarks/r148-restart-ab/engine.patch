@@ -1,0 +1,31 @@
+--- a/fnx/engine.py
++++ b/fnx/engine.py
+@@ -1262,14 +1262,24 @@
+ 
+         native = b == 1 and os.environ.get("FNX_DN_NATIVE", "0") == "1" and os.environ.get("FNX_DN_DECODE_BMM", "0") != "1"
+         compact = native and os.environ.get("FNX_DN_COMPACT", "0") == "1"
+-        q = l2norm(q.view(b, NKH, HKD))
+-        k = l2norm(k.view(b, NKH, HKD))
++        paired = None
++        if b == 1 and os.environ.get("FNX_NORM_FUSED", "0") == "1":
++            from .norm_fused import run as fused_qk_norm
++            paired = fused_qk_norm(y)
++        if paired is None:
++            q = l2norm(q.view(b, NKH, HKD))
++            k = l2norm(k.view(b, NKH, HKD))
++        else:
++            q, k = paired
+         v = v.view(b, NVH, HVD)
+         if compact:
+-            q = q / math.sqrt(HKD)
++            if paired is None:
++                q = q / math.sqrt(HKD)
+         else:
+             rep = NVH // NKH
+-            q = q.repeat_interleave(rep, dim=1) / math.sqrt(HKD)
++            q = q.repeat_interleave(rep, dim=1)
++            if paired is None:
++                q = q / math.sqrt(HKD)
+             k = k.repeat_interleave(rep, dim=1)
+ 
+         if native:

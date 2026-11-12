@@ -1,0 +1,9 @@
+{
+  "phase": "candidate",
+  "base_url": "http://127.0.0.1:19002",
+  "median_8k_ttft_s": 3.84667428600369,
+  "median_8k_tpot_ms": 33.09,
+  "ttft_256k_s": 69.91438919497887,
+  "tpot_256k_ms": 33.73,
+  "cached_256k_tpot_ms": 33.35
+}

@@ -1,0 +1,19 @@
+[W1112 09:42:17.230187804 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+[W1112 09:42:18.850128603 TensorFactories.cpp:423] Warning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (function operator())
+REAL_LAYER_PASS 0 1 {'baseline': 0.573308140039444, 'candidate': 0.5553709268569946}
+REAL_LAYER_PASS 0 128 {}
+REAL_LAYER_PASS 0 512 {}
+REAL_LAYER_PASS 0 2048 {}
+REAL_LAYER_PASS 12 1 {'baseline': 0.575339674949646, 'candidate': 0.5508297085762024}
+REAL_LAYER_PASS 12 128 {}
+REAL_LAYER_PASS 12 512 {}
+REAL_LAYER_PASS 12 2048 {}
+REAL_LAYER_PASS 24 1 {'baseline': 0.5675652921199799, 'candidate': 0.556082159280777}
+REAL_LAYER_PASS 24 128 {}
+REAL_LAYER_PASS 24 512 {}
+REAL_LAYER_PASS 24 2048 {}
+REAL_LAYER_PASS 44 1 {'baseline': 0.5806231200695038, 'candidate': 0.5524047017097473}
+REAL_LAYER_PASS 44 128 {}
+REAL_LAYER_PASS 44 512 {}
+REAL_LAYER_PASS 44 2048 {}
+REAL_LAYER_COMPLETE

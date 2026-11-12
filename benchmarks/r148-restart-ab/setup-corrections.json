@@ -1,0 +1,15 @@
+[
+  {
+    "stage": "baseline startup attempt 1",
+    "failure": "diagnostic launcher replaced rather than extended original PYTHONPATH; acl module not found",
+    "fix": "preserve original PYTHONPATH after isolated source paths",
+    "retry_started_cst": "2026-11-12 17:45:40",
+    "excluded_from_startup_and_performance": true
+  },
+  {
+    "stage": "post-restore assertion",
+    "failure": "nonstream fnx_stats has no tokens field",
+    "fix": "validate exact answer and fresh n_prefill using the saved successful HTTP response; no extra model request",
+    "response_valid": true
+  }
+]

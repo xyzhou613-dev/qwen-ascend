@@ -1,0 +1,13 @@
+{
+  "service_revision": "r144",
+  "candidate_rejected": true,
+  "production_file_hashes_unchanged": 39,
+  "startup_unchanged": true,
+  "new_module_not_installed": true,
+  "restored_fresh_http_answer_exact": true,
+  "private_env_removed": true,
+  "lease_removed": true,
+  "quality_gate_passed": false,
+  "performance_gate_passed": true,
+  "cached_answer_exact": true
+}

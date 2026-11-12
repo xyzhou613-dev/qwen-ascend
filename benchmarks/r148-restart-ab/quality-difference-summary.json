@@ -1,0 +1,32 @@
+{
+  "natural6000": {
+    "tokens": 6000,
+    "targets": 199,
+    "baseline_nll": 1.72288,
+    "candidate_nll": 1.72288,
+    "different_targets": 0,
+    "different_argmax": 0,
+    "first_different_tail_index": null,
+    "max_target_nll_abs": 0.0
+  },
+  "service12000": {
+    "tokens": 12000,
+    "targets": 199,
+    "baseline_nll": 0.000958,
+    "candidate_nll": 0.000951,
+    "different_targets": 68,
+    "different_argmax": 0,
+    "first_different_tail_index": 130,
+    "max_target_nll_abs": 0.0007821945764590055
+  },
+  "technical24000": {
+    "tokens": 24000,
+    "targets": 199,
+    "baseline_nll": 1.127045,
+    "candidate_nll": 1.127045,
+    "different_targets": 0,
+    "different_argmax": 0,
+    "first_different_tail_index": null,
+    "max_target_nll_abs": 0.0
+  }
+}

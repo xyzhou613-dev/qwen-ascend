@@ -1,0 +1,56 @@
+[
+  {
+    "ttft_s": 3.876717868959531,
+    "end_to_end_s": 8.082300775975455,
+    "stats": {
+      "ttft_ms": 3839.73,
+      "tokens": 128,
+      "seconds": 8.045,
+      "tpot_ms": 33.11,
+      "tok_decode_ms": 3.94,
+      "prefill_ms": 3776.11,
+      "prefill_tok_s": 2134.47,
+      "n_prefill": 8060
+    },
+    "answer": "在昇腾处理器面向大规模深度学习训练与推理场景的软件栈中，以 CANN 为核心的架构虽然提供了强大的算力管理，但在实际部署中，性能优化的核心往往不在于算子本身的峰值性能，而在于对推理服务不同阶段特性的精准拆解。要深入理解推理服务的性能表现，必须严格区分首 Token 延迟、Prefill 吞吐和 Decode 速度这三个关键指标，因为它们的瓶颈来源、优化策略以及受量化影响的机制截然不同。\n\n首先，首 Token 延迟（Time to First Token, TTFT）是用户感知响应速度的第一道门槛。这一阶段主要对应于 Prefill",
+    "run": 1,
+    "prompt_tokens": 8064,
+    "payload_sha256": "eff266a0889777b1c0692eb27e98d51097f7815b4f72a63c2a672805089817be"
+  },
+  {
+    "ttft_s": 3.84667428600369,
+    "end_to_end_s": 8.049450173974037,
+    "stats": {
+      "ttft_ms": 3815.54,
+      "tokens": 128,
+      "seconds": 8.018,
+      "tpot_ms": 33.09,
+      "tok_decode_ms": 3.6,
+      "prefill_ms": 3764.94,
+      "prefill_tok_s": 2140.8,
+      "n_prefill": 8060
+    },
+    "answer": "在昇腾处理器（Ascend）面向大规模深度学习训练与推理的场景中，性能优化往往被直觉误导，尤其是当我们将目光聚焦于混合专家模型（MoE）的推理服务时。要真正理解推理服务的性能瓶颈，必须将“首Token延迟”（Time to First Token, TTFT）、“Prefill吞吐”以及“Decode速度”这三个维度进行严格区分。这不仅是指标定义的差异，更是底层硬件资源调度逻辑的根本不同。\n\n首先，我们需要明确“首Token延迟”与“Prefill吞吐”在计算特性上的本质区别。首Token延迟主要取决于Prefill阶段",
+    "run": 2,
+    "prompt_tokens": 8064,
+    "payload_sha256": "9df3dc68f9ca0d0c3f9d8efef5ae081d0f83e0c5495a49af976a57bf1cf619cc"
+  },
+  {
+    "ttft_s": 3.840851526998449,
+    "end_to_end_s": 8.042062691005412,
+    "stats": {
+      "ttft_ms": 3809.4,
+      "tokens": 128,
+      "seconds": 8.01,
+      "tpot_ms": 33.08,
+      "tok_decode_ms": 3.61,
+      "prefill_ms": 3759.18,
+      "prefill_tok_s": 2144.08,
+      "n_prefill": 8060
+    },
+    "answer": "在昇腾处理器面向大规模深度学习训练与推理场景的部署实践中，性能优化的核心难点往往不在于算子本身的峰值算力，而在于对推理服务不同阶段特性的精准拆解。参考资料明确指出，性能优化应当先把每一段耗时的来源拆开，再决定优化哪一段，而非凭直觉去改写最显眼的那段代码。这一原则在区分首Token延迟、Prefill吞吐和Decode速度时显得尤为关键，因为这三个指标分别对应着推理服务中截然不同的硬件瓶颈与软件栈行为。\n\n首先，首Token延迟（Time to First Token, TTFT）主要受限于Prefill阶段的计算密度与",
+    "run": 3,
+    "prompt_tokens": 8064,
+    "payload_sha256": "dd961b459b132f60a0978105c4fa4ec34c59c12ec73bd2b73ecb7980cd01fd4e"
+  }
+]

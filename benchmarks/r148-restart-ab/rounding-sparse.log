@@ -1,0 +1,3 @@
+[W1112 10:11:04.978399133 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+ROUNDING_SPARSE_SEARCH 1024
+ROUNDING_SPARSE_SEARCH_COMPLETE {'checked_rows': 18432, 'found': [{'iteration': 17, 'amplitude': 0.000244140625, 'silu': True, 'different_values': 64}, {'iteration': 17, 'amplitude': 0.000244140625, 'silu': True, 'different_values': 64}, {'iteration': 17, 'amplitude': 0.000244140625, 'silu': True, 'different_values': 64}, {'iteration': 17, 'amplitude': 0.000244140625, 'silu': True, 'different_values': 64}], 'elapsed_s': 0.688883031019941, 'max_allocated_bytes': 1317888, 'scope': 'operator only; no Engine'}

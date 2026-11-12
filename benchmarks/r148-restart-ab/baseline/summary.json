@@ -1,0 +1,9 @@
+{
+  "phase": "baseline",
+  "base_url": "http://127.0.0.1:19002",
+  "median_8k_ttft_s": 3.8582253009662963,
+  "median_8k_tpot_ms": 33.89,
+  "ttft_256k_s": 69.93815159902442,
+  "tpot_256k_ms": 34.59,
+  "cached_256k_tpot_ms": 34.21
+}

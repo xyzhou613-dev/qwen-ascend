@@ -1,0 +1,32 @@
+{
+  "checked_rows": 18432,
+  "found": [
+    {
+      "iteration": 17,
+      "amplitude": 0.000244140625,
+      "silu": true,
+      "different_values": 64
+    },
+    {
+      "iteration": 17,
+      "amplitude": 0.000244140625,
+      "silu": true,
+      "different_values": 64
+    },
+    {
+      "iteration": 17,
+      "amplitude": 0.000244140625,
+      "silu": true,
+      "different_values": 64
+    },
+    {
+      "iteration": 17,
+      "amplitude": 0.000244140625,
+      "silu": true,
+      "different_values": 64
+    }
+  ],
+  "elapsed_s": 0.688883031019941,
+  "max_allocated_bytes": 1317888,
+  "scope": "operator only; no Engine"
+}

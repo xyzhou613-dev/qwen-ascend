@@ -1,0 +1,47 @@
+{
+  "baseline": {
+    "phase": "baseline",
+    "base_url": "http://127.0.0.1:19002",
+    "median_8k_ttft_s": 3.8582253009662963,
+    "median_8k_tpot_ms": 33.89,
+    "ttft_256k_s": 69.93815159902442,
+    "tpot_256k_ms": 34.59,
+    "cached_256k_tpot_ms": 34.21
+  },
+  "candidate": {
+    "phase": "candidate",
+    "base_url": "http://127.0.0.1:19002",
+    "median_8k_ttft_s": 3.84667428600369,
+    "median_8k_tpot_ms": 33.09,
+    "ttft_256k_s": 69.91438919497887,
+    "tpot_256k_ms": 33.73,
+    "cached_256k_tpot_ms": 33.35
+  },
+  "quality": {
+    "natural6000": {
+      "input_equal": true,
+      "nll_exact": true,
+      "argmax_exact": true
+    },
+    "service12000": {
+      "input_equal": true,
+      "nll_exact": false,
+      "argmax_exact": true
+    },
+    "technical24000": {
+      "input_equal": true,
+      "nll_exact": true,
+      "argmax_exact": true
+    }
+  },
+  "answers_8k_exact": [
+    false,
+    true,
+    true
+  ],
+  "answer_256k_exact": true,
+  "speedup_8k_pct": 2.4176488365064808,
+  "speedup_256k_pct": 2.5496590572191113,
+  "accepted": false,
+  "threshold": "quality/answers exact and >0.5% output speed gain at both contexts"
+}

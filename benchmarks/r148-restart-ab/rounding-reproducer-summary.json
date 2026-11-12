@@ -1,0 +1,40 @@
+{
+  "input_nonzero": [
+    {
+      "index": 60,
+      "value": 0.000244140625
+    },
+    {
+      "index": 61,
+      "value": 0.0625
+    },
+    {
+      "index": 80,
+      "value": 1.0
+    },
+    {
+      "index": 99,
+      "value": 0.000244140625
+    }
+  ],
+  "reference_nonzero": [
+    0.00024318695068359375,
+    0.062255859375,
+    0.99609375,
+    0.00024318695068359375
+  ],
+  "candidate_nonzero": [
+    0.000244140625,
+    0.0625,
+    1.0,
+    0.000244140625
+  ],
+  "different_values": 64,
+  "original_shape": [
+    1,
+    16,
+    128
+  ],
+  "query_scaling_enabled": false,
+  "metadata_note": "Inherited silu flag in raw search record is not applicable; generator was sparse BF16 constants, not SiLU."
+}

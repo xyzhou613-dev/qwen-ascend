@@ -1,0 +1,13 @@
+{
+  "elapsed_s": 8.184261913003866,
+  "stats": {
+    "ttft_ms": 3895.78,
+    "seconds": 8.145,
+    "tpot_ms": 33.45,
+    "n_prefill": 8060,
+    "prefill_ms": 3836.6,
+    "prefill_tok_s": 2100.82
+  },
+  "answer_exact": true,
+  "answer_sha256": "05898df0f3b91fb22d76ceaa0452bc2b0754d5de7e6135f5127f94592bf170a7"
+}
