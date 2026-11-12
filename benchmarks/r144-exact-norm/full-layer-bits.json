@@ -1,0 +1,442 @@
+[
+  {
+    "layer": 0,
+    "T": 1,
+    "comparison_order": [
+      "output",
+      "conv",
+      "fp32_state"
+    ],
+    "comparison": {
+      "norm": [
+        {
+          "exact": true,
+          "different": 0,
+          "n": 40960,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 30720,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 786432,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        }
+      ]
+    },
+    "times": []
+  },
+  {
+    "layer": 0,
+    "T": 128,
+    "comparison_order": [
+      "output",
+      "conv",
+      "fp32_state"
+    ],
+    "comparison": {
+      "norm": [
+        {
+          "exact": true,
+          "different": 0,
+          "n": 5242880,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 30720,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 786432,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        }
+      ]
+    },
+    "times": []
+  },
+  {
+    "layer": 0,
+    "T": 512,
+    "comparison_order": [
+      "output",
+      "conv",
+      "fp32_state"
+    ],
+    "comparison": {
+      "norm": [
+        {
+          "exact": true,
+          "different": 0,
+          "n": 20971520,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 30720,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 786432,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        }
+      ]
+    },
+    "times": []
+  },
+  {
+    "layer": 0,
+    "T": 2048,
+    "comparison_order": [
+      "output",
+      "conv",
+      "fp32_state"
+    ],
+    "comparison": {
+      "norm": [
+        {
+          "exact": true,
+          "different": 0,
+          "n": 83886080,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 30720,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 786432,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        }
+      ]
+    },
+    "times": []
+  },
+  {
+    "layer": 3,
+    "T": 1,
+    "comparison_order": [
+      "output",
+      "conv",
+      "kv_k0",
+      "kv_k1",
+      "kv_v0",
+      "kv_v1",
+      "index_raw",
+      "index_cached"
+    ],
+    "comparison": {
+      "norm": [
+        {
+          "exact": true,
+          "different": 0,
+          "n": 40960,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 30720,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 8388608,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 16777216,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 8388608,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 2097152,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 2097152,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 524288,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        }
+      ]
+    },
+    "times": []
+  },
+  {
+    "layer": 3,
+    "T": 128,
+    "comparison_order": [
+      "output",
+      "conv",
+      "kv_k0",
+      "kv_k1",
+      "kv_v0",
+      "kv_v1",
+      "index_raw",
+      "index_cached"
+    ],
+    "comparison": {
+      "norm": [
+        {
+          "exact": true,
+          "different": 0,
+          "n": 5242880,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 30720,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 8388608,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 16777216,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 8388608,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 2097152,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 2097152,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 524288,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        }
+      ]
+    },
+    "times": []
+  },
+  {
+    "layer": 3,
+    "T": 512,
+    "comparison_order": [
+      "output",
+      "conv",
+      "kv_k0",
+      "kv_k1",
+      "kv_v0",
+      "kv_v1",
+      "index_raw",
+      "index_cached"
+    ],
+    "comparison": {
+      "norm": [
+        {
+          "exact": true,
+          "different": 0,
+          "n": 20971520,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 30720,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 8388608,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 16777216,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 8388608,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 2097152,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 2097152,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 524288,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        }
+      ]
+    },
+    "times": []
+  },
+  {
+    "layer": 3,
+    "T": 2048,
+    "comparison_order": [
+      "output",
+      "conv",
+      "kv_k0",
+      "kv_k1",
+      "kv_v0",
+      "kv_v1",
+      "index_raw",
+      "index_cached"
+    ],
+    "comparison": {
+      "norm": [
+        {
+          "exact": true,
+          "different": 0,
+          "n": 83886080,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 30720,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 8388608,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 16777216,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 8388608,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 2097152,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 2097152,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        },
+        {
+          "exact": true,
+          "different": 0,
+          "n": 524288,
+          "max_abs": 0.0,
+          "rel_l2": 0.0
+        }
+      ]
+    },
+    "times": []
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "http_end_to_end_s": 5.539,
+  "stats": {
+    "ttft_ms": 140.26,
+    "seconds": 4.463,
+    "tpot_ms": 34.03,
+    "n_prefill": 0,
+    "prefill_ms": 0.12,
+    "prefill_tok_s": 0.0
+  }
+}

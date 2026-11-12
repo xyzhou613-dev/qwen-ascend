@@ -191,6 +191,11 @@ def rms_norm(x, w, gs=None, return_float=False):
 
 
 def l2norm(x):
+    if x.shape[0] == 1 and os.environ.get("FNX_NORM_POST", "0") == "1":
+        from .norm_post import run
+        result = run(x)
+        if result is not None:
+            return result
     return x * torch.rsqrt((x * x).sum(-1, keepdim=True) + 1e-6)
 
 
@@ -964,6 +969,21 @@ def delta_chunk_fp32(q, k, v, log_g, beta, state):
     return out.transpose(0, 1).to(torch.bfloat16), final.unsqueeze(0)
 
 
+_DELTA_CONSTANTS = {}
+
+
+def _delta_constants(device):
+    key = str(device)
+    if key not in _DELTA_CONSTANTS:
+        upper = torch.ones(64, 64, dtype=torch.bool, device=device).triu(1)
+        diagonal = torch.arange(8, device=device) * 9
+        eye = torch.eye(8, device=device)
+        bid = torch.arange(64, device=device) // 8
+        block_mask = ~(bid[:, None] > bid[None, :])
+        _DELTA_CONSTANTS[key] = upper, diagonal, eye, block_mask
+    return _DELTA_CONSTANTS[key]
+
+
 def delta_chunk_batched_fp32(q, k, v, log_g, beta, state):
     """Prepare independent 64-token systems together; keep state recurrence fp32.
 
@@ -981,15 +1001,20 @@ def delta_chunk_batched_fp32(q, k, v, log_g, beta, state):
     ba = ba.view(blocks, 64, NVH).transpose(1, 2).reshape(-1, 64).float()
     ga = F.pad(log_g, (0, 0, 0, length - T))
     cumul = ga.view(blocks, 64, NVH).transpose(1, 2).reshape(-1, 64).cumsum(-1)
-    upper = torch.ones(64, 64, dtype=torch.bool, device=q.device).triu(1)
+    reuse = os.environ.get("FNX_DELTA_REUSE", "0") == "1"
+    if reuse:
+        upper, diag_index, eye, block_mask = _delta_constants(q.device)
+    else:
+        upper = torch.ones(64, 64, dtype=torch.bool, device=q.device).triu(1)
     decay = (cumul.unsqueeze(-1) - cumul.unsqueeze(-2)).masked_fill(upper, float('-inf')).exp()
     kb, vb = ka * ba.unsqueeze(-1), va * ba.unsqueeze(-1)
     lower = (torch.bmm(kb, ka.transpose(1, 2)) * decay).tril(-1)
-    rhs = torch.cat((vb, kb * cumul.exp().unsqueeze(-1)), -1)
+    cexp = cumul.exp()
+    rhs = torch.cat((vb, kb * cexp.unsqueeze(-1)), -1)
     heads = blocks * NVH
     diagonal = lower.view(heads, 8, 8, 8, 8).permute(0, 1, 3, 2, 4).reshape(heads, 64, 8, 8)
-    diagonal = diagonal.index_select(1, torch.arange(8, device=q.device) * 9).reshape(heads * 8, 8, 8)
-    inv = torch.eye(8, device=q.device).expand(heads * 8, 8, 8)
+    diagonal = diagonal.index_select(1, diag_index if reuse else torch.arange(8, device=q.device) * 9).reshape(heads * 8, 8, 8)
+    inv = (eye if reuse else torch.eye(8, device=q.device)).expand(heads * 8, 8, 8)
     power = -diagonal
     for stage in range(3):
         inv = inv + torch.bmm(power, inv)
@@ -997,8 +1022,10 @@ def delta_chunk_batched_fp32(q, k, v, log_g, beta, state):
             power = torch.bmm(power, power)
     solved = torch.bmm(inv, rhs.reshape(heads * 8, 8, HVD + HKD)).reshape(heads, 64, HVD + HKD)
     transformed = torch.bmm(inv, lower.reshape(heads * 8, 8, 64)).reshape(heads, 64, 64)
-    bid = torch.arange(64, device=q.device) // 8
-    power = -transformed.masked_fill(~(bid[:, None] > bid[None, :]), 0)
+    if not reuse:
+        bid = torch.arange(64, device=q.device) // 8
+        block_mask = ~(bid[:, None] > bid[None, :])
+    power = -transformed.masked_fill(block_mask, 0)
     for stage in range(3):
         solved = solved + torch.bmm(power, solved)
         if stage < 2:
@@ -1006,7 +1033,7 @@ def delta_chunk_batched_fp32(q, k, v, log_g, beta, state):
     u = solved[..., :HVD].reshape(blocks, NVH, 64, HVD)
     w = solved[..., HVD:].reshape(blocks, NVH, 64, HKD)
     intra = (torch.bmm(qa, ka.transpose(1, 2)) * decay).reshape(blocks, NVH, 64, 64)
-    qe = (qa * cumul.exp().unsqueeze(-1)).reshape(blocks, NVH, 64, HKD)
+    qe = (qa * (cexp if reuse else cumul.exp()).unsqueeze(-1)).reshape(blocks, NVH, 64, HKD)
     end_keys = (ka * (cumul[:, -1:] - cumul).exp().unsqueeze(-1)).reshape(blocks, NVH, 64, HKD)
     end_decay = cumul[:, -1:].exp().reshape(blocks, NVH, 1, 1)
     current = state[0]
