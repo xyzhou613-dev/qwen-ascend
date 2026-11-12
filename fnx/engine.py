@@ -1332,10 +1332,11 @@ class FnLayer:
         cos, sin = rope_cs(pos, self.inv)
         q = apply_rope(q, cos.unsqueeze(1), sin.unsqueeze(1))
         groups = min(P, getattr(self, "index_scan_cap", P)) // 4
-        starts = torch.arange(groups, device=self.dev, dtype=torch.int64) * 4
+        starts = None
         if os.environ.get("FNX_INDEX_CACHE", "0") == "1":
             keys = self.index_keys[:groups].transpose(0, 1)
         else:
+            starts = torch.arange(groups, device=self.dev, dtype=torch.int64) * 4
             pooled = self.index_k[:groups * 4].view(groups, 4, 128).float().mean(1).to(h.dtype)
             keys = rms_norm(pooled, self.index_kn)
             cos, sin = rope_cs(starts, self.inv)
@@ -1349,14 +1350,27 @@ class FnLayer:
             end = min(begin + tile, T)
             p = pos[begin:end]
             scores = torch.matmul(q[begin:end].float().reshape(-1, 128), keys)
-            reduced = None
-            if fuse_scores and end - begin >= 128:
-                reduced = native_score(scores, p)
-            if reduced is None:
-                reduced = scores.view(end - begin, 4, groups).relu().sum(1)
-            scores = reduced / math.sqrt(128)
-            complete = starts[None, :] + 4 <= p[:, None] + 1
-            chosen = scores.masked_fill(~complete, NEG).topk(min(512, groups), -1).indices
+            post = None
+            post_enabled = os.environ.get("FNX_INDEX_POST", "0") == "1"
+            if post_enabled:
+                from .index_post import run as index_post
+                if fuse_scores and end - begin >= 128:
+                    post = index_post(scores, p, heads=4)
+            if post is None:
+                reduced = None
+                if fuse_scores and end - begin >= 128:
+                    reduced = native_score(scores, p)
+                if reduced is None:
+                    reduced = scores.view(end - begin, 4, groups).relu().sum(1)
+                if post_enabled:
+                    post = index_post(reduced, p, heads=1)
+                if post is None:
+                    scores = reduced / math.sqrt(128)
+                    if starts is None:
+                        starts = torch.arange(groups, device=self.dev, dtype=torch.int64) * 4
+                    complete = starts[None, :] + 4 <= p[:, None] + 1
+                    post = scores.masked_fill(~complete, NEG)
+            chosen = post.topk(min(512, groups), -1).indices
             expanded = None
             if os.environ.get("FNX_INDEX_EXPAND", "0") == "1":
                 from .index_expand import expand

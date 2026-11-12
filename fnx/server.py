@@ -544,7 +544,7 @@ def health():
     worker=getattr(model,"process",None)
     if worker is not None and worker.poll() is not None:
         return JSONResponse(status_code=503,content={"status":"worker_unavailable","ctx":P})
-    return {"status": "ok", "engine_loaded": "e" in STATE, "ctx": P, "service_revision": "r142",
+    return {"status": "ok", "engine_loaded": "e" in STATE, "ctx": P, "service_revision": "r143",
             "moe_epilogue": os.environ.get("FNX_MOE_EPILOGUE", "0") == "1",
             "post_native": os.environ.get("FNX_POST_NATIVE", "0") == "1",
             "decode_down_gmm": os.environ.get("FNX_DECODE_DN_GMM", "0") == "1",
@@ -560,6 +560,7 @@ def health():
             "prefill_chunk": _CHUNK,
             "pipeline_transport": getattr(model,"transport","single"),
             "delta_compact": os.environ.get("FNX_DN_COMPACT", "0") == "1",
+            "index_post": os.environ.get("FNX_INDEX_POST", "0") == "1",
             "index_score": os.environ.get("FNX_INDEX_SCORE", "0") == "1",
             "conv_native": os.environ.get("FNX_CONV_NATIVE", "0") == "1",
             "index_expand": os.environ.get("FNX_INDEX_EXPAND", "0") == "1",

@@ -1,0 +1,126 @@
+[
+  {
+    "layer": 3,
+    "T": 1,
+    "position": 61440,
+    "capacity": 65536,
+    "dynamic_steps": 8,
+    "exact": {
+      "output": true,
+      "kv": true,
+      "index_raw": true,
+      "index_cached": true
+    },
+    "timings": [
+      {
+        "mode": "baseline",
+        "ms": 0.8491550087928772
+      },
+      {
+        "mode": "fused",
+        "ms": 0.8096150159835815
+      },
+      {
+        "mode": "baseline",
+        "ms": 0.8527550101280212
+      },
+      {
+        "mode": "fused",
+        "ms": 0.811020016670227
+      }
+    ]
+  },
+  {
+    "layer": 3,
+    "T": 128,
+    "position": 61440,
+    "capacity": 65536,
+    "dynamic_steps": 8,
+    "exact": {
+      "output": true,
+      "kv": true,
+      "index_raw": true,
+      "index_cached": true
+    },
+    "timings": [
+      {
+        "mode": "baseline",
+        "ms": 11.557860374450684
+      },
+      {
+        "mode": "fused",
+        "ms": 11.366894721984863
+      },
+      {
+        "mode": "baseline",
+        "ms": 11.537420272827148
+      },
+      {
+        "mode": "fused",
+        "ms": 11.372654914855957
+      }
+    ]
+  },
+  {
+    "layer": 3,
+    "T": 512,
+    "position": 61440,
+    "capacity": 65536,
+    "dynamic_steps": 8,
+    "exact": {
+      "output": true,
+      "kv": true,
+      "index_raw": true,
+      "index_cached": true
+    },
+    "timings": [
+      {
+        "mode": "baseline",
+        "ms": 17.750394821166992
+      },
+      {
+        "mode": "fused",
+        "ms": 17.317825317382812
+      },
+      {
+        "mode": "baseline",
+        "ms": 17.75787925720215
+      },
+      {
+        "mode": "fused",
+        "ms": 17.320344924926758
+      }
+    ]
+  },
+  {
+    "layer": 3,
+    "T": 2048,
+    "position": 61440,
+    "capacity": 65536,
+    "dynamic_steps": 8,
+    "exact": {
+      "output": true,
+      "kv": true,
+      "index_raw": true,
+      "index_cached": true
+    },
+    "timings": [
+      {
+        "mode": "baseline",
+        "ms": 38.058021545410156
+      },
+      {
+        "mode": "fused",
+        "ms": 36.59122848510742
+      },
+      {
+        "mode": "baseline",
+        "ms": 38.022491455078125
+      },
+      {
+        "mode": "fused",
+        "ms": 36.556983947753906
+      }
+    ]
+  }
+]

@@ -1,0 +1,164 @@
+[
+  {
+    "K": 2560,
+    "G": 40,
+    "N": 1280,
+    "case": 0,
+    "repeat": 0,
+    "weights_exact": true,
+    "scales_exact": true
+  },
+  {
+    "K": 2560,
+    "G": 40,
+    "N": 1280,
+    "case": 0,
+    "repeat": 1,
+    "weights_exact": true,
+    "scales_exact": true
+  },
+  {
+    "K": 2560,
+    "G": 40,
+    "N": 1280,
+    "case": 0,
+    "repeat": 2,
+    "weights_exact": true,
+    "scales_exact": true
+  },
+  {
+    "K": 2560,
+    "G": 40,
+    "N": 1280,
+    "case": 1,
+    "repeat": 0,
+    "weights_exact": true,
+    "scales_exact": true
+  },
+  {
+    "K": 2560,
+    "G": 40,
+    "N": 1280,
+    "case": 1,
+    "repeat": 1,
+    "weights_exact": true,
+    "scales_exact": true
+  },
+  {
+    "K": 2560,
+    "G": 40,
+    "N": 1280,
+    "case": 1,
+    "repeat": 2,
+    "weights_exact": true,
+    "scales_exact": true
+  },
+  {
+    "K": 2560,
+    "G": 40,
+    "N": 1280,
+    "case": 2,
+    "repeat": 0,
+    "weights_exact": true,
+    "scales_exact": true
+  },
+  {
+    "K": 2560,
+    "G": 40,
+    "N": 1280,
+    "case": 2,
+    "repeat": 1,
+    "weights_exact": true,
+    "scales_exact": true
+  },
+  {
+    "K": 2560,
+    "G": 40,
+    "N": 1280,
+    "case": 2,
+    "repeat": 2,
+    "weights_exact": true,
+    "scales_exact": true
+  },
+  {
+    "K": 640,
+    "G": 10,
+    "N": 2560,
+    "case": 0,
+    "repeat": 0,
+    "weights_exact": true,
+    "scales_exact": true
+  },
+  {
+    "K": 640,
+    "G": 10,
+    "N": 2560,
+    "case": 0,
+    "repeat": 1,
+    "weights_exact": true,
+    "scales_exact": true
+  },
+  {
+    "K": 640,
+    "G": 10,
+    "N": 2560,
+    "case": 0,
+    "repeat": 2,
+    "weights_exact": true,
+    "scales_exact": true
+  },
+  {
+    "K": 640,
+    "G": 10,
+    "N": 2560,
+    "case": 1,
+    "repeat": 0,
+    "weights_exact": true,
+    "scales_exact": true
+  },
+  {
+    "K": 640,
+    "G": 10,
+    "N": 2560,
+    "case": 1,
+    "repeat": 1,
+    "weights_exact": true,
+    "scales_exact": true
+  },
+  {
+    "K": 640,
+    "G": 10,
+    "N": 2560,
+    "case": 1,
+    "repeat": 2,
+    "weights_exact": true,
+    "scales_exact": true
+  },
+  {
+    "K": 640,
+    "G": 10,
+    "N": 2560,
+    "case": 2,
+    "repeat": 0,
+    "weights_exact": true,
+    "scales_exact": true
+  },
+  {
+    "K": 640,
+    "G": 10,
+    "N": 2560,
+    "case": 2,
+    "repeat": 1,
+    "weights_exact": true,
+    "scales_exact": true
+  },
+  {
+    "K": 640,
+    "G": 10,
+    "N": 2560,
+    "case": 2,
+    "repeat": 2,
+    "weights_exact": true,
+    "scales_exact": true
+  }
+]

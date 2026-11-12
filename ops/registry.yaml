@@ -435,6 +435,22 @@ ops:
       - "保留权重乘积及归约结果的BF16舍入，不能直接FP32全程累加后合并"
       - "仅本机软件矩阵验证，未做跨矩阵或长期稳定性认证"
 
+  - name: index_score_post_fp32
+    version: 0.1.0
+    category: elementwise
+    status: alpha
+    desc: "索引打分的FP32缩放与因果掩码融合；已有四头原生归约路径可一并融合"
+    source: kernels/index_post/index_post.cpp
+    wrapper: fnx/index_post.py
+    hardware: [{chip: Ascend910B4, cann: "9.1.0", units: [Vector]}]
+    shape: {input: "[heads*T,G] FP32", positions: "[T] INT64", heads: "1 or 4", score_head_dim: 128, pooled_tokens: 4, groups_alignment: 2048}
+    precision: "36组shape/位置及2097152宽范围FP32值逐位一致；真实L03输出/KV/原始索引/索引缓存逐位一致"
+    known_issues:
+      - "FNX_INDEX_POST=1启用；框架默认关闭，不支持形状回退"
+      - "生产固定mode1 Div；mode0乘法近似未通过FP32位型检查，不可启用"
+      - "保留已有四头累加顺序、TopK及其后处理；不改变分块策略"
+      - "仅当前软硬件矩阵验证，未做长期稳定性或跨矩阵认证"
+
 # ============ 质量门禁 ============
 gates:
   L1_available: {require: ["精度对 CPU 参考通过", "3 个 shape 跑通"], verify: ci/precision_gate.py}
