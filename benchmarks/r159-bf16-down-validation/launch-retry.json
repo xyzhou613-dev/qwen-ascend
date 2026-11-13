@@ -1,0 +1,16 @@
+{
+  "epoch": 1794589179.286959,
+  "remaining_seconds": 2404,
+  "reason": "systemd append log open failed before controller execution; use process-local redirection",
+  "original_deadlines_unchanged": true,
+  "argv": [
+    "systemd-run",
+    "--unit=fnx-r159-run",
+    "--property=RuntimeMaxSec=2404",
+    "--property=TimeoutStopSec=10",
+    "--property=KillMode=control-group",
+    "/bin/bash",
+    "-c",
+    "exec /bin/bash \"/models/fnx-diagnostics/r159-bf16-down-validation-20261114/controller.sh\" >> \"/models/fnx-diagnostics/r159-bf16-down-validation-20261114/controller.log\" 2>&1"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "epoch": 1794589317.2562678,
+  "file": "component_probe.py",
+  "reason": "register the single ExpW4 weight with the inherited FnLayer audit before calling merge",
+  "before_sha256": "142fac87c205c579cfef55869ba7838c920e381b9ee5a5e502d401806aa1f607",
+  "after_sha256": "67ad148ed261acecd611ef0240d688aba33ea8aa96d3893095a5f79ebd20d29d",
+  "model_sources_changed": false,
+  "quality_sources_changed": false,
+  "thresholds_changed": false,
+  "no_completed_component_timings_before_fix": true
+}

@@ -1,0 +1,166 @@
+{
+  "status": "rejected_at_component_performance_gate",
+  "candidate_deployed": false,
+  "component_metrics": [
+    {
+      "device": 0,
+      "layer": 0,
+      "median_us": {
+        "production": 60.44773384928703,
+        "old": 49.6811717748642,
+        "rounded128": 76.04953274130821,
+        "rounded256": 69.40414011478424
+      },
+      "rounded256_slowdown_percent": 14.816777561633687,
+      "extra_us_vs_old": 19.722968339920044,
+      "rounded256_slower_rounds": 16,
+      "rounds": 16,
+      "max_diagonal_relative_l2": 7.832038681954145e-05,
+      "max_merge_relative_l2": 0.0001138811931014061,
+      "old_max_merge_relative_l2": 0.0033014253713190556,
+      "minimum_diagonal_exact_fraction": 0.9997656345367432,
+      "experts_covered": 512,
+      "samples": 53,
+      "fresh_input_graph_verified": {
+        "old": true,
+        "rounded128": true,
+        "rounded256": true
+      },
+      "peak_allocated_bytes": 515901440
+    },
+    {
+      "device": 1,
+      "layer": 24,
+      "median_us": {
+        "production": 60.74624881148338,
+        "old": 49.57812465727329,
+        "rounded128": 76.05945318937302,
+        "rounded256": 69.42273676395416
+      },
+      "rounded256_slowdown_percent": 14.283166651815682,
+      "extra_us_vs_old": 19.84461210668087,
+      "rounded256_slower_rounds": 16,
+      "rounds": 16,
+      "max_diagonal_relative_l2": 6.522799958474934e-05,
+      "max_merge_relative_l2": 0.00014916685177013278,
+      "old_max_merge_relative_l2": 0.0032823660876601934,
+      "minimum_diagonal_exact_fraction": 0.9997656345367432,
+      "experts_covered": 512,
+      "samples": 53,
+      "fresh_input_graph_verified": {
+        "old": true,
+        "rounded128": true,
+        "rounded256": true
+      },
+      "peak_allocated_bytes": 515901440
+    }
+  ],
+  "selection": {
+    "ratios": {
+      "128": [
+        1.2581039502807632,
+        1.2520847735867906
+      ],
+      "256": [
+        1.1481677756163369,
+        1.1428316665181568
+      ]
+    },
+    "passed": false,
+    "selected_tile": null
+  },
+  "full_layer_test_run": false,
+  "full_model_test_run": false,
+  "new_tpot_measured": false,
+  "old18k_regression_retested": false,
+  "full_quality_acceptance": false,
+  "production_revision": "r152",
+  "final_validation": {
+    "verified_epoch": 1794589934.9643114,
+    "health": {
+      "status": "ok",
+      "engine_loaded": true,
+      "ctx": 262144,
+      "service_revision": "r152",
+      "norm_post": true,
+      "state_update": true,
+      "prefill_output": true,
+      "norm_ordered": true,
+      "delta_reuse": true,
+      "moe_epilogue": true,
+      "post_native": true,
+      "decode_down_gmm": false,
+      "expert_gather": true,
+      "inject_native": true,
+      "conv_prefill": true,
+      "raw_compact": true,
+      "cpu_threads": 16,
+      "short_prefill_chunk": 2048,
+      "short_prefill_tokens": 16384,
+      "pipeline_stages": 2,
+      "worker_alive": true,
+      "prefill_chunk": 8192,
+      "pipeline_transport": "hybrid",
+      "delta_compact": true,
+      "index_post": true,
+      "index_score": true,
+      "conv_native": true,
+      "index_expand": true,
+      "mix_reduce": true,
+      "moe_reduce": true,
+      "dual_write": true,
+      "pipeline_transfers": {
+        "peer_transfers": 0,
+        "peer_bytes": 0,
+        "host_transfers": 3,
+        "host_bytes": 61440
+      },
+      "index_caps": [
+        16384,
+        32768,
+        65536,
+        98304,
+        131072,
+        196608,
+        262144
+      ],
+      "native_sparse": true,
+      "native_dual": true,
+      "index_unique": true,
+      "moe_inverse": true,
+      "moe_inverse_sort": true,
+      "state_dual_slim": true,
+      "conversation_state_bytes": 0,
+      "rope_cache": true,
+      "delta_window": 2048,
+      "delta_native": true,
+      "chunk_graph": true,
+      "qsa_indexer": true,
+      "qsa_sparse": true
+    },
+    "production_files_unchanged": 45,
+    "p275_unchanged": true,
+    "runtime_and_harness_unchanged": true,
+    "original_container_preserved": true,
+    "formal_fresh_8k_smoke_passed": true,
+    "manager_active": true,
+    "watchdog_pids": [
+      135121
+    ],
+    "engines": [
+      {
+        "pid": 134345,
+        "cwd": "/root/ascend-dev/fnx"
+      },
+      {
+        "pid": 134518,
+        "cwd": "/root/ascend-dev/fnx"
+      }
+    ],
+    "temporary_controls_removed": true,
+    "experimental_processes_absent": true,
+    "private_env_removed": true,
+    "restore_elapsed_s": 764.136393070221,
+    "within_hour": true
+  }
+}

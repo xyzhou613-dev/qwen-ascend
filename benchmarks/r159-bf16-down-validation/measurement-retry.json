@@ -1,0 +1,17 @@
+{
+  "epoch": 1794589550.5777085,
+  "remaining_seconds": 2033,
+  "original_window_start_epoch": 1794589124,
+  "deadlines_unchanged": true,
+  "first_restore_verified_before_retry": true,
+  "argv": [
+    "systemd-run",
+    "--unit=fnx-r159-run",
+    "--property=RuntimeMaxSec=2033",
+    "--property=TimeoutStopSec=10",
+    "--property=KillMode=control-group",
+    "/bin/bash",
+    "-c",
+    "exec /bin/bash \"/models/fnx-diagnostics/r159-bf16-down-validation-20261114/controller_retry.sh\" >> \"/models/fnx-diagnostics/r159-bf16-down-validation-20261114/controller.log\" 2>&1"
+  ]
+}

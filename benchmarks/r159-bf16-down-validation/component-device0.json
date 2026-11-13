@@ -1,0 +1,2110 @@
+{
+  "status": "passed_component",
+  "scope": "exclusive down+epilogue; not HTTP or full quality",
+  "device": 0,
+  "layer": 0,
+  "experts_covered": 512,
+  "median_us": {
+    "production": 60.44773384928703,
+    "old": 49.6811717748642,
+    "rounded128": 76.04953274130821,
+    "rounded256": 69.40414011478424
+  },
+  "samples_us": {
+    "production": [
+      62.543123960494995,
+      60.44203042984009,
+      60.45343726873398,
+      60.396406799554825,
+      60.418907552957535,
+      60.42046844959259,
+      60.521405190229416,
+      60.5274997651577,
+      60.46874821186066,
+      60.38734316825867,
+      60.51890552043915,
+      60.47578155994415,
+      60.496874153614044,
+      60.436248779296875,
+      60.43890491127968,
+      60.36578118801117
+    ],
+    "old": [
+      50.79484358429909,
+      49.65343698859215,
+      49.74500089883804,
+      49.62609335780144,
+      49.78421702980995,
+      49.63843896985054,
+      49.740780144929886,
+      49.62265491485596,
+      49.708906561136246,
+      49.642499536275864,
+      49.758750945329666,
+      49.62921887636185,
+      49.72671717405319,
+      49.64156076312065,
+      49.72952976822853,
+      49.617499113082886
+    ],
+    "rounded128": [
+      76.96343958377838,
+      76.03296637535095,
+      76.05218887329102,
+      76.04781538248062,
+      76.02202892303467,
+      76.03609561920166,
+      76.04312151670456,
+      76.08874887228012,
+      75.95296949148178,
+      76.0512501001358,
+      76.05843991041183,
+      76.07406377792358,
+      76.05968415737152,
+      76.04625076055527,
+      76.03109627962112,
+      76.07171684503555
+    ],
+    "rounded256": [
+      70.322185754776,
+      69.42202895879745,
+      69.37859207391739,
+      69.43327933549881,
+      69.28328424692154,
+      69.40359622240067,
+      69.36562806367874,
+      69.40875202417374,
+      69.38109546899796,
+      69.43374872207642,
+      69.37047094106674,
+      69.4231241941452,
+      69.30749863386154,
+      69.42953169345856,
+      69.29031014442444,
+      69.40468400716782
+    ]
+  },
+  "records": [
+    {
+      "sample": 0,
+      "amplitude": 0.003,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0030593096744269133,
+          "max_abs": 7.62939453125e-06,
+          "exact_fraction": 0.538281261920929,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 1,
+      "amplitude": 0.03,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0027483433950692415,
+          "max_abs": 0.0001220703125,
+          "exact_fraction": 0.71875,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 1.999219603021629e-05,
+          "max_abs": 3.0517578125e-05,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 1.999219603021629e-05,
+          "max_abs": 3.0517578125e-05,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 2,
+      "amplitude": 0.3,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0012680086074396968,
+          "max_abs": 0.001953125,
+          "exact_fraction": 0.8515625,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 4.031484923672224e-09,
+          "max_abs": 5.960464477539063e-08,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 4.031484923672224e-09,
+          "max_abs": 5.960464477539063e-08,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 3,
+      "amplitude": 1.0,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0010943898232653737,
+          "max_abs": 0.015625,
+          "exact_fraction": 0.888671875,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 4,
+      "amplitude": 0.003,
+      "merge": {
+        "old": {
+          "relative_l2": 0.001050744904205203,
+          "max_abs": 6.103515625e-05,
+          "exact_fraction": 0.9007812738418579,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 3.4056952245009597e-06,
+          "max_abs": 4.76837158203125e-07,
+          "exact_fraction": 0.9997656345367432,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 3.4056952245009597e-06,
+          "max_abs": 4.76837158203125e-07,
+          "exact_fraction": 0.9997656345367432,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 5,
+      "amplitude": 0.03,
+      "merge": {
+        "old": {
+          "relative_l2": 0.002757619833573699,
+          "max_abs": 6.103515625e-05,
+          "exact_fraction": 0.5921875238418579,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 4.299507239124978e-08,
+          "max_abs": 5.960464477539063e-08,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 4.299507239124978e-08,
+          "max_abs": 5.960464477539063e-08,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 6,
+      "amplitude": 0.3,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0027440369594842196,
+          "max_abs": 0.001220703125,
+          "exact_fraction": 0.701953113079071,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 1.5948418877087533e-05,
+          "max_abs": 0.000244140625,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 1.5948418877087533e-05,
+          "max_abs": 0.000244140625,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 7,
+      "amplitude": 1.0,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0013749271165579557,
+          "max_abs": 0.0078125,
+          "exact_fraction": 0.8441406488418579,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 4.257876571500674e-05,
+          "max_abs": 0.001953125,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 4.257876571500674e-05,
+          "max_abs": 0.001953125,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 8,
+      "amplitude": 0.003,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0010201057884842157,
+          "max_abs": 3.0517578125e-05,
+          "exact_fraction": 0.891406238079071,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 5.2089271775912493e-05,
+          "max_abs": 7.62939453125e-06,
+          "exact_fraction": 0.9998437762260437,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 5.2089271775912493e-05,
+          "max_abs": 7.62939453125e-06,
+          "exact_fraction": 0.9998437762260437,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 9,
+      "amplitude": 0.03,
+      "merge": {
+        "old": {
+          "relative_l2": 0.001090066391043365,
+          "max_abs": 0.00048828125,
+          "exact_fraction": 0.891406238079071,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 2.213453990407288e-05,
+          "max_abs": 3.0517578125e-05,
+          "exact_fraction": 0.9998828172683716,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 2.213453990407288e-05,
+          "max_abs": 3.0517578125e-05,
+          "exact_fraction": 0.9998828172683716,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 10,
+      "amplitude": 0.3,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0031258068047463894,
+          "max_abs": 0.0009765625,
+          "exact_fraction": 0.5511718988418579,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0001138811931014061,
+          "max_abs": 0.000244140625,
+          "exact_fraction": 0.9996093511581421,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0001138811931014061,
+          "max_abs": 0.000244140625,
+          "exact_fraction": 0.9996093511581421,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 3.171820571878925e-05,
+          "max_abs": 0.00048828125,
+          "exact_fraction": 0.9998828172683716,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 3.171820571878925e-05,
+          "max_abs": 0.00048828125,
+          "exact_fraction": 0.9998828172683716,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 11,
+      "amplitude": 1.0,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0026047402061522007,
+          "max_abs": 0.001953125,
+          "exact_fraction": 0.690625011920929,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 1.7801752294488438e-09,
+          "max_abs": 5.960464477539063e-08,
+          "exact_fraction": 0.9998828172683716,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 1.7801752294488438e-09,
+          "max_abs": 5.960464477539063e-08,
+          "exact_fraction": 0.9998828172683716,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 12,
+      "amplitude": 0.003,
+      "merge": {
+        "old": {
+          "relative_l2": 0.00133504846598953,
+          "max_abs": 1.52587890625e-05,
+          "exact_fraction": 0.8394531011581421,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 1.2262562520959364e-08,
+          "max_abs": 1.862645149230957e-09,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 1.2262562520959364e-08,
+          "max_abs": 1.862645149230957e-09,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 13,
+      "amplitude": 0.03,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0010407911613583565,
+          "max_abs": 0.00048828125,
+          "exact_fraction": 0.8980468511581421,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 1.2578597079482279e-06,
+          "max_abs": 1.9073486328125e-06,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 1.2578597079482279e-06,
+          "max_abs": 1.9073486328125e-06,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 14,
+      "amplitude": 0.3,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0009993811836466193,
+          "max_abs": 0.00390625,
+          "exact_fraction": 0.891796886920929,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 1.2499478430072486e-07,
+          "max_abs": 1.9073486328125e-06,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 1.2499478430072486e-07,
+          "max_abs": 1.9073486328125e-06,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 15,
+      "amplitude": 1.0,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0030390331521630287,
+          "max_abs": 0.00390625,
+          "exact_fraction": 0.595703125,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 7.832038681954145e-05,
+          "max_abs": 0.00390625,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 7.832038681954145e-05,
+          "max_abs": 0.00390625,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 16,
+      "amplitude": 0.003,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0028654944617301226,
+          "max_abs": 7.62939453125e-06,
+          "exact_fraction": 0.681640625,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 3.059791309212301e-09,
+          "max_abs": 4.656612873077393e-10,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 3.059791309212301e-09,
+          "max_abs": 4.656612873077393e-10,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 17,
+      "amplitude": 0.03,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0014210338704288006,
+          "max_abs": 0.000244140625,
+          "exact_fraction": 0.849609375,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 9.78915977611905e-06,
+          "max_abs": 1.52587890625e-05,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 9.78915977611905e-06,
+          "max_abs": 1.52587890625e-05,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 18,
+      "amplitude": 0.3,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0009770619217306376,
+          "max_abs": 0.00390625,
+          "exact_fraction": 0.8984375,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 1.6664724171278067e-05,
+          "max_abs": 0.000244140625,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 1.6664724171278067e-05,
+          "max_abs": 0.000244140625,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 19,
+      "amplitude": 1.0,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0011387568665668368,
+          "max_abs": 0.015625,
+          "exact_fraction": 0.8941406011581421,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 4.837738742935471e-06,
+          "max_abs": 0.000244140625,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 4.837738742935471e-06,
+          "max_abs": 0.000244140625,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 20,
+      "amplitude": 0.003,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0031611397862434387,
+          "max_abs": 7.62939453125e-06,
+          "exact_fraction": 0.5550781488418579,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 6.539183639020507e-10,
+          "max_abs": 1.0186340659856796e-10,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 6.539183639020507e-10,
+          "max_abs": 1.0186340659856796e-10,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 21,
+      "amplitude": 0.03,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0028563854284584522,
+          "max_abs": 0.0001220703125,
+          "exact_fraction": 0.7113281488418579,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 3.1205030381897814e-07,
+          "max_abs": 4.76837158203125e-07,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 3.1205030381897814e-07,
+          "max_abs": 4.76837158203125e-07,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 22,
+      "amplitude": 0.3,
+      "merge": {
+        "old": {
+          "relative_l2": 0.001358857611194253,
+          "max_abs": 0.001953125,
+          "exact_fraction": 0.839062511920929,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 23,
+      "amplitude": 1.0,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0010089811403304338,
+          "max_abs": 0.0078125,
+          "exact_fraction": 0.893359363079071,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 9.815629709919449e-06,
+          "max_abs": 0.00048828125,
+          "exact_fraction": 0.9998437762260437,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 9.815629709919449e-06,
+          "max_abs": 0.00048828125,
+          "exact_fraction": 0.9998437762260437,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 24,
+      "amplitude": 0.003,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0009715622873045504,
+          "max_abs": 3.0517578125e-05,
+          "exact_fraction": 0.903515636920929,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 3.1423346626979765e-06,
+          "max_abs": 4.76837158203125e-07,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 3.1423346626979765e-06,
+          "max_abs": 4.76837158203125e-07,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 25,
+      "amplitude": 0.03,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0032044285908341408,
+          "max_abs": 0.0001220703125,
+          "exact_fraction": 0.55859375,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 6.261164458010171e-07,
+          "max_abs": 9.5367431640625e-07,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 6.261164458010171e-07,
+          "max_abs": 9.5367431640625e-07,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 26,
+      "amplitude": 0.3,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0028823858592659235,
+          "max_abs": 0.0009765625,
+          "exact_fraction": 0.6792968511581421,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 3.281969475210644e-05,
+          "max_abs": 0.00048828125,
+          "exact_fraction": 0.9998437762260437,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 3.281969475210644e-05,
+          "max_abs": 0.00048828125,
+          "exact_fraction": 0.9998437762260437,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 27,
+      "amplitude": 1.0,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0015214947052299976,
+          "max_abs": 0.0078125,
+          "exact_fraction": 0.836718738079071,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 1.975918530661147e-05,
+          "max_abs": 0.0009765625,
+          "exact_fraction": 0.9998828172683716,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 1.975918530661147e-05,
+          "max_abs": 0.0009765625,
+          "exact_fraction": 0.9998828172683716,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 28,
+      "amplitude": 0.003,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0012833508662879467,
+          "max_abs": 6.103515625e-05,
+          "exact_fraction": 0.8753906488418579,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 1.2380877706164028e-05,
+          "max_abs": 1.9073486328125e-06,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 1.2380877706164028e-05,
+          "max_abs": 1.9073486328125e-06,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 29,
+      "amplitude": 0.03,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0010646458249539137,
+          "max_abs": 0.00048828125,
+          "exact_fraction": 0.8882812261581421,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 7.0368778324336745e-06,
+          "max_abs": 7.62939453125e-06,
+          "exact_fraction": 0.999804675579071,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 7.0368778324336745e-06,
+          "max_abs": 7.62939453125e-06,
+          "exact_fraction": 0.999804675579071,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 30,
+      "amplitude": 0.3,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0031121710781008005,
+          "max_abs": 0.0009765625,
+          "exact_fraction": 0.56640625,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 1.5838205413842843e-08,
+          "max_abs": 2.384185791015625e-07,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 1.5838205413842843e-08,
+          "max_abs": 2.384185791015625e-07,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 31,
+      "amplitude": 1.0,
+      "merge": {
+        "old": {
+          "relative_l2": 0.002874744590371847,
+          "max_abs": 0.00390625,
+          "exact_fraction": 0.69921875,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 7.777630526106805e-05,
+          "max_abs": 0.00390625,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 7.777630526106805e-05,
+          "max_abs": 0.00390625,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 32,
+      "amplitude": 0.003,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0013797221472486854,
+          "max_abs": 1.52587890625e-05,
+          "exact_fraction": 0.8402343988418579,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 6.105542979639722e-06,
+          "max_abs": 9.5367431640625e-07,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 6.105542979639722e-06,
+          "max_abs": 9.5367431640625e-07,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 33,
+      "amplitude": 0.03,
+      "merge": {
+        "old": {
+          "relative_l2": 0.001269871136173606,
+          "max_abs": 0.00048828125,
+          "exact_fraction": 0.8773437738418579,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 34,
+      "amplitude": 0.3,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0010348503710702062,
+          "max_abs": 0.00390625,
+          "exact_fraction": 0.893359363079071,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 2.044495431618998e-06,
+          "max_abs": 3.0517578125e-05,
+          "exact_fraction": 0.9998828172683716,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 2.044495431618998e-06,
+          "max_abs": 3.0517578125e-05,
+          "exact_fraction": 0.9998828172683716,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 35,
+      "amplitude": 1.0,
+      "merge": {
+        "old": {
+          "relative_l2": 0.003084000200033188,
+          "max_abs": 0.001953125,
+          "exact_fraction": 0.5621093511581421,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 7.497690290847459e-08,
+          "max_abs": 3.814697265625e-06,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 7.497690290847459e-08,
+          "max_abs": 3.814697265625e-06,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 36,
+      "amplitude": 0.003,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0028065156657248735,
+          "max_abs": 7.62939453125e-06,
+          "exact_fraction": 0.6910156011581421,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 1.2397241334838327e-05,
+          "max_abs": 1.9073486328125e-06,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 1.2397241334838327e-05,
+          "max_abs": 1.9073486328125e-06,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 37,
+      "amplitude": 0.03,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0015409586485475302,
+          "max_abs": 0.000244140625,
+          "exact_fraction": 0.846875011920929,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 38,
+      "amplitude": 0.3,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0010024436051025987,
+          "max_abs": 0.00390625,
+          "exact_fraction": 0.897656261920929,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 1.9648143112505068e-09,
+          "max_abs": 2.9802322387695312e-08,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 1.9648143112505068e-09,
+          "max_abs": 2.9802322387695312e-08,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 39,
+      "amplitude": 1.0,
+      "merge": {
+        "old": {
+          "relative_l2": 0.001094021718017757,
+          "max_abs": 0.015625,
+          "exact_fraction": 0.8941406011581421,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 6.126956577645615e-07,
+          "max_abs": 3.0517578125e-05,
+          "exact_fraction": 0.9998437762260437,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 6.126956577645615e-07,
+          "max_abs": 3.0517578125e-05,
+          "exact_fraction": 0.9998437762260437,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 40,
+      "amplitude": 0.003,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0030140525195747614,
+          "max_abs": 7.62939453125e-06,
+          "exact_fraction": 0.5746093988418579,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 3.1311544717027573e-06,
+          "max_abs": 4.76837158203125e-07,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 3.1311544717027573e-06,
+          "max_abs": 4.76837158203125e-07,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 41,
+      "amplitude": 0.03,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0027459978591650724,
+          "max_abs": 0.0001220703125,
+          "exact_fraction": 0.714062511920929,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 2.8644042686210014e-05,
+          "max_abs": 7.62939453125e-06,
+          "exact_fraction": 0.9996093511581421,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 2.8644042686210014e-05,
+          "max_abs": 7.62939453125e-06,
+          "exact_fraction": 0.9996093511581421,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 2.0284542188164778e-05,
+          "max_abs": 3.0517578125e-05,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 2.0284542188164778e-05,
+          "max_abs": 3.0517578125e-05,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 42,
+      "amplitude": 0.3,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0014848806895315647,
+          "max_abs": 0.001953125,
+          "exact_fraction": 0.8609374761581421,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 2.039759692706866e-06,
+          "max_abs": 3.0517578125e-05,
+          "exact_fraction": 0.9998828172683716,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 2.039759692706866e-06,
+          "max_abs": 3.0517578125e-05,
+          "exact_fraction": 0.9998828172683716,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 43,
+      "amplitude": 1.0,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0010587945580482483,
+          "max_abs": 0.015625,
+          "exact_fraction": 0.8960937261581421,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 44,
+      "amplitude": 0.003,
+      "merge": {
+        "old": {
+          "relative_l2": 0.000947557738982141,
+          "max_abs": 3.0517578125e-05,
+          "exact_fraction": 0.8929687738418579,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 4.880365622739191e-07,
+          "max_abs": 5.960464477539063e-08,
+          "exact_fraction": 0.9997656345367432,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 4.880365622739191e-07,
+          "max_abs": 5.960464477539063e-08,
+          "exact_fraction": 0.9997656345367432,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 45,
+      "amplitude": 0.03,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0033014253713190556,
+          "max_abs": 0.0001220703125,
+          "exact_fraction": 0.5414062738418579,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 5.046982550993562e-06,
+          "max_abs": 7.62939453125e-06,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 5.046982550993562e-06,
+          "max_abs": 7.62939453125e-06,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 46,
+      "amplitude": 0.3,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0026475132908672094,
+          "max_abs": 0.0009765625,
+          "exact_fraction": 0.6996093988418579,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 4.4696575969283e-06,
+          "max_abs": 6.103515625e-05,
+          "exact_fraction": 0.9998828172683716,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 4.4696575969283e-06,
+          "max_abs": 6.103515625e-05,
+          "exact_fraction": 0.9998828172683716,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 47,
+      "amplitude": 1.0,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0013603606494143605,
+          "max_abs": 0.0078125,
+          "exact_fraction": 0.845703125,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 4.84767451780499e-06,
+          "max_abs": 0.000244140625,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 4.84767451780499e-06,
+          "max_abs": 0.000244140625,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 48,
+      "amplitude": 0.003,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0009502118336968124,
+          "max_abs": 3.0517578125e-05,
+          "exact_fraction": 0.893750011920929,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 2.4849898139223114e-08,
+          "max_abs": 3.725290298461914e-09,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 2.4849898139223114e-08,
+          "max_abs": 3.725290298461914e-09,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 49,
+      "amplitude": 0.03,
+      "merge": {
+        "old": {
+          "relative_l2": 0.0009358846582472324,
+          "max_abs": 0.000244140625,
+          "exact_fraction": 0.908984363079071,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 7.87096681165167e-08,
+          "max_abs": 1.1920928955078125e-07,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 7.87096681165167e-08,
+          "max_abs": 1.1920928955078125e-07,
+          "exact_fraction": 0.9999609589576721,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 50,
+      "amplitude": 0.3,
+      "merge": {
+        "old": {
+          "relative_l2": 0.00304825184866786,
+          "max_abs": 0.000732421875,
+          "exact_fraction": 0.553515613079071,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 3.2533600460737944e-05,
+          "max_abs": 0.00048828125,
+          "exact_fraction": 0.9998828172683716,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 3.2533600460737944e-05,
+          "max_abs": 0.00048828125,
+          "exact_fraction": 0.9998828172683716,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 51,
+      "amplitude": 1.0,
+      "merge": {
+        "old": {
+          "relative_l2": 0.002601848915219307,
+          "max_abs": 0.00390625,
+          "exact_fraction": 0.6976562738418579,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 3.936957426731169e-08,
+          "max_abs": 1.9073486328125e-06,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 3.936957426731169e-08,
+          "max_abs": 1.9073486328125e-06,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 52,
+      "amplitude": 0.003,
+      "merge": {
+        "old": {
+          "relative_l2": 0.001237370423041284,
+          "max_abs": 1.52587890625e-05,
+          "exact_fraction": 0.8480468988418579,
+          "finite": true
+        },
+        "rounded128": {
+          "relative_l2": 6.134576324257068e-06,
+          "max_abs": 4.76837158203125e-07,
+          "exact_fraction": 0.9996093511581421,
+          "finite": true
+        },
+        "rounded256": {
+          "relative_l2": 6.134576324257068e-06,
+          "max_abs": 4.76837158203125e-07,
+          "exact_fraction": 0.9996093511581421,
+          "finite": true
+        }
+      },
+      "diagonal": {
+        "128": {
+          "relative_l2": 1.3765862604486756e-05,
+          "max_abs": 1.9073486328125e-06,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        },
+        "256": {
+          "relative_l2": 1.3765862604486756e-05,
+          "max_abs": 1.9073486328125e-06,
+          "exact_fraction": 0.9999218583106995,
+          "finite": true
+        }
+      }
+    }
+  ],
+  "fresh_input_graph_verified": {
+    "old": true,
+    "rounded128": true,
+    "rounded256": true
+  },
+  "peak_allocated_bytes": 515901440,
+  "elapsed_s": 2.4958080670003255
+}

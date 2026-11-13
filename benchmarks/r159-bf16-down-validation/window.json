@@ -1,0 +1,7 @@
+{
+  "start_epoch": 1794589124,
+  "restore_trigger_epoch": 1794591524,
+  "backup_trigger_epoch": 1794591704,
+  "hard_cap_epoch": 1794592724,
+  "absolute_timer": "2026-11-13 17:38:44 UTC"
+}

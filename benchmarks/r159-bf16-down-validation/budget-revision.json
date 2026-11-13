@@ -1,0 +1,12 @@
+{
+  "epoch": 1794589442.709833,
+  "before_any_quality_or_performance_measurement": true,
+  "original_deadlines_unchanged": true,
+  "limits_unchanged": true,
+  "scope": "prioritize two-card components, four layers, paired five legacy prefill slices and paired HTTP TPOT",
+  "optional_deferred": [
+    "four short NLL cases",
+    "ten r157 natural-text regression slices"
+  ],
+  "reason": "recovery after instrumentation failure plus observed 265-280s Engine startup; retain original 40min trigger/60min maximum"
+}

@@ -1,0 +1,8 @@
+{
+  "wrapper_rounding_abi_verified": true,
+  "epilogue_unchanged": true,
+  "recovery_deadline_budget_checked": true,
+  "npu_occupancy_parser_matches_two_live_processes": true,
+  "no_experiment_started": true,
+  "formal_smoke_has_previous_baseline_fallback": true
+}

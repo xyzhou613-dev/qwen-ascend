@@ -1,0 +1,5 @@
+Result=exit-code
+ExecMainStatus=209
+ExecStart={ path=/bin/bash ; argv[]=/bin/bash /models/fnx-diagnostics/r159-bf16-down-validation-20261114/controller.sh ; ignore_errors=no ; start_time=[Sat 2026-11-14 00:58:44 CST] ; stop_time=[Sat 2026-11-14 00:58:44 CST] ; pid=129761 ; code=exited ; status=209 }
+StandardOutput=append
+StandardError=append

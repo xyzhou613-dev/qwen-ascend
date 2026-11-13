@@ -1,0 +1,16 @@
+[W1113 17:00:25.309522958 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+Traceback (most recent call last):
+  File "/models/fnx-diagnostics/r159-bf16-down-validation-20261114/component_probe.py", line 114, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/root/ascend-dev/venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/models/fnx-diagnostics/r159-bf16-down-validation-20261114/component_probe.py", line 40, in main
+    x.zero_(); shared.zero_(); D.merge(obj,x,ids,weights,shared,gate)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/models/fnx-diagnostics/r159-bf16-down-validation-20261114/combined/fnx/audit.py", line 19, in tracked_merge
+    index=pointer_layers[projection.w4.data_ptr()];hits[index]=hits.get(index,0)+1
+          ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 20616935636992
+[ERROR] 2026-11-13-17:00:27 (PID:2771, Device:0, RankID:-1) ERR99999 UNKNOWN applicaiton exception

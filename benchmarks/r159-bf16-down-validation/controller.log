@@ -1,0 +1,14 @@
+SERVICE_IDLE_VERIFIED
+SNAPSHOT_PID 2536 cwd /root/ascend-dev/fnx
+OWNED_SERVER_WORKER_CAPTURED 2
+SERVICE_IDLE_VERIFIED
+OWNED_PROCESSES_STOPPED [2536, 2555]
+SERVICE_IDLE_VERIFIED
+SNAPSHOT_PID 3108 cwd /root/ascend-dev/fnx
+OWNED_SERVER_WORKER_CAPTURED 2
+SERVICE_IDLE_VERIFIED
+OWNED_PROCESSES_STOPPED [3108, 3127]
+Traceback (most recent call last):
+  File "/models/fnx-diagnostics/r159-bf16-down-validation-20261114/select_component.py", line 11, in <module>
+    assert valid, 'NO_COMPONENT_GAIN: stop before whole-model testing'
+AssertionError: NO_COMPONENT_GAIN: stop before whole-model testing
