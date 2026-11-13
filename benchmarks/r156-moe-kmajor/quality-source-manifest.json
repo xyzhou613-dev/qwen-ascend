@@ -1,0 +1,134 @@
+{
+  "scope": "Frozen evaluation source snapshot; not calibration or development tuning",
+  "created_utc": "2026-11-13T08:54:25.7692297Z",
+  "sources": [
+    {
+      "name": "humaneval",
+      "revision": "b9453e8f1865df0a0057a1383767caa400acfbcf",
+      "url": "https://raw.githubusercontent.com/openai/human-eval/b9453e8f1865df0a0057a1383767caa400acfbcf/data/HumanEval.jsonl.gz",
+      "file": "HumanEval.jsonl.gz",
+      "sha256": "b796127e635a67f93fb35c04f4cb03cf06f38c8072ee7cee8833d7bee06979ef",
+      "bytes": 44877
+    },
+    {
+      "name": "mbpp",
+      "revision": "f8d6d14a1fc6eaef606d7d1e1fa4e96ee09afb81",
+      "url": "https://raw.githubusercontent.com/google-research/google-research/f8d6d14a1fc6eaef606d7d1e1fa4e96ee09afb81/mbpp/mbpp.jsonl",
+      "file": "mbpp.jsonl",
+      "sha256": "ccf64ceae9c5403bf50a044cb6d505bfd2a2963ee58338ba268fd65beab92a9f",
+      "bytes": 563743
+    },
+    {
+      "name": "gsm8k",
+      "revision": "3101c7d5072418e28b9008a6636bde82a006892c",
+      "url": "https://raw.githubusercontent.com/openai/grade-school-math/3101c7d5072418e28b9008a6636bde82a006892c/grade_school_math/data/test.jsonl",
+      "file": "gsm8k-test.jsonl",
+      "sha256": "3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14",
+      "bytes": 749738
+    },
+    {
+      "name": "cmmlu",
+      "revision": "d6e7b716d8ac694f38969a6c0407437d1fded799",
+      "url": "https://codeload.github.com/haonan-li/CMMLU/tar.gz/d6e7b716d8ac694f38969a6c0407437d1fded799",
+      "file": "cmmlu.tar.gz",
+      "sha256": "69389d18195d7689ca13c366f74f55d01f84aee615f09a4c8c635435510eec44",
+      "bytes": 2316587
+    },
+    {
+      "name": "mmlu-pro",
+      "url": "https://datasets-server.huggingface.co/rows?dataset=TIGER-Lab%2FMMLU-Pro&config=default&split=test&offset=0&length=100",
+      "file": "mmlu-pro-0.json",
+      "sha256": "c3340ab289e03022a566591d1ef61df050854f2ad1ae9e2ee82837e88a780073",
+      "bytes": 63470,
+      "revision": "b189ec765aa7ed75c8acfea42df31fdae71f97be"
+    },
+    {
+      "name": "mmlu-pro",
+      "url": "https://datasets-server.huggingface.co/rows?dataset=TIGER-Lab%2FMMLU-Pro&config=default&split=test&offset=1000&length=100",
+      "file": "mmlu-pro-1000.json",
+      "sha256": "c9717f044821adfd2cb9fa68cb9fed9428ee20b61b77a1d50ba3beaee98eacfb",
+      "bytes": 173941,
+      "revision": "b189ec765aa7ed75c8acfea42df31fdae71f97be"
+    },
+    {
+      "name": "mmlu-pro",
+      "url": "https://datasets-server.huggingface.co/rows?dataset=TIGER-Lab%2FMMLU-Pro&config=default&split=test&offset=5000&length=100",
+      "file": "mmlu-pro-5000.json",
+      "sha256": "7aed776105bec18384f5b3b89d0f481905eda849817598632769acc86ba5ac33",
+      "bytes": 67593,
+      "revision": "b189ec765aa7ed75c8acfea42df31fdae71f97be"
+    },
+    {
+      "name": "mmlu-pro",
+      "url": "https://datasets-server.huggingface.co/rows?dataset=TIGER-Lab%2FMMLU-Pro&config=default&split=test&offset=4000&length=100",
+      "file": "mmlu-pro-4000.json",
+      "sha256": "96defdb55777a78f09498b1a33a987512000e64df5c255084b118b9b27217095",
+      "bytes": 66693,
+      "revision": "b189ec765aa7ed75c8acfea42df31fdae71f97be"
+    },
+    {
+      "name": "mmlu-pro",
+      "url": "https://datasets-server.huggingface.co/rows?dataset=TIGER-Lab%2FMMLU-Pro&config=default&split=test&offset=2000&length=100",
+      "file": "mmlu-pro-2000.json",
+      "sha256": "119ddf9dcc5c7c46acd2de1ff229805e845867cf2ca8b4be847bbf08fb12fea9",
+      "bytes": 90796,
+      "revision": "b189ec765aa7ed75c8acfea42df31fdae71f97be"
+    },
+    {
+      "name": "mmlu-pro",
+      "url": "https://datasets-server.huggingface.co/rows?dataset=TIGER-Lab%2FMMLU-Pro&config=default&split=test&offset=3000&length=100",
+      "file": "mmlu-pro-3000.json",
+      "sha256": "37cc9081a7c6ec082c7f6e3f8995f583347388c59174ec9dd1510d40e60d734d",
+      "bytes": 101623,
+      "revision": "b189ec765aa7ed75c8acfea42df31fdae71f97be"
+    },
+    {
+      "name": "mmlu-pro",
+      "url": "https://datasets-server.huggingface.co/rows?dataset=TIGER-Lab%2FMMLU-Pro&config=default&split=test&offset=6000&length=100",
+      "file": "mmlu-pro-6000.json",
+      "sha256": "1ea445c630931626f22c996d168b9e65438ec71da0dadde08a55446b8af977cf",
+      "bytes": 84047,
+      "revision": "b189ec765aa7ed75c8acfea42df31fdae71f97be"
+    },
+    {
+      "name": "mmlu-pro",
+      "url": "https://datasets-server.huggingface.co/rows?dataset=TIGER-Lab%2FMMLU-Pro&config=default&split=test&offset=7000&length=100",
+      "file": "mmlu-pro-7000.json",
+      "sha256": "247ad8d79254e87a991d6333fb78376ae3fc1c9b1dc31baf4c0527563dcc9868",
+      "bytes": 86992,
+      "revision": "b189ec765aa7ed75c8acfea42df31fdae71f97be"
+    },
+    {
+      "name": "mmlu-pro",
+      "url": "https://datasets-server.huggingface.co/rows?dataset=TIGER-Lab%2FMMLU-Pro&config=default&split=test&offset=8000&length=100",
+      "file": "mmlu-pro-8000.json",
+      "sha256": "914ae8f14a2921bfe91118c6e1d2e411a7dc15aabfd5cc71690659bcf696661b",
+      "bytes": 49171,
+      "revision": "b189ec765aa7ed75c8acfea42df31fdae71f97be"
+    },
+    {
+      "name": "mmlu-pro",
+      "url": "https://datasets-server.huggingface.co/rows?dataset=TIGER-Lab%2FMMLU-Pro&config=default&split=test&offset=10000&length=100",
+      "file": "mmlu-pro-10000.json",
+      "sha256": "9150496acd4fce5e2ff486b40213c759314b0367109d4edf2d2b2040d2ae70a7",
+      "bytes": 64190,
+      "revision": "b189ec765aa7ed75c8acfea42df31fdae71f97be"
+    },
+    {
+      "name": "mmlu-pro",
+      "url": "https://datasets-server.huggingface.co/rows?dataset=TIGER-Lab%2FMMLU-Pro&config=default&split=test&offset=11000&length=100",
+      "file": "mmlu-pro-11000.json",
+      "sha256": "f6841d3f7149d437b72fb76500b262c040e819844d5428f2a8174a031f82b060",
+      "bytes": 71429,
+      "revision": "b189ec765aa7ed75c8acfea42df31fdae71f97be"
+    },
+    {
+      "name": "mmlu-pro",
+      "url": "https://datasets-server.huggingface.co/rows?dataset=TIGER-Lab%2FMMLU-Pro&config=default&split=test&offset=9000&length=100",
+      "file": "mmlu-pro-9000.json",
+      "sha256": "c0f402b6d154e2ad163be4ddca54ba0ca39e0ec3ce04e0b8f29ffb34c7ecc06f",
+      "bytes": 64186,
+      "revision": "b189ec765aa7ed75c8acfea42df31fdae71f97be"
+    }
+  ]
+}

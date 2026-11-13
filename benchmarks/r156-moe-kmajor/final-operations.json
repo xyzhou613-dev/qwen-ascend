@@ -1,0 +1,123 @@
+{
+  "timestamp_epoch": 1794561598.678116,
+  "health": {
+    "status": "ok",
+    "engine_loaded": true,
+    "ctx": 262144,
+    "service_revision": "r152",
+    "norm_post": true,
+    "state_update": true,
+    "prefill_output": true,
+    "norm_ordered": true,
+    "delta_reuse": true,
+    "moe_epilogue": true,
+    "post_native": true,
+    "decode_down_gmm": false,
+    "expert_gather": true,
+    "inject_native": true,
+    "conv_prefill": true,
+    "raw_compact": true,
+    "cpu_threads": 16,
+    "short_prefill_chunk": 2048,
+    "short_prefill_tokens": 16384,
+    "pipeline_stages": 2,
+    "worker_alive": true,
+    "prefill_chunk": 8192,
+    "pipeline_transport": "hybrid",
+    "delta_compact": true,
+    "index_post": true,
+    "index_score": true,
+    "conv_native": true,
+    "index_expand": true,
+    "mix_reduce": true,
+    "moe_reduce": true,
+    "dual_write": true,
+    "pipeline_transfers": {
+      "peer_transfers": 9,
+      "peer_bytes": 170393600,
+      "host_transfers": 227,
+      "host_bytes": 49090560
+    },
+    "index_caps": [
+      16384,
+      32768,
+      65536,
+      98304,
+      131072,
+      196608,
+      262144
+    ],
+    "native_sparse": true,
+    "native_dual": true,
+    "index_unique": true,
+    "moe_inverse": true,
+    "moe_inverse_sort": true,
+    "state_dual_slim": true,
+    "conversation_state_bytes": 117897248,
+    "rope_cache": true,
+    "delta_window": 2048,
+    "delta_native": true,
+    "chunk_graph": true,
+    "qsa_indexer": true,
+    "qsa_sparse": true
+  },
+  "production_files_unchanged": true,
+  "source_file_count": 45,
+  "p275_unchanged": true,
+  "production_processes": [
+    {
+      "pid": 9128,
+      "module": "fnx.server"
+    },
+    {
+      "pid": 9162,
+      "module": "fnx.pipeline_worker"
+    }
+  ],
+  "watchdogs": [
+    11028
+  ],
+  "manager_active": true,
+  "manager_refuse_manual_start": false,
+  "manager_temporary_dropins": false,
+  "experimental_units": {
+    "fnx-r156-recover": "inactive",
+    "fnx-r156-recover-v2": "inactive",
+    "fnx-r156-quality-r152": "inactive",
+    "fnx-r156-layerpair-v2": "inactive",
+    "fnx-r156-merge": "inactive"
+  },
+  "container_devices": [
+    {
+      "PathOnHost": "/dev/davinci1",
+      "PathInContainer": "/dev/davinci1",
+      "CgroupPermissions": "rwm"
+    },
+    {
+      "PathOnHost": "/dev/davinci0",
+      "PathInContainer": "/dev/davinci0",
+      "CgroupPermissions": "rwm"
+    },
+    {
+      "PathOnHost": "/dev/davinci_manager",
+      "PathInContainer": "/dev/davinci_manager",
+      "CgroupPermissions": "rwm"
+    },
+    {
+      "PathOnHost": "/dev/devmm_svm",
+      "PathInContainer": "/dev/devmm_svm",
+      "CgroupPermissions": "rwm"
+    },
+    {
+      "PathOnHost": "/dev/hisi_hdc",
+      "PathInContainer": "/dev/hisi_hdc",
+      "CgroupPermissions": "rwm"
+    }
+  ],
+  "container_preserved": true,
+  "candidate_deployed": false,
+  "host_boot_id": "e2b36e40-b49f-4289-af15-1d7ca7b45289",
+  "host_reboot_cause": "unconfirmed",
+  "recovered_http_verified": true,
+  "private_recovery_backup": "server-only, mode 0700; excluded from artifacts"
+}

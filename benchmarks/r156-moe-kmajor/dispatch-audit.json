@@ -1,0 +1,26 @@
+[
+  {
+    "device_before_reboot": 0,
+    "layer": 0,
+    "cumulative_dispatch_hits": 33,
+    "increment": 33
+  },
+  {
+    "device_before_reboot": 0,
+    "layer": 3,
+    "cumulative_dispatch_hits": 66,
+    "increment": 33
+  },
+  {
+    "device_before_reboot": 1,
+    "layer": 24,
+    "cumulative_dispatch_hits": 33,
+    "increment": 33
+  },
+  {
+    "device_before_reboot": 1,
+    "layer": 27,
+    "cumulative_dispatch_hits": 66,
+    "increment": 33
+  }
+]

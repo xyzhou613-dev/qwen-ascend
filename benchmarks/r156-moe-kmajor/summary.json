@@ -1,0 +1,152 @@
+{
+  "status": "component_candidate_not_deployed",
+  "layer_means_ms": {
+    "linear": {
+      "w8a8": 0.4588332921266556,
+      "combined": 0.42228422313928604
+    },
+    "full": {
+      "w8a8": 0.691080316901207,
+      "combined": 0.6567524969577789
+    }
+  },
+  "weighted_48_layer_saving_proxy_ms": 1.7277003228664398,
+  "production_down_epilogue_us": {
+    "baseline": 61.79273501038551,
+    "split": 49.674687907099724,
+    "fused": 67.88503937423229
+  },
+  "full_model_tpot_measured": false,
+  "quality_acceptance_complete": false,
+  "quality_inputs": {
+    "status": "frozen_inputs_not_evaluated",
+    "tasks": 1100,
+    "task_counts": {
+      "mcq": 600,
+      "numeric": 200,
+      "code": 200,
+      "json": 100
+    },
+    "slices": {
+      "cmmlu": {
+        "agronomy": 5,
+        "anatomy": 5,
+        "ancient_chinese": 5,
+        "arts": 5,
+        "astronomy": 5,
+        "business_ethics": 5,
+        "chinese_civil_service_exam": 5,
+        "chinese_driving_rule": 5,
+        "chinese_food_culture": 5,
+        "chinese_foreign_policy": 5,
+        "chinese_history": 5,
+        "chinese_literature": 5,
+        "chinese_teacher_qualification": 5,
+        "clinical_knowledge": 5,
+        "college_actuarial_science": 5,
+        "college_education": 5,
+        "college_engineering_hydrology": 5,
+        "college_law": 5,
+        "college_mathematics": 5,
+        "college_medical_statistics": 5,
+        "college_medicine": 5,
+        "computer_science": 5,
+        "computer_security": 5,
+        "conceptual_physics": 5,
+        "construction_project_management": 5,
+        "economics": 5,
+        "education": 5,
+        "electrical_engineering": 5,
+        "elementary_chinese": 5,
+        "elementary_commonsense": 5,
+        "elementary_information_and_technology": 5,
+        "elementary_mathematics": 5,
+        "ethnology": 4,
+        "food_science": 4,
+        "genetics": 4,
+        "global_facts": 4,
+        "high_school_biology": 4,
+        "high_school_chemistry": 4,
+        "high_school_geography": 4,
+        "high_school_mathematics": 4,
+        "high_school_physics": 4,
+        "high_school_politics": 4,
+        "human_sexuality": 4,
+        "international_law": 4,
+        "journalism": 4,
+        "jurisprudence": 4,
+        "legal_and_moral_basis": 4,
+        "logical": 4,
+        "machine_learning": 4,
+        "management": 4,
+        "marketing": 4,
+        "marxist_theory": 4,
+        "modern_chinese": 4,
+        "nutrition": 4,
+        "philosophy": 4,
+        "professional_accounting": 4,
+        "professional_law": 4,
+        "professional_medicine": 4,
+        "professional_psychology": 4,
+        "public_relations": 4,
+        "security_study": 4,
+        "sociology": 4,
+        "sports_science": 4,
+        "traditional_chinese_medicine": 4,
+        "virology": 4,
+        "world_history": 4,
+        "world_religions": 4
+      },
+      "mmlu_pro": {
+        "biology": 25,
+        "business": 25,
+        "chemistry": 25,
+        "economics": 25,
+        "engineering": 25,
+        "health": 25,
+        "law": 25,
+        "math": 25,
+        "other": 25,
+        "philosophy": 25,
+        "physics": 25,
+        "psychology": 25
+      }
+    },
+    "files": [
+      {
+        "file": "tasks.jsonl",
+        "sha256": "2d0c1e62ea9ae4577c4324f7ca3c86aad4cc607b2bf115bafe53eb4bf57d30ec",
+        "rows": 1100,
+        "bytes": 794846
+      },
+      {
+        "file": "nll-source-texts.jsonl",
+        "sha256": "61ebb0818dfd5d20a73fdd179b2bb6c4f2be901a74a05259a4e858522b5fd2ad",
+        "rows": 2400,
+        "bytes": 1258190
+      }
+    ],
+    "source_manifest_sha256": "5233783ff54cc2b39f8aa21a06dd542d139479efe26a77b5e4a0ba5220b518b3",
+    "nll_scope": "Benchmark knowledge/math/code text; natural-text and long-context acceptance still required. Actual-model tokenization and >=100k scored-target freeze pending.",
+    "quality_acceptance_complete": false,
+    "pretraining_contamination": "unknown; no claim of unseen pretraining data",
+    "candidate_tuning_on_holdout": false,
+    "seed": "fnx-holdout-156-v1",
+    "thresholds": {
+      "mean_delta_nll": 0.02,
+      "slice_delta_nll": 0.05,
+      "task_noninferiority_margin": 0.02
+    }
+  },
+  "nll_scored_targets_frozen": 100352,
+  "r152_screen": {
+    "status": "partial_screen",
+    "selected": 32,
+    "completed": 32,
+    "correct": 28,
+    "input_sha256": "2d0c1e62ea9ae4577c4324f7ca3c86aad4cc607b2bf115bafe53eb4bf57d30ec",
+    "quality_acceptance_complete": false
+  },
+  "service_restored": true,
+  "host_reboot_changed_device_indices": true
+}

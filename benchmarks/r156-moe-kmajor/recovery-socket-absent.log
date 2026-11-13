@@ -1,0 +1,2 @@
+Failed to stop docker.socket: Unit docker.socket not loaded.
+Failed to start docker.socket: Unit docker.socket not found.

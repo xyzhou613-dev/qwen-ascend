@@ -1,0 +1,255 @@
+{
+  "status": "passed_component",
+  "records": [
+    {
+      "layer": 0,
+      "kind": "linear",
+      "median_ms": {
+        "w8a8": 0.4613140672445297,
+        "combined": 0.46724656224250793
+      },
+      "times_ms": {
+        "w8a8": [
+          0.467783123254776,
+          0.4612962603569031,
+          0.4614468812942505,
+          0.4613350033760071,
+          0.4610062539577484,
+          0.46104374527931213,
+          0.4611837565898895,
+          0.46082499623298645,
+          0.46136000752449036,
+          0.4616287648677826,
+          0.46133187413215637,
+          0.46090438961982727
+        ],
+        "combined": [
+          0.4714600145816803,
+          0.46672624349594116,
+          0.4674299955368042,
+          0.46662625670433044,
+          0.46742188930511475,
+          0.4674881398677826,
+          0.4670412540435791,
+          0.4672168791294098,
+          0.4671056270599365,
+          0.46729812026023865,
+          0.4672049880027771,
+          0.4672762453556061
+        ]
+      },
+      "output_errors": [
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        }
+      ],
+      "state_checks_before_timing": {
+        "conv_equal": true,
+        "fp32_state_equal": true
+      }
+    },
+    {
+      "layer": 3,
+      "kind": "full",
+      "median_ms": {
+        "w8a8": 0.6936184465885162,
+        "combined": 0.6882731318473816
+      },
+      "times_ms": {
+        "w8a8": [
+          0.6938006281852722,
+          0.6940562725067139,
+          0.6932243704795837,
+          0.6936787366867065,
+          0.6936812400817871,
+          0.6928349733352661,
+          0.6936225295066833,
+          0.6931506395339966,
+          0.6932100057601929,
+          0.6937256455421448,
+          0.6936143636703491,
+          0.6934412717819214
+        ],
+        "combined": [
+          0.6888024806976318,
+          0.6873981356620789,
+          0.6886625289916992,
+          0.6872418522834778,
+          0.6888650059700012,
+          0.6873244047164917,
+          0.6886162757873535,
+          0.6876243948936462,
+          0.6891381144523621,
+          0.6879299879074097,
+          0.6893793940544128,
+          0.6877018809318542
+        ]
+      },
+      "output_errors": [
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        }
+      ],
+      "state_checks_before_timing": {
+        "conv_equal": true
+      }
+    }
+  ],
+  "elapsed_s": 5.910796946031041,
+  "peak_allocated_bytes": 1857720832,
+  "scope": "4-layer weighted proxy only; not HTTP TPOT or final quality"
+}

@@ -1,0 +1,29 @@
+[W1113 08:51:58.045032412 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+[W1113 08:51:59.768972919 TensorFactories.cpp:423] Warning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (function operator())
+Traceback (most recent call last):
+  File "/models/fnx-diagnostics/r156-moe-kmajor-20261113/layer_probe.py", line 60, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/root/ascend-dev/venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/models/fnx-diagnostics/r156-moe-kmajor-20261113/layer_probe.py", line 34, in main
+    os.environ['FNX_KMAJOR_DOWN']='1' if mode=='combined' else '0';result[mode]=L.forward(x,pos).detach().cpu()
+                                                                                ^^^^^^^^^^^^^^^^
+  File "/models/fnx-diagnostics/r156-moe-kmajor-20261113/candidate/fnx/engine.py", line 1957, in forward
+    y = self._moe(mixed)
+        ^^^^^^^^^^^^^^^^
+  File "/models/fnx-diagnostics/r156-moe-kmajor-20261113/candidate/fnx/engine.py", line 1878, in _moe
+    result = direct_down_merge(self.exp_dn, act, idx[0], w, sh, shared_gate)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/models/fnx-diagnostics/r156-moe-kmajor-20261113/candidate/fnx/kmajor_down.py", line 27, in merge
+    diagonal=apply(projection,x,ids)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/models/fnx-diagnostics/r156-moe-kmajor-20261113/candidate/fnx/kmajor_down.py", line 17, in apply
+    _lib=ctypes.CDLL(os.environ.get('FNX_KMAJOR_SO',str(Path(__file__).with_name('libfnx_w4_kmajor.so'))))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/ctypes/__init__.py", line 379, in __init__
+    self._handle = _dlopen(self._name, mode)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: /models/fnx-diagnostics/r156-moe-kmajor-20261113/libfnx_w4_kmajor.so: cannot open shared object file: No such file or directory
+[ERROR] 2026-11-13-08:52:00 (PID:65278, Device:0, RankID:-1) ERR99999 UNKNOWN applicaiton exception

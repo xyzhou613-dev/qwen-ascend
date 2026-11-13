@@ -1,0 +1,4 @@
+[W1113 08:49:23.763518149 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+[W1113 08:49:24.473341602 TensorFactories.cpp:423] Warning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (function operator())
+REAL_LAYER 0 {'w8a8': 0.4613140672445297, 'combined': 0.46724656224250793}
+REAL_LAYER 3 {'w8a8': 0.6936184465885162, 'combined': 0.6882731318473816}

@@ -1,0 +1,2 @@
+[W1113 08:57:46.533148107 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+MERGE_RESULT 1 {'baseline': 62.08039075136185, 'split': 49.64617267251015, 'fused': 69.29601728916168}

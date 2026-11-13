@@ -1,0 +1,54 @@
+# r156：原布局MoE down、独立质量输入与重启恢复
+
+2026-11-13，起点291d5c7。正式服务仍r152；本轮候选未发布，没有新的整模型TPOT结果。
+
+## 已实施与真实硬件结果
+
+新增AscendC down kernel，直接读生产expert-major INT4 [512,640,2560/8]及BF16 [512,10,2560] scale，TOPK10动态专家，BF16激活/输出。按64个K值分组，使用Brcb广播及FP32分组规约；不生成选中专家GM权重，不做权重转置，不保留双份down权重。输出merge复用原epilogue的BF16乘法舍入、顺序求和、gate与shared路径，只将输入改为10个对角结果。默认开关关闭。
+
+早期93µs对照是apply_diag，含独立对角提取；生产FNX_MOE_EPILOGUE=1已融合这步，不能据此声称生产down节省50%。补齐真实融合入口后，动态专家工作集、两卡交替图计时的正确对照为：
+
+| 完整down+epilogue，两卡中位数均值 | µs |
+|---|---:|
+| 生产gather+W4A16+融合epilogue | 61.793 |
+| 原布局down + 对角epilogue，两kernel，选定 | 49.675 |
+| down及epilogue合成一个kernel，否决 | 67.885 |
+
+单kernel版虽然与两kernel输出逐位一致，但执行更慢，保留失败源码与结果，不默认启用。并非融合越多越快。
+
+完整FnLayer对照为SmoothQuant W8A8 / W8A8+新down，真实L00/L24 linear及L03/L27 full，位置4096、私有窗口8192，16次forward/图、每轮2次replay、12轮交替顺序。两卡均值：
+
+| 类型 | W8A8 ms | 组合 ms |
+|---|---:|---:|
+| linear | 0.458833 | 0.422284 |
+| full | 0.691080 | 0.656752 |
+
+按36+12层加权的额外节省代理为1.727700ms/token。仅4层、合成hidden和重复图；不能直接从r155的29.38ms减去它宣称已取得新TPOT，更不能与较早93µs组件参考相加。组件和整层的权重工作集不同，收益比例也不同。
+
+动态专家覆盖全部512，含重复专家511、四档输入幅值。down对生产输出最大relative L2约0.00233，独立CPU FP32公式误差约0.00165；不是任务准确率下降比例。四个完整层输出最大relative L2约0.00243，conv及测试中的FP32状态精确一致。每层33次实际路径命中审计；新输入NPUGraph/eager检查通过。其余层间误差累积、真实prefill及任务质量尚未验收。探针仅加载一个权重对象或共享权重的层对，每进程allocator上限1/32，保留服务健康及显存余量检查，不构建第二个完整Engine。
+
+第一次整层接入挂在apply_diag，实际被生产融合分支绕过，已捕获并修正，bypassed记录保留。另有多编译单元g_tilingKey链接冲突，合为同一编译单元后解决，失败日志保留。
+
+## 独立质量输入与评测框架
+
+冻结1100题：CMMLU 300（67科）、MMLU-Pro 300（此次来源池覆盖12类）、GSM8K 200、HumanEval 100、MBPP官方test范围100、合成JSON提取/参数100。后一项不代表原生tool-call协议验收。来源按官方revision与文件SHA固定；与FNX校准/开发数据分离，但不能声称这些公共题目从未进入原模型预训练。
+
+另用实际部署tokenizer冻结196段、100352个计分目标，中英知识/数学/代码各25088；与r154校准/开发无共同连续128-token窗口。它不是自然文本和多长度长文prefill验收，也尚未计算候选NLL。原始题目、答案、测试及token IDs保存在server-only private-quality，公开制备脚本、源manifest和hash，不重分发原始数据副本。
+
+评测器支持断点续跑、固定输入SHA、MCQ/数值/严格JSON判定；代码在无网络、只读、非root、限CPU/内存/PID的临时容器里执行，拒绝不通过的代码自测，未把生成代码放到模型容器或宿主环境执行。框架自测通过；在线r152仅做32题MCQ/JSON试跑，28/32，这是小批基线检查，不是1100题准确率，也没有候选质量结论。100k NLL与1100任务的完整配对仍待运行，既定质量门槛不变。
+
+## 本轮发生整机重启，正式服务已恢复
+
+约17:02主机重启，原因未确认，未执行reboot操作。当前journal只保留新boot，pstore无文件，没有据此判定断电或kernel故障。断链发生在已完成组件结果后、数据上传期间；不能据时间先后推断因果。
+
+重启后相同PCI地址的两张卡枚举由3/5变成0/1，原容器因/dev/davinci3不存在启动失败。用户明确确认无维护并要求恢复服务。确认所有容器停止、NPU无任务后，备份原HostConfig，停Docker daemon，将bole-model-Flash两个设备节点映射修正为当前0/1，再启动daemon及原容器。保留原container ID与可写层，没有删除/重建容器、没有改模型源码或p275。原设备配置备份留在0700私有恢复目录，不打入证据包。
+
+通过原p275.sh恢复r152、manager及单份正常watchdog。9002 fresh 8k/128输出烟测回答与重启前r152完全相同；33.18ms只是一轮恢复烟测，不是新硬件状态的优化基线。45个部署源码/ELF及p275 SHA均保持一致。临时实验unit均已结束，无临时RefuseManualStart/drop-in。硬件枚举改变后，下一轮必须重新建立同配置整模型基线；本轮停止继续停服实验。
+
+## 下一项验收
+
+先将已冻结质量输入完整配对运行，补齐自然文本与真实多长度prefill；在受控窗口重建新枚举下的r152/W8A8/组合对照与新PMU账本。组合候选只有通过质量、完整层生命周期和HTTP A/B/A后才能讨论发布。本轮不宣称达到累计20%，不发布未验收的数值路径。
+
+诊断目录/models/fnx-diagnostics/r156-moe-kmajor-20261113。公开源码及指标在experiments/r156-moe-kmajor与benchmarks/r156-moe-kmajor，不含模型权重、校准向量、完整进程ENV、Docker原始配置或凭据。
+
+API依据：[Brcb及stride语义](https://www.hiascend.com/doc_center/source/en/CANNCommunityEdition/900/API/ascendcopapi/atlasascendc_api_07_0089.html)。数据依据：[CMMLU](https://github.com/haonan-li/CMMLU)、[MMLU-Pro](https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro)、[GSM8K](https://github.com/openai/grade-school-math)、[HumanEval](https://github.com/openai/human-eval)、[MBPP](https://github.com/google-research/google-research/tree/master/mbpp)。

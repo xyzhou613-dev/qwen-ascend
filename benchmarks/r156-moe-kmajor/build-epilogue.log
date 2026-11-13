@@ -1,0 +1,191 @@
+/models/fnx-diagnostics/r156-moe-kmajor-20261113/w4_kmajor.cpp:57:58: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ if(tile==64)down64<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                         ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r156-moe-kmajor-20261113/w4_kmajor.cpp:57:69: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ if(tile==64)down64<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                    ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r156-moe-kmajor-20261113/w4_kmajor.cpp:57:80: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ if(tile==64)down64<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                               ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r156-moe-kmajor-20261113/w4_kmajor.cpp:57:91: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ if(tile==64)down64<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                                          ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r156-moe-kmajor-20261113/w4_kmajor.cpp:57:102: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ if(tile==64)down64<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                                                     ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r156-moe-kmajor-20261113/w4_kmajor.cpp:58:65: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ else if(tile==128)down128<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r156-moe-kmajor-20261113/w4_kmajor.cpp:58:76: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ else if(tile==128)down128<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                           ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r156-moe-kmajor-20261113/w4_kmajor.cpp:58:87: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ else if(tile==128)down128<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                                      ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r156-moe-kmajor-20261113/w4_kmajor.cpp:58:98: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ else if(tile==128)down128<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                                                 ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r156-moe-kmajor-20261113/w4_kmajor.cpp:58:109: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ else if(tile==128)down128<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                                                            ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r156-moe-kmajor-20261113/w4_kmajor.cpp:59:65: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ else if(tile==256)down256<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r156-moe-kmajor-20261113/w4_kmajor.cpp:59:76: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ else if(tile==256)down256<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                           ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r156-moe-kmajor-20261113/w4_kmajor.cpp:59:87: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ else if(tile==256)down256<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                                      ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r156-moe-kmajor-20261113/w4_kmajor.cpp:59:98: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ else if(tile==256)down256<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                                                 ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r156-moe-kmajor-20261113/w4_kmajor.cpp:59:109: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ else if(tile==256)down256<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                                                            ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+15 warnings generated.
+/models/fnx-diagnostics/r156-moe-kmajor-20261113/diag_epilogue.cpp:42:61: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ moe_diagonal_epilogue<<<20,nullptr,(aclrtStream)stream>>>((GM_ADDR)y,(GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)g,(GM_ADDR)o);return 0;
+                                                            ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r156-moe-kmajor-20261113/diag_epilogue.cpp:42:72: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ moe_diagonal_epilogue<<<20,nullptr,(aclrtStream)stream>>>((GM_ADDR)y,(GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)g,(GM_ADDR)o);return 0;
+                                                                       ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r156-moe-kmajor-20261113/diag_epilogue.cpp:42:83: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ moe_diagonal_epilogue<<<20,nullptr,(aclrtStream)stream>>>((GM_ADDR)y,(GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)g,(GM_ADDR)o);return 0;
+                                                                                  ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r156-moe-kmajor-20261113/diag_epilogue.cpp:42:94: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ moe_diagonal_epilogue<<<20,nullptr,(aclrtStream)stream>>>((GM_ADDR)y,(GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)g,(GM_ADDR)o);return 0;
+                                                                                             ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r156-moe-kmajor-20261113/diag_epilogue.cpp:42:105: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ moe_diagonal_epilogue<<<20,nullptr,(aclrtStream)stream>>>((GM_ADDR)y,(GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)g,(GM_ADDR)o);return 0;
+                                                                                                        ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+5 warnings generated.
+ld.lld: error: duplicate symbol: g_tilingKey
+>>> defined at w4_kmajor.cpp
+>>>            /tmp/w4_kmajor-6341f6.o-f27fa8.extract:(g_tilingKey)
+>>> defined at diag_epilogue.cpp
+>>>            /tmp/diag_epilogue-097ca3.o-cbbc64.extract:(.data+0x0)
+cceld: ccec ReturnCode: 1
+cceld: ExecutionFailed: 0
+cceld: ErrMsg: 
+bisheng: error: linker command failed with exit code 1 (use -v to see invocation)
