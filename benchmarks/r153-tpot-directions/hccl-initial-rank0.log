@@ -1,0 +1,7 @@
+[W1113 00:56:54.993215219 ProcessGroupHCCL.cpp:1294] Warning: The watchdog timeout 45000ms(which is set by init_process_group) is less than or equal to HCCL execution timeout 1836000ms! The plog may not be recorded. (function ProcessGroupHCCL)
+[rank0]:[W1113 00:56:54.999777759 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+/root/ascend-dev/venv/lib/python3.12/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+HCCL_RESULT 0 hidden_bf16 45.96651097138723 189.18375670909882
+HCCL_RESULT 0 hc_hidden_bf16 47.05067723989487 190.15531241893768
+HCCL_RESULT 0 hidden_fp32 46.319792668024704 194.44749504327774

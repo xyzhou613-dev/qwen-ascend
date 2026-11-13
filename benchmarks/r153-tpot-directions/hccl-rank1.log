@@ -1,0 +1,5 @@
+[W1113 01:10:39.814641289 ProcessGroupHCCL.cpp:1294] Warning: The watchdog timeout 45000ms(which is set by init_process_group) is less than or equal to HCCL execution timeout 1836000ms! The plog may not be recorded. (function ProcessGroupHCCL)
+[rank1]:[W1113 01:10:39.823028345 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+HCCL_RESULT 1 hidden_bf16 49.424322942892715 178.1768724322319
+HCCL_RESULT 1 hc_hidden_bf16 48.935415844122566 171.9300001859665
+HCCL_RESULT 1 hidden_fp32 46.30223910013835 184.37187373638153

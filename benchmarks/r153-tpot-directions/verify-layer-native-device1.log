@@ -1,0 +1,14 @@
+[W1113 01:06:00.331936995 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+LAYER_LOADED 24 1495258624
+SMALL_GROUPED_VALIDATED 24 {'gate_up': [{'rows': 12, 'duplicate': False, 'relative_l2': 0.0, 'max_abs': 0.0}, {'rows': 12, 'duplicate': True, 'relative_l2': 0.0, 'max_abs': 0.0}, {'rows': 20, 'duplicate': False, 'relative_l2': 0.0, 'max_abs': 0.0}, {'rows': 20, 'duplicate': True, 'relative_l2': 0.0, 'max_abs': 0.0}], 'down': [{'rows': 12, 'duplicate': False, 'relative_l2': 0.0, 'max_abs': 0.0}, {'rows': 12, 'duplicate': True, 'relative_l2': 0.0, 'max_abs': 0.0}, {'rows': 20, 'duplicate': False, 'relative_l2': 0.0, 'max_abs': 0.0}, {'rows': 20, 'duplicate': True, 'relative_l2': 0.0, 'max_abs': 0.0}]}
+[W1113 01:06:01.193740249 TensorFactories.cpp:423] Warning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (function operator())
+LAYER_CAPTURED 24 1 1495534080
+LAYER_CAPTURED 24 2 1505012736
+LAYER_CAPTURED 24 4 1520823808
+VERIFY_LAYER_RESULT 24 {1: 0.5482750236988068, 2: 1.1748718619346619, 4: 1.6441805958747864}
+LAYER_LOADED 27 1542241280
+SMALL_GROUPED_VALIDATED 27 {'gate_up': [{'rows': 12, 'duplicate': False, 'relative_l2': 0.0, 'max_abs': 0.0}, {'rows': 12, 'duplicate': True, 'relative_l2': 0.0, 'max_abs': 0.0}, {'rows': 20, 'duplicate': False, 'relative_l2': 0.0, 'max_abs': 0.0}, {'rows': 20, 'duplicate': True, 'relative_l2': 0.0, 'max_abs': 0.0}], 'down': [{'rows': 12, 'duplicate': False, 'relative_l2': 0.0, 'max_abs': 0.0}, {'rows': 12, 'duplicate': True, 'relative_l2': 0.0, 'max_abs': 0.0}, {'rows': 20, 'duplicate': False, 'relative_l2': 0.0, 'max_abs': 0.0}, {'rows': 20, 'duplicate': True, 'relative_l2': 0.0, 'max_abs': 0.0}]}
+LAYER_CAPTURED 27 1 1544487936
+LAYER_CAPTURED 27 2 1544528896
+LAYER_CAPTURED 27 4 1544610816
+VERIFY_LAYER_RESULT 27 {1: 0.7634131014347076, 2: 1.300886869430542, 4: 1.718477487564087}

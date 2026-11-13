@@ -1,0 +1,312 @@
+{
+  "mtp": [
+    {
+      "key": "mtp.fc_embedding.weight",
+      "shape": [
+        2560,
+        2560
+      ],
+      "dtype": "BF16",
+      "parameters": 6553600,
+      "bytes": 13107200
+    },
+    {
+      "key": "mtp.fc_hidden.weight",
+      "shape": [
+        2560,
+        2560
+      ],
+      "dtype": "BF16",
+      "parameters": 6553600,
+      "bytes": 13107200
+    },
+    {
+      "key": "mtp.hyper_connection_mixer.hc_norm.weight",
+      "shape": [
+        10240
+      ],
+      "dtype": "BF16",
+      "parameters": 10240,
+      "bytes": 20480
+    },
+    {
+      "key": "mtp.hyper_connection_mixer.input_mix_weight_down.weight",
+      "shape": [
+        320,
+        10240
+      ],
+      "dtype": "BF16",
+      "parameters": 3276800,
+      "bytes": 6553600
+    },
+    {
+      "key": "mtp.hyper_connection_mixer.input_mix_weight_up.weight",
+      "shape": [
+        10240,
+        320
+      ],
+      "dtype": "BF16",
+      "parameters": 3276800,
+      "bytes": 6553600
+    },
+    {
+      "key": "mtp.layers.0.attn_hyper_connection.block_inject_weight.weight",
+      "shape": [
+        4,
+        10240
+      ],
+      "dtype": "BF16",
+      "parameters": 40960,
+      "bytes": 81920
+    },
+    {
+      "key": "mtp.layers.0.attn_hyper_connection.hc_norm.weight",
+      "shape": [
+        10240
+      ],
+      "dtype": "BF16",
+      "parameters": 10240,
+      "bytes": 20480
+    },
+    {
+      "key": "mtp.layers.0.attn_hyper_connection.input_mix_weight_down.weight",
+      "shape": [
+        320,
+        10240
+      ],
+      "dtype": "BF16",
+      "parameters": 3276800,
+      "bytes": 6553600
+    },
+    {
+      "key": "mtp.layers.0.attn_hyper_connection.input_mix_weight_up.weight",
+      "shape": [
+        10240,
+        320
+      ],
+      "dtype": "BF16",
+      "parameters": 3276800,
+      "bytes": 6553600
+    },
+    {
+      "key": "mtp.layers.0.mlp.experts.down_proj",
+      "shape": [
+        512,
+        2560,
+        640
+      ],
+      "dtype": "BF16",
+      "parameters": 838860800,
+      "bytes": 1677721600
+    },
+    {
+      "key": "mtp.layers.0.mlp.experts.gate_up_proj",
+      "shape": [
+        512,
+        1280,
+        2560
+      ],
+      "dtype": "BF16",
+      "parameters": 1677721600,
+      "bytes": 3355443200
+    },
+    {
+      "key": "mtp.layers.0.mlp.gate.weight",
+      "shape": [
+        512,
+        2560
+      ],
+      "dtype": "BF16",
+      "parameters": 1310720,
+      "bytes": 2621440
+    },
+    {
+      "key": "mtp.layers.0.mlp.shared_expert.down_proj.weight",
+      "shape": [
+        2560,
+        640
+      ],
+      "dtype": "BF16",
+      "parameters": 1638400,
+      "bytes": 3276800
+    },
+    {
+      "key": "mtp.layers.0.mlp.shared_expert.gate_proj.weight",
+      "shape": [
+        640,
+        2560
+      ],
+      "dtype": "BF16",
+      "parameters": 1638400,
+      "bytes": 3276800
+    },
+    {
+      "key": "mtp.layers.0.mlp.shared_expert.up_proj.weight",
+      "shape": [
+        640,
+        2560
+      ],
+      "dtype": "BF16",
+      "parameters": 1638400,
+      "bytes": 3276800
+    },
+    {
+      "key": "mtp.layers.0.mlp.shared_expert_gate.weight",
+      "shape": [
+        1,
+        2560
+      ],
+      "dtype": "BF16",
+      "parameters": 2560,
+      "bytes": 5120
+    },
+    {
+      "key": "mtp.layers.0.mlp_hyper_connection.block_inject_weight.weight",
+      "shape": [
+        4,
+        10240
+      ],
+      "dtype": "BF16",
+      "parameters": 40960,
+      "bytes": 81920
+    },
+    {
+      "key": "mtp.layers.0.mlp_hyper_connection.hc_norm.weight",
+      "shape": [
+        10240
+      ],
+      "dtype": "BF16",
+      "parameters": 10240,
+      "bytes": 20480
+    },
+    {
+      "key": "mtp.layers.0.mlp_hyper_connection.input_mix_weight_down.weight",
+      "shape": [
+        320,
+        10240
+      ],
+      "dtype": "BF16",
+      "parameters": 3276800,
+      "bytes": 6553600
+    },
+    {
+      "key": "mtp.layers.0.mlp_hyper_connection.input_mix_weight_up.weight",
+      "shape": [
+        10240,
+        320
+      ],
+      "dtype": "BF16",
+      "parameters": 3276800,
+      "bytes": 6553600
+    },
+    {
+      "key": "mtp.layers.0.self_attn.indexer.index_qk_proj.weight",
+      "shape": [
+        640,
+        2560
+      ],
+      "dtype": "BF16",
+      "parameters": 1638400,
+      "bytes": 3276800
+    },
+    {
+      "key": "mtp.layers.0.self_attn.indexer.k_layernorm.weight",
+      "shape": [
+        128
+      ],
+      "dtype": "BF16",
+      "parameters": 128,
+      "bytes": 256
+    },
+    {
+      "key": "mtp.layers.0.self_attn.indexer.q_layernorm.weight",
+      "shape": [
+        128
+      ],
+      "dtype": "BF16",
+      "parameters": 128,
+      "bytes": 256
+    },
+    {
+      "key": "mtp.layers.0.self_attn.k_norm.weight",
+      "shape": [
+        256
+      ],
+      "dtype": "BF16",
+      "parameters": 256,
+      "bytes": 512
+    },
+    {
+      "key": "mtp.layers.0.self_attn.k_proj.weight",
+      "shape": [
+        512,
+        2560
+      ],
+      "dtype": "BF16",
+      "parameters": 1310720,
+      "bytes": 2621440
+    },
+    {
+      "key": "mtp.layers.0.self_attn.o_proj.weight",
+      "shape": [
+        2560,
+        6144
+      ],
+      "dtype": "BF16",
+      "parameters": 15728640,
+      "bytes": 31457280
+    },
+    {
+      "key": "mtp.layers.0.self_attn.q_norm.weight",
+      "shape": [
+        256
+      ],
+      "dtype": "BF16",
+      "parameters": 256,
+      "bytes": 512
+    },
+    {
+      "key": "mtp.layers.0.self_attn.q_proj.weight",
+      "shape": [
+        12288,
+        2560
+      ],
+      "dtype": "BF16",
+      "parameters": 31457280,
+      "bytes": 62914560
+    },
+    {
+      "key": "mtp.layers.0.self_attn.v_proj.weight",
+      "shape": [
+        512,
+        2560
+      ],
+      "dtype": "BF16",
+      "parameters": 1310720,
+      "bytes": 2621440
+    },
+    {
+      "key": "mtp.pre_fc_norm_embedding.weight",
+      "shape": [
+        2560
+      ],
+      "dtype": "BF16",
+      "parameters": 2560,
+      "bytes": 5120
+    },
+    {
+      "key": "mtp.pre_fc_norm_hidden.weight",
+      "shape": [
+        10240
+      ],
+      "dtype": "BF16",
+      "parameters": 10240,
+      "bytes": 20480
+    }
+  ],
+  "total_parameters": 2607150848,
+  "total_bf16_bytes": 5214301696,
+  "expert_parameters": 2516582400,
+  "transformers_ignores_mtp": true,
+  "production_revision": "r152"
+}

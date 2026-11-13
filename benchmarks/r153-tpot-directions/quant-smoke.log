@@ -1,0 +1,6 @@
+[W1113 00:40:41.841117548 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+QUANT_SMOKE transposed torch.Size([1, 512]) 0.012017150409519672
+QUANT_SMOKE nd torch.Size([1, 512]) 0.012017150409519672
+[W1113 00:40:41.326164348 TensorFactories.cpp:423] Warning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (function operator())
+QUANT_LAYOUT_UNSUPPORTED nz RuntimeError SetPrecisionMode:../torch_npu/csrc/framework/LazyInitAclops.cpp:223 NPU function error: at_npu::native::AclSetCompileopt(aclCompileOpt::ACL_PRECISION_MODE, precision_mode), error code is 500001
+[ERROR] 2026-11-13-00:40:42 (PID:59447, Device:0, RankID

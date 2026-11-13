@@ -1,0 +1,50 @@
+[
+  {
+    "T": 2,
+    "seed": 0,
+    "max_prefix_state_abs": 0.0,
+    "max_output_abs": 0.0
+  },
+  {
+    "T": 2,
+    "seed": 1,
+    "max_prefix_state_abs": 0.0,
+    "max_output_abs": 0.0
+  },
+  {
+    "T": 2,
+    "seed": 2,
+    "max_prefix_state_abs": 0.0,
+    "max_output_abs": 0.0
+  },
+  {
+    "T": 2,
+    "seed": 3,
+    "max_prefix_state_abs": 0.0,
+    "max_output_abs": 0.0
+  },
+  {
+    "T": 4,
+    "seed": 0,
+    "max_prefix_state_abs": 0.0,
+    "max_output_abs": 0.0
+  },
+  {
+    "T": 4,
+    "seed": 1,
+    "max_prefix_state_abs": 0.0,
+    "max_output_abs": 0.0
+  },
+  {
+    "T": 4,
+    "seed": 2,
+    "max_prefix_state_abs": 0.0,
+    "max_output_abs": 0.0
+  },
+  {
+    "T": 4,
+    "seed": 3,
+    "max_prefix_state_abs": 0.0,
+    "max_output_abs": 0.0
+  }
+]

@@ -1,0 +1,32 @@
+[W1113 00:39:36.047607671 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+[W1113 00:39:36.375782729 TensorFactories.cpp:423] Warning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (function operator())
+Traceback (most recent call last):
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/quant_smoke.py", line 8, in <module>
+    for layout,a in [('transposed',q.t()),('nd',q.t().contiguous()),('nz',torch_npu.npu_format_cast(q.t().contiguous(),29))]:
+                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/ascend-dev/venv/lib/python3.12/site-packages/torch/_ops.py", line 1209, in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: SetPrecisionMode:../torch_npu/csrc/framework/LazyInitAclops.cpp:223 NPU function error: at_npu::native::AclSetCompileopt(aclCompileOpt::ACL_PRECISION_MODE, precision_mode), error code is 500001
+[ERROR] 2026-11-13-00:39:38 (PID:59421, Device:0, RankID:-1) ERR00100 PTA call acl api failed
+[Error]: The internal ACL of the system is incorrect.
+        Rectify the fault based on the error information in the ascend log.
+[PID: 59421] 2026-11-13-00:39:38.053.501 Environment_Error_Import_Python_Module_Failed(EC0010): Failed to import Python module ModuleNotFoundError: No module named 'decorator'.
+        Solution: Check that all required components are properly installed and the specified Python path matches the Python installation directory. If the path does not match the directory, run set_env.sh in the installation package.
+TraceBack (most recent call last):
+        AOE failed to call InitCannKB.[FUNC:Initialize][FILE:python_adapter_manager.cc][LINE:52]
+        Failed to initialize TeConfigInfo.[FUNC:TeInnerErrMessageReport][FILE:common_utils.cc][LINE:397]
+        [GraphOpt][InitializeInner][InitTbeFunc] Failed to init tbe.[FUNC:InitializeTeFusion][FILE:tbe_op_store_adapter.cc][LINE:1974]
+        [GraphOpt][InitializeInner][InitTeFusion]: Failed to initialize TeFusion.[FUNC:InitializeInner][FILE:tbe_op_store_adapter.cc][LINE:1941]
+        [SubGraphOpt][PreCompileOp][InitAdapter] InitializeAdapter adapter [tbe_op_adapter] failed! Ret [4294967295][FUNC:InitializeAdapter][FILE:op_store_adapter_manager.cc][LINE:80]
+        [SubGraphOpt][PreCompileOp][Init] Initialize op store adapter failed, OpsStoreName[tbe-custom].[FUNC:Initialize][FILE:op_store_adapter_manager.cc][LINE:121]
+        [FusionMngr][Init] Op store adapter manager init failed.[FUNC:Initialize][FILE:fusion_manager.cc][LINE:118]
+        PluginManager InvokeAll failed.[FUNC:Initialize][FILE:ops_kernel_manager.cc][LINE:100]
+        OpsManager initialize failed.[FUNC:InnerInitialize][FILE:gelib.cc][LINE:223]
+        GELib::InnerInitialize failed.[FUNC:Initialize][FILE:gelib.cc][LINE:161]
+        GEInitializeV2 failed.[FUNC:GEInitializeV2][FILE:ge_api_v2.cc][LINE:370]
+        GEInitializeV2 initialize failed.[FUNC:GEInitialize][FILE:ge_api.cc][LINE:220]
+        [Initialize][Ge]GEInitialize failed. ge result = 4294967295[FUNC:ReportCallError][FILE:log_inner.cpp][LINE:148]
+        [Init][Compiler]Init compiler failed[FUNC:ReportInnerError][FILE:log_inner.cpp][LINE:132]
+        [Set][Options]OpCompileProcessor init failed![FUNC:ReportInnerError][FILE:log_inner.cpp][LINE:132]
+

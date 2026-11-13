@@ -1,0 +1,43 @@
+[W1113 01:09:05.007824084 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+DENSE_STREAM_PROBE 1 qkv [10240, 2560] {'bf16': 46.12562619149685, 'w8a8_nz': 32.24101476371288}
+DENSE_STREAM_PROBE 1 z [6144, 2560] {'bf16': 33.973827958106995, 'w8a8_nz': 28.032265603542328}
+DENSE_STREAM_PROBE 1 qkv_z [16384, 2560] {'bf16': 76.39476656913757, 'w8a8_nz': 42.14031249284744}
+DENSE_STREAM_PROBE 1 out [2560, 6144] {'bf16': 30.89828137308359, 'w8a8_nz': 27.49664057046175}
+DENSE_STREAM_PROBE 1 full_q [12288, 2560] {'bf16': 56.67359195649624, 'w8a8_nz': 35.60406342148781}
+DENSE_BOTH_LAYOUTS_COMPLETE 1

@@ -1,0 +1,219 @@
+{
+  "status": "passed",
+  "selector": 1,
+  "records": [
+    {
+      "layer": 24,
+      "type": "linear",
+      "times_ms": {
+        "1": [
+          0.5585712790489197,
+          0.5484437346458435,
+          0.548778772354126,
+          0.5478875041007996,
+          0.5480449795722961,
+          0.5481212735176086,
+          0.5487650036811829,
+          0.5478749871253967,
+          0.547950029373169,
+          0.5484287738800049
+        ],
+        "2": [
+          1.1755224466323853,
+          1.1740649938583374,
+          1.174957513809204,
+          1.1739599704742432,
+          1.1748462915420532,
+          1.1742912530899048,
+          1.1748474836349487,
+          1.1752612590789795,
+          1.1752500534057617,
+          1.174896240234375
+        ],
+        "4": [
+          1.6533900499343872,
+          1.6446987390518188,
+          1.6437962055206299,
+          1.6433812379837036,
+          1.6449487209320068,
+          1.642745018005371,
+          1.6438062191009521,
+          1.6456700563430786,
+          1.6429086923599243,
+          1.6445549726486206
+        ]
+      },
+      "median_ms": {
+        "1": 0.5482750236988068,
+        "2": 1.1748718619346619,
+        "4": 1.6441805958747864
+      },
+      "synthetic_hidden": true,
+      "context_capacity": 8192,
+      "position": 4096,
+      "grouped_validation": {
+        "gate_up": [
+          {
+            "rows": 12,
+            "duplicate": false,
+            "relative_l2": 0.0,
+            "max_abs": 0.0
+          },
+          {
+            "rows": 12,
+            "duplicate": true,
+            "relative_l2": 0.0,
+            "max_abs": 0.0
+          },
+          {
+            "rows": 20,
+            "duplicate": false,
+            "relative_l2": 0.0,
+            "max_abs": 0.0
+          },
+          {
+            "rows": 20,
+            "duplicate": true,
+            "relative_l2": 0.0,
+            "max_abs": 0.0
+          }
+        ],
+        "down": [
+          {
+            "rows": 12,
+            "duplicate": false,
+            "relative_l2": 0.0,
+            "max_abs": 0.0
+          },
+          {
+            "rows": 12,
+            "duplicate": true,
+            "relative_l2": 0.0,
+            "max_abs": 0.0
+          },
+          {
+            "rows": 20,
+            "duplicate": false,
+            "relative_l2": 0.0,
+            "max_abs": 0.0
+          },
+          {
+            "rows": 20,
+            "duplicate": true,
+            "relative_l2": 0.0,
+            "max_abs": 0.0
+          }
+        ]
+      },
+      "note": "MoE loops through tokens; batched attention/HC, current forward_chunk, final state only; no draft, state journal, head, IPC or full-model quality."
+    },
+    {
+      "layer": 27,
+      "type": "full",
+      "times_ms": {
+        "1": [
+          0.7627074718475342,
+          0.7635012269020081,
+          0.7640287280082703,
+          0.7633249759674072,
+          0.7639812231063843,
+          0.7630450129508972,
+          0.7632787227630615,
+          0.7629287242889404,
+          0.763536274433136,
+          0.7635924816131592
+        ],
+        "2": [
+          1.3064388036727905,
+          1.3004987239837646,
+          1.3011738061904907,
+          1.2997699975967407,
+          1.3006212711334229,
+          1.3007762432098389,
+          1.2995587587356567,
+          1.3020424842834473,
+          1.3009974956512451,
+          1.3014224767684937
+        ],
+        "4": [
+          1.7202199697494507,
+          1.7176649570465088,
+          1.717981219291687,
+          1.7184237241744995,
+          1.719366192817688,
+          1.7182824611663818,
+          1.7180137634277344,
+          1.7185312509536743,
+          1.7193012237548828,
+          1.7189737558364868
+        ]
+      },
+      "median_ms": {
+        "1": 0.7634131014347076,
+        "2": 1.300886869430542,
+        "4": 1.718477487564087
+      },
+      "synthetic_hidden": true,
+      "context_capacity": 8192,
+      "position": 4096,
+      "grouped_validation": {
+        "gate_up": [
+          {
+            "rows": 12,
+            "duplicate": false,
+            "relative_l2": 0.0,
+            "max_abs": 0.0
+          },
+          {
+            "rows": 12,
+            "duplicate": true,
+            "relative_l2": 0.0,
+            "max_abs": 0.0
+          },
+          {
+            "rows": 20,
+            "duplicate": false,
+            "relative_l2": 0.0,
+            "max_abs": 0.0
+          },
+          {
+            "rows": 20,
+            "duplicate": true,
+            "relative_l2": 0.0,
+            "max_abs": 0.0
+          }
+        ],
+        "down": [
+          {
+            "rows": 12,
+            "duplicate": false,
+            "relative_l2": 0.0,
+            "max_abs": 0.0
+          },
+          {
+            "rows": 12,
+            "duplicate": true,
+            "relative_l2": 0.0,
+            "max_abs": 0.0
+          },
+          {
+            "rows": 20,
+            "duplicate": false,
+            "relative_l2": 0.0,
+            "max_abs": 0.0
+          },
+          {
+            "rows": 20,
+            "duplicate": true,
+            "relative_l2": 0.0,
+            "max_abs": 0.0
+          }
+        ]
+      },
+      "note": "MoE loops through tokens; batched attention/HC, current forward_chunk, final state only; no draft, state journal, head, IPC or full-model quality."
+    }
+  ],
+  "exclusive": false,
+  "elapsed_s": 6.965350035985466,
+  "max_allocated_bytes": 1675841024
+}

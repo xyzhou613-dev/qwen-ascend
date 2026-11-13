@@ -1,0 +1,14 @@
+[W1113 01:05:42.657899848 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+LAYER_LOADED 0 1495258624
+SMALL_GROUPED_VALIDATED 0 {'gate_up': [{'rows': 12, 'duplicate': False, 'relative_l2': 0.0, 'max_abs': 0.0}, {'rows': 12, 'duplicate': True, 'relative_l2': 0.0, 'max_abs': 0.0}, {'rows': 20, 'duplicate': False, 'relative_l2': 0.0, 'max_abs': 0.0}, {'rows': 20, 'duplicate': True, 'relative_l2': 0.0, 'max_abs': 0.0}], 'down': [{'rows': 12, 'duplicate': False, 'relative_l2': 0.0, 'max_abs': 0.0}, {'rows': 12, 'duplicate': True, 'relative_l2': 0.0, 'max_abs': 0.0}, {'rows': 20, 'duplicate': False, 'relative_l2': 0.0, 'max_abs': 0.0}, {'rows': 20, 'duplicate': True, 'relative_l2': 0.0, 'max_abs': 0.0}]}
+[W1113 01:05:43.518877520 TensorFactories.cpp:423] Warning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (function operator())
+LAYER_CAPTURED 0 1 1495534080
+LAYER_CAPTURED 0 2 1505012736
+LAYER_CAPTURED 0 4 1520823808
+VERIFY_LAYER_RESULT 0 {1: 0.560542494058609, 2: 1.1610006093978882, 4: 1.6527850031852722}
+LAYER_LOADED 3 1542241280
+SMALL_GROUPED_VALIDATED 3 {'gate_up': [{'rows': 12, 'duplicate': False, 'relative_l2': 0.0, 'max_abs': 0.0}, {'rows': 12, 'duplicate': True, 'relative_l2': 0.0, 'max_abs': 0.0}, {'rows': 20, 'duplicate': False, 'relative_l2': 0.0, 'max_abs': 0.0}, {'rows': 20, 'duplicate': True, 'relative_l2': 0.0, 'max_abs': 0.0}], 'down': [{'rows': 12, 'duplicate': False, 'relative_l2': 0.0, 'max_abs': 0.0}, {'rows': 12, 'duplicate': True, 'relative_l2': 0.0, 'max_abs': 0.0}, {'rows': 20, 'duplicate': False, 'relative_l2': 0.0, 'max_abs': 0.0}, {'rows': 20, 'duplicate': True, 'relative_l2': 0.0, 'max_abs': 0.0}]}
+LAYER_CAPTURED 3 1 1544487936
+LAYER_CAPTURED 3 2 1544528896
+LAYER_CAPTURED 3 4 1544610816
+VERIFY_LAYER_RESULT 3 {1: 0.7574756145477295, 2: 1.2903768420219421, 4: 1.714025616645813}

@@ -1,0 +1,1076 @@
+[W1113 01:01:15.662370474 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+QUANT_SMOKE transposed torch.Size([1, 512]) 0.01191423274576664
+QUANT_SMOKE nd torch.Size([1, 512]) 0.01191423274576664
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py:17: FutureWarning: In the future `np.long` will be defined as the corresponding NumPy scalar.
+  np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+Traceback (most recent call last):
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 276, in main
+    code = _serve_one(child_r, fds,
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 315, in _serve_one
+    code = spawn._main(child_r, parent_sentinel)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/spawn.py", line 132, in _main
+    self = reduction.pickle.load(from_parent)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/__init__.py", line 98, in <module>
+    from . import dsl
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/__init__.py", line 20, in <module>
+    from .api import ceil
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/api.py", line 27, in <module>
+    from .compute import cast
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/compute/cast.py", line 34, in <module>
+    from tbe.dsl.unify_schedule.util import is_v220
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/__init__.py", line 35, in <module>
+    from . import vector
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/__init__.py", line 30, in <module>
+    from . import sparse_apply
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/__init__.py", line 20, in <module>
+    from . import sparse_apply_schedule
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/sparse_apply_schedule.py", line 23, in <module>
+    import te.platform as tbe_platform
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/__init__.py", line 125, in <module>
+    from .cce_util import get_type_bits
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/cce_util.py", line 34, in <module>
+    from tvm.topi.utils import equal_const_int
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/__init__.py", line 50, in <module>
+    from . import nn
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/__init__.py", line 35, in <module>
+    from .conv3d_transpose import *
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/conv3d_transpose.py", line 21, in <module>
+    from tvm import relay
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/__init__.py", line 29, in <module>
+    from . import prelude
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/prelude.py", line 21, in <module>
+    from tvm.relay.transform import ToANormalFormExpr
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/__init__.py", line 21, in <module>
+    from .recast import recast
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/recast.py", line 22, in <module>
+    from ..analysis import count_layers
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/__init__.py", line 31, in <module>
+    from . import sparse_dense
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py", line 25, in <module>
+    import scipy.sparse as sp
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/__init__.py", line 250, in <module>
+    from ._base import *
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_base.py", line 8, in <module>
+    from ._sputils import (asmatrix, check_shape,
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py", line 17, in <module>
+    np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+              ^^^^^^^
+  File "/root/ascend-dev/venv/lib/python3.12/site-packages/numpy/__init__.py", line 333, in __getattr__
+    raise AttributeError("module {!r} has no attribute "
+AttributeError: module 'numpy' has no attribute 'long'. Did you mean: 'log'?
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py:17: FutureWarning: In the future `np.long` will be defined as the corresponding NumPy scalar.
+  np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+Traceback (most recent call last):
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 276, in main
+    code = _serve_one(child_r, fds,
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 315, in _serve_one
+    code = spawn._main(child_r, parent_sentinel)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/spawn.py", line 132, in _main
+    self = reduction.pickle.load(from_parent)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/__init__.py", line 98, in <module>
+    from . import dsl
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/__init__.py", line 20, in <module>
+    from .api import ceil
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/api.py", line 27, in <module>
+    from .compute import cast
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/compute/cast.py", line 34, in <module>
+    from tbe.dsl.unify_schedule.util import is_v220
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/__init__.py", line 35, in <module>
+    from . import vector
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/__init__.py", line 30, in <module>
+    from . import sparse_apply
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/__init__.py", line 20, in <module>
+    from . import sparse_apply_schedule
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/sparse_apply_schedule.py", line 23, in <module>
+    import te.platform as tbe_platform
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/__init__.py", line 125, in <module>
+    from .cce_util import get_type_bits
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/cce_util.py", line 34, in <module>
+    from tvm.topi.utils import equal_const_int
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/__init__.py", line 50, in <module>
+    from . import nn
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/__init__.py", line 35, in <module>
+    from .conv3d_transpose import *
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/conv3d_transpose.py", line 21, in <module>
+    from tvm import relay
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/__init__.py", line 29, in <module>
+    from . import prelude
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/prelude.py", line 21, in <module>
+    from tvm.relay.transform import ToANormalFormExpr
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/__init__.py", line 21, in <module>
+    from .recast import recast
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/recast.py", line 22, in <module>
+    from ..analysis import count_layers
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/__init__.py", line 31, in <module>
+    from . import sparse_dense
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py", line 25, in <module>
+    import scipy.sparse as sp
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/__init__.py", line 250, in <module>
+    from ._base import *
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_base.py", line 8, in <module>
+    from ._sputils import (asmatrix, check_shape,
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py", line 17, in <module>
+    np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+              ^^^^^^^
+  File "/root/ascend-dev/venv/lib/python3.12/site-packages/numpy/__init__.py", line 333, in __getattr__
+    raise AttributeError("module {!r} has no attribute "
+AttributeError: module 'numpy' has no attribute 'long'. Did you mean: 'log'?
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py:17: FutureWarning: In the future `np.long` will be defined as the corresponding NumPy scalar.
+  np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py:17: FutureWarning: In the future `np.long` will be defined as the corresponding NumPy scalar.
+  np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+Traceback (most recent call last):
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 276, in main
+/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py:17: FutureWarning: In the future `np.long` will be defined as the corresponding NumPy scalar.
+  np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+Traceback (most recent call last):
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 276, in main
+    code = _serve_one(child_r, fds,
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 315, in _serve_one
+    code = _serve_one(child_r, fds,
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+    code = spawn._main(child_r, parent_sentinel)
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 315, in _serve_one
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/spawn.py", line 132, in _main
+Traceback (most recent call last):
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 276, in main
+    code = spawn._main(child_r, parent_sentinel)
+    self = reduction.pickle.load(from_parent)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/spawn.py", line 132, in _main
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/__init__.py", line 98, in <module>
+    code = _serve_one(child_r, fds,
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 315, in _serve_one
+    self = reduction.pickle.load(from_parent)
+    from . import dsl
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/__init__.py", line 20, in <module>
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/__init__.py", line 98, in <module>
+    from .api import ceil
+    code = spawn._main(child_r, parent_sentinel)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/api.py", line 27, in <module>
+    from . import dsl
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/spawn.py", line 132, in _main
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/__init__.py", line 20, in <module>
+    from .compute import cast
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/compute/cast.py", line 34, in <module>
+    self = reduction.pickle.load(from_parent)
+    from .api import ceil
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/api.py", line 27, in <module>
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/__init__.py", line 98, in <module>
+    from tbe.dsl.unify_schedule.util import is_v220
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/__init__.py", line 35, in <module>
+    from .compute import cast
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/compute/cast.py", line 34, in <module>
+    from . import dsl
+    from . import vector
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/__init__.py", line 20, in <module>
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/__init__.py", line 30, in <module>
+    from tbe.dsl.unify_schedule.util import is_v220
+    from .api import ceil
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/__init__.py", line 35, in <module>
+    from . import sparse_apply
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/api.py", line 27, in <module>
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/__init__.py", line 20, in <module>
+    from . import vector
+    from .compute import cast
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/__init__.py", line 30, in <module>
+    from . import sparse_apply_schedule
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/compute/cast.py", line 34, in <module>
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/sparse_apply_schedule.py", line 23, in <module>
+    from . import sparse_apply
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/__init__.py", line 20, in <module>
+    import te.platform as tbe_platform
+    from tbe.dsl.unify_schedule.util import is_v220
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/__init__.py", line 125, in <module>
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/__init__.py", line 35, in <module>
+    from . import sparse_apply_schedule
+/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py:17: FutureWarning: In the future `np.long` will be defined as the corresponding NumPy scalar.
+  np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/sparse_apply_schedule.py", line 23, in <module>
+    from . import vector
+    from .cce_util import get_type_bits
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/__init__.py", line 30, in <module>
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/cce_util.py", line 34, in <module>
+    import te.platform as tbe_platform
+    from . import sparse_apply
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/__init__.py", line 125, in <module>
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/__init__.py", line 20, in <module>
+    from tvm.topi.utils import equal_const_int
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/__init__.py", line 50, in <module>
+    from . import sparse_apply_schedule
+    from .cce_util import get_type_bits
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/sparse_apply_schedule.py", line 23, in <module>
+    from . import nn
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/cce_util.py", line 34, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/__init__.py", line 35, in <module>
+    import te.platform as tbe_platform
+    from tvm.topi.utils import equal_const_int
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/__init__.py", line 125, in <module>
+    from .conv3d_transpose import *
+Traceback (most recent call last):
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/__init__.py", line 50, in <module>
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 276, in main
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/conv3d_transpose.py", line 21, in <module>
+    from .cce_util import get_type_bits
+    from tvm import relay
+    from . import nn
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/__init__.py", line 29, in <module>
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/cce_util.py", line 34, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/__init__.py", line 35, in <module>
+/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py:17: FutureWarning: In the future `np.long` will be defined as the corresponding NumPy scalar.
+  np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+    from . import prelude
+    from tvm.topi.utils import equal_const_int
+    code = _serve_one(child_r, fds,
+    from .conv3d_transpose import *
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/prelude.py", line 21, in <module>
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/__init__.py", line 50, in <module>
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 315, in _serve_one
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/conv3d_transpose.py", line 21, in <module>
+    from tvm.relay.transform import ToANormalFormExpr
+    from . import nn
+    from tvm import relay
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/__init__.py", line 21, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/__init__.py", line 35, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/__init__.py", line 29, in <module>
+    code = spawn._main(child_r, parent_sentinel)
+    from .recast import recast
+    from .conv3d_transpose import *
+    from . import prelude
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/conv3d_transpose.py", line 21, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/recast.py", line 22, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/prelude.py", line 21, in <module>
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/spawn.py", line 132, in _main
+    from tvm import relay
+    from ..analysis import count_layers
+    from tvm.relay.transform import ToANormalFormExpr
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/__init__.py", line 31, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/__init__.py", line 29, in <module>
+/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py:17: FutureWarning: In the future `np.long` will be defined as the corresponding NumPy scalar.
+  np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/__init__.py", line 21, in <module>
+    self = reduction.pickle.load(from_parent)
+    from . import sparse_dense
+    from . import prelude
+Traceback (most recent call last):
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 276, in main
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py", line 25, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/prelude.py", line 21, in <module>
+    from .recast import recast
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/__init__.py", line 98, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/recast.py", line 22, in <module>
+    from tvm.relay.transform import ToANormalFormExpr
+    import scipy.sparse as sp
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/__init__.py", line 250, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/__init__.py", line 21, in <module>
+    from ..analysis import count_layers
+    from . import dsl
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/__init__.py", line 31, in <module>
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/__init__.py", line 20, in <module>
+    from .recast import recast
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/recast.py", line 22, in <module>
+    from . import sparse_dense
+    code = _serve_one(child_r, fds,
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py", line 25, in <module>
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 315, in _serve_one
+    from .api import ceil
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/api.py", line 27, in <module>
+    from ..analysis import count_layers
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/__init__.py", line 31, in <module>
+Traceback (most recent call last):
+    import scipy.sparse as sp
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 276, in main
+    from ._base import *
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/__init__.py", line 250, in <module>
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_base.py", line 8, in <module>
+    from .compute import cast
+    from . import sparse_dense
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/compute/cast.py", line 34, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py", line 25, in <module>
+    code = spawn._main(child_r, parent_sentinel)
+    from ._sputils import (asmatrix, check_shape,
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py", line 17, in <module>
+    import scipy.sparse as sp
+    np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/spawn.py", line 132, in _main
+    from tbe.dsl.unify_schedule.util import is_v220
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/__init__.py", line 250, in <module>
+              ^^^^^^^
+    code = _serve_one(child_r, fds,
+  File "/root/ascend-dev/venv/lib/python3.12/site-packages/numpy/__init__.py", line 333, in __getattr__
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/__init__.py", line 35, in <module>
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 315, in _serve_one
+    from ._base import *
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_base.py", line 8, in <module>
+    self = reduction.pickle.load(from_parent)
+    from . import vector
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/__init__.py", line 30, in <module>
+    from ._sputils import (asmatrix, check_shape,
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py", line 17, in <module>
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/__init__.py", line 98, in <module>
+    np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+    code = spawn._main(child_r, parent_sentinel)
+    from ._base import *
+    raise AttributeError("module {!r} has no attribute "
+    from . import sparse_apply
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_base.py", line 8, in <module>
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/__init__.py", line 20, in <module>
+              ^^^^^^^
+  File "/root/ascend-dev/venv/lib/python3.12/site-packages/numpy/__init__.py", line 333, in __getattr__
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    from . import dsl
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/spawn.py", line 132, in _main
+    from ._sputils import (asmatrix, check_shape,
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py", line 17, in <module>
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/__init__.py", line 20, in <module>
+    from . import sparse_apply_schedule
+    np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/sparse_apply_schedule.py", line 23, in <module>
+              ^^^^^^^
+    self = reduction.pickle.load(from_parent)
+  File "/root/ascend-dev/venv/lib/python3.12/site-packages/numpy/__init__.py", line 333, in __getattr__
+    from .api import ceil
+AttributeError: module 'numpy' has no attribute 'long'. Did you mean: 'log'?
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/api.py", line 27, in <module>
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    raise AttributeError("module {!r} has no attribute "
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/__init__.py", line 98, in <module>
+    import te.platform as tbe_platform
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/__init__.py", line 125, in <module>
+    from .compute import cast
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/compute/cast.py", line 34, in <module>
+    from . import dsl
+    raise AttributeError("module {!r} has no attribute "
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/__init__.py", line 20, in <module>
+    from .cce_util import get_type_bits
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/cce_util.py", line 34, in <module>
+AttributeError: module 'numpy' has no attribute 'long'. Did you mean: 'log'?
+    from tbe.dsl.unify_schedule.util import is_v220
+    from .api import ceil
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/__init__.py", line 35, in <module>
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/api.py", line 27, in <module>
+    from tvm.topi.utils import equal_const_int
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/__init__.py", line 50, in <module>
+    from . import vector
+AttributeError: module 'numpy' has no attribute 'long'. Did you mean: 'log'?
+    from .compute import cast
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/__init__.py", line 30, in <module>
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/compute/cast.py", line 34, in <module>
+    from . import nn
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/__init__.py", line 35, in <module>
+    from . import sparse_apply
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/__init__.py", line 20, in <module>
+    from tbe.dsl.unify_schedule.util import is_v220
+    from .conv3d_transpose import *
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/__init__.py", line 35, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/conv3d_transpose.py", line 21, in <module>
+    from . import sparse_apply_schedule
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/sparse_apply_schedule.py", line 23, in <module>
+    from tvm import relay
+    from . import vector
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/__init__.py", line 29, in <module>
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/__init__.py", line 30, in <module>
+    import te.platform as tbe_platform
+    from . import prelude
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/__init__.py", line 125, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/prelude.py", line 21, in <module>
+    from . import sparse_apply
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/__init__.py", line 20, in <module>
+    from tvm.relay.transform import ToANormalFormExpr
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/__init__.py", line 21, in <module>
+    from . import sparse_apply_schedule
+    from .cce_util import get_type_bits
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/sparse_apply_schedule.py", line 23, in <module>
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/cce_util.py", line 34, in <module>
+    from .recast import recast
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/recast.py", line 22, in <module>
+    import te.platform as tbe_platform
+    from tvm.topi.utils import equal_const_int
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/__init__.py", line 125, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/__init__.py", line 50, in <module>
+    from ..analysis import count_layers
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/__init__.py", line 31, in <module>
+    from . import nn
+    from .cce_util import get_type_bits
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/__init__.py", line 35, in <module>
+    from . import sparse_dense
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/cce_util.py", line 34, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py", line 25, in <module>
+    from .conv3d_transpose import *
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/conv3d_transpose.py", line 21, in <module>
+    import scipy.sparse as sp
+    from tvm.topi.utils import equal_const_int
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/__init__.py", line 250, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/__init__.py", line 50, in <module>
+    from tvm import relay
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/__init__.py", line 29, in <module>
+    from . import nn
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/__init__.py", line 35, in <module>
+    from . import prelude
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/prelude.py", line 21, in <module>
+    from .conv3d_transpose import *
+    from ._base import *
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_base.py", line 8, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/conv3d_transpose.py", line 21, in <module>
+    from tvm.relay.transform import ToANormalFormExpr
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/__init__.py", line 21, in <module>
+    from ._sputils import (asmatrix, check_shape,
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py", line 17, in <module>
+    from tvm import relay
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/__init__.py", line 29, in <module>
+    np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+    from .recast import recast
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/recast.py", line 22, in <module>
+              ^^^^^^^
+  File "/root/ascend-dev/venv/lib/python3.12/site-packages/numpy/__init__.py", line 333, in __getattr__
+    from . import prelude
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/prelude.py", line 21, in <module>
+    from ..analysis import count_layers
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/__init__.py", line 31, in <module>
+    from tvm.relay.transform import ToANormalFormExpr
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/__init__.py", line 21, in <module>
+    from . import sparse_dense
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py", line 25, in <module>
+    raise AttributeError("module {!r} has no attribute "
+    from .recast import recast
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/recast.py", line 22, in <module>
+    import scipy.sparse as sp
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/__init__.py", line 250, in <module>
+    from ..analysis import count_layers
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/__init__.py", line 31, in <module>
+AttributeError: module 'numpy' has no attribute 'long'. Did you mean: 'log'?
+    from . import sparse_dense
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py", line 25, in <module>
+    from ._base import *
+    import scipy.sparse as sp
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_base.py", line 8, in <module>
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/__init__.py", line 250, in <module>
+    from ._sputils import (asmatrix, check_shape,
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py", line 17, in <module>
+    np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+              ^^^^^^^
+  File "/root/ascend-dev/venv/lib/python3.12/site-packages/numpy/__init__.py", line 333, in __getattr__
+    from ._base import *
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_base.py", line 8, in <module>
+    from ._sputils import (asmatrix, check_shape,
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py", line 17, in <module>
+    raise AttributeError("module {!r} has no attribute "
+    np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+              ^^^^^^^
+  File "/root/ascend-dev/venv/lib/python3.12/site-packages/numpy/__init__.py", line 333, in __getattr__
+/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py:17: FutureWarning: In the future `np.long` will be defined as the corresponding NumPy scalar.
+  np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+AttributeError: module 'numpy' has no attribute 'long'. Did you mean: 'log'?
+    raise AttributeError("module {!r} has no attribute "
+AttributeError: module 'numpy' has no attribute 'long'. Did you mean: 'log'?
+Traceback (most recent call last):
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 276, in main
+    code = _serve_one(child_r, fds,
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 315, in _serve_one
+    code = spawn._main(child_r, parent_sentinel)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/spawn.py", line 132, in _main
+    self = reduction.pickle.load(from_parent)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/__init__.py", line 98, in <module>
+    from . import dsl
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/__init__.py", line 20, in <module>
+    from .api import ceil
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/api.py", line 27, in <module>
+    from .compute import cast
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/compute/cast.py", line 34, in <module>
+    from tbe.dsl.unify_schedule.util import is_v220
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/__init__.py", line 35, in <module>
+    from . import vector
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/__init__.py", line 30, in <module>
+    from . import sparse_apply
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/__init__.py", line 20, in <module>
+    from . import sparse_apply_schedule
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/sparse_apply_schedule.py", line 23, in <module>
+    import te.platform as tbe_platform
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/__init__.py", line 125, in <module>
+    from .cce_util import get_type_bits
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/cce_util.py", line 34, in <module>
+    from tvm.topi.utils import equal_const_int
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/__init__.py", line 50, in <module>
+    from . import nn
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/__init__.py", line 35, in <module>
+    from .conv3d_transpose import *
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/conv3d_transpose.py", line 21, in <module>
+    from tvm import relay
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/__init__.py", line 29, in <module>
+    from . import prelude
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/prelude.py", line 21, in <module>
+    from tvm.relay.transform import ToANormalFormExpr
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/__init__.py", line 21, in <module>
+    from .recast import recast
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/recast.py", line 22, in <module>
+    from ..analysis import count_layers
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/__init__.py", line 31, in <module>
+    from . import sparse_dense
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py", line 25, in <module>
+    import scipy.sparse as sp
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/__init__.py", line 250, in <module>
+    from ._base import *
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_base.py", line 8, in <module>
+    from ._sputils import (asmatrix, check_shape,
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py", line 17, in <module>
+    np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+              ^^^^^^^
+  File "/root/ascend-dev/venv/lib/python3.12/site-packages/numpy/__init__.py", line 333, in __getattr__
+    raise AttributeError("module {!r} has no attribute "
+AttributeError: module 'numpy' has no attribute 'long'. Did you mean: 'log'?
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py:17: FutureWarning: In the future `np.long` will be defined as the corresponding NumPy scalar.
+  np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+Traceback (most recent call last):
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 276, in main
+    code = _serve_one(child_r, fds,
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 315, in _serve_one
+    code = spawn._main(child_r, parent_sentinel)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/spawn.py", line 132, in _main
+    self = reduction.pickle.load(from_parent)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 45, in <module>
+    import tbe.common.utils.log as logger
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/__init__.py", line 98, in <module>
+    from . import dsl
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/__init__.py", line 20, in <module>
+    from .api import ceil
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/api.py", line 27, in <module>
+    from .compute import cast
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/compute/cast.py", line 34, in <module>
+    from tbe.dsl.unify_schedule.util import is_v220
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/__init__.py", line 35, in <module>
+    from . import vector
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/__init__.py", line 30, in <module>
+    from . import sparse_apply
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/__init__.py", line 20, in <module>
+    from . import sparse_apply_schedule
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/sparse_apply_schedule.py", line 23, in <module>
+    import te.platform as tbe_platform
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/__init__.py", line 125, in <module>
+    from .cce_util import get_type_bits
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/cce_util.py", line 34, in <module>
+    from tvm.topi.utils import equal_const_int
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/__init__.py", line 50, in <module>
+    from . import nn
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/__init__.py", line 35, in <module>
+    from .conv3d_transpose import *
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/conv3d_transpose.py", line 21, in <module>
+    from tvm import relay
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/__init__.py", line 29, in <module>
+    from . import prelude
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/prelude.py", line 21, in <module>
+    from tvm.relay.transform import ToANormalFormExpr
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/__init__.py", line 21, in <module>
+    from .recast import recast
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/recast.py", line 22, in <module>
+    from ..analysis import count_layers
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/__init__.py", line 31, in <module>
+    from . import sparse_dense
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py", line 25, in <module>
+    import scipy.sparse as sp
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/__init__.py", line 250, in <module>
+    from ._base import *
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_base.py", line 8, in <module>
+    from ._sputils import (asmatrix, check_shape,
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py", line 17, in <module>
+    np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+              ^^^^^^^
+  File "/root/ascend-dev/venv/lib/python3.12/site-packages/numpy/__init__.py", line 333, in __getattr__
+    raise AttributeError("module {!r} has no attribute "
+AttributeError: module 'numpy' has no attribute 'long'. Did you mean: 'log'?
+/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py:17: FutureWarning: In the future `np.long` will be defined as the corresponding NumPy scalar.
+  np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+Traceback (most recent call last):
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 276, in main
+    code = _serve_one(child_r, fds,
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 315, in _serve_one
+    code = spawn._main(child_r, parent_sentinel)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/spawn.py", line 132, in _main
+    self = reduction.pickle.load(from_parent)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 45, in <module>
+    import tbe.common.utils.log as logger
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/__init__.py", line 98, in <module>
+    from . import dsl
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/__init__.py", line 20, in <module>
+    from .api import ceil
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/api.py", line 27, in <module>
+    from .compute import cast
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/compute/cast.py", line 34, in <module>
+    from tbe.dsl.unify_schedule.util import is_v220
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/__init__.py", line 35, in <module>
+    from . import vector
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/__init__.py", line 30, in <module>
+    from . import sparse_apply
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/__init__.py", line 20, in <module>
+    from . import sparse_apply_schedule
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/sparse_apply_schedule.py", line 23, in <module>
+    import te.platform as tbe_platform
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/__init__.py", line 125, in <module>
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+    from .cce_util import get_type_bits
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/cce_util.py", line 34, in <module>
+    from tvm.topi.utils import equal_const_int
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/__init__.py", line 50, in <module>
+    from . import nn
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/__init__.py", line 35, in <module>
+    from .conv3d_transpose import *
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/conv3d_transpose.py", line 21, in <module>
+    from tvm import relay
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/__init__.py", line 29, in <module>
+    from . import prelude
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/prelude.py", line 21, in <module>
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+    from tvm.relay.transform import ToANormalFormExpr
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/__init__.py", line 21, in <module>
+    from .recast import recast
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/recast.py", line 22, in <module>
+    from ..analysis import count_layers
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/__init__.py", line 31, in <module>
+    from . import sparse_dense
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py", line 25, in <module>
+    import scipy.sparse as sp
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/__init__.py", line 250, in <module>
+    from ._base import *
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_base.py", line 8, in <module>
+    from ._sputils import (asmatrix, check_shape,
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py", line 17, in <module>
+    np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+              ^^^^^^^
+  File "/root/ascend-dev/venv/lib/python3.12/site-packages/numpy/__init__.py", line 333, in __getattr__
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+    raise AttributeError("module {!r} has no attribute "
+AttributeError: module 'numpy' has no attribute 'long'. Did you mean: 'log'?
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py:25: UserWarning: A NumPy version >=2.0.0 and <2.8.0 is required for this version of SciPy (detected version 1.26.4)
+  import scipy.sparse as sp
+/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py:17: FutureWarning: In the future `np.long` will be defined as the corresponding NumPy scalar.
+  np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py:17: FutureWarning: In the future `np.long` will be defined as the corresponding NumPy scalar.
+  np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+Traceback (most recent call last):
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 276, in main
+Traceback (most recent call last):
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 276, in main
+    code = _serve_one(child_r, fds,
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 315, in _serve_one
+    code = _serve_one(child_r, fds,
+    code = spawn._main(child_r, parent_sentinel)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 315, in _serve_one
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/spawn.py", line 132, in _main
+    code = spawn._main(child_r, parent_sentinel)
+    self = reduction.pickle.load(from_parent)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 45, in <module>
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/spawn.py", line 132, in _main
+    import tbe.common.utils.log as logger
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/__init__.py", line 98, in <module>
+    self = reduction.pickle.load(from_parent)
+/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py:17: FutureWarning: In the future `np.long` will be defined as the corresponding NumPy scalar.
+  np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 45, in <module>
+    from . import dsl
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/__init__.py", line 20, in <module>
+    import tbe.common.utils.log as logger
+    from .api import ceil
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/api.py", line 27, in <module>
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/__init__.py", line 98, in <module>
+    from .compute import cast
+    from . import dsl
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/compute/cast.py", line 34, in <module>
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/__init__.py", line 20, in <module>
+    from tbe.dsl.unify_schedule.util import is_v220
+    from .api import ceil
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/__init__.py", line 35, in <module>
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/api.py", line 27, in <module>
+    from . import vector
+    from .compute import cast
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/__init__.py", line 30, in <module>
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/compute/cast.py", line 34, in <module>
+    from . import sparse_apply
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/__init__.py", line 20, in <module>
+    from tbe.dsl.unify_schedule.util import is_v220
+Traceback (most recent call last):
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/__init__.py", line 35, in <module>
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 276, in main
+    from . import sparse_apply_schedule
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/sparse_apply_schedule.py", line 23, in <module>
+    from . import vector
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/__init__.py", line 30, in <module>
+    import te.platform as tbe_platform
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/__init__.py", line 125, in <module>
+    from . import sparse_apply
+    code = _serve_one(child_r, fds,
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/__init__.py", line 20, in <module>
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 315, in _serve_one
+    from .cce_util import get_type_bits
+    from . import sparse_apply_schedule
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/cce_util.py", line 34, in <module>
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/sparse_apply_schedule.py", line 23, in <module>
+    code = spawn._main(child_r, parent_sentinel)
+    from tvm.topi.utils import equal_const_int
+    import te.platform as tbe_platform
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/__init__.py", line 50, in <module>
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/__init__.py", line 125, in <module>
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/spawn.py", line 132, in _main
+    from . import nn
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/__init__.py", line 35, in <module>
+    from .cce_util import get_type_bits
+    self = reduction.pickle.load(from_parent)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/cce_util.py", line 34, in <module>
+    from .conv3d_transpose import *
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/conv3d_transpose.py", line 21, in <module>
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 45, in <module>
+    from tvm.topi.utils import equal_const_int
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/__init__.py", line 50, in <module>
+/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py:17: FutureWarning: In the future `np.long` will be defined as the corresponding NumPy scalar.
+  np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+    from tvm import relay
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/__init__.py", line 29, in <module>
+    import tbe.common.utils.log as logger
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/__init__.py", line 98, in <module>
+    from . import nn
+    from . import prelude
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/__init__.py", line 35, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/prelude.py", line 21, in <module>
+    from . import dsl
+    from .conv3d_transpose import *
+    from tvm.relay.transform import ToANormalFormExpr
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/__init__.py", line 20, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/conv3d_transpose.py", line 21, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/__init__.py", line 21, in <module>
+    from .recast import recast
+    from tvm import relay
+    from .api import ceil
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/recast.py", line 22, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/__init__.py", line 29, in <module>
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/api.py", line 27, in <module>
+    from ..analysis import count_layers
+    from . import prelude
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/__init__.py", line 31, in <module>
+    from .compute import cast
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/prelude.py", line 21, in <module>
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/compute/cast.py", line 34, in <module>
+Traceback (most recent call last):
+    from . import sparse_dense
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 276, in main
+    from tvm.relay.transform import ToANormalFormExpr
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py", line 25, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/__init__.py", line 21, in <module>
+    from tbe.dsl.unify_schedule.util import is_v220
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/__init__.py", line 35, in <module>
+    import scipy.sparse as sp
+    from .recast import recast
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/__init__.py", line 250, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/recast.py", line 22, in <module>
+    from . import vector
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/__init__.py", line 30, in <module>
+    code = _serve_one(child_r, fds,
+    from ..analysis import count_layers
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 315, in _serve_one
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/__init__.py", line 31, in <module>
+    from . import sparse_apply
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/__init__.py", line 20, in <module>
+    from . import sparse_dense
+    from ._base import *
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py", line 25, in <module>
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_base.py", line 8, in <module>
+    code = spawn._main(child_r, parent_sentinel)
+    from . import sparse_apply_schedule
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/sparse_apply_schedule.py", line 23, in <module>
+    from ._sputils import (asmatrix, check_shape,
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py", line 17, in <module>
+    import scipy.sparse as sp
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/__init__.py", line 250, in <module>
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/spawn.py", line 132, in _main
+    np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+    import te.platform as tbe_platform
+              ^^^^^^^
+  File "/root/ascend-dev/venv/lib/python3.12/site-packages/numpy/__init__.py", line 333, in __getattr__
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/__init__.py", line 125, in <module>
+    self = reduction.pickle.load(from_parent)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 45, in <module>
+    from .cce_util import get_type_bits
+    from ._base import *
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/cce_util.py", line 34, in <module>
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_base.py", line 8, in <module>
+    raise AttributeError("module {!r} has no attribute "
+    import tbe.common.utils.log as logger
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/__init__.py", line 98, in <module>
+    from ._sputils import (asmatrix, check_shape,
+    from tvm.topi.utils import equal_const_int
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py", line 17, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/__init__.py", line 50, in <module>
+    np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+              ^^^^^^^
+    from . import dsl
+  File "/root/ascend-dev/venv/lib/python3.12/site-packages/numpy/__init__.py", line 333, in __getattr__
+    from . import nn
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/__init__.py", line 20, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/__init__.py", line 35, in <module>
+/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py:17: FutureWarning: In the future `np.long` will be defined as the corresponding NumPy scalar.
+  np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+AttributeError: module 'numpy' has no attribute 'long'. Did you mean: 'log'?
+    from .api import ceil
+    from .conv3d_transpose import *
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/api.py", line 27, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/conv3d_transpose.py", line 21, in <module>
+    raise AttributeError("module {!r} has no attribute "
+    from .compute import cast
+    from tvm import relay
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/compute/cast.py", line 34, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/__init__.py", line 29, in <module>
+    from . import prelude
+    from tbe.dsl.unify_schedule.util import is_v220
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/prelude.py", line 21, in <module>
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/__init__.py", line 35, in <module>
+    from tvm.relay.transform import ToANormalFormExpr
+AttributeError: module 'numpy' has no attribute 'long'. Did you mean: 'log'?
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/__init__.py", line 21, in <module>
+    from . import vector
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/__init__.py", line 30, in <module>
+    from .recast import recast
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/recast.py", line 22, in <module>
+    from . import sparse_apply
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/__init__.py", line 20, in <module>
+Traceback (most recent call last):
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 276, in main
+    from ..analysis import count_layers
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/__init__.py", line 31, in <module>
+    from . import sparse_apply_schedule
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/sparse_apply_schedule.py", line 23, in <module>
+    from . import sparse_dense
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py", line 25, in <module>
+    import te.platform as tbe_platform
+    code = _serve_one(child_r, fds,
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/__init__.py", line 125, in <module>
+    import scipy.sparse as sp
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 315, in _serve_one
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/__init__.py", line 250, in <module>
+    from .cce_util import get_type_bits
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/cce_util.py", line 34, in <module>
+    code = spawn._main(child_r, parent_sentinel)
+    from tvm.topi.utils import equal_const_int
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/spawn.py", line 132, in _main
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/__init__.py", line 50, in <module>
+    from ._base import *
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_base.py", line 8, in <module>
+    from ._sputils import (asmatrix, check_shape,
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py", line 17, in <module>
+    from . import nn
+    self = reduction.pickle.load(from_parent)
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/__init__.py", line 35, in <module>
+    np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 45, in <module>
+              ^^^^^^^
+  File "/root/ascend-dev/venv/lib/python3.12/site-packages/numpy/__init__.py", line 333, in __getattr__
+    from .conv3d_transpose import *
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/conv3d_transpose.py", line 21, in <module>
+    import tbe.common.utils.log as logger
+    from tvm import relay
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/__init__.py", line 98, in <module>
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/__init__.py", line 29, in <module>
+    raise AttributeError("module {!r} has no attribute "
+    from . import prelude
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/prelude.py", line 21, in <module>
+    from . import dsl
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/__init__.py", line 20, in <module>
+    from tvm.relay.transform import ToANormalFormExpr
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/__init__.py", line 21, in <module>
+    from .api import ceil
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/api.py", line 27, in <module>
+    from .recast import recast
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/recast.py", line 22, in <module>
+    from .compute import cast
+AttributeError: module 'numpy' has no attribute 'long'. Did you mean: 'log'?
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/compute/cast.py", line 34, in <module>
+    from ..analysis import count_layers
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/__init__.py", line 31, in <module>
+    from tbe.dsl.unify_schedule.util import is_v220
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/__init__.py", line 35, in <module>
+    from . import sparse_dense
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py", line 25, in <module>
+    from . import vector
+    import scipy.sparse as sp
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/__init__.py", line 30, in <module>
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/__init__.py", line 250, in <module>
+    from . import sparse_apply
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/__init__.py", line 20, in <module>
+    from . import sparse_apply_schedule
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/sparse_apply_schedule.py", line 23, in <module>
+    from ._base import *
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_base.py", line 8, in <module>
+    import te.platform as tbe_platform
+    from ._sputils import (asmatrix, check_shape,
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py", line 17, in <module>
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/__init__.py", line 125, in <module>
+    np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+              ^^^^^^^
+  File "/root/ascend-dev/venv/lib/python3.12/site-packages/numpy/__init__.py", line 333, in __getattr__
+    from .cce_util import get_type_bits
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/cce_util.py", line 34, in <module>
+    from tvm.topi.utils import equal_const_int
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/__init__.py", line 50, in <module>
+    raise AttributeError("module {!r} has no attribute "
+/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py:17: FutureWarning: In the future `np.long` will be defined as the corresponding NumPy scalar.
+  np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+    from . import nn
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/__init__.py", line 35, in <module>
+    from .conv3d_transpose import *
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/conv3d_transpose.py", line 21, in <module>
+AttributeError: module 'numpy' has no attribute 'long'. Did you mean: 'log'?
+    from tvm import relay
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/__init__.py", line 29, in <module>
+    from . import prelude
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/prelude.py", line 21, in <module>
+    from tvm.relay.transform import ToANormalFormExpr
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/__init__.py", line 21, in <module>
+    from .recast import recast
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/recast.py", line 22, in <module>
+    from ..analysis import count_layers
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/__init__.py", line 31, in <module>
+    from . import sparse_dense
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py", line 25, in <module>
+Traceback (most recent call last):
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 276, in main
+    import scipy.sparse as sp
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/__init__.py", line 250, in <module>
+    code = _serve_one(child_r, fds,
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/forkserver.py", line 315, in _serve_one
+    from ._base import *
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_base.py", line 8, in <module>
+    from ._sputils import (asmatrix, check_shape,
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py", line 17, in <module>
+    np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+    code = spawn._main(child_r, parent_sentinel)
+              ^^^^^^^
+  File "/root/ascend-dev/venv/lib/python3.12/site-packages/numpy/__init__.py", line 333, in __getattr__
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12.13/lib/python3.12/multiprocessing/spawn.py", line 132, in _main
+    self = reduction.pickle.load(from_parent)
+    raise AttributeError("module {!r} has no attribute "
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 45, in <module>
+    import tbe.common.utils.log as logger
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/__init__.py", line 98, in <module>
+AttributeError: module 'numpy' has no attribute 'long'. Did you mean: 'log'?
+    from . import dsl
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/__init__.py", line 20, in <module>
+    from .api import ceil
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/api.py", line 27, in <module>
+    from .compute import cast
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/compute/cast.py", line 34, in <module>
+    from tbe.dsl.unify_schedule.util import is_v220
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/__init__.py", line 35, in <module>
+    from . import vector
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/__init__.py", line 30, in <module>
+    from . import sparse_apply
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/__init__.py", line 20, in <module>
+    from . import sparse_apply_schedule
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/sparse_apply/sparse_apply_schedule.py", line 23, in <module>
+    import te.platform as tbe_platform
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/__init__.py", line 125, in <module>
+    from .cce_util import get_type_bits
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te/platform/cce_util.py", line 34, in <module>
+    from tvm.topi.utils import equal_const_int
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/__init__.py", line 50, in <module>
+    from . import nn
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/__init__.py", line 35, in <module>
+    from .conv3d_transpose import *
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/topi/nn/conv3d_transpose.py", line 21, in <module>
+    from tvm import relay
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/__init__.py", line 29, in <module>
+    from . import prelude
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/prelude.py", line 21, in <module>
+    from tvm.relay.transform import ToANormalFormExpr
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/__init__.py", line 21, in <module>
+    from .recast import recast
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/transform/recast.py", line 22, in <module>
+    from ..analysis import count_layers
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/__init__.py", line 31, in <module>
+    from . import sparse_dense
+  File "/usr/local/Ascend/cann-9.1.0/python/site-packages/tbe/tvm/relay/analysis/sparse_dense.py", line 25, in <module>
+    import scipy.sparse as sp
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/__init__.py", line 250, in <module>
+    from ._base import *
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_base.py", line 8, in <module>
+    from ._sputils import (asmatrix, check_shape,
+  File "/models/fnx-diagnostics/r153-tpot-directions-20261113/python_deps/scipy/sparse/_sputils.py", line 17, in <module>
+    np.uintc, np.long, np.ulong, np.longlong, np.ulonglong,
+              ^^^^^^^
+  File "/root/ascend-dev/venv/lib/python3.12/site-packages/numpy/__init__.py", line 333, in __getattr__
+    raise AttributeError("module {!r} has no attribute "
+AttributeError: module 'numpy' has no attribute 'long'. Did you mean: 'log'?
+QUANT_SMOKE nz torch.Size([1, 512]) 0.01191423274576664
