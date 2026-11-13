@@ -1,0 +1,123 @@
+{
+  "status": "passed",
+  "mode": "reference",
+  "engine_module": "/models/fnx-diagnostics/r154-w8a8-gemv-20261113/selected/fnx/engine.py",
+  "records": [
+    {
+      "layer": 0,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hashes": [
+        {
+          "output": "caeff3ee533aa2e3a4aee8b930e799071d49ab6b0b2bb4dd3bca87722e74bcc8",
+          "conv": "65fd7803a82b3f77d0f825a7fcb337074ae2c2ae5f22cf9e19c05197b4381e35",
+          "state": "82c7e657c0d5f9091af778908e2d7d9dd0982813a218a90c02d0494be46daf4e"
+        },
+        {
+          "output": "30d6ecb25334febef23777aca587a2e239fe254b81f51087953c11d9f891c414",
+          "conv": "fcef20647e802ae6d8022054bd401d488754627b883a96a60f6933a642ed5601",
+          "state": "eaab50c7dd79f26e85a6177ad14d054f8ec7d134e31faf914ad3759ec5764624"
+        },
+        {
+          "output": "7d2e68234f0bef48d0ac98ae7a7db1d5682f583befdb9881de4dd3843569ecfb",
+          "conv": "38d4131f88b5794560d4f0a8f66e83f71e1ae7ed6a42459db7fe82da01f83bab",
+          "state": "85392af596c0313da0027cf9b2e05ed38b2c3c5267277ab775b3ef6a55f274bc"
+        },
+        {
+          "output": "3ec47cce7427a6bf15016b9bb242581af841aacf1436f17a2ac59200d140aa1e",
+          "conv": "8adaf458ff80cbbfdaf21872ce0d34529190249772092b91c1d40759d26a450e",
+          "state": "4472acd7c363eb474ea18422c49595004add705a47c4917ee1acf5142bc6af9f"
+        }
+      ]
+    },
+    {
+      "layer": 3,
+      "replacements": [
+        "w_q",
+        "w_o"
+      ],
+      "hashes": [
+        {
+          "output": "29ec9c7397059d97bbe2ba6f64b8dedd7884f11f955efecd15b5e2ff52926009",
+          "conv": "0693f6bfa2117a9b14f9ceca13d3a5611de5dca226bf999f20a7f615fbd08dff",
+          "state": "38b20c8e11ed30bd4ce5f0af7322bc2050a2849e649b6043bcbfe18497b65197"
+        },
+        {
+          "output": "3f42d4afb1e02f2f87bb54704a4ca42ee32afc1508ff7a06dedad0bd9bb3ce45",
+          "conv": "0693f6bfa2117a9b14f9ceca13d3a5611de5dca226bf999f20a7f615fbd08dff",
+          "state": "cca746171f875033c7487e6e53e72b693bba24eb6b6957860d3949547ef0b0f0"
+        },
+        {
+          "output": "63eae1da37d12d665ab3f0e02de5bd5603984d35692cf6bdf2d35cbec0b5cec5",
+          "conv": "0693f6bfa2117a9b14f9ceca13d3a5611de5dca226bf999f20a7f615fbd08dff",
+          "state": "e465357466f12c4c546fbe0a1094cc5ace565a54cfbf058fc2ac414e51149249"
+        },
+        {
+          "output": "70b1ceaa108640ec4c85dd816974c4611d0628aeb7e29e60cf6bae522508db60",
+          "conv": "0693f6bfa2117a9b14f9ceca13d3a5611de5dca226bf999f20a7f615fbd08dff",
+          "state": "a16b3437fc5d016454442c5a2a1dac7d7371021613631b27e5287bf34458340a"
+        }
+      ]
+    },
+    {
+      "layer": 24,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hashes": [
+        {
+          "output": "56c54fcb3c6cd7be439134b1162a7d57651e5d4151cb8feb4b3bc7552a8ec4ce",
+          "conv": "0f30698b4bf80489883f2cddf641837cc476cae5334e164e077f122f21a00e4f",
+          "state": "ce2702630de8728a1665f65f0c48085b4ed0aafb9101b14aaa6179370c2f11d6"
+        },
+        {
+          "output": "282b4dc3e02740d9a234ab578bacf260b52db9c452d5bb08146526ff1107199b",
+          "conv": "2ebbc5873c0372459f7bd08075e3fe7d5a5b8cbb6d17815b6285510909180c0a",
+          "state": "bde58e2efb84b4c6cc527ae61d77eba9a23dd36359ffa291d39d408125dae362"
+        },
+        {
+          "output": "a4a70ba8c2266cf356d0ff22012e6af78e46a848fa2fe98952e3269832633cb7",
+          "conv": "daaeda78951c33cc11d67d6f996b8945c8da1b9947ca1b848d8b2ab485f76ac6",
+          "state": "afa445e3b9e855879b518f41cebad2d75acb4cf7fcf9eb68330f014ddd48e6fd"
+        },
+        {
+          "output": "bed7652f315014ac81ae4338f4aed434d7543b0db40d9612d99431bad653c3c6",
+          "conv": "c8e3feca01da232db5c8d258097c4d00b18c362c735d085f547f719471b0e3ca",
+          "state": "6a9c795f143b833271181b7ca9428e39bcca521653020d62e5363fd923f5bc00"
+        }
+      ]
+    },
+    {
+      "layer": 27,
+      "replacements": [
+        "w_q",
+        "w_o"
+      ],
+      "hashes": [
+        {
+          "output": "fc44e4fc3a529c0fb4e2fa974d5e85f3bf2c198b2242ee0236b9e598d801049d",
+          "conv": "0693f6bfa2117a9b14f9ceca13d3a5611de5dca226bf999f20a7f615fbd08dff",
+          "state": "7f4b60e8ab39664159359a88d2d048af6bb60c7dc882cecee2f8aa64d83b5f52"
+        },
+        {
+          "output": "032c6da0ed44b1592f9e202de353a76b111c0f269a14554044b3c83d11da2864",
+          "conv": "0693f6bfa2117a9b14f9ceca13d3a5611de5dca226bf999f20a7f615fbd08dff",
+          "state": "be35522bf792dd3e010bc8b86852246614d2346137fc8a1cb704c6652b3405c5"
+        },
+        {
+          "output": "1cb1a5db09092df600563f5b282a2fc1ad0cf4469ccd6538234bf91b0f769e0f",
+          "conv": "0693f6bfa2117a9b14f9ceca13d3a5611de5dca226bf999f20a7f615fbd08dff",
+          "state": "23bc7bf847aa2ab3e888dfe90e681895ef61bd8d5848b5beb223b043e3e35409"
+        },
+        {
+          "output": "3b46badd22e1876cc62d6ea08272104c9d6f798a219b2dadfcd3a8bdcb78fc7a",
+          "conv": "0693f6bfa2117a9b14f9ceca13d3a5611de5dca226bf999f20a7f615fbd08dff",
+          "state": "0b4e9914d2932295cc3890e2be33f9c02e22c50aee267f8d53eba615d92c5ef5"
+        }
+      ]
+    }
+  ]
+}

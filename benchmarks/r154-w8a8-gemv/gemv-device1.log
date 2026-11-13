@@ -1,0 +1,3 @@
+[W1113 03:25:00.028258709 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+GEMV_RESULT 1 gate_up_proj {'baseline': 56.76570348441601, 'direct': 114.04914036393166}
+GEMV_RESULT 1 down_proj {'baseline': 93.2205468416214, 'direct': 91.8332040309906}

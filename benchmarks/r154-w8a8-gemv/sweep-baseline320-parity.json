@@ -1,0 +1,7 @@
+{
+  "targets": 320,
+  "live_mean_nll": 2.130527,
+  "layer_sweep_mean_nll": 2.1305267810821533,
+  "max_rounded_token_nll_diff": 4.981536865233949e-05,
+  "agrees": true
+}

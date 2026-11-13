@@ -1,0 +1,293 @@
+{
+  "completed_layers": 48,
+  "records": [
+    {
+      "layer": 0,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 1,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 2,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 3,
+      "replacements": [
+        "w_q"
+      ]
+    },
+    {
+      "layer": 4,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 5,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 6,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 7,
+      "replacements": [
+        "w_q"
+      ]
+    },
+    {
+      "layer": 8,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 9,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 10,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 11,
+      "replacements": [
+        "w_q"
+      ]
+    },
+    {
+      "layer": 12,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 13,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 14,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 15,
+      "replacements": [
+        "w_q"
+      ]
+    },
+    {
+      "layer": 16,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 17,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 18,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 19,
+      "replacements": [
+        "w_q"
+      ]
+    },
+    {
+      "layer": 20,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 21,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 22,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 23,
+      "replacements": [
+        "w_q"
+      ]
+    },
+    {
+      "layer": 24,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 25,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 26,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 27,
+      "replacements": [
+        "w_q"
+      ]
+    },
+    {
+      "layer": 28,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 29,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 30,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 31,
+      "replacements": [
+        "w_q"
+      ]
+    },
+    {
+      "layer": 32,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 33,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 34,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 35,
+      "replacements": [
+        "w_q"
+      ]
+    },
+    {
+      "layer": 36,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 37,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 38,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 39,
+      "replacements": [
+        "w_q"
+      ]
+    },
+    {
+      "layer": 40,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 41,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 42,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 43,
+      "replacements": [
+        "w_q"
+      ]
+    },
+    {
+      "layer": 44,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 45,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 46,
+      "replacements": [
+        "w_qkvz"
+      ]
+    },
+    {
+      "layer": 47,
+      "replacements": [
+        "w_q"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,493 @@
+{
+  "text": "A reliable inference service needs reproducible measurements. We compare the same inputs, record latency and accuracy, and check whether the result survives repeated tests.",
+  "ids": [
+    32,
+    14294,
+    42903,
+    2393,
+    3749,
+    50949,
+    75600,
+    20934,
+    13,
+    1165,
+    9150,
+    279,
+    1788,
+    10804,
+    11,
+    3150,
+    37972
+  ],
+  "records": [
+    {
+      "layer": 0,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.026739463210105896
+    },
+    {
+      "layer": 1,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.03687795251607895
+    },
+    {
+      "layer": 2,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.03843538835644722
+    },
+    {
+      "layer": 3,
+      "replacements": [
+        "w_q",
+        "w_o"
+      ],
+      "hidden_relative_l2": 0.05230642855167389
+    },
+    {
+      "layer": 4,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.06193675845861435
+    },
+    {
+      "layer": 5,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.06510356068611145
+    },
+    {
+      "layer": 6,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.06412804126739502
+    },
+    {
+      "layer": 7,
+      "replacements": [
+        "w_q",
+        "w_o"
+      ],
+      "hidden_relative_l2": 0.06321931630373001
+    },
+    {
+      "layer": 8,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.06319496035575867
+    },
+    {
+      "layer": 9,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.06366585195064545
+    },
+    {
+      "layer": 10,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.06527795642614365
+    },
+    {
+      "layer": 11,
+      "replacements": [
+        "w_q",
+        "w_o"
+      ],
+      "hidden_relative_l2": 0.06712379306554794
+    },
+    {
+      "layer": 12,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.06966669857501984
+    },
+    {
+      "layer": 13,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.07488367706537247
+    },
+    {
+      "layer": 14,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.08601319044828415
+    },
+    {
+      "layer": 15,
+      "replacements": [
+        "w_q",
+        "w_o"
+      ],
+      "hidden_relative_l2": 0.08794793486595154
+    },
+    {
+      "layer": 16,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.09110601246356964
+    },
+    {
+      "layer": 17,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.0929366871714592
+    },
+    {
+      "layer": 18,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.09466741979122162
+    },
+    {
+      "layer": 19,
+      "replacements": [
+        "w_q",
+        "w_o"
+      ],
+      "hidden_relative_l2": 0.09825043380260468
+    },
+    {
+      "layer": 20,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.09643091261386871
+    },
+    {
+      "layer": 21,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.09922431409358978
+    },
+    {
+      "layer": 22,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.09843458235263824
+    },
+    {
+      "layer": 23,
+      "replacements": [
+        "w_q",
+        "w_o"
+      ],
+      "hidden_relative_l2": 0.09816277772188187
+    },
+    {
+      "layer": 24,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.1016695573925972
+    },
+    {
+      "layer": 25,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.10474452376365662
+    },
+    {
+      "layer": 26,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.10903184115886688
+    },
+    {
+      "layer": 27,
+      "replacements": [
+        "w_q",
+        "w_o"
+      ],
+      "hidden_relative_l2": 0.11520612984895706
+    },
+    {
+      "layer": 28,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.12540078163146973
+    },
+    {
+      "layer": 29,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.13741959631443024
+    },
+    {
+      "layer": 30,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.15144674479961395
+    },
+    {
+      "layer": 31,
+      "replacements": [
+        "w_q",
+        "w_o"
+      ],
+      "hidden_relative_l2": 0.16312673687934875
+    },
+    {
+      "layer": 32,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.1807686984539032
+    },
+    {
+      "layer": 33,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.19681771099567413
+    },
+    {
+      "layer": 34,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.20425298810005188
+    },
+    {
+      "layer": 35,
+      "replacements": [
+        "w_q",
+        "w_o"
+      ],
+      "hidden_relative_l2": 0.21957090497016907
+    },
+    {
+      "layer": 36,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.2159263789653778
+    },
+    {
+      "layer": 37,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.21385128796100616
+    },
+    {
+      "layer": 38,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.21057353913784027
+    },
+    {
+      "layer": 39,
+      "replacements": [
+        "w_q",
+        "w_o"
+      ],
+      "hidden_relative_l2": 0.21138043701648712
+    },
+    {
+      "layer": 40,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.20833171904087067
+    },
+    {
+      "layer": 41,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.20507733523845673
+    },
+    {
+      "layer": 42,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.19812114536762238
+    },
+    {
+      "layer": 43,
+      "replacements": [
+        "w_q",
+        "w_o"
+      ],
+      "hidden_relative_l2": 0.19778068363666534
+    },
+    {
+      "layer": 44,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.18236660957336426
+    },
+    {
+      "layer": 45,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.1572926938533783
+    },
+    {
+      "layer": 46,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ],
+      "hidden_relative_l2": 0.14570024609565735
+    },
+    {
+      "layer": 47,
+      "replacements": [
+        "w_q",
+        "w_o"
+      ],
+      "hidden_relative_l2": 0.1395750194787979
+    }
+  ],
+  "scores": {
+    "baseline": {
+      "mean_nll": 5.1783342361450195,
+      "nll_tokens": [
+        10.557384490966797,
+        7.918704032897949,
+        6.161849021911621,
+        3.955400228500366,
+        11.032227516174316,
+        0.0011241076281294227,
+        5.62783670425415,
+        1.6969153881072998,
+        3.4043519496917725,
+        5.508542060852051,
+        1.8669284582138062,
+        5.149415016174316,
+        6.886749744415283,
+        3.765944480895996,
+        5.02620792388916,
+        4.29376745223999
+      ],
+      "argmax": [
+        220,
+        1654,
+        314,
+        1902,
+        310,
+        75600,
+        11,
+        314,
+        1061,
+        599,
+        1330,
+        4906,
+        1558,
+        3808,
+        279,
+        279
+      ],
+      "top1": 0.0625
+    },
+    "candidate": {
+      "mean_nll": 5.1543684005737305,
+      "nll_tokens": [
+        10.597528457641602,
+        7.749212265014648,
+        6.0947980880737305,
+        4.0170135498046875,
+        11.181565284729004,
+        0.0007440659101121128,
+        6.193824768066406,
+        1.6366184949874878,
+        3.4877564907073975,
+        5.581218242645264,
+        1.8961108922958374,
+        4.359931468963623,
+        6.703238487243652,
+        3.5076332092285156,
+        5.190373420715332,
+        4.2723283767700195
+      ],
+      "argmax": [
+        220,
+        321,
+        314,
+        1902,
+        310,
+        75600,
+        11,
+        13,
+        1061,
+        599,
+        1330,
+        1581,
+        1558,
+        3808,
+        18483,
+        279
+      ],
+      "top1": 0.125
+    }
+  },
+  "scope": "teacher-forced decode only; 16 targets; not full model task-quality acceptance",
+  "status": "requires_live_baseline_agreement",
+  "elapsed_s": 32.55186543398304
+}

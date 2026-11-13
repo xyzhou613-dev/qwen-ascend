@@ -1,0 +1,68 @@
+{
+  "status": "passed",
+  "synthetic": [
+    {
+      "experts": 1,
+      "rows": 128,
+      "cols": 128,
+      "exact": true
+    },
+    {
+      "experts": 3,
+      "rows": 256,
+      "cols": 512,
+      "exact": true
+    },
+    {
+      "experts": 2,
+      "rows": 640,
+      "cols": 2560,
+      "exact": true
+    }
+  ],
+  "full_experts": 512,
+  "full_roundtrip_exact": true,
+  "cpu_rowpack_exact": true,
+  "times_ms": {
+    "to_row": [
+      3.1134650707244873,
+      3.0542099475860596,
+      3.040862560272217,
+      3.0387299060821533,
+      3.03975510597229,
+      3.0428874492645264,
+      3.03733491897583,
+      3.0341525077819824
+    ],
+    "to_kmajor": [
+      2.75246000289917,
+      2.707017421722412,
+      2.7126500606536865,
+      2.712090015411377,
+      2.711164951324463,
+      2.710087537765503,
+      2.7112374305725098,
+      2.7106974124908447
+    ]
+  },
+  "median_ms": {
+    "to_row": 3.0403088331222534,
+    "to_kmajor": 2.7112011909484863
+  },
+  "scratch_bytes": 419430400,
+  "phase_cycle_including_copies_and_scales_ms": [
+    11.521505355834961,
+    11.43865966796875,
+    11.402975082397461,
+    11.400765419006348,
+    11.395529747009277,
+    11.396064758300781,
+    11.397894859313965,
+    11.391300201416016
+  ],
+  "median_phase_cycle_ms": 11.399330139160156,
+  "weight_and_scale_pointers_stable": true,
+  "scale_extra_capacity_bytes": 15728640,
+  "scope": "Layout converter only; model phase lifecycle not implemented.",
+  "exclusive": false
+}

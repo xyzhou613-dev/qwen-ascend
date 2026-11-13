@@ -1,0 +1,6 @@
+[W1113 03:23:09.973853367 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+PAIR_LOADED 0 1597348352
+[W1113 03:23:10.616197245 TensorFactories.cpp:423] Warning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (function operator())
+LAYER_RESULT 0 {'baseline': 0.5533940494060516, 'candidate': 0.4535662531852722}
+PAIR_LOADED 3 1647401472
+LAYER_RESULT 3 {'baseline': 0.7567674815654755, 'candidate': 0.6863637566566467}

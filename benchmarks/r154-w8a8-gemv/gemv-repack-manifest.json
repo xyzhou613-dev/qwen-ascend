@@ -1,0 +1,26 @@
+[
+  {
+    "name": "gate_up_proj",
+    "source": "/models/Qwen3.8-Flash-Next-LQP-w4a16-em/L00.w4.safetensors",
+    "experts": 256,
+    "K": 2560,
+    "N": 1280,
+    "G": 40,
+    "scale_padded_G": 40,
+    "output_bytes": 445644968,
+    "elapsed_s": 5.992668961000163,
+    "repack": "lossless; no quantization change"
+  },
+  {
+    "name": "down_proj",
+    "source": "/models/Qwen3.8-Flash-Next-LQP-w4a16-em/L00.w4.safetensors",
+    "experts": 256,
+    "K": 640,
+    "N": 2560,
+    "G": 10,
+    "scale_padded_G": 16,
+    "output_bytes": 230686888,
+    "elapsed_s": 2.6895626460318454,
+    "repack": "lossless; no quantization change"
+  }
+]

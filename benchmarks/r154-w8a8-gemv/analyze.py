@@ -1,0 +1,123 @@
+"""CPU-only aggregation; component measurements are not model TPOT claims."""
+import json,math,statistics
+from pathlib import Path
+P=Path(__file__).resolve().parent
+def read(name):return json.loads((P/name).read_text())
+def layers(prefix):
+ rows=[r for d in (0,1) for r in read(f'{prefix}-device{d}.json')['records']]
+ result={kind:{mode:statistics.mean(r['median_ms'][mode] for r in rows if r['type']==kind)
+        for mode in ('baseline','candidate')} for kind in ('linear','full')}
+ result['weighted_proxy_saving_ms']=36*(result['linear']['baseline']-result['linear']['candidate'])+12*(result['full']['baseline']-result['full']['candidate'])
+ return result
+quality={name:read(file) for name,file in [('plain','sweep-suite-full.json'),('selective','sweep-suite-selective.json'),('smooth','sweep-suite-smooth.json')]}
+for name,x in quality.items():
+ x['development_gate_passed']=x['mean_delta_nll']<=.02 and x['worst_case_delta_nll']<=.05
+ for other in quality.values():
+  for a,b in zip(x['scores'],other['scores']):assert a['baseline']['nll_tokens']==b['baseline']['nll_tokens'],'baseline drift across runs'
+layer={name:layers(prefix) for name,prefix in [('plain','layer-full'),('selective','layer-selective'),('smooth','layer-smooth')]}
+down=[read(f'gemv-tile32-device{d}.json')['records'][0] for d in (0,1)]
+down_save_us=statistics.mean(r['median_us']['baseline']-r['median_us']['direct'] for r in down)
+phase=read('transpose.json');switch_cycle_24=24*phase['median_phase_cycle_ms']
+result=dict(status='experimental_not_deployed',production='r152',baseline_http_TPOT_ms=32.89,
+    full_model_candidate_HTTP_measured=False,task_quality_acceptance_complete=False,
+    quality=quality,layers=layer,direct_down=down,
+    direct_down_weighted_proxy_saving_ms=down_save_us*.048,
+    phase=phase,phase_24layer_cycle_proxy_ms=switch_cycle_24,
+    direct_down_only_break_even_tokens_proxy=switch_cycle_24/(down_save_us*.048),
+    projection_records={name:[read(f'{prefix}-device{d}.json') for d in (0,1)] for name,prefix in [('plain','projection'),('smooth','projection-smooth'),('large_plain','projection-large'),('large_smooth','projection-large-smooth')]})
+a=read('loader-reference.json');b=read('loader-selected.json');assert a['records']==b['records']
+result['selected_loader_bitwise_matches_validated_smooth']=True
+(P/'summary.json').write_text(json.dumps(result,indent=2))
+qt=[]
+for i,r in enumerate(quality['plain']['scores']):
+ qt.append('| '+r['name']+' | '+f"{r['baseline']['tail_mean_nll']:.6f}"+' | '+' | '.join(f"{quality[n]['scores'][i]['tail_delta_nll']:+.6f}" for n in ('plain','selective','smooth'))+' |')
+lt=[]
+for name,label in [('plain','普通 W8A8，含输出投影'),('selective','普通 W8A8，保留输出 BF16'),('smooth','SmoothQuant α=0.5，含输出投影')]:
+ r=layer[name]
+ lt.append(f"| {label} | {r['linear']['baseline']:.4f}→{r['linear']['candidate']:.4f} | {r['full']['baseline']:.4f}→{r['full']['candidate']:.4f} | {r['weighted_proxy_saving_ms']:.3f} |")
+qs=[]
+for name,label in [('plain','普通 W8A8'),('selective','保留输出 BF16'),('smooth','SmoothQuant')]:
+ r=quality[name];qs.append(f"{label}：平均 ΔNLL={r['mean_delta_nll']:+.6f}，最差切片={r['worst_case_delta_nll']:+.6f}，开发门槛{'通过' if r['development_gate_passed'] else '未通过'}。")
+report=f'''# r154：W8A8 真实层、质量校准与直接 W4 GEMV
+
+2026-11-13，双 Ascend 910B4-1，物理3/5、容器逻辑0/1；CANN9.1.0、驱动26.1.1、torch2.10.0、torch_npu2.10.0.post4。起点 ca63a53，正式服务仍 r152。本轮没有修改正式源码/ELF/启动配置，没有重启或加载第二份完整 Engine。本文均为隔离候选，不是 r154 生产发布。
+
+本轮做了实际代码与硬件验证：新增可调用的逐通道 W8A8 投影类、qkv/z 合并、固定 α 的 SmoothQuant 校准、直接读取打包权重的 W4 GEMV，以及有界临时空间的可逆布局转换。48层逐层 teacher-forcing 校验与在线 r152 对齐，扩大数值验收；未宣称取得新的整模型 HTTP TPOT/TTFT 收益。
+
+## 真实层性能
+
+L00/L24 linear、L03/L27 full-attention，真实权重，合成 hidden，位置4096、私有窗口8192。每图16次完整 forward、每轮两次 replay、12轮交替顺序。共享图池只串行使用；前后有服务健康与HBM余量检查。表中为双卡各自中位数的均值，单位 ms。
+
+| 候选 | linear 层 | full 层 | 按36+12层加权的节省代理 ms |
+|---|---:|---:|---:|
+{chr(10).join(lt)}
+
+这些来自4层重复执行，不包含真实48层交接、head和HTTP；权重热度、专家路由和整网络不同。不能直接从32.89ms减去代理就宣称端到端提速。普通W8A8的linear耗时下降18%～20%、full约9%。SmoothQuant必须单独看同轮结果，不能借用普通版本的比例。
+
+普通及SmoothQuant投影类都检查 qkv+z/out/full-q 的 M=1/2/4/128/512/2048/4096/8192、BF16输出形状与有限性，以及更新激活后的NPUGraph重放与eager一致。大batch检查只是投影支持度和热权重组件性能；没有据此声称完整prefill质量或TTFT通过。
+
+构造器按256输出行分批量化，避免在载入期对整个合并权重创建FP32临时副本。默认ND转置视图，无GE格式转换依赖；尚未把r153的NZ私有兼容环境引入生产。router、HC小矩阵、norm、KV精度与FP32递推均保留原路径。
+
+## 质量：从短探针扩大到48层配对NLL
+
+仅同时加载一个真实层，把序列hidden放在CPU，执行同一组冻结token的完整48层 teacher-forced decode。baseline和candidate分别推进自己的序列与状态，不把候选误差在层间重置。没有构造Engine；每层后释放权重。先用16目标校验，再对技术文本320目标校验，与在线r152的mean NLL在接口六位小数精度一致，逐token四位小数差在舍入范围内，见两个parity文件。这个方法解决在线期间不能再装一份完整模型的部分校验需求。
+
+开发集8份输入，各64 token暖上下文+256预测目标，共2048目标，包含中文自然文本/技术文本、Python/C++、英文代码API、数学说明。它用于开发筛选，已经参与候选选择，**不是最终验收holdout**，也不等于数学正确率、代码pass@1或JSON遵循率。所有候选的baseline逐token NLL检查一致。
+
+预设开发门槛：平均ΔNLL≤0.02nat、每个切片ΔNLL≤0.05nat；不因某一候选失败而放宽。{''.join(qs)}
+
+| 切片 | r152 baseline NLL | 普通W8A8 Δ | 输出BF16 Δ | SmoothQuant Δ |
+|---|---:|---:|---:|---:|
+{chr(10).join(qt)}
+
+普通方案的英文API切片+0.057505超限；保留输出BF16后，Python切片+0.073413又超限，说明不能靠一次粗略缩小范围就判断安全。
+
+SmoothQuant用独立4份文本/代码切片、共512个校准token，逐层采集真实r152投影输入的逐通道最大值；没有读取在线用户的hidden。校准与开发集无共同的连续128-token窗口。固定α=.5、缩放范围[.01,100]，权重使用相反缩放，激活缩放融合进npu_dynamic_quant的smooth_scales，不增加独立逐token Mul。保存的BF16缩放值同时用于权重补偿，避免缩放精度不一致。校准统计不含目标标签。
+
+即使开发门槛通过，仍缺100k级独立预测目标、多长度真实prefill、数学/代码/中英任务、结构输出、长文和多轮回归。**没有因16目标或2048目标通过就发布候选。** 本轮NLL结果仅覆盖W8A8/SmoothQuant；直接MoE GEMV尚未接入全网络质量测试。
+
+## 直接W4 GEMV：性能与数值边界
+
+新增AscendC kernel，直接按10个动态专家ID读取[E,N,K/2]行式INT4和BF16 g64 scale，在UB内用int4→half硬件Cast解包、FP32乘法/分组规约和缩放，不生成选中专家权重的GM临时副本。最终BF16转换也计入探针。原始量化位与scale不变，但规约及缩放次序改变，因此不能称与CANN W4A16逐位等价。
+
+真实L00权重，256个专家轮换构成工作集，原参考保留512专家的生产gather+W4A16路径。20组输入含不同幅值/重复ID，8组新输入重放对eager检查，两卡依次测，64调用/图、12轮交替。数值误差和全部计时样本在gemv JSON中，组件对照不是全模型任务质量。
+
+- gate/up K2560,N1280：首版直接Vector约114µs，原路径约57µs，明显更慢，否决；没有强行替换Cube路径。
+- down K640,N2560：tile8首版约92µs，仅略快；改为tile32后，两卡分别 {down[0]['median_us']['baseline']:.2f}→{down[0]['median_us']['direct']:.2f}µs、{down[1]['median_us']['baseline']:.2f}→{down[1]['median_us']['direct']:.2f}µs，约27%～28%耗时下降。
+- 按48层加权，down组件节省约{down_save_us*.048:.3f}ms/token的代理；还未整合原生MoE epilogue及权重生命周期，不能与W8A8代理简单相加当已验证收益。
+
+## 避免长期双份专家权重
+
+当前prefill要K-major权重，直接GEMV要row-major，永久保留两份down权重约多18.75GiB（两卡合计），不采用。新增128×128打包INT4转置：UB中Cast到half、TransDataTo5HD转置后再Cast回INT4，不改变值；完整512专家转换与CPU打包逐位相同，往返原权重逐位相同。
+
+原型cycle使用一个400MiB共享权重临时区，转换后拷回同一权重地址；scale也在同一扩容缓冲区中切换表示。独立往返正确性检查另有back缓冲，400MiB不是整个探针的占用。GPU指针稳定，全部cycle结束后权重/scale逐位恢复。scale扩容每层额外15MiB，48层合计720MiB，不能忽略。转换器独立阶段约{phase['median_ms']['to_row']:.3f}/{phase['median_ms']['to_kmajor']:.3f}ms/层；包含两方向转换、拷回和scale的往返为{phase['median_phase_cycle_ms']:.3f}ms/层。
+
+按每卡24层、两卡能同时转换的假设，完整prefill↔decode往返约{switch_cycle_24:.1f}ms。相对down代理收益，约输出{result['direct_down_only_break_even_tokens_proxy']:.0f}token才摊平，尚未计模型生命周期开销。因此不能直接部署成每请求切换。下一步应优先避免全量转换（例如读现有布局的融合kernel）或显著降低转换成本，再完成prefill/缓存/快照/图捕获/拒绝回滚的生命周期测试。当前仅证明转换可行，没有实现完整模型phase切换。
+
+## 运行与下一步
+
+早期探针出现私有1/32 allocator上限不足：先是整块FP32量化scratch，后是私有RoPE缓存沿用了256k容量。保留失败日志；分行量化、把实际探针窗口设为8192并串行共享图池后完成，没有扩大上限、修改生产窗口或把失败称为生产OOM。中途SSH和9002短暂均超时，用户确认地址未变；随后连接恢复，未确认链路中断原因，不把它写成服务重启。
+
+下一实现重点是校准后的W8A8全网络验收，以及能兼容现有prefill权重表示的down融合路径。若仍要求服务保持在线，可继续逐层质量筛选；完整候选HTTP A/B与真实生成任务验收需要另行安排硬件或服务测试窗口。当前无新端到端性能结果，正式r152的32.89/33.61ms仍是已验收TPOT。
+
+隔离目录：/models/fnx-diagnostics/r154-w8a8-gemv-20261113。提交实验源码、组件结果、开发输入ID和摘要；不含模型权重、private-artifacts、逐层hidden、完整ENV或凭据。校准向量留在服务器私有目录，可由冻结输入重建。最终服务、管理器、watchdog和部署哈希见final-operations.json。
+
+交付的selected-engine.patch接入已验证的SmoothQuant模块，而非未通过开发门槛的普通版本；默认开关关闭，显式启用还必须提供FNX_W8A8_CALIB_DIR。实际构造器入口与手动接入的已测实现，在4个真实层、各4步的输出/卷积历史/FP32状态或KV哈希逐位一致。补丁和模块放在experiments目录，没有应用到仓库正式fnx或线上路径。
+
+Ascend API依据：[int4 Cast及位宽约束](https://www.hiascend.com/doc_center/source/en/CANNCommunityEdition/900/API/ascendcopapi/atlasascendc_api_07_0073.html)、[WholeReduceSum](https://www.hiascend.com/doc_center/source/en/CANNCommunityEdition/900/API/ascendcopapi/atlasascendc_api_07_0081.html)。支持性以本机编译、数值对照和NPUGraph实际结果为准。
+'''
+(P/'report.md').write_text(report)
+q=quality['smooth']
+block=f'''## r154 阶段验证（2026-11-13，生产仍r152）
+
+实现了隔离W8A8投影、qkv/z合并、固定α=.5的SmoothQuant及直接INT4 down GEMV，未部署新服务。普通W8A8真实linear层耗时降18%～20%、full约9%，仅组件/单层数据。
+
+新增逐层48层teacher-forcing方法，16和320目标与在线r152 NLL对齐；8文本2048目标的普通/输出BF16/SmoothQuant开发对照已记录。普通两方案分别因英文API/Python切片超出+.05nat而未通过；SmoothQuant平均ΔNLL={q['mean_delta_nll']:+.6f}、最差={q['worst_case_delta_nll']:+.6f}，开发门槛{'通过' if q['development_gate_passed'] else '未通过'}。这不是最终holdout或生成任务质量验收。
+
+直接down组件约93～95→67～68µs；gate/up Vector路径更慢，否决。可逆布局转换逐位通过，但完整phase往返约{phase['median_phase_cycle_ms']:.2f}ms/层，按24层/卡约{switch_cycle_24:.0f}ms/请求，不宜直接每请求切换。须解决prefill布局兼容、生命周期和更完整质量/HTTP A/B，再讨论发布。
+
+详见[r154阶段实测](r154-w8a8-gemv.md)。正式部署/源码哈希保持r152，当前没有新TTFT/TPOT验收值。
+
+'''
+(P/'techdoc-block.md').write_text(block)
+print(json.dumps({k:dict(mean=x['mean_delta_nll'],worst=x['worst_case_delta_nll'],development_gate=x['development_gate_passed']) for k,x in quality.items()},indent=2))

@@ -1,0 +1,26 @@
+[W1113 02:00:53.284110860 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+E1113 02:00:54.467169 61462 ../torch_npu/csrc/core/npu/NPUCachingAllocator.cpp:1332] NPU out of memory. Tried to allocate 162.00 MiB (NPU 0; 60.96 GiB total capacity; 1.71 GiB already allocated; 1.71 GiB current active; 982.09 MiB free; 1.90 GiB allowed; 1.75 GiB reserved in total by PyTorch).If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.
+Traceback (most recent call last):
+  File "/models/fnx-diagnostics/r154-w8a8-gemv-20261113/layer_probe.py", line 85, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/root/ascend-dev/venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/models/fnx-diagnostics/r154-w8a8-gemv-20261113/layer_probe.py", line 39, in main
+    L=E.FnLayer(index,ltype,W,'npu:0')
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/models/fnx-diagnostics/r154-w8a8-gemv-20261113/candidate/fnx/engine.py", line 1248, in __init__
+    self.w8a8_replacements = configure_layer(self, Raw)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/models/fnx-diagnostics/r154-w8a8-gemv-20261113/candidate/fnx/w8a8.py", line 65, in configure_layer
+    layer.w_qkvz=W8A8.from_bf16(weight,layout=layout)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/ascend-dev/venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/models/fnx-diagnostics/r154-w8a8-gemv-20261113/candidate/fnx/w8a8.py", line 23, in from_bf16
+    wf=weight.float()
+       ^^^^^^^^^^^^^^
+torch.OutOfMemoryError: NPU out of memory. Tried to allocate 162.00 MiB (NPU 0; 60.96 GiB total capacity; 1.71 GiB already allocated; 1.71 GiB current active; 982.09 MiB free; 1.90 GiB allowed; 1.75 GiB reserved in total by PyTorch).If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.
+[ERROR] 2026-11-13-02:00:55 (PID:61462, Device:0, RankID:-1) ERR99999 UNKNOWN applicaiton exception

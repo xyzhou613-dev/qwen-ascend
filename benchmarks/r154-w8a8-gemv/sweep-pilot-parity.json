@@ -1,0 +1,9 @@
+{
+  "baseline_mean_nll": 5.1783342361450195,
+  "live_mean_nll": 5.178334,
+  "ids_exact": true,
+  "per_token_rounded_match": true,
+  "candidate_mean_nll": 5.1543684005737305,
+  "targets": 16,
+  "full_task_quality_passed": false
+}

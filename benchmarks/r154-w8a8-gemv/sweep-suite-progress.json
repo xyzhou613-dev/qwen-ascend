@@ -1,0 +1,341 @@
+{
+  "completed_layers": 48,
+  "records": [
+    {
+      "layer": 0,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 1,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 2,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 3,
+      "replacements": [
+        "w_q",
+        "w_o"
+      ]
+    },
+    {
+      "layer": 4,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 5,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 6,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 7,
+      "replacements": [
+        "w_q",
+        "w_o"
+      ]
+    },
+    {
+      "layer": 8,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 9,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 10,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 11,
+      "replacements": [
+        "w_q",
+        "w_o"
+      ]
+    },
+    {
+      "layer": 12,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 13,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 14,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 15,
+      "replacements": [
+        "w_q",
+        "w_o"
+      ]
+    },
+    {
+      "layer": 16,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 17,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 18,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 19,
+      "replacements": [
+        "w_q",
+        "w_o"
+      ]
+    },
+    {
+      "layer": 20,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 21,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 22,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 23,
+      "replacements": [
+        "w_q",
+        "w_o"
+      ]
+    },
+    {
+      "layer": 24,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 25,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 26,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 27,
+      "replacements": [
+        "w_q",
+        "w_o"
+      ]
+    },
+    {
+      "layer": 28,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 29,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 30,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 31,
+      "replacements": [
+        "w_q",
+        "w_o"
+      ]
+    },
+    {
+      "layer": 32,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 33,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 34,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 35,
+      "replacements": [
+        "w_q",
+        "w_o"
+      ]
+    },
+    {
+      "layer": 36,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 37,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 38,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 39,
+      "replacements": [
+        "w_q",
+        "w_o"
+      ]
+    },
+    {
+      "layer": 40,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 41,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 42,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 43,
+      "replacements": [
+        "w_q",
+        "w_o"
+      ]
+    },
+    {
+      "layer": 44,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 45,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 46,
+      "replacements": [
+        "w_qkvz",
+        "w_out"
+      ]
+    },
+    {
+      "layer": 47,
+      "replacements": [
+        "w_q",
+        "w_o"
+      ]
+    }
+  ]
+}

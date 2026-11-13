@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/models/fnx-diagnostics/r154-w8a8-gemv-20261113/sweep_suite.py", line 81, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/root/ascend-dev/venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/models/fnx-diagnostics/r154-w8a8-gemv-20261113/sweep_suite.py", line 38, in main
+    guard();cases=json.load(open(P/'suite-inputs.json'))['cases']
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/models/fnx-diagnostics/r154-w8a8-gemv-20261113/suite-inputs.json'
+[ERROR] 2026-11-13-04:52:22 (PID:62268, Device:0, RankID:-1) ERR99999 UNKNOWN applicaiton exception

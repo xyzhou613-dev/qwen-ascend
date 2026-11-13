@@ -1,0 +1,30 @@
+[W1113 02:06:38.657168617 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+PAIR_LOADED 0 1597348352
+[W1113 02:06:38.295388621 TensorFactories.cpp:423] Warning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (function operator())
+LAYER_RESULT 0 {'baseline': 0.5493953227996826, 'candidate': 0.461008757352829}
+PAIR_LOADED 3 1647401472
+E1113 02:06:41.564770 61524 ../torch_npu/csrc/core/npu/NPUCachingAllocator.cpp:1332] NPU out of memory. Tried to allocate 66.00 MiB (NPU 0; 60.96 GiB total capacity; 1.61 GiB already allocated; 1.61 GiB current active; 789.73 MiB free; 1.90 GiB allowed; 1.87 GiB reserved in total by PyTorch).If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.
+Traceback (most recent call last):
+  File "/models/fnx-diagnostics/r154-w8a8-gemv-20261113/layer_shared_probe.py", line 87, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/root/ascend-dev/venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/models/fnx-diagnostics/r154-w8a8-gemv-20261113/layer_shared_probe.py", line 62, in main
+    L.forward(x,pos);stream.synchronize();g=torch.npu.NPUGraph()
+    ^^^^^^^^^^^^^^^^
+  File "/models/fnx-diagnostics/r154-w8a8-gemv-20261113/candidate/fnx/engine.py", line 1952, in forward
+    y = self._moe(mixed)
+        ^^^^^^^^^^^^^^^^
+  File "/models/fnx-diagnostics/r154-w8a8-gemv-20261113/candidate/fnx/engine.py", line 1868, in _moe
+    y = self.exp_gu.apply(x2.to(torch.bfloat16), idx[0]).view(TOPK, 2 * MI)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/models/fnx-diagnostics/r154-w8a8-gemv-20261113/candidate/fnx/engine.py", line 700, in apply
+    return torch_npu.npu_weight_quant_batchmatmul(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/ascend-dev/venv/lib/python3.12/site-packages/torch/_ops.py", line 1209, in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: NPU out of memory. Tried to allocate 66.00 MiB (NPU 0; 60.96 GiB total capacity; 1.61 GiB already allocated; 1.61 GiB current active; 789.73 MiB free; 1.90 GiB allowed; 1.87 GiB reserved in total by PyTorch).If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.
+[ERROR] 2026-11-13-02:06:42 (PID:61524, Device:0, RankID:-1) ERR99999 UNKNOWN applicaiton exception

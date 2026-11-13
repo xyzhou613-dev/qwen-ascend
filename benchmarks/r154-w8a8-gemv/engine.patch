@@ -1,0 +1,23 @@
+--- a/fnx/engine.py
++++ b/fnx/engine.py
+@@ -292,6 +292,8 @@
+         return w(x)
+     if isinstance(w, Raw):
+         return _fl(x, w.w)
++    if callable(w):
++        return w(x)
+     return _fl(x, w)
+ 
+ class DenseW8:
+@@ -1240,6 +1242,11 @@
+                     self.sh_up = None
+                     self.sh_gw = False
+ 
++        self.w8a8_replacements = []
++        if os.environ.get("FNX_DENSE_W8A8", "0") == "1":
++            from .w8a8 import configure_layer
++            self.w8a8_replacements = configure_layer(self, Raw)
++
+     # ---------- DeltaNet 单步 ----------
+     def _deltanet(self, h):
+         b = h.shape[0]

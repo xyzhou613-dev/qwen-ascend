@@ -1,0 +1,59 @@
+[W1113 05:13:54.288160690 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+[W1113 05:13:55.052114895 TensorFactories.cpp:423] Warning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (function operator())
+SUITE_LAYER 0 elapsed 7.0
+SUITE_LAYER 1 elapsed 12.9
+SUITE_LAYER 2 elapsed 18.9
+SUITE_LAYER 3 elapsed 26.5
+SUITE_LAYER 4 elapsed 32.5
+SUITE_LAYER 5 elapsed 38.4
+SUITE_LAYER 6 elapsed 44.3
+SUITE_LAYER 7 elapsed 51.8
+SUITE_LAYER 8 elapsed 57.7
+SUITE_LAYER 9 elapsed 63.6
+SUITE_LAYER 10 elapsed 69.5
+SUITE_LAYER 11 elapsed 77.1
+SUITE_LAYER 12 elapsed 83.0
+SUITE_LAYER 13 elapsed 89.1
+SUITE_LAYER 14 elapsed 95.2
+SUITE_LAYER 15 elapsed 102.8
+SUITE_LAYER 16 elapsed 108.7
+SUITE_LAYER 17 elapsed 114.6
+SUITE_LAYER 18 elapsed 120.5
+SUITE_LAYER 19 elapsed 128.0
+SUITE_LAYER 20 elapsed 133.9
+SUITE_LAYER 21 elapsed 139.8
+SUITE_LAYER 22 elapsed 145.7
+SUITE_LAYER 23 elapsed 153.1
+SUITE_LAYER 24 elapsed 159.0
+SUITE_LAYER 25 elapsed 164.8
+SUITE_LAYER 26 elapsed 170.7
+SUITE_LAYER 27 elapsed 178.1
+SUITE_LAYER 28 elapsed 183.9
+SUITE_LAYER 29 elapsed 190.1
+SUITE_LAYER 30 elapsed 196.2
+SUITE_LAYER 31 elapsed 203.9
+SUITE_LAYER 32 elapsed 209.9
+SUITE_LAYER 33 elapsed 215.7
+SUITE_LAYER 34 elapsed 221.6
+SUITE_LAYER 35 elapsed 229.1
+SUITE_LAYER 36 elapsed 234.9
+SUITE_LAYER 37 elapsed 240.8
+SUITE_LAYER 38 elapsed 246.6
+SUITE_LAYER 39 elapsed 254.1
+SUITE_LAYER 40 elapsed 259.9
+SUITE_LAYER 41 elapsed 265.8
+SUITE_LAYER 42 elapsed 271.7
+SUITE_LAYER 43 elapsed 279.1
+SUITE_LAYER 44 elapsed 285.0
+SUITE_LAYER 45 elapsed 291.1
+SUITE_LAYER 46 elapsed 297.2
+SUITE_LAYER 47 elapsed 304.9
+SUITE_SCORE zh_natural_a 0.009456670323914285
+SUITE_SCORE zh_natural_b -0.007609959598994465
+SUITE_SCORE zh_technical 0.039822168595605945
+SUITE_SCORE python_model 0.0049349107342093745
+SUITE_SCORE cpp_kernel -0.011515641307234148
+SUITE_SCORE zh_optimization -0.016833756649198506
+SUITE_SCORE english_code_api 0.04249116886806803
+SUITE_SCORE math_exposition 0.0005532860177197563
+SUITE_DONE 0.007662355873011284 0.04249116886806803

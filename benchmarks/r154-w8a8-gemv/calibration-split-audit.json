@@ -1,0 +1,6 @@
+{
+  "calibration_tokens": 512,
+  "development_targets": 2048,
+  "no_shared_contiguous_128_token_window": true,
+  "final_holdout_evaluated": false
+}
