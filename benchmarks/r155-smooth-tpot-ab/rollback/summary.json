@@ -1,0 +1,26 @@
+{
+  "phase": "rollback",
+  "base_url": "http://127.0.0.1:19002",
+  "median_8k_ttft_s": 3.787521215970628,
+  "median_8k_tpot_ms": 32.91,
+  "median_256k_ttft_s": 67.68480650603306,
+  "median_256k_tpot_ms": 33.57,
+  "cached_256k_tpot_ms": 33.24,
+  "sustained1024_tpot_ms": 32.9,
+  "sustained_actual_tokens": 754,
+  "short_tpot_ms": [
+    32.97,
+    32.91,
+    32.91
+  ],
+  "long_tpot_ms": [
+    33.57,
+    33.56,
+    33.57
+  ],
+  "long_recall_hits": [
+    3,
+    3,
+    3
+  ]
+}

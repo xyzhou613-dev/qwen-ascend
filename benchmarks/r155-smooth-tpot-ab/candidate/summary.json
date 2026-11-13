@@ -1,0 +1,26 @@
+{
+  "phase": "candidate",
+  "base_url": "http://127.0.0.1:19002",
+  "median_8k_ttft_s": 3.7410582579905167,
+  "median_8k_tpot_ms": 29.38,
+  "median_256k_ttft_s": 66.88247532397509,
+  "median_256k_tpot_ms": 30.14,
+  "cached_256k_tpot_ms": 29.78,
+  "sustained1024_tpot_ms": 29.35,
+  "sustained_actual_tokens": 655,
+  "short_tpot_ms": [
+    29.44,
+    29.38,
+    29.36
+  ],
+  "long_tpot_ms": [
+    30.14,
+    30.14,
+    30.12
+  ],
+  "long_recall_hits": [
+    3,
+    3,
+    3
+  ]
+}

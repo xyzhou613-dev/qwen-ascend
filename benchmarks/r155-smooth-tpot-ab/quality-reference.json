@@ -1,0 +1,8 @@
+{
+  "mean_delta_nll": 0.007662355873011284,
+  "worst_case_delta_nll": 0.04249116886806803,
+  "targets": 2048,
+  "source_sha256": "92b249eda317fbc3140f728f3537cfe532fb2191e5991bf75b57d56c17c6b8ab",
+  "source_commit": "f9284fa165d9fc781532533290956d330ef1670c",
+  "scope": "development teacher-forced decode; not task accuracy or prefill acceptance"
+}

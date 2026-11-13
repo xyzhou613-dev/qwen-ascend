@@ -1,0 +1,9 @@
+{
+  "phase": "candidate",
+  "http_ready_s": 268.30491828918457,
+  "loss16": 5.154514,
+  "reference_loss16": 5.154368,
+  "reference_delta_nll": 0.00014599999999997948,
+  "sanity_tolerance": 0.001,
+  "quality_acceptance_complete": false
+}

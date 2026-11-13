@@ -1,0 +1,9 @@
+{
+  "phase": "rollback",
+  "http_ready_s": 266.2250967025757,
+  "loss16": 5.178334,
+  "reference_loss16": 5.178334,
+  "reference_delta_nll": 0.0,
+  "sanity_tolerance": 1e-05,
+  "quality_acceptance_complete": false
+}

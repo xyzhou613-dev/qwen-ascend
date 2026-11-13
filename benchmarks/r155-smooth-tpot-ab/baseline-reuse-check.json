@@ -1,0 +1,12 @@
+{
+  "common_health_settings_equal": true,
+  "excluded_runtime_fields": [
+    "conversation_state_bytes",
+    "dense_w8a8_enabled",
+    "diagnostic_variant",
+    "pipeline_transfers"
+  ],
+  "p275_unchanged": true,
+  "baseline_engine_sha256": "1de297e9ac86ba5e694d8ecd43c59ae57f51b9c880058537ec85556dcf65a8e8",
+  "production_engine_sha256": "1de297e9ac86ba5e694d8ecd43c59ae57f51b9c880058537ec85556dcf65a8e8"
+}

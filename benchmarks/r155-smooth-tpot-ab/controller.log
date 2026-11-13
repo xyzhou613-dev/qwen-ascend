@@ -1,0 +1,39 @@
+SERVICE_IDLE_VERIFIED
+SNAPSHOT_PID 63872 cwd /root/ascend-dev/fnx
+OWNED_SERVER_WORKER_CAPTURED 2
+Running timer as unit: fnx-r155-rescue.timer
+Will run service as unit: fnx-r155-rescue.service
+SERVICE_IDLE_VERIFIED
+OWNED_PROCESSES_STOPPED [63872, 63891]
+OWNED_PROCESSES_STOPPED []
+STARTED_DIAGNOSTIC candidate 64025
+READY_CHECKED {'phase': 'candidate', 'http_ready_s': 268.30491828918457, 'loss16': 5.154514, 'reference_loss16': 5.154368, 'reference_delta_nll': 0.00014599999999997948, 'sanity_tolerance': 0.001, 'quality_acceptance_complete': False}
+FRESH_8K candidate 1 3.828 29.44
+FRESH_8K candidate 2 3.741 29.38
+FRESH_8K candidate 3 3.737 29.36
+FRESH_256K candidate 1 67.314 30.14 recall 3
+FRESH_256K candidate 2 66.882 30.14 recall 3
+FRESH_256K candidate 3 66.851 30.12 recall 3
+SUSTAINED_1024 candidate 29.35
+BENCH_COMPLETE {"phase": "candidate", "base_url": "http://127.0.0.1:19002", "median_8k_ttft_s": 3.7410582579905167, "median_8k_tpot_ms": 29.38, "median_256k_ttft_s": 66.88247532397509, "median_256k_tpot_ms": 30.14, "cached_256k_tpot_ms": 29.78, "sustained1024_tpot_ms": 29.35, "sustained_actual_tokens": 655, "short_tpot_ms": [29.44, 29.38, 29.36], "long_tpot_ms": [30.14, 30.14, 30.12], "long_recall_hits": [3, 3, 3]}
+OWNED_PROCESSES_STOPPED [64025, 64044]
+OWNED_PROCESSES_STOPPED []
+STARTED_DIAGNOSTIC rollback 64244
+READY_CHECKED {'phase': 'rollback', 'http_ready_s': 266.2250967025757, 'loss16': 5.178334, 'reference_loss16': 5.178334, 'reference_delta_nll': 0.0, 'sanity_tolerance': 1e-05, 'quality_acceptance_complete': False}
+FRESH_8K rollback 1 3.87 32.97
+FRESH_8K rollback 2 3.788 32.91
+FRESH_8K rollback 3 3.78 32.91
+FRESH_256K rollback 1 68.12 33.57 recall 3
+FRESH_256K rollback 2 67.645 33.56 recall 3
+FRESH_256K rollback 3 67.685 33.57 recall 3
+SUSTAINED_1024 rollback 32.9
+BENCH_COMPLETE {"phase": "rollback", "base_url": "http://127.0.0.1:19002", "median_8k_ttft_s": 3.787521215970628, "median_8k_tpot_ms": 32.91, "median_256k_ttft_s": 67.68480650603306, "median_256k_tpot_ms": 33.57, "cached_256k_tpot_ms": 33.24, "sustained1024_tpot_ms": 32.9, "sustained_actual_tokens": 754, "short_tpot_ms": [32.97, 32.91, 32.91], "long_tpot_ms": [33.57, 33.56, 33.57], "long_recall_hits": [3, 3, 3]}
+OWNED_PROCESSES_STOPPED [64244, 64263]
+OWNED_PROCESSES_STOPPED []
+curl: (7) Failed to connect to 127.0.0.1 port 9002 after 0 ms: Couldn't connect to server
+Running as unit: fnx-r155-watchdog.service; invocation ID: b1041d338818418f99bd19036e6f28fc
+CANONICAL_R152_RESTORED
+FORMAL_R152_HTTP_PASS 33.0
+MEASURED_TPOT {"median_8k_tpot_ms": {"baseline": 33.08, "candidate": 29.38, "rollback": 32.91, "speedup_vs_baseline": 0.1259360108917631, "speedup_vs_rollback": 0.1201497617426821, "latency_reduction_vs_baseline": 0.11185006045949208, "rollback_drift": -0.005139056831922617}, "median_256k_tpot_ms": {"baseline": 33.74, "candidate": 30.14, "rollback": 33.57, "speedup_vs_baseline": 0.11944260119442607, "speedup_vs_rollback": 0.11380225613802253, "latency_reduction_vs_baseline": 0.10669828097213996, "rollback_drift": -0.005038529934795588}, "cached_256k_tpot_ms": {"baseline": 33.34, "candidate": 29.78, "rollback": 33.24, "speedup_vs_baseline": 0.11954331766286108, "speedup_vs_rollback": 0.11618535930154472, "latency_reduction_vs_baseline": 0.1067786442711458, "rollback_drift": -0.0029994001199760145}, "sustained1024_tpot_ms": {"baseline": 33.12, "candidate": 29.35, "rollback": 32.9, "speedup_vs_baseline": 0.12844974446337298, "speedup_vs_rollback": 0.12095400340715501, "latency_reduction_vs_baseline": 0.11382850241545883, "rollback_drift": -0.0066425120772946045}}
+TPOT_AB_RESTORE_COMPLETE
+Failed to stop fnx-r155-rescue.timer: Unit fnx-r155-rescue.timer not loaded.

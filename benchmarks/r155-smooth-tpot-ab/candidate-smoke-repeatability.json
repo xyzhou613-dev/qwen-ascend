@@ -1,0 +1,9 @@
+{
+  "mean_nll_initial": 5.154514,
+  "mean_nll_resumed": 5.154514,
+  "mean_nll_exact": true,
+  "per_token_nll_exact": true,
+  "target_ids_exact": true,
+  "targets": 16,
+  "scope": "repeatability of 16-target startup smoke, not final quality acceptance"
+}

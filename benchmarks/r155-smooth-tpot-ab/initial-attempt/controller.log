@@ -1,0 +1,30 @@
+SERVICE_IDLE_VERIFIED
+SNAPSHOT_PID 59226 cwd /root/ascend-dev/fnx
+OWNED_SERVER_WORKER_CAPTURED 2
+Running timer as unit: fnx-r155-rescue.timer
+Will run service as unit: fnx-r155-rescue.service
+SERVICE_IDLE_VERIFIED
+OWNED_PROCESSES_STOPPED [59226, 59250]
+OWNED_PROCESSES_STOPPED []
+STARTED_DIAGNOSTIC baseline 63208
+READY_CHECKED {'phase': 'baseline', 'http_ready_s': 271.7812330722809, 'loss16': 5.178334}
+FRESH_8K baseline 1 3.88 33.08
+FRESH_8K baseline 2 3.794 33.07
+FRESH_8K baseline 3 3.787 33.1
+FRESH_256K baseline 1 68.28 33.74 recall 3
+FRESH_256K baseline 2 67.825 33.74 recall 3
+FRESH_256K baseline 3 67.816 33.73 recall 3
+SUSTAINED_1024 baseline 33.12
+BENCH_COMPLETE {"phase": "baseline", "base_url": "http://127.0.0.1:19002", "median_8k_ttft_s": 3.7935150380362757, "median_8k_tpot_ms": 33.08, "median_256k_ttft_s": 67.82482038595481, "median_256k_tpot_ms": 33.74, "cached_256k_tpot_ms": 33.34, "sustained1024_tpot_ms": 33.12, "sustained_actual_tokens": 754, "short_tpot_ms": [33.08, 33.07, 33.1], "long_tpot_ms": [33.74, 33.74, 33.73], "long_recall_hits": [3, 3, 3]}
+OWNED_PROCESSES_STOPPED [63208, 63227]
+OWNED_PROCESSES_STOPPED []
+STARTED_DIAGNOSTIC candidate 63390
+Traceback (most recent call last):
+  File "/models/fnx-diagnostics/r155-smooth-tpot-ab-20261113/check_ready.py", line 20, in <module>
+    assert abs(r['mean_nll']-expected)<.00001,(phase,r['mean_nll'],expected)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('candidate', 5.154514, 5.154368)
+OWNED_PROCESSES_STOPPED [63390, 63409]
+curl: (7) Failed to connect to 127.0.0.1 port 9002 after 0 ms: Couldn't connect to server
+Running as unit: fnx-r155-watchdog.service; invocation ID: 035838cf82784bf79ef78a47f41c56f5
+CANONICAL_R152_RESTORED

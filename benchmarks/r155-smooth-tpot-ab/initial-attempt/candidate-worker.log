@@ -1,0 +1,9 @@
+[W1113 05:59:52.513127181 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+[dense_w8] lm_head → int8 分 4 段，每段 N≤62080（算子上限 65535）
+[W1113 06:00:02.285295521 TensorFactories.cpp:423] Warning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (function operator())
+[index-bucket] captured 196608
+[index-bucket] captured 131072
+[index-bucket] captured 98304
+[index-bucket] captured 65536
+[index-bucket] captured 32768
+[index-bucket] captured 16384

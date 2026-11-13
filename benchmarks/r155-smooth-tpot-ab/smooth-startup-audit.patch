@@ -1,0 +1,13 @@
+--- a/smooth_w8a8.py
++++ b/smooth_w8a8.py
+@@ -52,4 +52,10 @@
+             for name in ('w_q','w_o'):
+                 weight=getattr(layer,name);assert isinstance(weight,raw_type)
+                 setattr(layer,name,SmoothW8A8.from_bf16(weight.w,f.get_tensor(name)));changed.append(name)
++    import json,hashlib
++    record=dict(layer=layer.idx,pid=os.getpid(),visible=os.environ.get('ASCEND_RT_VISIBLE_DEVICES'),
++        module=__file__,calibration_sha256=hashlib.sha256((Path(directory)/f'L{layer.idx:02d}.safetensors').read_bytes()).hexdigest(),
++        projections={n:dict(type=type(getattr(layer,n)).__name__,K=getattr(layer,n).K,N=getattr(layer,n).N,
++            weight_dtype=str(getattr(layer,n).weight.dtype),input_scale_dtype=str(getattr(layer,n).input_scale.dtype)) for n in changed})
++    with (Path(os.environ['R155_DIR'])/f'candidate-projections-{os.getpid()}.jsonl').open('a') as audit:audit.write(json.dumps(record)+'\n')
+     return changed
