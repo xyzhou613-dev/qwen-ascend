@@ -1,0 +1,13 @@
+{
+  "torch": "2.10.0",
+  "torch-npu": "2.10.0.post4",
+  "cann_install": {
+    "/usr/local/Ascend/ascend-toolkit/latest/arm64-linux/ascend_toolkit_install.info": "package_name=Ascend-cann-toolkit\nversion=9.1.0\ninnerversion=V100R001C11SPC001B243\ncompatible_version=[V100R001C15],[V100R001C21],[V100R001C23],[V100R001C10]\narch=aarch64\nos=linux\npath=/usr/local/Ascend/cann-9.1.0\n",
+    "/usr/local/Ascend/ascend-toolkit/latest/aarch64-linux/ascend_toolkit_install.info": "package_name=Ascend-cann-toolkit\nversion=9.1.0\ninnerversion=V100R001C11SPC001B243\ncompatible_version=[V100R001C15],[V100R001C21],[V100R001C23],[V100R001C10]\narch=aarch64\nos=linux\npath=/usr/local/Ascend/cann-9.1.0\n"
+  },
+  "driver_version_info": "Version=26.1.1\nascendhal_version=7.35.23\naicpu_version=1.0\ntdt_version=1.0\nlog_version=1.0\nprof_version=2.0\ndvppkernels_version=1.1\ntsfw_version=1.0\nInnerversion=V100R001C10SPC009B220\ncompatible_version=[V100R001C21],[V100R001C22],[V100R001C23],[V100R001C25],[V100R001C10]\ncompatible_version_fw=[7.0.0,9.9.9]\npackage_version=26.1.1\n",
+  "container_device_mapping": "[{\"PathOnHost\":\"/dev/davinci3\",\"PathInContainer\":\"/dev/davinci3\",\"CgroupPermissions\":\"rwm\"},{\"PathOnHost\":\"/dev/davinci5\",\"PathInContainer\":\"/dev/davinci5\",\"CgroupPermissions\":\"rwm\"},{\"PathOnHost\":\"/dev/davinci_manager\",\"PathInContainer\":\"/dev/davinci_manager\",\"CgroupPermissions\":\"rwm\"},{\"PathOnHost\":\"/dev/devmm_svm\",\"PathInContainer\":\"/dev/devmm_svm\",\"CgroupPermissions\":\"rwm\"},{\"PathOnHost\":\"/dev/hisi_hdc\",\"PathInContainer\":\"/dev/hisi_hdc\",\"CgroupPermissions\":\"rwm\"}]",
+  "torch_version_py": [
+    "__version__ = '2.10.0+cpu'"
+  ]
+}

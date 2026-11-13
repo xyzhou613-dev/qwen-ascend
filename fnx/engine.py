@@ -1036,11 +1036,14 @@ def delta_chunk_batched_fp32(q, k, v, log_g, beta, state):
     qe = (qa * (cexp if reuse else cumul.exp()).unsqueeze(-1)).reshape(blocks, NVH, 64, HKD)
     end_keys = (ka * (cumul[:, -1:] - cumul).exp().unsqueeze(-1)).reshape(blocks, NVH, 64, HKD)
     end_decay = cumul[:, -1:].exp().reshape(blocks, NVH, 1, 1)
+    fused_state = os.environ.get("FNX_STATE_UPDATE", "0") == "1"
     current = state[0]
     fused_output = os.environ.get("FNX_PREFILL_OUTPUT", "0") == "1" and (NVH, HVD) == (48, 128)
     output_buffer = torch.empty((length, NVH, HVD), dtype=torch.bfloat16, device=q.device) if fused_output else None
     if fused_output:
         from .prefill_output import add_into as fused_output_add
+    if fused_state:
+        from .state_update import run as fused_state_update
     outputs = []
     for block in range(blocks):
         updates = u[block] - torch.bmm(w[block], current)
@@ -1051,7 +1054,12 @@ def delta_chunk_batched_fp32(q, k, v, log_g, beta, state):
                 output_buffer[block * 64:(block + 1) * 64].copy_((left + right).transpose(0, 1).to(torch.bfloat16))
         else:
             outputs.append((left + right).transpose(0, 1))
-        current = current * end_decay[block] + torch.bmm(end_keys[block].transpose(1, 2), updates)
+        if fused_state:
+            delta = torch.bmm(end_keys[block].transpose(1, 2), updates)
+            next_state = fused_state_update(current, end_decay[block], delta)
+            current = current * end_decay[block] + delta if next_state is None else next_state
+        else:
+            current = current * end_decay[block] + torch.bmm(end_keys[block].transpose(1, 2), updates)
     result = output_buffer[:T] if output_buffer is not None else torch.cat(outputs, 0)[:T].to(torch.bfloat16)
     return result, current.unsqueeze(0)
 

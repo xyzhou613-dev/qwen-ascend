@@ -1,0 +1,6 @@
+{
+  "python_syntax": true,
+  "enable_matches_expected": true,
+  "enable_idempotent": true,
+  "engine_patch_applies": true
+}

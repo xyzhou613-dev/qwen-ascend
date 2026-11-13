@@ -1,0 +1,10 @@
+{
+  "answers_exact": true,
+  "ttft_256k_reduction_pct": 0.7935193316900513,
+  "individual_long_reductions_pct": [
+    0.5494727890749895,
+    0.7935193316900513,
+    0.7999766178579448
+  ],
+  "accepted": true
+}

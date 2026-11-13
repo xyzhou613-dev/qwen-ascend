@@ -1,0 +1,6 @@
+{
+  "candidate/fnx/engine.py": "1de297e9ac86ba5e694d8ecd43c59ae57f51b9c880058537ec85556dcf65a8e8",
+  "candidate/fnx/state_update.py": "1a8d58f3de955f8737bd75da7104886143ef9fba52a0adb15a0037b42edb2b28",
+  "candidate/fnx/libfnx_state_update.so": "f5ca405157f8d79414e1c3e9711578111d401df2beea88ec9201d4b22a3131a5",
+  "state_update.cpp": "61bb0877d3fec9c43dc046015ff66b4ba45b94983a15a14f6ef32658ddae27f9"
+}

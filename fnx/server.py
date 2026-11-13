@@ -544,8 +544,9 @@ def health():
     worker=getattr(model,"process",None)
     if worker is not None and worker.poll() is not None:
         return JSONResponse(status_code=503,content={"status":"worker_unavailable","ctx":P})
-    return {"status": "ok", "engine_loaded": "e" in STATE, "ctx": P, "service_revision": "r151",
+    return {"status": "ok", "engine_loaded": "e" in STATE, "ctx": P, "service_revision": "r152",
             "norm_post": os.environ.get("FNX_NORM_POST", "0") == "1",
+            "state_update": os.environ.get("FNX_STATE_UPDATE", "0") == "1",
             "prefill_output": os.environ.get("FNX_PREFILL_OUTPUT", "0") == "1",
             "norm_ordered": os.environ.get("FNX_NORM_ORDERED", "0") == "1",
             "delta_reuse": os.environ.get("FNX_DELTA_REUSE", "0") == "1",

@@ -1,0 +1,2790 @@
+{
+  "status": "passed",
+  "physical_device": 1,
+  "layers": [
+    {
+      "layer": 24,
+      "tests": [
+        {
+          "mode": "eager",
+          "step": 65,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 332800
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 128,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 512,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 2621440
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 0,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 1,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 2,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 3,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        }
+      ],
+      "all_bitwise_equal": true,
+      "native_calls": 14
+    },
+    {
+      "layer": 25,
+      "tests": [
+        {
+          "mode": "eager",
+          "step": 65,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 332800
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 128,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 512,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 2621440
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 0,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 1,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 2,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 3,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        }
+      ],
+      "all_bitwise_equal": true,
+      "native_calls": 14
+    },
+    {
+      "layer": 26,
+      "tests": [
+        {
+          "mode": "eager",
+          "step": 65,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 332800
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 128,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 512,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 2621440
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 0,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 1,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 2,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 3,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        }
+      ],
+      "all_bitwise_equal": true,
+      "native_calls": 14
+    },
+    {
+      "layer": 28,
+      "tests": [
+        {
+          "mode": "eager",
+          "step": 65,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 332800
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 128,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 512,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 2621440
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 0,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 1,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 2,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 3,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        }
+      ],
+      "all_bitwise_equal": true,
+      "native_calls": 14
+    },
+    {
+      "layer": 29,
+      "tests": [
+        {
+          "mode": "eager",
+          "step": 65,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 332800
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 128,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 512,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 2621440
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 0,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 1,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 2,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 3,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        }
+      ],
+      "all_bitwise_equal": true,
+      "native_calls": 14
+    },
+    {
+      "layer": 30,
+      "tests": [
+        {
+          "mode": "eager",
+          "step": 65,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 332800
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 128,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 512,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 2621440
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 0,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 1,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 2,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 3,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        }
+      ],
+      "all_bitwise_equal": true,
+      "native_calls": 14
+    },
+    {
+      "layer": 32,
+      "tests": [
+        {
+          "mode": "eager",
+          "step": 65,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 332800
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 128,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 512,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 2621440
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 0,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 1,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 2,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 3,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        }
+      ],
+      "all_bitwise_equal": true,
+      "native_calls": 14
+    },
+    {
+      "layer": 33,
+      "tests": [
+        {
+          "mode": "eager",
+          "step": 65,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 332800
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 128,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 512,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 2621440
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 0,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 1,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 2,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 3,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        }
+      ],
+      "all_bitwise_equal": true,
+      "native_calls": 14
+    },
+    {
+      "layer": 34,
+      "tests": [
+        {
+          "mode": "eager",
+          "step": 65,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 332800
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 128,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 512,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 2621440
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 0,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 1,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 2,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 3,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        }
+      ],
+      "all_bitwise_equal": true,
+      "native_calls": 14
+    },
+    {
+      "layer": 36,
+      "tests": [
+        {
+          "mode": "eager",
+          "step": 65,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 332800
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 128,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 512,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 2621440
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 0,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 1,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 2,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 3,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        }
+      ],
+      "all_bitwise_equal": true,
+      "native_calls": 14
+    },
+    {
+      "layer": 37,
+      "tests": [
+        {
+          "mode": "eager",
+          "step": 65,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 332800
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 128,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 512,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 2621440
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 0,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 1,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 2,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 3,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        }
+      ],
+      "all_bitwise_equal": true,
+      "native_calls": 14
+    },
+    {
+      "layer": 38,
+      "tests": [
+        {
+          "mode": "eager",
+          "step": 65,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 332800
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 128,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 512,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 2621440
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 0,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 1,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 2,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 3,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        }
+      ],
+      "all_bitwise_equal": true,
+      "native_calls": 14
+    },
+    {
+      "layer": 40,
+      "tests": [
+        {
+          "mode": "eager",
+          "step": 65,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 332800
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 128,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 512,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 2621440
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 0,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 1,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 2,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 3,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        }
+      ],
+      "all_bitwise_equal": true,
+      "native_calls": 14
+    },
+    {
+      "layer": 41,
+      "tests": [
+        {
+          "mode": "eager",
+          "step": 65,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 332800
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 128,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 512,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 2621440
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 0,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 1,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 2,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 3,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        }
+      ],
+      "all_bitwise_equal": true,
+      "native_calls": 14
+    },
+    {
+      "layer": 42,
+      "tests": [
+        {
+          "mode": "eager",
+          "step": 65,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 332800
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 128,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 512,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 2621440
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 0,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 1,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 2,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 3,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        }
+      ],
+      "all_bitwise_equal": true,
+      "native_calls": 14
+    },
+    {
+      "layer": 44,
+      "tests": [
+        {
+          "mode": "eager",
+          "step": 65,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 332800
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 128,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 512,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 2621440
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 0,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 1,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 2,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 3,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        }
+      ],
+      "all_bitwise_equal": true,
+      "native_calls": 14
+    },
+    {
+      "layer": 45,
+      "tests": [
+        {
+          "mode": "eager",
+          "step": 65,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 332800
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 128,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 512,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 2621440
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 0,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 1,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 2,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 3,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        }
+      ],
+      "all_bitwise_equal": true,
+      "native_calls": 14
+    },
+    {
+      "layer": 46,
+      "tests": [
+        {
+          "mode": "eager",
+          "step": 65,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 332800
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 128,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "eager",
+          "step": 512,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 2621440
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 0,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 1,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 2,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        },
+        {
+          "mode": "dynamic_graph",
+          "step": 3,
+          "comparison": {
+            "output": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 655360
+            },
+            "conv_history": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 61440
+            },
+            "fp32_state": {
+              "exact": true,
+              "different_bytes": 0,
+              "bytes": 3145728
+            }
+          }
+        }
+      ],
+      "all_bitwise_equal": true,
+      "native_calls": 14
+    }
+  ],
+  "scope": "FnLayer._deltanet_chunk prefill, T65/128/512 and dynamic graph",
+  "hidden_inputs": "synthetic; four amplitudes",
+  "uses_real_weights": true,
+  "weight_loader": "DenseW8.deq_w / raw tensors, matching production",
+  "engine_module": "/models/fnx-diagnostics/r152-state-prefill-20261113/candidate/fnx/engine.py",
+  "allocator_limit_fraction": 0.015625,
+  "max_allocated_bytes": 385315328,
+  "max_reserved_bytes": 436207616,
+  "elapsed_s": 15.041693209961522,
+  "fused_python_calls": 252,
+  "service_kept_online": true,
+  "exclusive": false
+}
