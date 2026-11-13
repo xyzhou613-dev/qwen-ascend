@@ -1,0 +1,14 @@
+{
+  "verified_epoch": 1794585133.0803447,
+  "eligible_clients": [
+    {
+      "pid": 92801,
+      "birth": "1784765",
+      "script": "quality_eval.py"
+    }
+  ],
+  "unit": "fnx-r157-run-resume",
+  "kill_mode": "control-group",
+  "dispatch_service_inactive": true,
+  "inspection_only": true
+}

@@ -1,0 +1,19 @@
+{
+  "created_epoch": 1794583820.456117,
+  "dispatch_epoch": 1794585560,
+  "latest_original_trigger_epoch": 1794585593,
+  "hard_cap_epoch": 1794587093,
+  "dispatch_unit": "fnx-r157-restore-dispatch.timer",
+  "target_service": "fnx-r157-rescue.service",
+  "window_start_unchanged": true,
+  "reason": "dispatch restoration independently before controller RuntimeMaxSec; original guards remain in force",
+  "accuracy_seconds": 1,
+  "previous_dispatch_timer": "fnx-r157-precap.timer",
+  "previous_timer_stopped": true,
+  "updated_epoch": 1794585185.515736,
+  "absolute_calendar_deadlines": {
+    "fnx-r157-restore-dispatch.timer": "2026-11-13 15:59:20 UTC",
+    "fnx-r157-rescue.timer": "2026-11-13 15:59:53 UTC"
+  },
+  "absolute_calendar_replaces_reload_sensitive_relative_timer": true
+}

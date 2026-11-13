@@ -1,0 +1,7 @@
+{
+  "pilot_targets": 16,
+  "npu_mean_nll": 5.178617703451891,
+  "cpu_reference_mean_nll": 5.178334286050813,
+  "max_abs_per_token_delta": 0.0004153251647949219,
+  "decision": "reject NPU softmax normalization; use worker-local CPU normalization; retain original parity threshold"
+}

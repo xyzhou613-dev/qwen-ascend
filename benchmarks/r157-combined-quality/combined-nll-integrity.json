@@ -1,0 +1,11 @@
+{
+  "verified_epoch": 1794571633.2515898,
+  "phase": "combined",
+  "cases": 196,
+  "scored_targets": 100352,
+  "all_finite": true,
+  "case_ids_and_hashes_match": true,
+  "raw_results_sha256": "69a0fccc9ed134afb52b67deded325f9d24bfe582ba2e6d6e506077788a62855",
+  "frozen_input_sha256": "b45ddf453a8ee8a019c896126d3ed776e4a8bcfd45e2d8c03e9793e0ff4c7bab",
+  "paired_quality_acceptance": false
+}

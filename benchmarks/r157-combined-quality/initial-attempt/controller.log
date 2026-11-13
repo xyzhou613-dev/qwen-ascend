@@ -1,0 +1,30 @@
+SERVICE_IDLE_VERIFIED
+SNAPSHOT_PID 320 cwd /root/ascend-dev/fnx
+OWNED_SERVER_WORKER_CAPTURED 2
+Running timer as unit: fnx-r157-rescue.timer
+Will run service as unit: fnx-r157-rescue.service
+SERVICE_IDLE_VERIFIED
+OWNED_PROCESSES_STOPPED [320, 339]
+OWNED_PROCESSES_STOPPED []
+STARTED baseline 506
+READY_CHECKED {'phase': 'baseline', 'http_ready_s': 265.59472489356995, 'layers': 48, 'smooth_projections': 0, 'kmajor_all_layers_captured': False}
+FRESH_8K baseline 1 3.908 33.01
+FRESH_8K baseline 2 3.788 33.06
+FRESH_8K baseline 3 3.778 32.98
+FRESH_256K baseline 1 68.116 33.63 recall 3
+FRESH_256K baseline 2 67.592 33.66 recall 3
+FRESH_256K baseline 3 67.674 33.61 recall 3
+SUSTAINED_1024 baseline 32.99
+BENCH_COMPLETE {"phase": "baseline", "base_url": "http://127.0.0.1:19002", "median_8k_ttft_s": 3.7880125229999067, "median_8k_tpot_ms": 33.01, "median_256k_ttft_s": 67.67416840299984, "median_256k_tpot_ms": 33.63, "cached_256k_tpot_ms": 33.31, "sustained1024_tpot_ms": 32.99, "sustained_actual_tokens": 754, "short_tpot_ms": [33.01, 33.06, 32.98], "long_tpot_ms": [33.63, 33.66, 33.61], "long_recall_hits": [3, 3, 3]}
+Traceback (most recent call last):
+  File "/models/fnx-diagnostics/r157-combined-quality-20261113/quality_client.py", line 41, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/models/fnx-diagnostics/r157-combined-quality-20261113/quality_client.py", line 14, in main
+    difference=max(abs(x-y) for x,y in zip(fast['nll_tokens'],slow['nll_tokens']));assert difference<.00005,(difference,fast['mean_nll'],slow['mean_nll'])
+                                                                                          ^^^^^^^^^^^^^^^^^
+AssertionError: (0.0004153251647949219, 5.178617703451891, 5.178334286050813)
+OWNED_PROCESSES_STOPPED [506, 525]
+curl: (7) Failed to connect to 127.0.0.1 port 9002 after 0 ms: Couldn't connect to server
+Running as unit: fnx-watchdog.service; invocation ID: 2c6e142908d14c55a1304ba75b96f66d
+CANONICAL_R152_RESTORED

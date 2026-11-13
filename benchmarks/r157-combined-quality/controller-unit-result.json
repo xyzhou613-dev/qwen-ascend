@@ -1,0 +1,30 @@
+{
+  "recorded_epoch": 1794585659.215037,
+  "units": {
+    "fnx-r157-run-resume": {
+      "Result": "exit-code",
+      "ExecMainStartTimestamp": "Fri 2026-11-13 18:45:32 CST",
+      "ExecMainExitTimestamp": "Fri 2026-11-13 23:59:20 CST",
+      "ExecMainCode": "1",
+      "ExecMainStatus": "143",
+      "ActiveState": "failed"
+    },
+    "fnx-r157-restore-dispatch": {
+      "Result": "success",
+      "ExecMainStartTimestamp": "",
+      "ExecMainExitTimestamp": "",
+      "ExecMainCode": "0",
+      "ExecMainStatus": "0",
+      "ActiveState": "inactive"
+    },
+    "fnx-r157-rescue": {
+      "Result": "success",
+      "ExecMainStartTimestamp": "",
+      "ExecMainExitTimestamp": "",
+      "ExecMainCode": "0",
+      "ExecMainStatus": "0",
+      "ActiveState": "inactive"
+    }
+  },
+  "recorded_after_restoration_epoch": 1794586029.6977074
+}

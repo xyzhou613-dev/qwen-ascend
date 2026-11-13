@@ -1,0 +1,46 @@
+{
+  "recorded_epoch": 1794568297.982889,
+  "scope": "header and exported-symbol inventory only; no NPU invocation, graph compatibility or performance claim",
+  "headers": {
+    "aclnn_grouped_matmul_swiglu_quant.h": {
+      "path": "/usr/local/Ascend/ascend-toolkit/latest/include/aclnnop/aclnn_grouped_matmul_swiglu_quant.h",
+      "sha256": "e58c8f7a758cd72bcfcf8f0c69b56dc1c0948f0a94a54ba24ca3008241b57a4f"
+    },
+    "aclnn_grouped_matmul_swiglu_quant_v2.h": {
+      "path": "/usr/local/Ascend/ascend-toolkit/latest/include/aclnnop/aclnn_grouped_matmul_swiglu_quant_v2.h",
+      "sha256": "a97ef8e9302b32dda032ae816a9207526626ff87ad322d1195d9f58c565baccf"
+    }
+  },
+  "library_path": "/usr/local/Ascend/ascend-toolkit/latest/lib64/libopapi.so",
+  "library_sha256": "3e10def2f7158482f3967b9db6ad2707cca8691198ddae8cc52bbbaf61bb2675",
+  "exported": {
+    "aclnnGroupedMatmulSwigluQuant": true,
+    "aclnnGroupedMatmulSwigluQuantGetWorkspaceSize": true,
+    "aclnnGroupedMatmulSwigluQuantV2": true,
+    "aclnnGroupedMatmulSwigluQuantV2GetWorkspaceSize": true
+  },
+  "production_weight_shapes": {
+    "gu": [
+      512,
+      2560,
+      160
+    ],
+    "down": [
+      512,
+      640,
+      320
+    ],
+    "packing": "int32 containing eight signed int4 elements",
+    "group_size": 64
+  },
+  "per_card_24_layer_scale_storage": {
+    "bf16_current_bytes": 1887436800,
+    "uint64_replacement_bytes": 7549747200,
+    "additional_bytes_if_replaced": 5662310400,
+    "additional_bytes_if_both_kept": 7549747200
+  },
+  "sources": [
+    "https://www.hiascend.com/document/detail/en/canncommercial/850/API/aolapi/context/ops-transformer/aclnnGroupedMatmulSwigluQuant.md",
+    "https://gitcode.com/cann/ops-transformer/tree/master/gmm/grouped_matmul_swiglu_quant_v2"
+  ]
+}

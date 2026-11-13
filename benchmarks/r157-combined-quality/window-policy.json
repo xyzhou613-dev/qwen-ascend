@@ -1,0 +1,10 @@
+{
+  "user_authorization": "allow <=6 hours for complete paired evaluation; restore and preserve checkpoints at timeout",
+  "window_start_epoch": 1794565493,
+  "maximum_seconds": 21600,
+  "recovery_trigger_seconds": 20100,
+  "retries_reset_deadline": false,
+  "start": "2026-11-13T18:24:53+08:00",
+  "recovery_trigger": "2026-11-13T23:59:53+08:00",
+  "hard_cap": "2026-11-14T00:24:53+08:00"
+}

@@ -1,0 +1,15 @@
+{
+  "smooth-nll.jsonl": "40a39d9765684a0557bfa2887ac44a1be331725a222928e4ea37ed43ca35bf8e",
+  "smooth-scoring-parity.json": "a0ba0bda0b79b5221402963f4d2512c6c7b0a4c9e4cac023061784556e99fa43",
+  "smooth-prefill-quality.json": "094d6e40ffd3a78a4f67129998e83d96e0c1c03d6eb63d4589e7fa667c11f14b",
+  "combined-nll.jsonl": "69a0fccc9ed134afb52b67deded325f9d24bfe582ba2e6d6e506077788a62855",
+  "combined-natural.jsonl": "ec76fb1f6ee1849719775a1dbee24cfa841a9e4996b781113ed146f63f491f3b",
+  "combined-scoring-parity.json": "0b49fff4b6d1fc44921fba513ab71bc39bdc6bb854c706eb4056638e0531b401",
+  "combined-prefill-quality.json": "e05aebc2ff875e406f24dc211784d34473d143a69e99e1bc846a98691914d4fd",
+  "rollback-nll.jsonl": "7e79fc1ad1dc98212792da05900b9d9aba7d8e9130268d621b9a6d49b7772603",
+  "rollback-natural.jsonl": "8a57e2af8660aedcbdfc78a54fd9cbb60f817e147b58d5daf048bf2681d82aca",
+  "rollback-scoring-parity.json": "2b382dea78f8cf8b6971a87aac8dde74cd7312e999988817b8ce130195ed0d56",
+  "rollback-prefill-quality.json": "668c9d6157086b08700b850c5e487a3cfb2d9921b47509c86a5fc83ba0a3817f",
+  "quality-combined.jsonl": "1e838543b1e0855ca666a1cbed07556c562689a28bc0f1ac70a23a3aa9e6c79d",
+  "quality-rollback.jsonl": "64596df9ed56377d2bc839e0c102fab6e079a6fa748742f3f4c2b8745b08aca1"
+}

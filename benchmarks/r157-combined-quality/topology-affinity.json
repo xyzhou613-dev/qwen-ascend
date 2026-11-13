@@ -1,0 +1,20 @@
+{
+  "recorded_epoch": 1794570189.7603686,
+  "processes": [
+    {
+      "pid": 27405,
+      "role": "server",
+      "cwd": "/models/fnx-diagnostics/r157-combined-quality-20261113/combined",
+      "cpus_allowed": "0-63",
+      "mems_allowed": "0-1"
+    },
+    {
+      "pid": 27456,
+      "role": "worker",
+      "cwd": "/models/fnx-diagnostics/r157-combined-quality-20261113/combined",
+      "cpus_allowed": "0-63",
+      "mems_allowed": "0-1"
+    }
+  ],
+  "scope": "read-only; did not change CPU or memory affinity"
+}

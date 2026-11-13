@@ -1,0 +1,136 @@
+/models/fnx-diagnostics/r158-bf16-down-20261113/bf16_weight_down.cpp:64:64: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ if(tile==64)down64_bf16w<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                               ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r158-bf16-down-20261113/bf16_weight_down.cpp:64:75: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ if(tile==64)down64_bf16w<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                          ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r158-bf16-down-20261113/bf16_weight_down.cpp:64:86: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ if(tile==64)down64_bf16w<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                                     ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r158-bf16-down-20261113/bf16_weight_down.cpp:64:97: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ if(tile==64)down64_bf16w<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                                                ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r158-bf16-down-20261113/bf16_weight_down.cpp:64:108: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ if(tile==64)down64_bf16w<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                                                           ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r158-bf16-down-20261113/bf16_weight_down.cpp:65:71: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ else if(tile==128)down128_bf16w<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                      ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r158-bf16-down-20261113/bf16_weight_down.cpp:65:82: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ else if(tile==128)down128_bf16w<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                                 ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r158-bf16-down-20261113/bf16_weight_down.cpp:65:93: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ else if(tile==128)down128_bf16w<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                                            ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r158-bf16-down-20261113/bf16_weight_down.cpp:65:104: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ else if(tile==128)down128_bf16w<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                                                       ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r158-bf16-down-20261113/bf16_weight_down.cpp:65:115: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ else if(tile==128)down128_bf16w<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                                                                  ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r158-bf16-down-20261113/bf16_weight_down.cpp:66:71: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ else if(tile==256)down256_bf16w<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                      ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r158-bf16-down-20261113/bf16_weight_down.cpp:66:82: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ else if(tile==256)down256_bf16w<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                                 ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r158-bf16-down-20261113/bf16_weight_down.cpp:66:93: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ else if(tile==256)down256_bf16w<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                                            ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r158-bf16-down-20261113/bf16_weight_down.cpp:66:104: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ else if(tile==256)down256_bf16w<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                                                       ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+/models/fnx-diagnostics/r158-bf16-down-20261113/bf16_weight_down.cpp:66:115: warning: 'cce_global' attribute ignored when parsing type [-Wignored-attributes]
+ else if(tile==256)down256_bf16w<<<40,nullptr,(aclrtStream)stream>>>((GM_ADDR)w,(GM_ADDR)s,(GM_ADDR)i,(GM_ADDR)x,(GM_ADDR)y);
+                                                                                                                  ^~~~~~~
+/usr/local/Ascend/cann-9.1.0/aarch64-linux/asc/include/basic_api/core_mng/roc/../../../../impl/basic_api/utils/kernel_utils_macros.h:23:17: note: expanded from macro 'GM_ADDR'
+#define GM_ADDR __gm__ uint8_t*
+                ^~~~~~
+/usr/local/Ascend/cann-9.1.0/tools/bisheng_compiler/lib/clang/15.0.5/include/__clang_cce_defines.h:62:31: note: expanded from macro '__gm__'
+#define __gm__ __attribute__((cce_global))
+                              ^~~~~~~~~~
+15 warnings generated.

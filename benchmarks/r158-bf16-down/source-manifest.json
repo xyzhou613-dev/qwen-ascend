@@ -1,0 +1,6 @@
+{
+  "original_source": "/models/fnx-diagnostics/r156-moe-kmajor-20261113/w4_kmajor.cpp",
+  "original_sha256": "086211a6ba94fbcf464aa222723b3a1068f1a938bf1588bf1fca5123b4c0c5d9",
+  "variant_sha256": "13f304eebf447a9b4fa66ef4b686a71c46db813b7b55de58d23eb6bc6b21837f",
+  "scope": "standalone numerical hypothesis; not installed or quality-accepted"
+}

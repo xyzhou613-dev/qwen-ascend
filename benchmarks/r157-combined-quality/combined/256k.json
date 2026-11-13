@@ -1,0 +1,56 @@
+[
+  {
+    "ttft_s": 67.36676093000005,
+    "end_to_end_s": 70.99143414799983,
+    "stats": {
+      "ttft_ms": 66190.55,
+      "tokens": 128,
+      "seconds": 69.815,
+      "tpot_ms": 28.54,
+      "tok_decode_ms": 3.77,
+      "prefill_ms": 66061.58,
+      "prefill_tok_s": 3966.18,
+      "n_prefill": 262012
+    },
+    "answer": "根据您提供的资料，提取的三个项目验收码如下：\n\n1. 项目海棠：7319\n2. 项目松柏：8652\n3. 项目银杏：2946\n\n***\n\n**昇腾处理器推理服务优化与长文档处理技术详解**\n\n在昇腾处理器面向大规模深度学习训练与推理的场景中，其软件栈以CANN为核心，向上提供框架适配层，向下管理芯片的算力与内存资源。在实际部署中，性能优化的核心往往不在于算子本身的峰值性能，而在于数据在设备之间搬运所带来的固定开销。一次跨设备的张",
+    "run": 1,
+    "payload_sha256": "93e50093ed19e86ab263daed0d816a097ef7b310f3aa9e67165fcfc74242fbd6",
+    "recall_hits": 3
+  },
+  {
+    "ttft_s": 66.94079299500027,
+    "end_to_end_s": 70.56436709900026,
+    "stats": {
+      "ttft_ms": 65801.19,
+      "tokens": 128,
+      "seconds": 69.424,
+      "tpot_ms": 28.53,
+      "tok_decode_ms": 3.85,
+      "prefill_ms": 65678.56,
+      "prefill_tok_s": 3989.31,
+      "n_prefill": 262012
+    },
+    "answer": "根据您提供的资料，提取的项目验收码如下：\n\n1. 项目海棠：7319\n2. 项目松柏：8652\n3. 项目银杏：2946\n\n***\n\n**昇腾处理器推理服务与长文档处理技术详解**\n\n在昇腾处理器面向的大规模深度学习训练与推理场景中，软件栈以CANN（Compute Architecture for Neural Networks）为核心，其架构设计向上提供框架适配层，向下直接管理芯片的算力与内存资源。在实际的工程部署与性能优化中，一个极易被低估但至关重要的环节并非算子（Operator）",
+    "run": 2,
+    "payload_sha256": "45cf58726a5bf5e1fcfc1316316b96b3d81af207e8b15a7ef1fe4a083a77d013",
+    "recall_hits": 3
+  },
+  {
+    "ttft_s": 66.95554004400037,
+    "end_to_end_s": 70.58683677800036,
+    "stats": {
+      "ttft_ms": 65816.49,
+      "tokens": 128,
+      "seconds": 69.447,
+      "tpot_ms": 28.59,
+      "tok_decode_ms": 3.78,
+      "prefill_ms": 65693.85,
+      "prefill_tok_s": 3988.38,
+      "n_prefill": 262012
+    },
+    "answer": "根据资料内容，三个项目的验收码如下：\n\n1. 海棠：7319\n2. 松柏：8652\n3. 银杏：2946\n\n***\n\n**昇腾处理器推理服务与长文档处理技术详解**\n\n资料中详细阐述了基于昇腾处理器（Ascend）及其核心软件栈 CANN（Compute Architecture for Neural Networks）的大规模深度学习推理服务优化策略，特别是针对现代混合专家模型（MoE）和长文档处理场景下的性能瓶颈分析与量化技术。\n\n首先，在昇腾处理器的软件栈架构中，CANN ",
+    "run": 3,
+    "payload_sha256": "473a96f503c06d9584cce9faa59b75d43722b5b5cc64d7e85bf8054f519f7902",
+    "recall_hits": 3
+  }
+]

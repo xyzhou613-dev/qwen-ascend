@@ -1,0 +1,2678 @@
+SERVICE_IDLE_VERIFIED
+SNAPSHOT_PID 999 cwd /root/ascend-dev/fnx
+OWNED_SERVER_WORKER_CAPTURED 2
+Running timer as unit: fnx-r157-rescue.timer
+Will run service as unit: fnx-r157-rescue.service
+SERVICE_IDLE_VERIFIED
+OWNED_PROCESSES_STOPPED [999, 1018]
+OWNED_PROCESSES_STOPPED []
+STARTED smooth 1156
+READY_CHECKED {'phase': 'smooth', 'http_ready_s': 267.55713748931885, 'layers': 48, 'smooth_projections': 96, 'kmajor_all_layers_captured': False}
+FRESH_8K smooth 1 3.825 29.38
+FRESH_8K smooth 2 3.741 29.39
+FRESH_8K smooth 3 3.735 29.37
+FRESH_256K smooth 1 67.218 30.07 recall 3
+FRESH_256K smooth 2 66.748 30.06 recall 3
+FRESH_256K smooth 3 66.745 30.1 recall 3
+SUSTAINED_1024 smooth 29.4
+BENCH_COMPLETE {"phase": "smooth", "base_url": "http://127.0.0.1:19002", "median_8k_ttft_s": 3.740636368000196, "median_8k_tpot_ms": 29.38, "median_256k_ttft_s": 66.74823908300004, "median_256k_tpot_ms": 30.07, "cached_256k_tpot_ms": 29.73, "sustained1024_tpot_ms": 29.4, "sustained_actual_tokens": 655, "short_tpot_ms": [29.38, 29.39, 29.37], "long_tpot_ms": [30.07, 30.06, 30.1], "long_recall_hits": [3, 3, 3]}
+NLL_CASE smooth 0 1.3329903238640506 18.2
+NLL_CASE smooth 49 1.0506845696721028 18.18
+NLL_CASE smooth 98 1.1466733567611165 18.17
+NLL_CASE smooth 147 2.1713804552866804 18.18
+PREFILL_NLL smooth natural6000 1.6986073466059084
+PREFILL_NLL smooth service12000 0.0019822804796919384
+PREFILL_NLL smooth technical24000 1.117119382132749
+PREFILL_NLL smooth natural18000 3.5263309322909486
+PREFILL_NLL smooth natural36000 3.1855271578428273
+QUALITY_NLL_COMPLETE smooth 4 2048
+OWNED_PROCESSES_STOPPED [1156, 1175]
+OWNED_PROCESSES_STOPPED []
+STARTED combined 1371
+READY_CHECKED {'phase': 'combined', 'http_ready_s': 279.72374749183655, 'layers': 48, 'smooth_projections': 96, 'kmajor_all_layers_captured': True}
+FRESH_8K combined 1 3.828 27.96
+FRESH_8K combined 2 3.742 27.91
+FRESH_8K combined 3 3.743 27.97
+FRESH_256K combined 1 67.367 28.54 recall 3
+FRESH_256K combined 2 66.941 28.53 recall 3
+FRESH_256K combined 3 66.956 28.59 recall 3
+SUSTAINED_1024 combined 27.94
+BENCH_COMPLETE {"phase": "combined", "base_url": "http://127.0.0.1:19002", "median_8k_ttft_s": 3.742500992000714, "median_8k_tpot_ms": 27.96, "median_256k_ttft_s": 66.95554004400037, "median_256k_tpot_ms": 28.54, "cached_256k_tpot_ms": 28.18, "sustained1024_tpot_ms": 27.94, "sustained_actual_tokens": 795, "short_tpot_ms": [27.96, 27.91, 27.97], "long_tpot_ms": [28.54, 28.53, 28.59], "long_recall_hits": [3, 3, 3]}
+NLL_CASE combined 0 1.3126519575139906 17.54
+NLL_CASE combined 1 1.5168831217178855 17.55
+NLL_CASE combined 2 0.7451585994869052 17.52
+NLL_CASE combined 3 1.3047140951460001 17.55
+NLL_CASE combined 4 1.2681384792489094 17.53
+NLL_CASE combined 5 1.0991945902425275 17.54
+NLL_CASE combined 6 1.0220527016838048 17.52
+NLL_CASE combined 7 1.4326448404113181 17.53
+NLL_CASE combined 8 1.0121390368125933 17.54
+NLL_CASE combined 9 0.8540220908415304 17.53
+NLL_CASE combined 10 0.812947320938096 17.52
+NLL_CASE combined 11 1.2471697375500383 17.53
+NLL_CASE combined 12 1.3321551079093439 17.56
+NLL_CASE combined 13 1.432479200427188 17.54
+NLL_CASE combined 14 1.672718706402918 17.54
+NLL_CASE combined 15 0.8808727404432162 17.52
+NLL_CASE combined 16 0.8111258467619464 17.54
+NLL_CASE combined 17 0.9357353016254031 17.55
+NLL_CASE combined 18 0.7399312467682932 17.52
+NLL_CASE combined 19 1.1179219389577124 17.54
+NLL_CASE combined 20 1.1126646284283765 17.52
+NLL_CASE combined 21 1.2885940640058289 17.55
+NLL_CASE combined 22 0.795228353692977 17.53
+NLL_CASE combined 23 1.2375068827266205 17.55
+NLL_CASE combined 24 1.0475455310817559 17.55
+NLL_CASE combined 25 1.2711234243371767 17.52
+NLL_CASE combined 26 1.3122218148103855 17.54
+NLL_CASE combined 27 1.1451504291363932 17.54
+NLL_CASE combined 28 0.9970869386240855 17.54
+NLL_CASE combined 29 1.136358844190223 17.52
+NLL_CASE combined 30 1.2425750284083747 17.55
+NLL_CASE combined 31 0.7054963957710889 17.53
+NLL_CASE combined 32 0.6109940330806669 17.54
+NLL_CASE combined 33 0.9812705130358115 17.53
+NLL_CASE combined 34 1.3890476404133665 17.54
+NLL_CASE combined 35 1.2640799868138117 17.55
+NLL_CASE combined 36 1.0843073980101607 17.55
+NLL_CASE combined 37 0.9749772739689142 17.54
+NLL_CASE combined 38 1.1910284624281964 17.53
+NLL_CASE combined 39 1.426546862171758 17.54
+NLL_CASE combined 40 1.285308082318494 17.54
+NLL_CASE combined 41 0.9981600298729916 17.53
+NLL_CASE combined 42 1.4744303928437077 17.53
+NLL_CASE combined 43 1.276741525301397 17.53
+NLL_CASE combined 44 1.326968622148808 17.53
+NLL_CASE combined 45 1.0667382259333422 17.53
+NLL_CASE combined 46 0.8054728420988937 17.53
+NLL_CASE combined 47 1.6905425073010356 17.54
+NLL_CASE combined 48 1.2539622730339204 17.55
+NLL_CASE combined 49 1.0363070198958337 17.55
+NLL_CASE combined 50 0.8109285466662881 17.54
+NLL_CASE combined 51 1.010133828519301 17.54
+NLL_CASE combined 52 0.9413810030391527 17.53
+NLL_CASE combined 53 1.21467943086399 17.54
+NLL_CASE combined 54 1.1936325791063034 17.55
+NLL_CASE combined 55 1.0491343895248257 17.54
+NLL_CASE combined 56 0.9813034396729021 17.54
+NLL_CASE combined 57 1.11002054605639 17.53
+NLL_CASE combined 58 0.9288109796346369 17.54
+NLL_CASE combined 59 0.9341069469447554 17.55
+NLL_CASE combined 60 1.0486848268760318 17.54
+NLL_CASE combined 61 0.7725585933219961 17.54
+NLL_CASE combined 62 1.008713202138694 17.53
+NLL_CASE combined 63 0.8390456178983658 17.54
+NLL_CASE combined 64 1.3842737899212194 17.54
+NLL_CASE combined 65 0.9909674126224939 17.54
+NLL_CASE combined 66 1.086036948424411 17.54
+NLL_CASE combined 67 0.9030991684616998 17.53
+NLL_CASE combined 68 0.8534713167456474 17.53
+NLL_CASE combined 69 0.9747240454235317 17.54
+NLL_CASE combined 70 0.8835126053684752 17.54
+NLL_CASE combined 71 0.9618182833043896 17.55
+NLL_CASE combined 72 0.7524164006896483 17.54
+NLL_CASE combined 73 0.9429377331164916 17.53
+NLL_CASE combined 74 0.9273737241813009 17.54
+NLL_CASE combined 75 1.118999037900707 17.53
+NLL_CASE combined 76 0.8475709295873131 17.63
+NLL_CASE combined 77 0.839152721376927 17.66
+NLL_CASE combined 78 0.7647479894823608 17.68
+NLL_CASE combined 79 0.649193169912623 17.69
+NLL_CASE combined 80 1.129505663368633 17.74
+NLL_CASE combined 81 1.037405755414161 17.55
+NLL_CASE combined 82 0.9363975827428428 17.52
+NLL_CASE combined 83 0.9527154087912706 17.53
+NLL_CASE combined 84 1.0836604289440226 17.53
+NLL_CASE combined 85 0.9246486354973829 17.52
+NLL_CASE combined 86 0.8127272491363096 17.52
+NLL_CASE combined 87 0.8142803414976072 17.53
+NLL_CASE combined 88 0.8427987549078724 17.52
+NLL_CASE combined 89 0.9262424518482621 17.52
+NLL_CASE combined 90 0.8225698770041321 17.53
+NLL_CASE combined 91 0.9403143351416743 17.53
+NLL_CASE combined 92 0.5520041378227063 17.52
+NLL_CASE combined 93 0.6384085965462951 17.52
+NLL_CASE combined 94 1.0152034928171183 17.52
+NLL_CASE combined 95 0.7853919379933787 17.52
+NLL_CASE combined 96 0.8430099956245538 17.52
+NLL_CASE combined 97 1.0653883607858807 17.52
+NLL_CASE combined 98 1.135667840929571 17.53
+NLL_CASE combined 99 1.1480365071220646 17.53
+NLL_CASE combined 100 1.1573031727996579 17.52
+NLL_CASE combined 101 1.1018193070338498 17.54
+NLL_CASE combined 102 1.171869917867724 17.54
+NLL_CASE combined 103 0.8826644788367375 17.53
+NLL_CASE combined 104 0.9614984397056219 17.52
+NLL_CASE combined 105 1.0038657597631726 17.52
+NLL_CASE combined 106 1.2102121673262787 17.52
+NLL_CASE combined 107 0.7804184696231058 17.52
+NLL_CASE combined 108 1.0889875570585001 17.52
+NLL_CASE combined 109 1.1549209269101812 17.52
+NLL_CASE combined 110 1.4276667227107254 17.53
+NLL_CASE combined 111 1.2186293244028334 17.5
+NLL_CASE combined 112 1.0474501619787944 17.5
+NLL_CASE combined 113 1.011693160713392 17.51
+NLL_CASE combined 114 0.85292128642158 17.51
+NLL_CASE combined 115 1.1370629729537285 17.49
+NLL_CASE combined 116 0.9337652666296208 17.5
+NLL_CASE combined 117 0.9147837229716029 17.52
+NLL_CASE combined 118 1.1504297788401074 17.51
+NLL_CASE combined 119 1.1272079804584791 17.52
+NLL_CASE combined 120 1.3606748850690167 17.53
+NLL_CASE combined 121 1.2980293363423243 17.54
+NLL_CASE combined 122 1.1141839585169457 17.52
+NLL_CASE combined 123 1.177210782169718 17.53
+NLL_CASE combined 124 1.0224224492230745 17.51
+NLL_CASE combined 125 1.1684921140711921 17.5
+NLL_CASE combined 126 0.6666313228404147 17.5
+NLL_CASE combined 127 0.9744263128762469 17.53
+NLL_CASE combined 128 1.0453242145776396 17.52
+NLL_CASE combined 129 1.2000341275469992 17.53
+NLL_CASE combined 130 0.7108661423155951 17.53
+NLL_CASE combined 131 1.0899772334315827 17.5
+NLL_CASE combined 132 1.179431488002674 17.51
+NLL_CASE combined 133 1.5105101475804616 17.52
+NLL_CASE combined 134 0.7250841987821541 17.52
+NLL_CASE combined 135 1.093446569811741 17.52
+NLL_CASE combined 136 0.9119355794776425 17.5
+NLL_CASE combined 137 0.8013094222145014 17.49
+NLL_CASE combined 138 0.8806052038857946 17.53
+NLL_CASE combined 139 0.8145706642134023 17.53
+NLL_CASE combined 140 1.0112263913623387 17.53
+NLL_CASE combined 141 1.1964437949246172 17.52
+NLL_CASE combined 142 1.0111499215919917 17.49
+NLL_CASE combined 143 1.1615034633064738 17.51
+NLL_CASE combined 144 1.1041260935783335 17.49
+NLL_CASE combined 145 1.016793441247767 17.53
+NLL_CASE combined 146 1.2513682221287548 17.52
+NLL_CASE combined 147 2.0586394627132876 17.52
+NLL_CASE combined 148 2.055204377548165 17.51
+NLL_CASE combined 149 2.3683461169934006 17.52
+NLL_CASE combined 150 2.3348079530335326 17.53
+NLL_CASE combined 151 1.8481221327730495 17.52
+NLL_CASE combined 152 2.461349546595784 17.52
+NLL_CASE combined 153 1.6220912340384288 17.52
+NLL_CASE combined 154 1.8941647645828397 17.53
+NLL_CASE combined 155 1.9599028458591459 17.53
+NLL_CASE combined 156 1.8777985871285168 17.53
+NLL_CASE combined 157 1.9558029168782696 17.52
+NLL_CASE combined 158 1.6165407660138307 17.51
+NLL_CASE combined 159 1.6311349616021564 17.52
+NLL_CASE combined 160 1.7006191142753337 17.5
+NLL_CASE combined 161 1.7041338881955994 17.51
+NLL_CASE combined 162 1.7449833288327739 17.5
+NLL_CASE combined 163 1.3132981182205299 17.51
+NLL_CASE combined 164 1.6531205533568425 17.52
+NLL_CASE combined 165 1.8941779731046289 17.5
+NLL_CASE combined 166 1.8991910640941683 17.5
+NLL_CASE combined 167 1.93684170104531 17.51
+NLL_CASE combined 168 1.2670998039410932 17.5
+NLL_CASE combined 169 2.020966475721849 17.51
+NLL_CASE combined 170 1.666626450925321 17.52
+NLL_CASE combined 171 1.4530177766713486 17.5
+NLL_CASE combined 172 1.6723947444482476 17.5
+NLL_CASE combined 173 2.113562088814831 17.51
+NLL_CASE combined 174 1.51548163190661 17.53
+NLL_CASE combined 175 1.7721400098826336 17.52
+NLL_CASE combined 176 1.5694479865289233 17.5
+NLL_CASE combined 177 2.2304660161606478 17.5
+NLL_CASE combined 178 2.015660221274345 17.49
+NLL_CASE combined 179 1.618462865295001 17.52
+NLL_CASE combined 180 2.111270526381677 17.51
+NLL_CASE combined 181 1.7012633893436515 17.51
+NLL_CASE combined 182 1.6289840857840687 17.52
+NLL_CASE combined 183 2.378526273439725 17.51
+NLL_CASE combined 184 1.5305422063650767 17.51
+NLL_CASE combined 185 1.5104234779646504 17.52
+NLL_CASE combined 186 1.6823607933797735 17.52
+NLL_CASE combined 187 1.5108833861878566 17.52
+NLL_CASE combined 188 1.8128389540556284 17.51
+NLL_CASE combined 189 1.6246280044483399 17.51
+NLL_CASE combined 190 1.347339843808209 17.51
+NLL_CASE combined 191 2.0464984273241082 17.51
+NLL_CASE combined 192 1.9305643797752055 17.51
+NLL_CASE combined 193 1.6267134413469648 17.51
+NLL_CASE combined 194 1.7048976603886743 17.51
+NLL_CASE combined 195 2.126031171783941 17.52
+PREFILL_NLL combined natural6000 1.7079703671056177
+PREFILL_NLL combined service12000 0.0015066839234770951
+PREFILL_NLL combined technical24000 1.1136949476653315
+PREFILL_NLL combined natural18000 3.5831373696611495
+PREFILL_NLL combined natural36000 3.1797896502820318
+NATURAL_PREFILL combined en/8192 1.0340879921511337
+NATURAL_PREFILL combined en/32768 0.9707333872820618
+NATURAL_PREFILL combined en/65536 1.4296664838998254
+NATURAL_PREFILL combined en/131072 1.3023525804283649
+NATURAL_PREFILL combined en/262016 2.161402712642443
+NATURAL_PREFILL combined zh/8192 2.957264871593189
+NATURAL_PREFILL combined zh/32768 2.756787597729487
+NATURAL_PREFILL combined zh/65536 2.7874830367018446
+NATURAL_PREFILL combined zh/131072 2.1778867627078813
+NATURAL_PREFILL combined zh/262016 3.1848823294570288
+QUALITY_NLL_COMPLETE combined 196 100352
+TASK combined gsm8k/test/802 True
+TASK combined cmmlu/construction_project_management/5 True
+TASK combined cmmlu/logical/40 True
+TASK combined cmmlu/ancient_chinese/70 True
+TASK combined cmmlu/chinese_civil_service_exam/96 True
+TASK combined cmmlu/electrical_engineering/71 True
+TASK combined cmmlu/college_law/67 True
+TASK combined cmmlu/computer_security/0 True
+TASK combined cmmlu/elementary_commonsense/195 True
+TASK combined cmmlu/electrical_engineering/123 True
+TASK combined cmmlu/food_science/129 False
+TASK combined cmmlu/professional_psychology/188 True
+TASK combined cmmlu/sociology/154 True
+TASK combined cmmlu/security_study/88 True
+TASK combined cmmlu/marketing/128 True
+TASK combined gsm8k/test/430 True
+TASK combined cmmlu/world_religions/3 True
+TASK combined humaneval/HumanEval/65 True
+TASK combined cmmlu/world_history/43 True
+TASK combined cmmlu/chinese_history/276 True
+TASK combined cmmlu/professional_medicine/288 True
+TASK combined cmmlu/sociology/18 True
+TASK combined cmmlu/anatomy/0 True
+TASK combined mbpp/477 True
+TASK combined cmmlu/management/18 True
+TASK combined cmmlu/college_medical_statistics/39 False
+TASK combined cmmlu/college_medical_statistics/90 True
+TASK combined cmmlu/ethnology/26 True
+TASK combined mmlu-pro/6207 False
+TASK combined cmmlu/elementary_mathematics/117 True
+TASK combined cmmlu/professional_accounting/174 True
+TASK combined cmmlu/agronomy/23 True
+TASK combined cmmlu/world_history/132 False
+TASK combined cmmlu/professional_medicine/215 True
+TASK combined cmmlu/marketing/136 False
+TASK combined cmmlu/world_religions/108 True
+TASK combined gsm8k/test/810 True
+TASK combined cmmlu/elementary_chinese/128 False
+TASK combined gsm8k/test/465 True
+TASK combined cmmlu/professional_medicine/171 True
+TASK combined cmmlu/jurisprudence/359 True
+TASK combined cmmlu/chinese_teacher_qualification/59 True
+TASK combined cmmlu/chinese_food_culture/4 True
+TASK combined cmmlu/international_law/28 True
+TASK combined cmmlu/elementary_chinese/69 True
+TASK combined mmlu-pro/1161 True
+TASK combined cmmlu/professional_medicine/254 True
+TASK combined gsm8k/test/699 True
+TASK combined cmmlu/high_school_geography/34 True
+TASK combined cmmlu/virology/142 True
+TASK combined cmmlu/business_ethics/157 True
+TASK combined cmmlu/professional_psychology/112 True
+TASK combined gsm8k/test/929 True
+TASK combined cmmlu/jurisprudence/275 True
+TASK combined cmmlu/legal_and_moral_basis/88 True
+TASK combined cmmlu/education/123 True
+TASK combined cmmlu/agronomy/22 True
+TASK combined mmlu-pro/5173 False
+TASK combined cmmlu/electrical_engineering/9 True
+TASK combined cmmlu/ancient_chinese/55 False
+TASK combined cmmlu/elementary_commonsense/28 True
+TASK combined cmmlu/marketing/46 False
+TASK combined gsm8k/test/516 True
+TASK combined mbpp/230 True
+TASK combined cmmlu/legal_and_moral_basis/153 True
+TASK combined cmmlu/chinese_teacher_qualification/12 True
+TASK combined cmmlu/world_religions/113 False
+TASK combined gsm8k/test/469 True
+TASK combined cmmlu/professional_psychology/224 True
+TASK combined cmmlu/college_medical_statistics/49 False
+TASK combined mmlu-pro/6236 True
+TASK combined cmmlu/elementary_chinese/13 True
+TASK combined cmmlu/astronomy/119 True
+TASK combined cmmlu/sports_science/83 True
+TASK combined cmmlu/nutrition/138 True
+TASK combined cmmlu/elementary_commonsense/149 True
+TASK combined gsm8k/test/1294 True
+TASK combined cmmlu/professional_psychology/170 True
+TASK combined cmmlu/economics/133 True
+TASK combined cmmlu/arts/34 True
+TASK combined gsm8k/test/386 True
+TASK combined gsm8k/test/20 True
+TASK combined gsm8k/test/776 True
+TASK combined mmlu-pro/5181 False
+TASK combined cmmlu/world_religions/78 True
+TASK combined cmmlu/logical/18 True
+TASK combined cmmlu/chinese_literature/120 False
+TASK combined cmmlu/management/138 True
+TASK combined cmmlu/college_law/87 True
+TASK combined cmmlu/legal_and_moral_basis/47 True
+TASK combined gsm8k/test/795 True
+TASK combined cmmlu/elementary_information_and_technology/186 True
+TASK combined cmmlu/business_ethics/175 False
+TASK combined cmmlu/food_science/14 True
+TASK combined gsm8k/test/530 True
+TASK combined cmmlu/logical/38 True
+TASK combined cmmlu/legal_and_moral_basis/176 True
+TASK combined cmmlu/ancient_chinese/139 True
+TASK combined mmlu-pro/6215 False
+TASK combined cmmlu/elementary_mathematics/61 True
+TASK combined cmmlu/philosophy/35 True
+TASK combined cmmlu/marketing/146 True
+TASK combined cmmlu/elementary_commonsense/145 False
+TASK combined cmmlu/arts/53 True
+TASK combined cmmlu/jurisprudence/84 True
+TASK combined cmmlu/traditional_chinese_medicine/137 False
+TASK combined cmmlu/jurisprudence/35 True
+TASK combined mbpp/15 False
+TASK combined mmlu-pro/10235 True
+TASK combined cmmlu/professional_law/187 True
+TASK combined cmmlu/high_school_mathematics/70 True
+TASK combined cmmlu/education/15 True
+TASK combined cmmlu/elementary_information_and_technology/1 True
+TASK combined cmmlu/sports_science/62 True
+TASK combined cmmlu/computer_science/184 True
+TASK combined cmmlu/arts/120 True
+TASK combined cmmlu/high_school_biology/49 True
+TASK combined gsm8k/test/1029 True
+TASK combined cmmlu/elementary_information_and_technology/213 True
+TASK combined cmmlu/high_school_physics/107 True
+TASK combined cmmlu/education/23 True
+TASK combined cmmlu/construction_project_management/99 True
+TASK combined cmmlu/economics/155 True
+TASK combined cmmlu/chinese_civil_service_exam/36 True
+TASK combined cmmlu/virology/131 True
+TASK combined cmmlu/elementary_commonsense/78 True
+TASK combined cmmlu/high_school_biology/113 True
+TASK combined cmmlu/college_engineering_hydrology/22 True
+TASK combined cmmlu/elementary_chinese/55 True
+TASK combined cmmlu/world_history/159 True
+TASK combined mmlu-pro/9190 False
+TASK combined cmmlu/economics/52 True
+TASK combined cmmlu/computer_science/179 True
+TASK combined mmlu-pro/4169 False
+TASK combined cmmlu/virology/74 True
+TASK combined gsm8k/test/318 True
+TASK combined gsm8k/test/984 False
+TASK combined mmlu-pro/6252 True
+TASK combined cmmlu/chinese_literature/46 False
+TASK combined mmlu-pro/3143 True
+TASK combined cmmlu/elementary_information_and_technology/42 True
+TASK combined cmmlu/modern_chinese/47 True
+TASK combined cmmlu/public_relations/12 True
+TASK combined cmmlu/education/66 True
+TASK combined cmmlu/marxist_theory/161 True
+TASK combined mbpp/306 False
+TASK combined cmmlu/college_actuarial_science/58 False
+TASK combined gsm8k/test/643 True
+TASK combined cmmlu/computer_science/200 True
+TASK combined cmmlu/computer_science/88 True
+TASK combined cmmlu/modern_chinese/96 False
+TASK combined cmmlu/business_ethics/128 True
+TASK combined mmlu-pro/98 False
+TASK combined cmmlu/sports_science/158 True
+TASK combined cmmlu/journalism/3 True
+TASK combined cmmlu/public_relations/53 True
+TASK combined cmmlu/college_medicine/244 True
+TASK combined cmmlu/agronomy/90 False
+TASK combined cmmlu/chinese_civil_service_exam/140 True
+TASK combined cmmlu/logical/91 False
+TASK combined cmmlu/arts/15 True
+TASK combined cmmlu/construction_project_management/23 False
+TASK combined cmmlu/clinical_knowledge/215 True
+TASK combined cmmlu/philosophy/70 True
+TASK combined cmmlu/astronomy/117 True
+TASK combined cmmlu/journalism/42 True
+TASK combined cmmlu/chinese_literature/7 True
+TASK combined gsm8k/test/1058 True
+TASK combined cmmlu/professional_law/78 True
+TASK combined cmmlu/elementary_mathematics/169 True
+TASK combined mmlu-pro/7251 False
+TASK combined cmmlu/elementary_mathematics/65 True
+TASK combined cmmlu/high_school_mathematics/28 False
+TASK combined cmmlu/chinese_history/61 False
+TASK combined cmmlu/food_science/68 True
+TASK combined mmlu-pro/11223 True
+TASK combined mmlu-pro/11230 True
+TASK combined cmmlu/high_school_chemistry/70 True
+TASK combined cmmlu/sports_science/93 True
+TASK combined structure/54 True
+TASK combined gsm8k/test/229 True
+TASK combined cmmlu/college_medicine/220 True
+TASK combined cmmlu/economics/81 True
+TASK combined cmmlu/arts/112 True
+TASK combined gsm8k/test/301 True
+TASK combined cmmlu/chinese_civil_service_exam/70 True
+TASK combined cmmlu/chinese_teacher_qualification/5 True
+TASK combined cmmlu/ethnology/71 True
+TASK combined cmmlu/anatomy/17 True
+TASK combined mmlu-pro/5185 False
+TASK combined cmmlu/management/102 True
+TASK combined cmmlu/nutrition/32 False
+TASK combined cmmlu/clinical_knowledge/183 True
+TASK combined cmmlu/sociology/83 True
+TASK combined cmmlu/chinese_driving_rule/28 True
+TASK combined cmmlu/chinese_civil_service_exam/123 True
+TASK combined cmmlu/journalism/96 True
+TASK combined cmmlu/chinese_teacher_qualification/45 True
+TASK combined cmmlu/traditional_chinese_medicine/12 True
+TASK combined mmlu-pro/9207 True
+TASK combined cmmlu/ancient_chinese/116 False
+TASK combined cmmlu/food_science/71 True
+TASK combined cmmlu/elementary_mathematics/122 False
+TASK combined mmlu-pro/7264 False
+TASK combined cmmlu/construction_project_management/107 True
+TASK combined cmmlu/chinese_teacher_qualification/175 True
+TASK combined cmmlu/genetics/165 True
+TASK combined gsm8k/test/1235 True
+TASK combined humaneval/HumanEval/106 True
+TASK combined gsm8k/test/60 True
+TASK combined cmmlu/astronomy/23 False
+TASK combined cmmlu/college_medicine/12 True
+TASK combined cmmlu/college_actuarial_science/76 True
+TASK combined cmmlu/high_school_geography/115 False
+TASK combined cmmlu/clinical_knowledge/26 True
+TASK combined cmmlu/sociology/110 True
+TASK combined cmmlu/college_law/46 True
+TASK combined mmlu-pro/5186 False
+TASK combined mmlu-pro/6203 False
+TASK combined cmmlu/high_school_physics/104 True
+TASK combined cmmlu/economics/93 True
+TASK combined cmmlu/journalism/119 True
+TASK combined cmmlu/computer_security/59 True
+TASK combined cmmlu/nutrition/44 True
+TASK combined gsm8k/test/1287 True
+TASK combined cmmlu/management/94 False
+TASK combined cmmlu/chinese_literature/200 False
+TASK combined gsm8k/test/711 True
+TASK combined cmmlu/college_law/63 True
+TASK combined cmmlu/security_study/66 True
+TASK combined cmmlu/ethnology/75 False
+TASK combined cmmlu/college_medical_statistics/75 True
+TASK combined gsm8k/test/79 True
+TASK combined cmmlu/anatomy/56 True
+TASK combined cmmlu/high_school_biology/157 True
+TASK combined cmmlu/modern_chinese/68 True
+TASK combined cmmlu/human_sexuality/62 True
+TASK combined cmmlu/chinese_food_culture/126 False
+TASK combined mmlu-pro/1108 True
+TASK combined cmmlu/conceptual_physics/17 True
+TASK combined cmmlu/virology/20 True
+TASK combined cmmlu/conceptual_physics/73 True
+TASK combined cmmlu/chinese_literature/90 True
+TASK combined cmmlu/chinese_food_culture/121 True
+TASK combined cmmlu/computer_security/23 True
+TASK combined cmmlu/elementary_information_and_technology/219 True
+TASK combined humaneval/HumanEval/112 True
+TASK combined mmlu-pro/2142 True
+TASK combined cmmlu/chinese_history/81 True
+TASK combined cmmlu/professional_law/155 True
+TASK combined gsm8k/test/384 True
+TASK combined cmmlu/traditional_chinese_medicine/86 True
+TASK combined gsm8k/test/423 False
+TASK combined cmmlu/college_medicine/11 True
+TASK combined cmmlu/computer_security/19 True
+TASK combined cmmlu/high_school_chemistry/113 True
+TASK combined mmlu-pro/9211 False
+TASK combined cmmlu/security_study/108 True
+TASK combined mmlu-pro/8238 False
+TASK combined cmmlu/traditional_chinese_medicine/146 True
+TASK combined mmlu-pro/5239 True
+TASK combined cmmlu/electrical_engineering/160 False
+TASK combined cmmlu/genetics/86 True
+TASK combined mmlu-pro/3220 True
+TASK combined cmmlu/high_school_geography/89 True
+TASK combined cmmlu/college_actuarial_science/81 False
+TASK combined cmmlu/public_relations/130 True
+TASK combined cmmlu/nutrition/131 True
+TASK combined cmmlu/marxist_theory/26 True
+TASK combined cmmlu/elementary_chinese/195 False
+TASK combined cmmlu/computer_science/74 True
+TASK combined cmmlu/high_school_biology/17 True
+TASK combined cmmlu/chinese_history/282 True
+TASK combined cmmlu/genetics/174 True
+TASK combined cmmlu/computer_security/151 True
+TASK combined gsm8k/test/723 True
+TASK combined gsm8k/test/1118 True
+TASK combined cmmlu/security_study/57 True
+TASK combined gsm8k/test/243 True
+TASK combined gsm8k/test/855 True
+TASK combined cmmlu/modern_chinese/98 True
+TASK combined cmmlu/business_ethics/34 True
+TASK combined mmlu-pro/11290 False
+TASK combined cmmlu/genetics/51 True
+TASK combined cmmlu/high_school_geography/83 True
+TASK combined mmlu-pro/5207 True
+TASK combined cmmlu/chinese_driving_rule/4 True
+TASK combined gsm8k/test/919 True
+TASK combined mbpp/483 False
+TASK combined mmlu-pro/6254 False
+TASK combined mmlu-pro/3155 True
+TASK combined cmmlu/marxist_theory/114 True
+TASK combined cmmlu/business_ethics/19 True
+TASK combined mmlu-pro/9244 False
+TASK combined cmmlu/college_mathematics/69 True
+TASK combined cmmlu/high_school_politics/2 True
+TASK combined cmmlu/chinese_history/195 True
+TASK combined cmmlu/ancient_chinese/106 False
+TASK combined gsm8k/test/560 True
+TASK combined cmmlu/high_school_mathematics/37 True
+TASK combined cmmlu/professional_law/87 True
+TASK combined cmmlu/chinese_food_culture/93 False
+TASK combined mbpp/151 True
+TASK combined mbpp/171 True
+TASK combined humaneval/HumanEval/50 False
+TASK combined mbpp/263 True
+TASK combined cmmlu/global_facts/94 True
+TASK combined gsm8k/test/443 True
+TASK combined cmmlu/ethnology/27 True
+TASK combined mmlu-pro/8270 False
+TASK combined gsm8k/test/1032 True
+TASK combined cmmlu/anatomy/6 True
+TASK combined gsm8k/test/1302 True
+TASK combined cmmlu/conceptual_physics/76 False
+TASK combined cmmlu/college_engineering_hydrology/70 True
+TASK combined structure/99 True
+TASK combined cmmlu/high_school_chemistry/39 False
+TASK combined cmmlu/global_facts/70 True
+TASK combined mmlu-pro/11286 True
+TASK combined humaneval/HumanEval/69 True
+TASK combined structure/37 False
+TASK combined cmmlu/marxist_theory/65 True
+TASK combined gsm8k/test/957 True
+TASK combined cmmlu/high_school_mathematics/72 True
+TASK combined cmmlu/global_facts/56 True
+TASK combined mmlu-pro/5195 True
+TASK combined mbpp/348 True
+TASK combined mmlu-pro/4142 False
+TASK combined humaneval/HumanEval/142 True
+TASK combined mbpp/470 True
+TASK combined gsm8k/test/946 True
+TASK combined cmmlu/college_medical_statistics/65 True
+TASK combined mmlu-pro/3139 True
+TASK combined gsm8k/test/728 True
+TASK combined humaneval/HumanEval/13 True
+TASK combined gsm8k/test/757 True
+TASK combined cmmlu/public_relations/140 False
+TASK combined cmmlu/astronomy/130 True
+TASK combined cmmlu/philosophy/23 True
+TASK combined cmmlu/education/157 False
+TASK combined cmmlu/professional_accounting/29 True
+TASK combined cmmlu/chinese_driving_rule/99 True
+TASK combined cmmlu/clinical_knowledge/91 True
+TASK combined cmmlu/anatomy/68 True
+TASK combined cmmlu/college_actuarial_science/49 True
+TASK combined cmmlu/world_history/82 False
+TASK combined mmlu-pro/4127 True
+TASK combined cmmlu/construction_project_management/28 True
+TASK combined gsm8k/test/900 True
+TASK combined mbpp/475 True
+TASK combined cmmlu/global_facts/58 True
+TASK combined gsm8k/test/1260 True
+TASK combined cmmlu/high_school_politics/107 True
+TASK combined cmmlu/high_school_chemistry/9 True
+TASK combined cmmlu/college_mathematics/32 False
+TASK combined cmmlu/chinese_foreign_policy/71 True
+TASK combined mmlu-pro/10299 True
+TASK combined gsm8k/test/1211 True
+TASK combined cmmlu/chinese_food_culture/6 False
+TASK combined cmmlu/philosophy/73 False
+TASK combined mbpp/451 True
+TASK combined cmmlu/college_engineering_hydrology/74 True
+TASK combined cmmlu/electrical_engineering/120 True
+TASK combined gsm8k/test/129 True
+TASK combined cmmlu/clinical_knowledge/186 True
+TASK combined mmlu-pro/2141 True
+TASK combined cmmlu/high_school_politics/96 True
+TASK combined mbpp/239 True
+TASK combined mmlu-pro/5237 True
+TASK combined mmlu-pro/6197 False
+TASK combined cmmlu/conceptual_physics/94 True
+TASK combined gsm8k/test/275 True
+TASK combined mbpp/417 True
+TASK combined gsm8k/test/695 True
+TASK combined cmmlu/machine_learning/117 True
+TASK combined mbpp/325 True
+TASK combined gsm8k/test/556 True
+TASK combined cmmlu/college_mathematics/78 False
+TASK combined cmmlu/high_school_politics/79 True
+TASK combined mmlu-pro/5148 True
+TASK combined cmmlu/machine_learning/68 True
+TASK combined cmmlu/astronomy/81 True
+TASK combined gsm8k/test/1127 True
+TASK combined mmlu-pro/10280 False
+TASK combined cmmlu/college_mathematics/22 True
+TASK combined cmmlu/college_medicine/134 True
+TASK combined cmmlu/college_law/62 True
+TASK combined mbpp/285 True
+TASK combined gsm8k/test/754 True
+TASK combined gsm8k/test/248 True
+TASK combined gsm8k/test/1036 True
+TASK combined gsm8k/test/939 True
+TASK combined gsm8k/test/451 True
+TASK combined cmmlu/chinese_foreign_policy/9 True
+TASK combined gsm8k/test/64 True
+TASK combined mbpp/368 True
+TASK combined mmlu-pro/3158 True
+TASK combined gsm8k/test/265 True
+TASK combined cmmlu/agronomy/60 True
+TASK combined cmmlu/agronomy/148 True
+TASK combined gsm8k/test/964 True
+TASK combined mmlu-pro/4158 True
+TASK combined cmmlu/college_actuarial_science/62 True
+TASK combined gsm8k/test/1202 True
+TASK combined gsm8k/test/536 True
+TASK combined mbpp/210 True
+TASK combined mmlu-pro/10283 False
+TASK combined humaneval/HumanEval/75 True
+TASK combined cmmlu/professional_accounting/131 True
+TASK combined cmmlu/high_school_physics/45 True
+TASK combined mmlu-pro/7207 True
+TASK combined gsm8k/test/736 True
+TASK combined mbpp/337 True
+TASK combined cmmlu/chinese_driving_rule/51 True
+TASK combined mmlu-pro/84 True
+TASK combined mbpp/43 True
+TASK combined structure/40 False
+TASK combined cmmlu/college_education/39 True
+TASK combined gsm8k/test/1160 True
+TASK combined mmlu-pro/8186 False
+TASK combined mmlu-pro/4150 False
+TASK combined cmmlu/international_law/22 True
+TASK combined gsm8k/test/1000 True
+TASK combined mmlu-pro/9241 False
+TASK combined gsm8k/test/137 True
+TASK combined cmmlu/college_mathematics/97 True
+TASK combined gsm8k/test/317 True
+TASK combined mmlu-pro/10288 False
+TASK combined gsm8k/test/459 True
+TASK combined gsm8k/test/293 True
+TASK combined cmmlu/college_education/93 True
+TASK combined mmlu-pro/9202 False
+TASK combined gsm8k/test/72 True
+TASK combined mmlu-pro/4180 False
+TASK combined gsm8k/test/1309 False
+TASK combined humaneval/HumanEval/9 True
+TASK combined cmmlu/professional_accounting/69 True
+TASK combined mbpp/96 True
+TASK combined cmmlu/high_school_physics/11 False
+TASK combined cmmlu/college_engineering_hydrology/95 False
+TASK combined gsm8k/test/1313 True
+TASK combined mmlu-pro/3123 True
+TASK combined mbpp/82 True
+TASK combined gsm8k/test/873 True
+TASK combined gsm8k/test/570 True
+TASK combined gsm8k/test/721 True
+TASK combined gsm8k/test/180 True
+TASK combined gsm8k/test/1035 False
+TASK combined mmlu-pro/155 False
+TASK combined mmlu-pro/4137 False
+TASK combined gsm8k/test/709 True
+TASK combined gsm8k/test/1064 True
+TASK combined gsm8k/test/369 True
+TASK combined cmmlu/international_law/8 True
+TASK combined mmlu-pro/9278 False
+TASK combined humaneval/HumanEval/88 True
+TASK combined cmmlu/chinese_driving_rule/87 True
+TASK combined mmlu-pro/9224 False
+TASK combined mbpp/113 True
+TASK combined mbpp/17 True
+TASK combined cmmlu/college_education/33 True
+TASK combined gsm8k/test/549 True
+TASK combined cmmlu/machine_learning/114 True
+TASK combined mmlu-pro/6206 True
+TASK combined gsm8k/test/1195 True
+TASK combined cmmlu/chinese_foreign_policy/45 True
+TASK combined cmmlu/conceptual_physics/82 True
+TASK combined gsm8k/test/554 True
+TASK combined mmlu-pro/4143 False
+TASK combined gsm8k/test/877 True
+TASK combined gsm8k/test/1169 True
+TASK combined mbpp/66 True
+TASK combined gsm8k/test/891 True
+TASK combined mmlu-pro/6187 True
+TASK combined gsm8k/test/1308 True
+TASK combined gsm8k/test/400 True
+TASK combined gsm8k/test/32 True
+TASK combined gsm8k/test/1056 True
+TASK combined mmlu-pro/4187 True
+TASK combined mmlu-pro/11291 False
+TASK combined mmlu-pro/11244 True
+TASK combined mmlu-pro/6169 False
+TASK combined mmlu-pro/11254 True
+TASK combined cmmlu/human_sexuality/57 False
+TASK combined gsm8k/test/614 True
+TASK combined cmmlu/college_education/77 True
+TASK combined mmlu-pro/104 False
+TASK combined gsm8k/test/831 True
+TASK combined mmlu-pro/4171 False
+TASK combined gsm8k/test/564 True
+TASK combined humaneval/HumanEval/148 True
+TASK combined mmlu-pro/8196 False
+TASK combined gsm8k/test/256 True
+TASK combined mbpp/448 False
+TASK combined gsm8k/test/1072 True
+TASK combined gsm8k/test/482 True
+TASK combined cmmlu/chinese_foreign_policy/17 True
+TASK combined gsm8k/test/821 True
+TASK combined mmlu-pro/6218 True
+TASK combined mmlu-pro/129 False
+TASK combined cmmlu/chinese_foreign_policy/34 True
+TASK combined gsm8k/test/1152 True
+TASK combined gsm8k/test/323 True
+TASK combined mmlu-pro/1127 True
+TASK combined cmmlu/international_law/151 False
+TASK combined mmlu-pro/146 False
+TASK combined mmlu-pro/8245 True
+TASK combined cmmlu/college_education/24 True
+TASK combined mbpp/216 True
+TASK combined mbpp/24 True
+TASK combined structure/55 True
+TASK combined mbpp/34 False
+TASK combined gsm8k/test/406 True
+TASK combined mmlu-pro/1158 True
+TASK combined mmlu-pro/4206 False
+TASK combined mmlu-pro/4148 False
+TASK combined gsm8k/test/665 True
+TASK combined gsm8k/test/780 True
+TASK combined mmlu-pro/9204 False
+TASK combined gsm8k/test/249 True
+TASK combined humaneval/HumanEval/161 True
+TASK combined mmlu-pro/9264 True
+TASK combined mbpp/116 True
+TASK combined mmlu-pro/10215 True
+TASK combined mbpp/207 True
+TASK combined mmlu-pro/4209 False
+TASK combined mmlu-pro/10253 True
+TASK combined gsm8k/test/1212 True
+TASK combined cmmlu/human_sexuality/10 True
+TASK combined gsm8k/test/504 True
+TASK combined cmmlu/college_engineering_hydrology/46 True
+TASK combined mmlu-pro/163 False
+TASK combined gsm8k/test/717 True
+TASK combined mmlu-pro/5163 True
+TASK combined mmlu-pro/11309 True
+TASK combined gsm8k/test/125 True
+TASK combined gsm8k/test/617 True
+TASK combined mbpp/307 True
+TASK combined mmlu-pro/6163 True
+TASK combined mmlu-pro/5189 True
+TASK combined mbpp/237 True
+TASK combined humaneval/HumanEval/10 True
+TASK combined mmlu-pro/11296 False
+TASK combined cmmlu/machine_learning/1 True
+TASK combined mbpp/208 True
+TASK combined cmmlu/human_sexuality/25 True
+TASK combined gsm8k/test/716 True
+TASK combined mbpp/167 True
+TASK combined gsm8k/test/3 True
+TASK combined gsm8k/test/743 True
+TASK combined mmlu-pro/5168 True
+TASK combined structure/52 True
+TASK combined mmlu-pro/4167 True
+TASK combined mmlu-pro/4176 False
+TASK combined humaneval/HumanEval/36 True
+TASK combined mbpp/428 True
+TASK combined mmlu-pro/11252 True
+TASK combined gsm8k/test/242 True
+TASK combined gsm8k/test/235 True
+TASK combined gsm8k/test/10 True
+TASK combined mmlu-pro/11321 False
+TASK combined gsm8k/test/522 True
+TASK combined mbpp/55 False
+TASK combined mmlu-pro/11302 False
+TASK combined mmlu-pro/7218 False
+TASK combined gsm8k/test/204 True
+TASK combined gsm8k/test/1128 True
+TASK combined mmlu-pro/11263 True
+TASK combined structure/57 True
+TASK combined gsm8k/test/338 True
+TASK combined gsm8k/test/505 True
+TASK combined structure/46 True
+TASK combined mmlu-pro/3200 False
+TASK combined mmlu-pro/8232 False
+TASK combined gsm8k/test/550 True
+TASK combined mbpp/425 True
+TASK combined mmlu-pro/10208 True
+TASK combined gsm8k/test/123 True
+TASK combined gsm8k/test/830 True
+TASK combined mmlu-pro/5205 True
+TASK combined mbpp/438 False
+TASK combined mbpp/90 True
+TASK combined mmlu-pro/3167 True
+TASK combined gsm8k/test/739 True
+TASK combined gsm8k/test/846 True
+TASK combined mmlu-pro/4214 False
+TASK combined mbpp/257 True
+TASK combined mmlu-pro/8250 True
+TASK combined gsm8k/test/1046 True
+TASK combined mbpp/275 False
+TASK combined mmlu-pro/4197 False
+TASK combined gsm8k/test/1297 True
+TASK combined mmlu-pro/11312 False
+TASK combined gsm8k/test/1082 True
+TASK combined mmlu-pro/5206 True
+TASK combined gsm8k/test/655 True
+TASK combined gsm8k/test/566 True
+TASK combined mmlu-pro/6193 True
+TASK combined gsm8k/test/291 True
+TASK combined mbpp/53 True
+TASK combined gsm8k/test/1018 True
+TASK combined gsm8k/test/1053 True
+TASK combined gsm8k/test/1048 False
+TASK combined gsm8k/test/976 True
+TASK combined mbpp/326 True
+TASK combined mmlu-pro/2180 True
+TASK combined gsm8k/test/1299 True
+TASK combined gsm8k/test/638 True
+TASK combined mmlu-pro/8197 False
+TASK combined gsm8k/test/748 True
+TASK combined mmlu-pro/6223 False
+TASK combined mbpp/169 True
+TASK combined gsm8k/test/261 True
+TASK combined mmlu-pro/4204 False
+TASK combined gsm8k/test/734 True
+TASK combined gsm8k/test/292 True
+TASK combined structure/5 False
+TASK combined gsm8k/test/155 True
+TASK combined gsm8k/test/618 True
+TASK combined gsm8k/test/926 True
+TASK combined gsm8k/test/640 True
+TASK combined gsm8k/test/619 True
+TASK combined mmlu-pro/152 False
+TASK combined gsm8k/test/824 True
+TASK combined mmlu-pro/6259 False
+TASK combined mmlu-pro/10296 True
+TASK combined gsm8k/test/1108 True
+TASK combined gsm8k/test/901 True
+TASK combined gsm8k/test/448 True
+TASK combined mmlu-pro/1118 True
+TASK combined mmlu-pro/9247 False
+TASK combined gsm8k/test/5 True
+TASK combined mmlu-pro/5145 False
+TASK combined gsm8k/test/881 True
+TASK combined mmlu-pro/5232 True
+TASK combined humaneval/HumanEval/15 True
+TASK combined mmlu-pro/5203 False
+TASK combined mmlu-pro/11266 False
+TASK combined gsm8k/test/927 True
+TASK combined gsm8k/test/196 True
+TASK combined mbpp/199 True
+TASK combined gsm8k/test/1012 True
+TASK combined gsm8k/test/730 True
+TASK combined mmlu-pro/10266 False
+TASK combined gsm8k/test/569 True
+TASK combined gsm8k/test/870 True
+TASK combined gsm8k/test/774 True
+TASK combined mmlu-pro/10212 True
+TASK combined mmlu-pro/4217 False
+TASK combined gsm8k/test/775 True
+TASK combined mmlu-pro/3175 True
+TASK combined mmlu-pro/2120 True
+TASK combined structure/56 True
+TASK combined gsm8k/test/1037 True
+TASK combined gsm8k/test/528 True
+TASK combined gsm8k/test/387 True
+TASK combined mmlu-pro/11237 False
+TASK combined mmlu-pro/11260 True
+TASK combined mmlu-pro/156 False
+TASK combined mbpp/51 True
+TASK combined mmlu-pro/9234 False
+TASK combined mbpp/472 True
+TASK combined mmlu-pro/1172 True
+TASK combined gsm8k/test/922 True
+TASK combined mbpp/317 True
+TASK combined gsm8k/test/916 True
+TASK combined mmlu-pro/4191 False
+TASK combined mmlu-pro/5188 False
+TASK combined gsm8k/test/1296 True
+TASK combined gsm8k/test/859 True
+TASK combined gsm8k/test/37 True
+TASK combined gsm8k/test/1097 True
+TASK combined mbpp/14 True
+TASK combined gsm8k/test/679 True
+TASK combined mbpp/320 True
+TASK combined mmlu-pro/3153 True
+TASK combined gsm8k/test/650 True
+TASK combined mbpp/175 True
+TASK combined gsm8k/test/1014 True
+TASK combined mmlu-pro/9231 False
+TASK combined gsm8k/test/589 True
+TASK combined mmlu-pro/11228 True
+TASK combined gsm8k/test/1060 True
+TASK combined mmlu-pro/11273 True
+TASK combined mbpp/399 True
+TASK combined mmlu-pro/2160 True
+TASK combined mbpp/288 True
+TASK combined mmlu-pro/10300 False
+TASK combined gsm8k/test/592 True
+TASK combined gsm8k/test/854 True
+TASK combined gsm8k/test/1171 True
+TASK combined gsm8k/test/13 True
+TASK combined gsm8k/test/435 True
+TASK combined mbpp/37 True
+TASK combined gsm8k/test/458 True
+TASK combined gsm8k/test/882 True
+TASK combined gsm8k/test/1022 True
+TASK combined mmlu-pro/1081 True
+TASK combined mmlu-pro/11275 True
+TASK combined gsm8k/test/1078 True
+TASK combined mmlu-pro/4149 False
+TASK combined structure/45 True
+TASK combined mmlu-pro/11249 True
+TASK combined mmlu-pro/2150 False
+TASK combined mmlu-pro/128 False
+TASK combined gsm8k/test/223 True
+TASK combined mmlu-pro/3122 False
+TASK combined mbpp/218 False
+TASK combined mmlu-pro/3205 False
+TASK combined gsm8k/test/720 True
+TASK combined gsm8k/test/1217 True
+TASK combined gsm8k/test/1232 True
+TASK combined mbpp/299 True
+TASK combined gsm8k/test/1074 False
+TASK combined mmlu-pro/8204 False
+TASK combined mmlu-pro/8198 False
+TASK combined structure/33 True
+TASK combined mmlu-pro/6235 False
+TASK combined mbpp/499 True
+TASK combined mmlu-pro/5219 True
+TASK combined mbpp/482 True
+TASK combined gsm8k/test/1059 True
+TASK combined gsm8k/test/213 True
+TASK combined gsm8k/test/704 True
+TASK combined mmlu-pro/7201 True
+TASK combined mmlu-pro/6173 False
+TASK combined gsm8k/test/698 True
+TASK combined mmlu-pro/4128 True
+TASK combined mmlu-pro/8201 True
+TASK combined gsm8k/test/144 True
+TASK combined mmlu-pro/164 False
+TASK combined mbpp/240 True
+TASK combined mmlu-pro/5196 True
+TASK combined gsm8k/test/1209 True
+TASK combined mbpp/145 True
+TASK combined mbpp/112 True
+TASK combined humaneval/HumanEval/16 True
+TASK combined gsm8k/test/689 True
+TASK combined gsm8k/test/1250 True
+TASK combined gsm8k/test/839 True
+TASK combined mbpp/206 True
+TASK combined mmlu-pro/6234 True
+TASK combined mbpp/333 True
+TASK combined humaneval/HumanEval/79 True
+TASK combined gsm8k/test/181 True
+TASK combined mmlu-pro/7255 True
+TASK combined humaneval/HumanEval/100 True
+TASK combined mmlu-pro/2165 True
+TASK combined gsm8k/test/1289 True
+TASK combined mmlu-pro/91 False
+TASK combined mbpp/444 True
+TASK combined humaneval/HumanEval/160 True
+TASK combined gsm8k/test/1281 True
+TASK combined gsm8k/test/345 True
+TASK combined mbpp/277 True
+TASK combined humaneval/HumanEval/4 True
+TASK combined mmlu-pro/124 True
+TASK combined mmlu-pro/5193 False
+TASK combined mbpp/242 True
+TASK combined mmlu-pro/3137 True
+TASK combined structure/43 True
+TASK combined gsm8k/test/326 True
+TASK combined mbpp/67 True
+TASK combined gsm8k/test/688 True
+TASK combined gsm8k/test/644 True
+TASK combined mmlu-pro/2110 True
+TASK combined mbpp/109 True
+TASK combined structure/66 True
+TASK combined mbpp/200 True
+TASK combined structure/35 True
+TASK combined mmlu-pro/115 False
+TASK combined mmlu-pro/127 True
+TASK combined mmlu-pro/3189 True
+TASK combined structure/74 False
+TASK combined humaneval/HumanEval/31 True
+TASK combined mbpp/59 True
+TASK combined mmlu-pro/4181 False
+TASK combined mbpp/223 True
+TASK combined mbpp/366 True
+TASK combined mmlu-pro/5151 True
+TASK combined mmlu-pro/11281 True
+TASK combined mmlu-pro/94 False
+TASK combined humaneval/HumanEval/110 True
+TASK combined mbpp/480 True
+TASK combined mmlu-pro/6242 True
+TASK combined mmlu-pro/4220 False
+TASK combined mbpp/56 True
+TASK combined mbpp/365 True
+TASK combined mbpp/58 True
+TASK combined mbpp/93 True
+TASK combined mmlu-pro/11235 True
+TASK combined mbpp/139 True
+TASK combined mmlu-pro/4136 False
+TASK combined mmlu-pro/2167 True
+TASK combined mmlu-pro/1171 True
+TASK combined humaneval/HumanEval/158 True
+TASK combined mbpp/220 True
+TASK combined mmlu-pro/7199 True
+TASK combined mmlu-pro/5199 True
+TASK combined mmlu-pro/113 False
+TASK combined mmlu-pro/3218 True
+TASK combined mmlu-pro/6184 True
+TASK combined mmlu-pro/6180 True
+TASK combined mmlu-pro/5149 False
+TASK combined mmlu-pro/1164 False
+TASK combined humaneval/HumanEval/105 True
+TASK combined structure/96 True
+TASK combined mmlu-pro/5157 True
+TASK combined mbpp/353 True
+TASK combined mmlu-pro/7259 True
+TASK combined mbpp/253 True
+TASK combined mbpp/488 True
+TASK combined mmlu-pro/6190 False
+TASK combined mmlu-pro/2117 True
+TASK combined mbpp/225 True
+TASK combined humaneval/HumanEval/73 True
+TASK combined mbpp/126 True
+TASK combined mmlu-pro/2179 True
+TASK combined mmlu-pro/101 False
+TASK combined mbpp/243 True
+TASK combined humaneval/HumanEval/63 True
+TASK combined mmlu-pro/1124 True
+TASK combined mbpp/432 True
+TASK combined humaneval/HumanEval/20 True
+TASK combined humaneval/HumanEval/90 True
+TASK combined mmlu-pro/7176 True
+TASK combined mmlu-pro/2139 True
+TASK combined mmlu-pro/73 False
+TASK combined mmlu-pro/8208 False
+TASK combined mbpp/122 False
+TASK combined mbpp/234 True
+TASK combined structure/63 False
+TASK combined mbpp/322 True
+TASK combined mmlu-pro/3128 True
+TASK combined mmlu-pro/2166 True
+TASK combined humaneval/HumanEval/159 True
+TASK combined mbpp/70 True
+TASK combined mbpp/436 False
+TASK combined mbpp/332 True
+TASK combined mbpp/134 False
+TASK combined mmlu-pro/8222 False
+TASK combined mmlu-pro/8254 True
+TASK combined mmlu-pro/11240 True
+TASK combined humaneval/HumanEval/144 True
+TASK combined mbpp/478 True
+TASK combined mmlu-pro/6196 False
+TASK combined mbpp/106 True
+TASK combined mbpp/361 True
+TASK combined mmlu-pro/3212 True
+TASK combined mbpp/174 True
+TASK combined mmlu-pro/8285 True
+TASK combined mmlu-pro/80 True
+TASK combined mmlu-pro/11304 False
+TASK combined structure/16 False
+TASK combined structure/21 True
+TASK combined mbpp/192 True
+TASK combined mmlu-pro/11234 True
+TASK combined structure/44 True
+TASK combined mmlu-pro/11270 True
+TASK combined mbpp/235 False
+TASK combined mmlu-pro/3148 True
+TASK combined mmlu-pro/157 False
+TASK combined mmlu-pro/3191 False
+TASK combined mmlu-pro/8212 False
+TASK combined structure/24 True
+TASK combined mmlu-pro/2109 False
+TASK combined structure/88 False
+TASK combined humaneval/HumanEval/109 True
+TASK combined mmlu-pro/6161 True
+TASK combined mmlu-pro/3151 True
+TASK combined mmlu-pro/6194 True
+TASK combined mmlu-pro/7203 True
+TASK combined mmlu-pro/1120 True
+TASK combined mmlu-pro/2197 True
+TASK combined mmlu-pro/2103 False
+TASK combined humaneval/HumanEval/134 True
+TASK combined structure/39 False
+TASK combined humaneval/HumanEval/104 True
+TASK combined mmlu-pro/142 False
+TASK combined mmlu-pro/2159 True
+TASK combined humaneval/HumanEval/1 True
+TASK combined mmlu-pro/11317 False
+TASK combined mmlu-pro/1113 False
+TASK combined mmlu-pro/11301 False
+TASK combined mmlu-pro/8216 False
+TASK combined mmlu-pro/8255 False
+TASK combined humaneval/HumanEval/34 True
+TASK combined humaneval/HumanEval/14 True
+TASK combined mmlu-pro/140 False
+TASK combined mmlu-pro/2105 False
+TASK combined mmlu-pro/7187 False
+TASK combined humaneval/HumanEval/27 True
+TASK combined structure/62 True
+TASK combined mmlu-pro/3152 True
+TASK combined mmlu-pro/125 False
+TASK combined mmlu-pro/70 True
+TASK combined humaneval/HumanEval/83 True
+TASK combined mmlu-pro/7256 False
+TASK combined mmlu-pro/7231 True
+TASK combined mmlu-pro/11255 True
+TASK combined mmlu-pro/8203 False
+TASK combined mmlu-pro/3162 True
+TASK combined humaneval/HumanEval/135 True
+TASK combined mmlu-pro/1088 False
+TASK combined mmlu-pro/7237 False
+TASK combined mmlu-pro/11262 False
+TASK combined mmlu-pro/3150 True
+TASK combined structure/7 True
+TASK combined mmlu-pro/7205 True
+TASK combined humaneval/HumanEval/81 True
+TASK combined mmlu-pro/7226 True
+TASK combined structure/70 False
+TASK combined humaneval/HumanEval/44 True
+TASK combined mmlu-pro/8235 True
+TASK combined mmlu-pro/1122 False
+TASK combined mmlu-pro/8271 False
+TASK combined mmlu-pro/8231 False
+TASK combined mmlu-pro/7186 True
+TASK combined mmlu-pro/3183 True
+TASK combined humaneval/HumanEval/40 True
+TASK combined humaneval/HumanEval/24 True
+TASK combined mmlu-pro/8234 True
+TASK combined mmlu-pro/1157 True
+TASK combined mmlu-pro/2137 True
+TASK combined mmlu-pro/1106 True
+TASK combined humaneval/HumanEval/30 True
+TASK combined mmlu-pro/2198 True
+TASK combined structure/77 False
+TASK combined mmlu-pro/3184 True
+TASK combined mmlu-pro/1090 True
+TASK combined structure/58 False
+TASK combined mmlu-pro/2158 True
+TASK combined mmlu-pro/8266 True
+TASK combined structure/97 False
+TASK combined mmlu-pro/1082 True
+TASK combined humaneval/HumanEval/57 True
+TASK combined humaneval/HumanEval/156 True
+TASK combined mmlu-pro/7202 False
+TASK combined mmlu-pro/11294 False
+TASK combined humaneval/HumanEval/116 False
+TASK combined mmlu-pro/11287 True
+TASK combined humaneval/HumanEval/122 True
+TASK combined humaneval/HumanEval/41 True
+TASK combined mmlu-pro/1165 True
+TASK combined mmlu-pro/8281 False
+TASK combined mmlu-pro/7239 True
+TASK combined structure/89 False
+TASK combined mmlu-pro/2187 True
+TASK combined mmlu-pro/7266 False
+TASK combined mmlu-pro/7230 True
+TASK combined mmlu-pro/2107 True
+TASK combined mmlu-pro/2190 False
+TASK combined mmlu-pro/11298 True
+TASK combined mmlu-pro/2115 True
+TASK combined mmlu-pro/11295 False
+TASK combined mmlu-pro/11313 False
+TASK combined mmlu-pro/11268 False
+TASK combined structure/19 True
+TASK combined mmlu-pro/1140 True
+TASK combined structure/86 True
+TASK combined humaneval/HumanEval/99 True
+TASK combined mmlu-pro/11316 False
+TASK combined mmlu-pro/11269 False
+TASK combined mmlu-pro/11259 False
+TASK combined humaneval/HumanEval/96 True
+TASK combined mmlu-pro/7262 True
+TASK combined mmlu-pro/7209 True
+TASK combined mmlu-pro/11303 False
+TASK combined mmlu-pro/7180 False
+TASK combined mmlu-pro/1097 False
+TASK combined structure/51 True
+TASK combined humaneval/HumanEval/131 True
+TASK combined structure/34 True
+TASK combined mmlu-pro/1180 False
+TASK combined mmlu-pro/1104 False
+TASK combined mmlu-pro/1141 True
+TASK combined mmlu-pro/7252 True
+TASK combined humaneval/HumanEval/108 True
+TASK combined structure/85 False
+TASK combined mmlu-pro/1162 False
+TASK combined mmlu-pro/11288 True
+TASK combined humaneval/HumanEval/29 True
+TASK combined humaneval/HumanEval/111 True
+TASK combined humaneval/HumanEval/147 True
+TASK combined structure/90 True
+TASK combined humaneval/HumanEval/146 True
+TASK combined humaneval/HumanEval/78 True
+TASK combined structure/12 False
+TASK combined humaneval/HumanEval/97 True
+TASK combined structure/23 False
+TASK combined structure/14 True
+TASK combined mmlu-pro/11267 True
+TASK combined humaneval/HumanEval/125 True
+TASK combined humaneval/HumanEval/68 True
+TASK combined humaneval/HumanEval/48 True
+TASK combined humaneval/HumanEval/117 True
+TASK combined structure/15 True
+TASK combined mmlu-pro/11284 True
+TASK combined humaneval/HumanEval/58 True
+TASK combined structure/2 False
+TASK combined structure/64 False
+TASK combined structure/80 False
+TASK combined structure/31 True
+TASK combined humaneval/HumanEval/153 True
+TASK combined mmlu-pro/11318 False
+TASK combined structure/4 False
+TASK combined humaneval/HumanEval/85 True
+TASK combined mmlu-pro/11292 False
+TASK combined humaneval/HumanEval/38 False
+TASK combined humaneval/HumanEval/22 True
+TASK combined humaneval/HumanEval/127 True
+TASK combined humaneval/HumanEval/133 True
+TASK combined mmlu-pro/11320 False
+TASK combined humaneval/HumanEval/102 True
+TASK combined structure/67 False
+TASK combined structure/65 True
+TASK combined humaneval/HumanEval/28 True
+TASK combined structure/53 False
+TASK combined humaneval/HumanEval/137 True
+TASK combined humaneval/HumanEval/136 True
+TASK combined humaneval/HumanEval/101 True
+TASK combined humaneval/HumanEval/154 True
+TASK combined humaneval/HumanEval/33 True
+TASK combined structure/60 True
+TASK combined humaneval/HumanEval/53 True
+TASK combined structure/26 True
+TASK combined mmlu-pro/11310 False
+TASK combined humaneval/HumanEval/107 True
+TASK combined humaneval/HumanEval/155 True
+TASK combined humaneval/HumanEval/61 True
+TASK combined mmlu-pro/11285 False
+TASK combined humaneval/HumanEval/113 True
+TASK combined structure/68 False
+TASK combined structure/27 True
+TASK combined mmlu-pro/11306 False
+TASK combined humaneval/HumanEval/18 True
+TASK combined humaneval/HumanEval/118 True
+TASK combined humaneval/HumanEval/149 True
+TASK combined structure/95 False
+TASK combined structure/81 True
+TASK combined structure/93 True
+TASK combined structure/59 True
+TASK combined humaneval/HumanEval/26 True
+TASK combined humaneval/HumanEval/126 True
+TASK combined humaneval/HumanEval/47 True
+TASK combined humaneval/HumanEval/140 False
+TASK combined humaneval/HumanEval/145 False
+TASK combined structure/20 True
+TASK combined humaneval/HumanEval/92 True
+TASK combined structure/84 True
+TASK combined humaneval/HumanEval/119 True
+TASK combined structure/48 False
+TASK combined structure/18 True
+TASK combined structure/38 False
+TASK combined humaneval/HumanEval/76 True
+TASK combined humaneval/HumanEval/129 False
+TASK combined humaneval/HumanEval/93 True
+TASK combined humaneval/HumanEval/103 True
+TASK combined humaneval/HumanEval/42 True
+TASK combined humaneval/HumanEval/23 True
+TASK combined structure/36 True
+TASK combined structure/28 False
+TASK combined structure/94 True
+TASK combined humaneval/HumanEval/70 True
+TASK combined humaneval/HumanEval/46 True
+TASK combined structure/25 True
+TASK combined structure/49 True
+TASK combined structure/92 False
+TASK combined structure/10 False
+TASK combined structure/91 True
+TASK combined structure/9 True
+TASK combined structure/32 False
+TASK combined structure/3 False
+TASK combined structure/41 True
+TASK combined structure/69 True
+TASK combined structure/72 True
+TASK combined structure/13 False
+TASK combined structure/0 True
+TASK combined structure/29 False
+TASK combined structure/73 True
+TASK combined structure/71 False
+TASK combined structure/6 True
+TASK combined structure/83 True
+TASK combined structure/76 True
+TASK combined structure/50 True
+TASK combined structure/11 False
+TASK combined structure/42 True
+TASK combined structure/98 False
+TASK combined structure/78 True
+TASK combined structure/30 True
+TASK combined structure/8 False
+TASK combined structure/79 False
+TASK combined structure/47 False
+TASK combined structure/75 True
+TASK combined structure/61 False
+TASK combined structure/17 False
+TASK combined structure/87 True
+TASK combined structure/1 False
+TASK combined structure/22 True
+TASK combined structure/82 False
+TASK combined structure-extra/0 False
+TASK combined structure-extra/1 False
+TASK combined structure-extra/2 False
+TASK combined structure-extra/3 True
+TASK combined structure-extra/4 False
+TASK combined structure-extra/5 False
+TASK combined structure-extra/6 False
+TASK combined structure-extra/7 False
+TASK combined structure-extra/8 False
+TASK combined structure-extra/9 False
+TASK combined structure-extra/10 False
+TASK combined structure-extra/11 True
+TASK combined structure-extra/12 False
+TASK combined structure-extra/13 True
+TASK combined structure-extra/14 False
+TASK combined structure-extra/15 False
+TASK combined structure-extra/16 False
+TASK combined structure-extra/17 True
+TASK combined structure-extra/18 False
+TASK combined structure-extra/19 False
+TASK combined structure-extra/20 False
+TASK combined structure-extra/21 False
+TASK combined structure-extra/22 False
+TASK combined structure-extra/23 True
+TASK combined structure-extra/24 False
+TASK combined structure-extra/25 True
+TASK combined structure-extra/26 False
+TASK combined structure-extra/27 True
+TASK combined structure-extra/28 False
+TASK combined structure-extra/29 True
+TASK combined structure-extra/30 False
+TASK combined structure-extra/31 True
+TASK combined structure-extra/32 False
+TASK combined structure-extra/33 True
+TASK combined structure-extra/34 False
+TASK combined structure-extra/35 True
+TASK combined structure-extra/36 False
+TASK combined structure-extra/37 True
+TASK combined structure-extra/38 False
+TASK combined structure-extra/39 True
+TASK combined structure-extra/40 False
+TASK combined structure-extra/41 True
+TASK combined structure-extra/42 False
+TASK combined structure-extra/43 True
+TASK combined structure-extra/44 False
+TASK combined structure-extra/45 True
+TASK combined structure-extra/46 False
+TASK combined structure-extra/47 True
+TASK combined structure-extra/48 False
+TASK combined structure-extra/49 True
+TASK combined structure-extra/50 False
+TASK combined structure-extra/51 True
+TASK combined structure-extra/52 False
+TASK combined structure-extra/53 False
+TASK combined structure-extra/54 False
+TASK combined structure-extra/55 True
+TASK combined structure-extra/56 False
+TASK combined structure-extra/57 True
+TASK combined structure-extra/58 False
+TASK combined structure-extra/59 False
+TASK combined structure-extra/60 False
+TASK combined structure-extra/61 True
+TASK combined structure-extra/62 False
+TASK combined structure-extra/63 False
+TASK combined structure-extra/64 False
+TASK combined structure-extra/65 True
+TASK combined structure-extra/66 False
+TASK combined structure-extra/67 False
+TASK combined structure-extra/68 False
+TASK combined structure-extra/69 True
+TASK combined structure-extra/70 False
+TASK combined structure-extra/71 False
+TASK combined structure-extra/72 False
+TASK combined structure-extra/73 True
+TASK combined structure-extra/74 False
+TASK combined structure-extra/75 True
+TASK combined structure-extra/76 False
+TASK combined structure-extra/77 False
+TASK combined structure-extra/78 False
+TASK combined structure-extra/79 True
+TASK combined structure-extra/80 False
+TASK combined structure-extra/81 False
+TASK combined structure-extra/82 False
+TASK combined structure-extra/83 True
+TASK combined structure-extra/84 False
+TASK combined structure-extra/85 True
+TASK combined structure-extra/86 False
+TASK combined structure-extra/87 False
+TASK combined structure-extra/88 False
+TASK combined structure-extra/89 False
+TASK combined structure-extra/90 False
+TASK combined structure-extra/91 False
+TASK combined structure-extra/92 False
+TASK combined structure-extra/93 True
+TASK combined structure-extra/94 False
+TASK combined structure-extra/95 False
+TASK combined structure-extra/96 False
+TASK combined structure-extra/97 True
+TASK combined structure-extra/98 False
+TASK combined structure-extra/99 True
+{'status': 'task_execution_complete', 'selected': 1200, 'completed': 1200, 'correct': 870, 'input_sha256': '3362acf6e696bedcd58c97b2f2714bf96d71088dbc200a06c5f638fa466b06c2', 'quality_acceptance_complete': False}
+OWNED_PROCESSES_STOPPED [1371, 1390]
+OWNED_PROCESSES_STOPPED []
+STARTED rollback 1763
+READY_CHECKED {'phase': 'rollback', 'http_ready_s': 277.91308665275574, 'layers': 48, 'smooth_projections': 0, 'kmajor_all_layers_captured': False}
+FRESH_8K rollback 1 3.868 33.23
+FRESH_8K rollback 2 3.788 33.17
+FRESH_8K rollback 3 3.778 33.18
+FRESH_256K rollback 1 68.066 33.82 recall 3
+FRESH_256K rollback 2 67.65 33.86 recall 3
+FRESH_256K rollback 3 67.602 33.85 recall 3
+SUSTAINED_1024 rollback 33.23
+BENCH_COMPLETE {"phase": "rollback", "base_url": "http://127.0.0.1:19002", "median_8k_ttft_s": 3.787993916999767, "median_8k_tpot_ms": 33.18, "median_256k_ttft_s": 67.64971596699979, "median_256k_tpot_ms": 33.85, "cached_256k_tpot_ms": 33.47, "sustained1024_tpot_ms": 33.23, "sustained_actual_tokens": 754, "short_tpot_ms": [33.23, 33.17, 33.18], "long_tpot_ms": [33.82, 33.86, 33.85], "long_recall_hits": [3, 3, 3]}
+NLL_CASE rollback 0 1.323698706478993 20.34
+NLL_CASE rollback 1 1.4048256538755415 20.34
+NLL_CASE rollback 2 0.7317993999455596 20.35
+NLL_CASE rollback 3 1.2567554030579053 20.35
+NLL_CASE rollback 4 1.2472609678525295 20.35
+NLL_CASE rollback 5 1.0947401009577922 20.34
+NLL_CASE rollback 6 1.0481575537934589 20.34
+NLL_CASE rollback 7 1.3944675243332485 20.35
+NLL_CASE rollback 8 1.0001730496017682 20.35
+NLL_CASE rollback 9 0.8369260505870315 20.35
+NLL_CASE rollback 10 0.8055490513452073 20.34
+NLL_CASE rollback 11 1.2411912950653274 20.34
+NLL_CASE rollback 12 1.3247291284409757 20.35
+NLL_CASE rollback 13 1.364277188700303 20.35
+NLL_CASE rollback 14 1.6705643604027571 20.34
+NLL_CASE rollback 15 0.8945100972882933 20.35
+NLL_CASE rollback 16 0.818807068080059 20.34
+NLL_CASE rollback 17 0.9145663749698656 20.34
+NLL_CASE rollback 18 0.6960968584448111 20.33
+NLL_CASE rollback 19 1.1502491742910848 20.34
+NLL_CASE rollback 20 1.0862040642753357 20.34
+NLL_CASE rollback 21 1.26940548478641 20.33
+NLL_CASE rollback 22 0.8128375307796745 20.32
+NLL_CASE rollback 23 1.2563639305175371 20.32
+NLL_CASE rollback 24 1.0677262088073043 20.33
+NLL_CASE rollback 25 1.2924882519373235 20.34
+NLL_CASE rollback 26 1.2843382312156848 20.33
+NLL_CASE rollback 27 1.0991374246908379 20.33
+NLL_CASE rollback 28 1.0488618784125636 20.34
+NLL_CASE rollback 29 1.1271686414103073 20.34
+NLL_CASE rollback 30 1.2394531112427565 20.34
+NLL_CASE rollback 31 0.6696289562293138 20.34
+NLL_CASE rollback 32 0.5934445274127524 20.34
+NLL_CASE rollback 33 0.991220719209359 20.34
+NLL_CASE rollback 34 1.4536918984399847 20.34
+NLL_CASE rollback 35 1.2572942664253475 20.33
+NLL_CASE rollback 36 1.0722003834479992 20.33
+NLL_CASE rollback 37 0.9595824816429008 20.34
+NLL_CASE rollback 38 1.259233013304332 20.35
+NLL_CASE rollback 39 1.4025662447866196 20.33
+NLL_CASE rollback 40 1.2982019566534007 20.34
+NLL_CASE rollback 41 1.0261892907928019 20.33
+NLL_CASE rollback 42 1.4761423325365541 20.33
+NLL_CASE rollback 43 1.2925485921087287 20.33
+NLL_CASE rollback 44 1.3823612849335234 20.33
+NLL_CASE rollback 45 1.0610765557031812 20.34
+NLL_CASE rollback 46 0.7987959939325933 20.34
+NLL_CASE rollback 47 1.6777527384386097 20.34
+NLL_CASE rollback 48 1.2427907904238396 20.34
+NLL_CASE rollback 49 1.051868497232923 20.32
+NLL_CASE rollback 50 0.8103795828157772 20.34
+NLL_CASE rollback 51 1.0079620686216586 20.34
+NLL_CASE rollback 52 0.9676780444100865 20.33
+NLL_CASE rollback 53 1.2320589480585418 20.33
+NLL_CASE rollback 54 1.1964243507715437 20.34
+NLL_CASE rollback 55 1.036744861024541 20.32
+NLL_CASE rollback 56 0.9767679634200297 20.34
+NLL_CASE rollback 57 1.0774216548296032 20.32
+NLL_CASE rollback 58 0.9306871831896188 20.33
+NLL_CASE rollback 59 0.9190848633996751 20.34
+NLL_CASE rollback 60 1.0487640307497017 20.34
+NLL_CASE rollback 61 0.7488690599723569 20.34
+NLL_CASE rollback 62 0.982438278054766 20.34
+NLL_CASE rollback 63 0.8127641044243552 20.34
+NLL_CASE rollback 64 1.3286198324414085 20.34
+NLL_CASE rollback 65 1.0181328021988172 20.34
+NLL_CASE rollback 66 1.0976674949676628 20.33
+NLL_CASE rollback 67 0.8996258707005929 20.34
+NLL_CASE rollback 68 0.8429873860234132 20.34
+NLL_CASE rollback 69 0.9339738832292559 20.33
+NLL_CASE rollback 70 0.8795937874029203 20.33
+NLL_CASE rollback 71 0.9714375888352835 20.33
+NLL_CASE rollback 72 0.7558757401142273 20.33
+NLL_CASE rollback 73 0.9453729434015514 20.33
+NLL_CASE rollback 74 0.8993171260098638 20.34
+NLL_CASE rollback 75 1.114488786839873 20.34
+NLL_CASE rollback 76 0.8365526260619092 20.33
+NLL_CASE rollback 77 0.8397876130001656 20.33
+NLL_CASE rollback 78 0.7354049701141419 20.32
+NLL_CASE rollback 79 0.6423602506439305 20.32
+NLL_CASE rollback 80 1.1280972081775236 20.32
+NLL_CASE rollback 81 1.0572807209458128 20.33
+NLL_CASE rollback 82 0.9316271814176538 20.34
+NLL_CASE rollback 83 0.9353032495312767 20.33
+NLL_CASE rollback 84 1.10267140402343 20.33
+NLL_CASE rollback 85 0.9311317587963552 20.34
+NLL_CASE rollback 86 0.8307334480058888 20.34
+NLL_CASE rollback 87 0.811647096027837 20.34
+NLL_CASE rollback 88 0.8557357531555807 20.34
+NLL_CASE rollback 89 0.9196775456236734 20.33
+NLL_CASE rollback 90 0.8142930207356152 20.33
+NLL_CASE rollback 91 0.9430979408005218 20.34
+NLL_CASE rollback 92 0.5450568771013433 20.31
+NLL_CASE rollback 93 0.6476727446012163 20.31
+NLL_CASE rollback 94 0.9998785566326873 20.33
+NLL_CASE rollback 95 0.7694550817779602 20.34
+NLL_CASE rollback 96 0.8455275436594789 20.33
+NLL_CASE rollback 97 1.0575221042194907 20.33
+NLL_CASE rollback 98 1.1361700160306825 20.33
+NLL_CASE rollback 99 1.132030084668635 20.33
+NLL_CASE rollback 100 1.1830184827593775 20.33
+NLL_CASE rollback 101 1.0781100166343123 20.33
+NLL_CASE rollback 102 1.1373458097125067 20.32
+NLL_CASE rollback 103 0.8438265198643897 20.33
+NLL_CASE rollback 104 0.953574518701906 20.33
+NLL_CASE rollback 105 1.0208624798202024 20.32
+NLL_CASE rollback 106 1.2142670370297806 20.33
+NLL_CASE rollback 107 0.7874439597364908 20.33
+NLL_CASE rollback 108 1.0729974205711823 20.34
+NLL_CASE rollback 109 1.1112398575912028 20.34
+NLL_CASE rollback 110 1.4183018889795918 20.33
+NLL_CASE rollback 111 1.2149065912669528 20.32
+NLL_CASE rollback 112 1.0591560763536272 20.32
+NLL_CASE rollback 113 0.9904190253224101 20.33
+NLL_CASE rollback 114 0.8543543776770584 20.32
+NLL_CASE rollback 115 1.129884132198839 20.32
+NLL_CASE rollback 116 0.915036862882026 20.33
+NLL_CASE rollback 117 0.9465992757500481 20.32
+NLL_CASE rollback 118 1.1558202890214484 20.32
+NLL_CASE rollback 119 1.0970907360090791 20.32
+NLL_CASE rollback 120 1.2941548168780521 20.33
+NLL_CASE rollback 121 1.2801247474853312 20.31
+NLL_CASE rollback 122 1.0828610134352783 20.32
+NLL_CASE rollback 123 1.1579627764767082 20.33
+NLL_CASE rollback 124 1.0643557177074028 20.33
+NLL_CASE rollback 125 1.1995246971223992 20.34
+NLL_CASE rollback 126 0.6733328456679125 20.33
+NLL_CASE rollback 127 0.960275968945755 20.33
+NLL_CASE rollback 128 1.0637855047887754 20.33
+NLL_CASE rollback 129 1.1981005793975896 20.33
+NLL_CASE rollback 130 0.7167778144049031 20.33
+NLL_CASE rollback 131 1.1049620047584074 20.35
+NLL_CASE rollback 132 1.1741309590576048 20.34
+NLL_CASE rollback 133 1.5463266195910705 20.34
+NLL_CASE rollback 134 0.6878185130428656 20.33
+NLL_CASE rollback 135 1.0655710819383835 20.33
+NLL_CASE rollback 136 0.915620171443841 20.33
+NLL_CASE rollback 137 0.8042890271322669 20.33
+NLL_CASE rollback 138 0.8727250670897249 20.32
+NLL_CASE rollback 139 0.842877959566386 20.32
+NLL_CASE rollback 140 0.9976538574014189 20.33
+NLL_CASE rollback 141 1.1906089640405773 20.33
+NLL_CASE rollback 142 0.9360262282413174 20.33
+NLL_CASE rollback 143 1.1568882477346047 20.33
+NLL_CASE rollback 144 1.0924422087532673 20.33
+NLL_CASE rollback 145 1.0096294330379152 20.33
+NLL_CASE rollback 146 1.2386999276003738 20.32
+NLL_CASE rollback 147 2.0772954729886024 20.33
+NLL_CASE rollback 148 2.052656685838869 20.33
+NLL_CASE rollback 149 2.305438110916697 20.33
+NLL_CASE rollback 150 2.2066788927199923 20.33
+NLL_CASE rollback 151 1.824863201961831 20.31
+NLL_CASE rollback 152 2.4966921661034007 20.32
+NLL_CASE rollback 153 1.6228824338671046 20.31
+NLL_CASE rollback 154 1.8307066081300718 20.29
+NLL_CASE rollback 155 1.9571973356345111 20.3
+NLL_CASE rollback 156 1.8180096041860665 20.31
+NLL_CASE rollback 157 2.338298394605488 20.31
+NLL_CASE rollback 158 1.594924632283453 20.31
+NLL_CASE rollback 159 1.6369155291530504 20.31
+NLL_CASE rollback 160 1.7060272184694725 20.31
+NLL_CASE rollback 161 1.6890150589001962 20.32
+NLL_CASE rollback 162 1.822081586835509 20.3
+NLL_CASE rollback 163 1.282978504064479 20.32
+NLL_CASE rollback 164 1.648222763269608 20.31
+NLL_CASE rollback 165 1.8641655731016336 20.31
+NLL_CASE rollback 166 1.994481187198545 20.31
+NLL_CASE rollback 167 1.968753705527309 20.32
+NLL_CASE rollback 168 1.221995123327531 20.32
+NLL_CASE rollback 169 1.9775429978589045 20.33
+NLL_CASE rollback 170 1.720008099053132 20.32
+NLL_CASE rollback 171 1.4402962395298324 20.31
+NLL_CASE rollback 172 1.612164375644122 20.31
+NLL_CASE rollback 173 2.661735324257222 20.31
+NLL_CASE rollback 174 1.5014106573095312 20.32
+NLL_CASE rollback 175 1.610751785960069 20.31
+NLL_CASE rollback 176 1.5538876768930667 20.31
+NLL_CASE rollback 177 2.2910790936254273 20.31
+NLL_CASE rollback 178 1.9918954911969848 20.31
+NLL_CASE rollback 179 1.6021747976807035 20.31
+NLL_CASE rollback 180 2.0793961833684413 20.31
+NLL_CASE rollback 181 1.697612316715329 20.3
+NLL_CASE rollback 182 1.6519231274955644 20.3
+NLL_CASE rollback 183 2.332446378682384 20.3
+NLL_CASE rollback 184 1.5866615338186492 20.3
+NLL_CASE rollback 185 1.5162553200669748 20.31
+NLL_CASE rollback 186 1.6520165659188244 20.32
+NLL_CASE rollback 187 1.5165252832367173 20.32
+NLL_CASE rollback 188 1.816285108299752 20.31
+NLL_CASE rollback 189 1.6872148809188587 20.32
+NLL_CASE rollback 190 1.3603494318368214 20.31
+NLL_CASE rollback 191 2.0307170091644604 20.3
+NLL_CASE rollback 192 1.8990656207023449 20.32
+NLL_CASE rollback 193 1.6578962914178277 20.32
+NLL_CASE rollback 194 1.6780002876031173 20.32
+NLL_CASE rollback 195 2.138532364004668 20.31
+PREFILL_NLL rollback natural6000 1.7228802448717855
+PREFILL_NLL rollback service12000 0.0009583305904902658
+PREFILL_NLL rollback technical24000 1.127045318479963
+PREFILL_NLL rollback natural18000 3.5124990584345737
+PREFILL_NLL rollback natural36000 3.1493860287012665
+NATURAL_PREFILL rollback en/8192 1.012621734797506
+NATURAL_PREFILL rollback en/32768 0.9827856927092201
+NATURAL_PREFILL rollback en/65536 1.45078997338795
+NATURAL_PREFILL rollback en/131072 1.3196823063827747
+NATURAL_PREFILL rollback en/262016 2.1341698681347285
+NATURAL_PREFILL rollback zh/8192 2.9954384150702786
+NATURAL_PREFILL rollback zh/32768 2.7773112399118456
+NATURAL_PREFILL rollback zh/65536 2.761176790535177
+NATURAL_PREFILL rollback zh/131072 2.2195867205952022
+NATURAL_PREFILL rollback zh/262016 3.2345881145906525
+QUALITY_NLL_COMPLETE rollback 196 100352
+TASK rollback gsm8k/test/802 True
+TASK rollback cmmlu/construction_project_management/5 True
+TASK rollback cmmlu/logical/40 True
+TASK rollback cmmlu/ancient_chinese/70 True
+TASK rollback cmmlu/chinese_civil_service_exam/96 True
+TASK rollback cmmlu/electrical_engineering/71 True
+TASK rollback cmmlu/college_law/67 True
+TASK rollback cmmlu/computer_security/0 True
+TASK rollback cmmlu/elementary_commonsense/195 True
+TASK rollback cmmlu/electrical_engineering/123 True
+TASK rollback cmmlu/food_science/129 False
+TASK rollback cmmlu/professional_psychology/188 True
+TASK rollback cmmlu/sociology/154 True
+TASK rollback cmmlu/security_study/88 True
+TASK rollback cmmlu/marketing/128 True
+TASK rollback gsm8k/test/430 True
+TASK rollback cmmlu/world_religions/3 True
+TASK rollback humaneval/HumanEval/65 True
+TASK rollback cmmlu/world_history/43 True
+TASK rollback cmmlu/chinese_history/276 True
+TASK rollback cmmlu/professional_medicine/288 True
+TASK rollback cmmlu/sociology/18 True
+TASK rollback cmmlu/anatomy/0 True
+TASK rollback mbpp/477 True
+TASK rollback cmmlu/management/18 True
+TASK rollback cmmlu/college_medical_statistics/39 False
+TASK rollback cmmlu/college_medical_statistics/90 True
+TASK rollback cmmlu/ethnology/26 True
+TASK rollback mmlu-pro/6207 False
+TASK rollback cmmlu/elementary_mathematics/117 True
+TASK rollback cmmlu/professional_accounting/174 True
+TASK rollback cmmlu/agronomy/23 True
+TASK rollback cmmlu/world_history/132 True
+TASK rollback cmmlu/professional_medicine/215 True
+TASK rollback cmmlu/marketing/136 False
+TASK rollback cmmlu/world_religions/108 True
+TASK rollback gsm8k/test/810 True
+TASK rollback cmmlu/elementary_chinese/128 False
+TASK rollback gsm8k/test/465 True
+TASK rollback cmmlu/professional_medicine/171 True
+TASK rollback cmmlu/jurisprudence/359 True
+TASK rollback cmmlu/chinese_teacher_qualification/59 True
+TASK rollback cmmlu/chinese_food_culture/4 True
+TASK rollback cmmlu/international_law/28 True
+TASK rollback cmmlu/elementary_chinese/69 True
+TASK rollback mmlu-pro/1161 True
+TASK rollback cmmlu/professional_medicine/254 True
+TASK rollback gsm8k/test/699 True
+TASK rollback cmmlu/high_school_geography/34 True
+TASK rollback cmmlu/virology/142 True
+TASK rollback cmmlu/business_ethics/157 False
+TASK rollback cmmlu/professional_psychology/112 True
+TASK rollback gsm8k/test/929 True
+TASK rollback cmmlu/jurisprudence/275 True
+TASK rollback cmmlu/legal_and_moral_basis/88 True
+TASK rollback cmmlu/education/123 True
+TASK rollback cmmlu/agronomy/22 True
+TASK rollback mmlu-pro/5173 False
+TASK rollback cmmlu/electrical_engineering/9 True
+TASK rollback cmmlu/ancient_chinese/55 False
+TASK rollback cmmlu/elementary_commonsense/28 True
+TASK rollback cmmlu/marketing/46 False
+TASK rollback gsm8k/test/516 True
+TASK rollback mbpp/230 True
+TASK rollback cmmlu/legal_and_moral_basis/153 True
+TASK rollback cmmlu/chinese_teacher_qualification/12 True
+TASK rollback cmmlu/world_religions/113 False
+TASK rollback gsm8k/test/469 True
+TASK rollback cmmlu/professional_psychology/224 True
+TASK rollback cmmlu/college_medical_statistics/49 True
+TASK rollback mmlu-pro/6236 True
+TASK rollback cmmlu/elementary_chinese/13 True
+TASK rollback cmmlu/astronomy/119 True
+TASK rollback cmmlu/sports_science/83 True
+TASK rollback cmmlu/nutrition/138 True
+TASK rollback cmmlu/elementary_commonsense/149 True
+TASK rollback gsm8k/test/1294 True
+TASK rollback cmmlu/professional_psychology/170 True
+TASK rollback cmmlu/economics/133 True
+TASK rollback cmmlu/arts/34 True
+TASK rollback gsm8k/test/386 True
+TASK rollback gsm8k/test/20 True
+TASK rollback gsm8k/test/776 True
+TASK rollback mmlu-pro/5181 False
+TASK rollback cmmlu/world_religions/78 True
+TASK rollback cmmlu/logical/18 True
+TASK rollback cmmlu/chinese_literature/120 False
+TASK rollback cmmlu/management/138 True
+TASK rollback cmmlu/college_law/87 True
+TASK rollback cmmlu/legal_and_moral_basis/47 True
+TASK rollback gsm8k/test/795 True
+TASK rollback cmmlu/elementary_information_and_technology/186 True
+TASK rollback cmmlu/business_ethics/175 False
+TASK rollback cmmlu/food_science/14 True
+TASK rollback gsm8k/test/530 True
+TASK rollback cmmlu/logical/38 True
+TASK rollback cmmlu/legal_and_moral_basis/176 True
+TASK rollback cmmlu/ancient_chinese/139 True
+TASK rollback mmlu-pro/6215 False
+TASK rollback cmmlu/elementary_mathematics/61 True
+TASK rollback cmmlu/philosophy/35 True
+TASK rollback cmmlu/marketing/146 True
+TASK rollback cmmlu/elementary_commonsense/145 False
+TASK rollback cmmlu/arts/53 True
+TASK rollback cmmlu/jurisprudence/84 True
+TASK rollback cmmlu/traditional_chinese_medicine/137 False
+TASK rollback cmmlu/jurisprudence/35 True
+TASK rollback mbpp/15 False
+TASK rollback mmlu-pro/10235 True
+TASK rollback cmmlu/professional_law/187 True
+TASK rollback cmmlu/high_school_mathematics/70 True
+TASK rollback cmmlu/education/15 True
+TASK rollback cmmlu/elementary_information_and_technology/1 True
+TASK rollback cmmlu/sports_science/62 True
+TASK rollback cmmlu/computer_science/184 True
+TASK rollback cmmlu/arts/120 True
+TASK rollback cmmlu/high_school_biology/49 True
+TASK rollback gsm8k/test/1029 True
+TASK rollback cmmlu/elementary_information_and_technology/213 True
+TASK rollback cmmlu/high_school_physics/107 True
+TASK rollback cmmlu/education/23 True
+TASK rollback cmmlu/construction_project_management/99 True
+TASK rollback cmmlu/economics/155 True
+TASK rollback cmmlu/chinese_civil_service_exam/36 True
+TASK rollback cmmlu/virology/131 True
+TASK rollback cmmlu/elementary_commonsense/78 True
+TASK rollback cmmlu/high_school_biology/113 True
+TASK rollback cmmlu/college_engineering_hydrology/22 True
+TASK rollback cmmlu/elementary_chinese/55 True
+TASK rollback cmmlu/world_history/159 True
+TASK rollback mmlu-pro/9190 False
+TASK rollback cmmlu/economics/52 True
+TASK rollback cmmlu/computer_science/179 True
+TASK rollback mmlu-pro/4169 False
+TASK rollback cmmlu/virology/74 True
+TASK rollback gsm8k/test/318 True
+TASK rollback gsm8k/test/984 False
+TASK rollback mmlu-pro/6252 True
+TASK rollback cmmlu/chinese_literature/46 False
+TASK rollback mmlu-pro/3143 True
+TASK rollback cmmlu/elementary_information_and_technology/42 True
+TASK rollback cmmlu/modern_chinese/47 False
+TASK rollback cmmlu/public_relations/12 True
+TASK rollback cmmlu/education/66 True
+TASK rollback cmmlu/marxist_theory/161 True
+TASK rollback mbpp/306 False
+TASK rollback cmmlu/college_actuarial_science/58 False
+TASK rollback gsm8k/test/643 True
+TASK rollback cmmlu/computer_science/200 True
+TASK rollback cmmlu/computer_science/88 True
+TASK rollback cmmlu/modern_chinese/96 False
+TASK rollback cmmlu/business_ethics/128 True
+TASK rollback mmlu-pro/98 False
+TASK rollback cmmlu/sports_science/158 True
+TASK rollback cmmlu/journalism/3 True
+TASK rollback cmmlu/public_relations/53 True
+TASK rollback cmmlu/college_medicine/244 True
+TASK rollback cmmlu/agronomy/90 False
+TASK rollback cmmlu/chinese_civil_service_exam/140 True
+TASK rollback cmmlu/logical/91 False
+TASK rollback cmmlu/arts/15 True
+TASK rollback cmmlu/construction_project_management/23 False
+TASK rollback cmmlu/clinical_knowledge/215 True
+TASK rollback cmmlu/philosophy/70 True
+TASK rollback cmmlu/astronomy/117 True
+TASK rollback cmmlu/journalism/42 True
+TASK rollback cmmlu/chinese_literature/7 True
+TASK rollback gsm8k/test/1058 True
+TASK rollback cmmlu/professional_law/78 True
+TASK rollback cmmlu/elementary_mathematics/169 True
+TASK rollback mmlu-pro/7251 False
+TASK rollback cmmlu/elementary_mathematics/65 True
+TASK rollback cmmlu/high_school_mathematics/28 False
+TASK rollback cmmlu/chinese_history/61 False
+TASK rollback cmmlu/food_science/68 True
+TASK rollback mmlu-pro/11223 True
+TASK rollback mmlu-pro/11230 True
+TASK rollback cmmlu/high_school_chemistry/70 True
+TASK rollback cmmlu/sports_science/93 True
+TASK rollback structure/54 True
+TASK rollback gsm8k/test/229 True
+TASK rollback cmmlu/college_medicine/220 True
+TASK rollback cmmlu/economics/81 True
+TASK rollback cmmlu/arts/112 True
+TASK rollback gsm8k/test/301 True
+TASK rollback cmmlu/chinese_civil_service_exam/70 True
+TASK rollback cmmlu/chinese_teacher_qualification/5 True
+TASK rollback cmmlu/ethnology/71 True
+TASK rollback cmmlu/anatomy/17 True
+TASK rollback mmlu-pro/5185 False
+TASK rollback cmmlu/management/102 True
+TASK rollback cmmlu/nutrition/32 False
+TASK rollback cmmlu/clinical_knowledge/183 True
+TASK rollback cmmlu/sociology/83 True
+TASK rollback cmmlu/chinese_driving_rule/28 True
+TASK rollback cmmlu/chinese_civil_service_exam/123 True
+TASK rollback cmmlu/journalism/96 True
+TASK rollback cmmlu/chinese_teacher_qualification/45 True
+TASK rollback cmmlu/traditional_chinese_medicine/12 True
+TASK rollback mmlu-pro/9207 True
+TASK rollback cmmlu/ancient_chinese/116 False
+TASK rollback cmmlu/food_science/71 True
+TASK rollback cmmlu/elementary_mathematics/122 False
+TASK rollback mmlu-pro/7264 False
+TASK rollback cmmlu/construction_project_management/107 True
+TASK rollback cmmlu/chinese_teacher_qualification/175 True
+TASK rollback cmmlu/genetics/165 True
+TASK rollback gsm8k/test/1235 True
+TASK rollback humaneval/HumanEval/106 True
+TASK rollback gsm8k/test/60 True
+TASK rollback cmmlu/astronomy/23 False
+TASK rollback cmmlu/college_medicine/12 True
+TASK rollback cmmlu/college_actuarial_science/76 True
+TASK rollback cmmlu/high_school_geography/115 False
+TASK rollback cmmlu/clinical_knowledge/26 True
+TASK rollback cmmlu/sociology/110 True
+TASK rollback cmmlu/college_law/46 True
+TASK rollback mmlu-pro/5186 False
+TASK rollback mmlu-pro/6203 False
+TASK rollback cmmlu/high_school_physics/104 True
+TASK rollback cmmlu/economics/93 True
+TASK rollback cmmlu/journalism/119 True
+TASK rollback cmmlu/computer_security/59 True
+TASK rollback cmmlu/nutrition/44 True
+TASK rollback gsm8k/test/1287 True
+TASK rollback cmmlu/management/94 False
+TASK rollback cmmlu/chinese_literature/200 False
+TASK rollback gsm8k/test/711 True
+TASK rollback cmmlu/college_law/63 True
+TASK rollback cmmlu/security_study/66 True
+TASK rollback cmmlu/ethnology/75 False
+TASK rollback cmmlu/college_medical_statistics/75 True
+TASK rollback gsm8k/test/79 True
+TASK rollback cmmlu/anatomy/56 True
+TASK rollback cmmlu/high_school_biology/157 True
+TASK rollback cmmlu/modern_chinese/68 True
+TASK rollback cmmlu/human_sexuality/62 True
+TASK rollback cmmlu/chinese_food_culture/126 False
+TASK rollback mmlu-pro/1108 True
+TASK rollback cmmlu/conceptual_physics/17 True
+TASK rollback cmmlu/virology/20 True
+TASK rollback cmmlu/conceptual_physics/73 True
+TASK rollback cmmlu/chinese_literature/90 True
+TASK rollback cmmlu/chinese_food_culture/121 True
+TASK rollback cmmlu/computer_security/23 True
+TASK rollback cmmlu/elementary_information_and_technology/219 True
+TASK rollback humaneval/HumanEval/112 True
+TASK rollback mmlu-pro/2142 True
+TASK rollback cmmlu/chinese_history/81 True
+TASK rollback cmmlu/professional_law/155 True
+TASK rollback gsm8k/test/384 True
+TASK rollback cmmlu/traditional_chinese_medicine/86 True
+TASK rollback gsm8k/test/423 False
+TASK rollback cmmlu/college_medicine/11 True
+TASK rollback cmmlu/computer_security/19 True
+TASK rollback cmmlu/high_school_chemistry/113 True
+TASK rollback mmlu-pro/9211 False
+TASK rollback cmmlu/security_study/108 True
+TASK rollback mmlu-pro/8238 False
+TASK rollback cmmlu/traditional_chinese_medicine/146 True
+TASK rollback mmlu-pro/5239 True
+TASK rollback cmmlu/electrical_engineering/160 True
+TASK rollback cmmlu/genetics/86 True
+TASK rollback mmlu-pro/3220 True
+TASK rollback cmmlu/high_school_geography/89 True
+TASK rollback cmmlu/college_actuarial_science/81 False
+TASK rollback cmmlu/public_relations/130 True
+TASK rollback cmmlu/nutrition/131 True
+TASK rollback cmmlu/marxist_theory/26 True
+TASK rollback cmmlu/elementary_chinese/195 False
+TASK rollback cmmlu/computer_science/74 True
+TASK rollback cmmlu/high_school_biology/17 True
+TASK rollback cmmlu/chinese_history/282 True
+TASK rollback cmmlu/genetics/174 True
+TASK rollback cmmlu/computer_security/151 True
+TASK rollback gsm8k/test/723 True
+TASK rollback gsm8k/test/1118 True
+TASK rollback cmmlu/security_study/57 True
+TASK rollback gsm8k/test/243 True
+TASK rollback gsm8k/test/855 True
+TASK rollback cmmlu/modern_chinese/98 True
+TASK rollback cmmlu/business_ethics/34 True
+TASK rollback mmlu-pro/11290 False
+TASK rollback cmmlu/genetics/51 True
+TASK rollback cmmlu/high_school_geography/83 True
+TASK rollback mmlu-pro/5207 True
+TASK rollback cmmlu/chinese_driving_rule/4 True
+TASK rollback gsm8k/test/919 True
+TASK rollback mbpp/483 False
+TASK rollback mmlu-pro/6254 True
+TASK rollback mmlu-pro/3155 True
+TASK rollback cmmlu/marxist_theory/114 True
+TASK rollback cmmlu/business_ethics/19 True
+TASK rollback mmlu-pro/9244 False
+TASK rollback cmmlu/college_mathematics/69 True
+TASK rollback cmmlu/high_school_politics/2 True
+TASK rollback cmmlu/chinese_history/195 True
+TASK rollback cmmlu/ancient_chinese/106 True
+TASK rollback gsm8k/test/560 True
+TASK rollback cmmlu/high_school_mathematics/37 True
+TASK rollback cmmlu/professional_law/87 True
+TASK rollback cmmlu/chinese_food_culture/93 False
+TASK rollback mbpp/151 True
+TASK rollback mbpp/171 True
+TASK rollback humaneval/HumanEval/50 False
+TASK rollback mbpp/263 True
+TASK rollback cmmlu/global_facts/94 True
+TASK rollback gsm8k/test/443 True
+TASK rollback cmmlu/ethnology/27 True
+TASK rollback mmlu-pro/8270 True
+TASK rollback gsm8k/test/1032 True
+TASK rollback cmmlu/anatomy/6 True
+TASK rollback gsm8k/test/1302 True
+TASK rollback cmmlu/conceptual_physics/76 False
+TASK rollback cmmlu/college_engineering_hydrology/70 True
+TASK rollback structure/99 True
+TASK rollback cmmlu/high_school_chemistry/39 False
+TASK rollback cmmlu/global_facts/70 True
+TASK rollback mmlu-pro/11286 True
+TASK rollback humaneval/HumanEval/69 True
+TASK rollback structure/37 False
+TASK rollback cmmlu/marxist_theory/65 True
+TASK rollback gsm8k/test/957 True
+TASK rollback cmmlu/high_school_mathematics/72 True
+TASK rollback cmmlu/global_facts/56 True
+TASK rollback mmlu-pro/5195 True
+TASK rollback mbpp/348 True
+TASK rollback mmlu-pro/4142 False
+TASK rollback humaneval/HumanEval/142 True
+TASK rollback mbpp/470 True
+TASK rollback gsm8k/test/946 True
+TASK rollback cmmlu/college_medical_statistics/65 True
+TASK rollback mmlu-pro/3139 True
+TASK rollback gsm8k/test/728 True
+TASK rollback humaneval/HumanEval/13 True
+TASK rollback gsm8k/test/757 True
+TASK rollback cmmlu/public_relations/140 False
+TASK rollback cmmlu/astronomy/130 True
+TASK rollback cmmlu/philosophy/23 True
+TASK rollback cmmlu/education/157 False
+TASK rollback cmmlu/professional_accounting/29 True
+TASK rollback cmmlu/chinese_driving_rule/99 True
+TASK rollback cmmlu/clinical_knowledge/91 True
+TASK rollback cmmlu/anatomy/68 True
+TASK rollback cmmlu/college_actuarial_science/49 False
+TASK rollback cmmlu/world_history/82 False
+TASK rollback mmlu-pro/4127 True
+TASK rollback cmmlu/construction_project_management/28 True
+TASK rollback gsm8k/test/900 True
+TASK rollback mbpp/475 True
+TASK rollback cmmlu/global_facts/58 True
+TASK rollback gsm8k/test/1260 True
+TASK rollback cmmlu/high_school_politics/107 True
+TASK rollback cmmlu/high_school_chemistry/9 True
+TASK rollback cmmlu/college_mathematics/32 False
+TASK rollback cmmlu/chinese_foreign_policy/71 True
+TASK rollback mmlu-pro/10299 True
+TASK rollback gsm8k/test/1211 True
+TASK rollback cmmlu/chinese_food_culture/6 False
+TASK rollback cmmlu/philosophy/73 False
+TASK rollback mbpp/451 True
+TASK rollback cmmlu/college_engineering_hydrology/74 True
+TASK rollback cmmlu/electrical_engineering/120 True
+TASK rollback gsm8k/test/129 True
+TASK rollback cmmlu/clinical_knowledge/186 True
+TASK rollback mmlu-pro/2141 True
+TASK rollback cmmlu/high_school_politics/96 True
+TASK rollback mbpp/239 False
+TASK rollback mmlu-pro/5237 True
+TASK rollback mmlu-pro/6197 False
+TASK rollback cmmlu/conceptual_physics/94 True
+TASK rollback gsm8k/test/275 True
+TASK rollback mbpp/417 True
+TASK rollback gsm8k/test/695 True
+TASK rollback cmmlu/machine_learning/117 True
+TASK rollback mbpp/325 True
+TASK rollback gsm8k/test/556 True
+TASK rollback cmmlu/college_mathematics/78 False
+TASK rollback cmmlu/high_school_politics/79 True
+TASK rollback mmlu-pro/5148 True
+TASK rollback cmmlu/machine_learning/68 True
+TASK rollback cmmlu/astronomy/81 True
+TASK rollback gsm8k/test/1127 True
+TASK rollback mmlu-pro/10280 False
+TASK rollback cmmlu/college_mathematics/22 True
+TASK rollback cmmlu/college_medicine/134 True
+TASK rollback cmmlu/college_law/62 True
+TASK rollback mbpp/285 False
+TASK rollback gsm8k/test/754 True
+TASK rollback gsm8k/test/248 True
+TASK rollback gsm8k/test/1036 True
+TASK rollback gsm8k/test/939 True
+TASK rollback gsm8k/test/451 True
+TASK rollback cmmlu/chinese_foreign_policy/9 True
+TASK rollback gsm8k/test/64 True
+TASK rollback mbpp/368 True
+TASK rollback mmlu-pro/3158 True
+TASK rollback gsm8k/test/265 True
+TASK rollback cmmlu/agronomy/60 True
+TASK rollback cmmlu/agronomy/148 True
+TASK rollback gsm8k/test/964 True
+TASK rollback mmlu-pro/4158 True
+TASK rollback cmmlu/college_actuarial_science/62 True
+TASK rollback gsm8k/test/1202 True
+TASK rollback gsm8k/test/536 True
+TASK rollback mbpp/210 True
+TASK rollback mmlu-pro/10283 False
+TASK rollback humaneval/HumanEval/75 True
+TASK rollback cmmlu/professional_accounting/131 True
+TASK rollback cmmlu/high_school_physics/45 True
+TASK rollback mmlu-pro/7207 True
+TASK rollback gsm8k/test/736 True
+TASK rollback mbpp/337 True
+TASK rollback cmmlu/chinese_driving_rule/51 True
+TASK rollback mmlu-pro/84 True
+TASK rollback mbpp/43 True
+TASK rollback structure/40 False
+TASK rollback cmmlu/college_education/39 True
+TASK rollback gsm8k/test/1160 True
+TASK rollback mmlu-pro/8186 False
+TASK rollback mmlu-pro/4150 False
+TASK rollback cmmlu/international_law/22 True
+TASK rollback gsm8k/test/1000 True
+TASK rollback mmlu-pro/9241 False
+TASK rollback gsm8k/test/137 True
+TASK rollback cmmlu/college_mathematics/97 True
+TASK rollback gsm8k/test/317 True
+TASK rollback mmlu-pro/10288 False
+TASK rollback gsm8k/test/459 True
+TASK rollback gsm8k/test/293 False
+TASK rollback cmmlu/college_education/93 True
+TASK rollback mmlu-pro/9202 False
+TASK rollback gsm8k/test/72 True
+TASK rollback mmlu-pro/4180 False
+TASK rollback gsm8k/test/1309 False
+TASK rollback humaneval/HumanEval/9 True
+TASK rollback cmmlu/professional_accounting/69 True
+TASK rollback mbpp/96 True
+TASK rollback cmmlu/high_school_physics/11 False
+TASK rollback cmmlu/college_engineering_hydrology/95 False
+TASK rollback gsm8k/test/1313 True
+TASK rollback mmlu-pro/3123 True
+TASK rollback mbpp/82 True
+TASK rollback gsm8k/test/873 True
+TASK rollback gsm8k/test/570 True
+TASK rollback gsm8k/test/721 True
+TASK rollback gsm8k/test/180 True
+TASK rollback gsm8k/test/1035 False
+TASK rollback mmlu-pro/155 False
+TASK rollback mmlu-pro/4137 False
+TASK rollback gsm8k/test/709 True
+TASK rollback gsm8k/test/1064 True
+TASK rollback gsm8k/test/369 True
+TASK rollback cmmlu/international_law/8 True
+TASK rollback mmlu-pro/9278 False
+TASK rollback humaneval/HumanEval/88 True
+TASK rollback cmmlu/chinese_driving_rule/87 True
+TASK rollback mmlu-pro/9224 False
+TASK rollback mbpp/113 True
+TASK rollback mbpp/17 True
+TASK rollback cmmlu/college_education/33 True
+TASK rollback gsm8k/test/549 True
+TASK rollback cmmlu/machine_learning/114 True
+TASK rollback mmlu-pro/6206 True
+TASK rollback gsm8k/test/1195 True
+TASK rollback cmmlu/chinese_foreign_policy/45 True
+TASK rollback cmmlu/conceptual_physics/82 True
+TASK rollback gsm8k/test/554 True
+TASK rollback mmlu-pro/4143 False
+TASK rollback gsm8k/test/877 True
+TASK rollback gsm8k/test/1169 True
+TASK rollback mbpp/66 True
+TASK rollback gsm8k/test/891 True
+TASK rollback mmlu-pro/6187 True
+TASK rollback gsm8k/test/1308 True
+TASK rollback gsm8k/test/400 True
+TASK rollback gsm8k/test/32 True
+TASK rollback gsm8k/test/1056 True
+TASK rollback mmlu-pro/4187 True
+TASK rollback mmlu-pro/11291 False
+TASK rollback mmlu-pro/11244 True
+TASK rollback mmlu-pro/6169 False
+TASK rollback mmlu-pro/11254 True
+TASK rollback cmmlu/human_sexuality/57 False
+TASK rollback gsm8k/test/614 True
+TASK rollback cmmlu/college_education/77 True
+TASK rollback mmlu-pro/104 False
+TASK rollback gsm8k/test/831 True
+TASK rollback mmlu-pro/4171 False
+TASK rollback gsm8k/test/564 True
+TASK rollback humaneval/HumanEval/148 True
+TASK rollback mmlu-pro/8196 False
+TASK rollback gsm8k/test/256 True
+TASK rollback mbpp/448 False
+TASK rollback gsm8k/test/1072 True
+TASK rollback gsm8k/test/482 True
+TASK rollback cmmlu/chinese_foreign_policy/17 True
+TASK rollback gsm8k/test/821 True
+TASK rollback mmlu-pro/6218 True
+TASK rollback mmlu-pro/129 False
+TASK rollback cmmlu/chinese_foreign_policy/34 True
+TASK rollback gsm8k/test/1152 True
+TASK rollback gsm8k/test/323 True
+TASK rollback mmlu-pro/1127 True
+TASK rollback cmmlu/international_law/151 False
+TASK rollback mmlu-pro/146 False
+TASK rollback mmlu-pro/8245 True
+TASK rollback cmmlu/college_education/24 True
+TASK rollback mbpp/216 True
+TASK rollback mbpp/24 True
+TASK rollback structure/55 True
+TASK rollback mbpp/34 False
+TASK rollback gsm8k/test/406 False
+TASK rollback mmlu-pro/1158 True
+TASK rollback mmlu-pro/4206 True
+TASK rollback mmlu-pro/4148 False
+TASK rollback gsm8k/test/665 True
+TASK rollback gsm8k/test/780 True
+TASK rollback mmlu-pro/9204 False
+TASK rollback gsm8k/test/249 True
+TASK rollback humaneval/HumanEval/161 True
+TASK rollback mmlu-pro/9264 True
+TASK rollback mbpp/116 True
+TASK rollback mmlu-pro/10215 True
+TASK rollback mbpp/207 True
+TASK rollback mmlu-pro/4209 False
+TASK rollback mmlu-pro/10253 True
+TASK rollback gsm8k/test/1212 True
+TASK rollback cmmlu/human_sexuality/10 True
+TASK rollback gsm8k/test/504 True
+TASK rollback cmmlu/college_engineering_hydrology/46 True
+TASK rollback mmlu-pro/163 False
+TASK rollback gsm8k/test/717 True
+TASK rollback mmlu-pro/5163 True
+TASK rollback mmlu-pro/11309 True
+TASK rollback gsm8k/test/125 True
+TASK rollback gsm8k/test/617 True
+TASK rollback mbpp/307 True
+TASK rollback mmlu-pro/6163 True
+TASK rollback mmlu-pro/5189 False
+TASK rollback mbpp/237 True
+TASK rollback humaneval/HumanEval/10 True
+TASK rollback mmlu-pro/11296 False
+TASK rollback cmmlu/machine_learning/1 True
+TASK rollback mbpp/208 True
+TASK rollback cmmlu/human_sexuality/25 True
+TASK rollback gsm8k/test/716 True
+TASK rollback mbpp/167 True
+TASK rollback gsm8k/test/3 True
+TASK rollback gsm8k/test/743 True
+TASK rollback mmlu-pro/5168 True
+TASK rollback structure/52 True
+TASK rollback mmlu-pro/4167 True
+TASK rollback mmlu-pro/4176 False
+TASK rollback humaneval/HumanEval/36 True
+TASK rollback mbpp/428 True
+TASK rollback mmlu-pro/11252 True
+TASK rollback gsm8k/test/242 True
+TASK rollback gsm8k/test/235 True
+TASK rollback gsm8k/test/10 True
+TASK rollback mmlu-pro/11321 False
+TASK rollback gsm8k/test/522 True
+TASK rollback mbpp/55 False
+TASK rollback mmlu-pro/11302 False
+TASK rollback mmlu-pro/7218 False
+TASK rollback gsm8k/test/204 True
+TASK rollback gsm8k/test/1128 True
+TASK rollback mmlu-pro/11263 True
+TASK rollback structure/57 True
+TASK rollback gsm8k/test/338 True
+TASK rollback gsm8k/test/505 True
+TASK rollback structure/46 True
+TASK rollback mmlu-pro/3200 False
+TASK rollback mmlu-pro/8232 False
+TASK rollback gsm8k/test/550 True
+TASK rollback mbpp/425 True
+TASK rollback mmlu-pro/10208 True
+TASK rollback gsm8k/test/123 True
+TASK rollback gsm8k/test/830 True
+TASK rollback mmlu-pro/5205 True
+TASK rollback mbpp/438 False
+TASK rollback mbpp/90 True
+TASK rollback mmlu-pro/3167 True
+TASK rollback gsm8k/test/739 True
+TASK rollback gsm8k/test/846 True
+TASK rollback mmlu-pro/4214 False
+TASK rollback mbpp/257 True
+TASK rollback mmlu-pro/8250 True
+TASK rollback gsm8k/test/1046 True
+TASK rollback mbpp/275 False
+TASK rollback mmlu-pro/4197 False
+TASK rollback gsm8k/test/1297 True
+TASK rollback mmlu-pro/11312 False
+TASK rollback gsm8k/test/1082 True
+TASK rollback mmlu-pro/5206 True
+TASK rollback gsm8k/test/655 True
+TASK rollback gsm8k/test/566 True
+TASK rollback mmlu-pro/6193 True
+TASK rollback gsm8k/test/291 True
+TASK rollback mbpp/53 True
+TASK rollback gsm8k/test/1018 True
+TASK rollback gsm8k/test/1053 True
+TASK rollback gsm8k/test/1048 False
+TASK rollback gsm8k/test/976 True
+TASK rollback mbpp/326 True
+TASK rollback mmlu-pro/2180 True
+TASK rollback gsm8k/test/1299 True
+TASK rollback gsm8k/test/638 True
+TASK rollback mmlu-pro/8197 False
+TASK rollback gsm8k/test/748 True
+TASK rollback mmlu-pro/6223 False
+TASK rollback mbpp/169 True
+TASK rollback gsm8k/test/261 True
+TASK rollback mmlu-pro/4204 False
+TASK rollback gsm8k/test/734 True
+TASK rollback gsm8k/test/292 True
+TASK rollback structure/5 False
+TASK rollback gsm8k/test/155 True
+TASK rollback gsm8k/test/618 True
+TASK rollback gsm8k/test/926 True
+TASK rollback gsm8k/test/640 False
+TASK rollback gsm8k/test/619 True
+TASK rollback mmlu-pro/152 False
+TASK rollback gsm8k/test/824 True
+TASK rollback mmlu-pro/6259 False
+TASK rollback mmlu-pro/10296 True
+TASK rollback gsm8k/test/1108 True
+TASK rollback gsm8k/test/901 True
+TASK rollback gsm8k/test/448 True
+TASK rollback mmlu-pro/1118 True
+TASK rollback mmlu-pro/9247 False
+TASK rollback gsm8k/test/5 True
+TASK rollback mmlu-pro/5145 False
+TASK rollback gsm8k/test/881 True
+TASK rollback mmlu-pro/5232 True
+TASK rollback humaneval/HumanEval/15 True
+TASK rollback mmlu-pro/5203 False
+TASK rollback mmlu-pro/11266 False
+TASK rollback gsm8k/test/927 True
+TASK rollback gsm8k/test/196 True
+TASK rollback mbpp/199 True
+TASK rollback gsm8k/test/1012 True
+TASK rollback gsm8k/test/730 True
+TASK rollback mmlu-pro/10266 False
+TASK rollback gsm8k/test/569 True
+TASK rollback gsm8k/test/870 True
+TASK rollback gsm8k/test/774 True
+TASK rollback mmlu-pro/10212 True
+TASK rollback mmlu-pro/4217 False
+TASK rollback gsm8k/test/775 True
+TASK rollback mmlu-pro/3175 True
+TASK rollback mmlu-pro/2120 True
+TASK rollback structure/56 False
+TASK rollback gsm8k/test/1037 True
+TASK rollback gsm8k/test/528 True
+TASK rollback gsm8k/test/387 True
+TASK rollback mmlu-pro/11237 False
+TASK rollback mmlu-pro/11260 True
+TASK rollback mmlu-pro/156 False
+TASK rollback mbpp/51 True
+TASK rollback mmlu-pro/9234 False
+TASK rollback mbpp/472 True
+TASK rollback mmlu-pro/1172 True
+TASK rollback gsm8k/test/922 True
+TASK rollback mbpp/317 True
+TASK rollback gsm8k/test/916 True
+TASK rollback mmlu-pro/4191 False
+TASK rollback mmlu-pro/5188 False
+TASK rollback gsm8k/test/1296 True
+TASK rollback gsm8k/test/859 True
+TASK rollback gsm8k/test/37 True
+TASK rollback gsm8k/test/1097 True
+TASK rollback mbpp/14 True
+TASK rollback gsm8k/test/679 True
+TASK rollback mbpp/320 True
+TASK rollback mmlu-pro/3153 True
+TASK rollback gsm8k/test/650 True
+TASK rollback mbpp/175 True
+TASK rollback gsm8k/test/1014 True
+TASK rollback mmlu-pro/9231 False
+TASK rollback gsm8k/test/589 True
+TASK rollback mmlu-pro/11228 True
+TASK rollback gsm8k/test/1060 True
+TASK rollback mmlu-pro/11273 True
+TASK rollback mbpp/399 True
+TASK rollback mmlu-pro/2160 True
+TASK rollback mbpp/288 True
+TASK rollback mmlu-pro/10300 False
+TASK rollback gsm8k/test/592 True
+TASK rollback gsm8k/test/854 True
+TASK rollback gsm8k/test/1171 True
+TASK rollback gsm8k/test/13 True
+TASK rollback gsm8k/test/435 True
+TASK rollback mbpp/37 True
+TASK rollback gsm8k/test/458 True
+TASK rollback gsm8k/test/882 True
+TASK rollback gsm8k/test/1022 True
+TASK rollback mmlu-pro/1081 True
+TASK rollback mmlu-pro/11275 True
+TASK rollback gsm8k/test/1078 True
+TASK rollback mmlu-pro/4149 False
+TASK rollback structure/45 True
+TASK rollback mmlu-pro/11249 True
+TASK rollback mmlu-pro/2150 False
+TASK rollback mmlu-pro/128 False
+TASK rollback gsm8k/test/223 True
+TASK rollback mmlu-pro/3122 False
+TASK rollback mbpp/218 False
+TASK rollback mmlu-pro/3205 False
+TASK rollback gsm8k/test/720 True
+TASK rollback gsm8k/test/1217 True
+TASK rollback gsm8k/test/1232 True
+TASK rollback mbpp/299 True
+TASK rollback gsm8k/test/1074 True
+TASK rollback mmlu-pro/8204 False
+TASK rollback mmlu-pro/8198 False
+TASK rollback structure/33 True
+TASK rollback mmlu-pro/6235 False
+TASK rollback mbpp/499 True
+TASK rollback mmlu-pro/5219 True
+TASK rollback mbpp/482 True
+TASK rollback gsm8k/test/1059 True
+TASK rollback gsm8k/test/213 True
+TASK rollback gsm8k/test/704 True
+TASK rollback mmlu-pro/7201 True
+TASK rollback mmlu-pro/6173 False
+TASK rollback gsm8k/test/698 True
+TASK rollback mmlu-pro/4128 True
+TASK rollback mmlu-pro/8201 True
+TASK rollback gsm8k/test/144 True
+TASK rollback mmlu-pro/164 False
+TASK rollback mbpp/240 True
+TASK rollback mmlu-pro/5196 True
+TASK rollback gsm8k/test/1209 True
+TASK rollback mbpp/145 True
+TASK rollback mbpp/112 True
+TASK rollback humaneval/HumanEval/16 True
+TASK rollback gsm8k/test/689 True
+TASK rollback gsm8k/test/1250 True
+TASK rollback gsm8k/test/839 True
+TASK rollback mbpp/206 True
+TASK rollback mmlu-pro/6234 True
+TASK rollback mbpp/333 True
+TASK rollback humaneval/HumanEval/79 True
+TASK rollback gsm8k/test/181 True
+TASK rollback mmlu-pro/7255 True
+TASK rollback humaneval/HumanEval/100 True
+TASK rollback mmlu-pro/2165 True
+TASK rollback gsm8k/test/1289 True
+TASK rollback mmlu-pro/91 False
+TASK rollback mbpp/444 True
+TASK rollback humaneval/HumanEval/160 True
+TASK rollback gsm8k/test/1281 True
+TASK rollback gsm8k/test/345 True
+TASK rollback mbpp/277 True
+TASK rollback humaneval/HumanEval/4 True
+TASK rollback mmlu-pro/124 True
+TASK rollback mmlu-pro/5193 False
+TASK rollback mbpp/242 True
+TASK rollback mmlu-pro/3137 True
+TASK rollback structure/43 True
+TASK rollback gsm8k/test/326 True
+TASK rollback mbpp/67 True
+TASK rollback gsm8k/test/688 True
+TASK rollback gsm8k/test/644 True
+TASK rollback mmlu-pro/2110 True
+TASK rollback mbpp/109 True
+TASK rollback structure/66 True
+TASK rollback mbpp/200 True
+TASK rollback structure/35 True
+TASK rollback mmlu-pro/115 False
+TASK rollback mmlu-pro/127 True
+TASK rollback mmlu-pro/3189 True
+TASK rollback structure/74 True
+TASK rollback humaneval/HumanEval/31 True
+TASK rollback mbpp/59 True
+TASK rollback mmlu-pro/4181 False
+TASK rollback mbpp/223 True
+TASK rollback mbpp/366 True
+TASK rollback mmlu-pro/5151 True
+TASK rollback mmlu-pro/11281 True
+TASK rollback mmlu-pro/94 False
+TASK rollback humaneval/HumanEval/110 True
+TASK rollback mbpp/480 True
+TASK rollback mmlu-pro/6242 False
+TASK rollback mmlu-pro/4220 False
+TASK rollback mbpp/56 True
+TASK rollback mbpp/365 True
+TASK rollback mbpp/58 True
+TASK rollback mbpp/93 True
+TASK rollback mmlu-pro/11235 True
+TASK rollback mbpp/139 True
+TASK rollback mmlu-pro/4136 False
+TASK rollback mmlu-pro/2167 True
+TASK rollback mmlu-pro/1171 True
+TASK rollback humaneval/HumanEval/158 True
+TASK rollback mbpp/220 True
+TASK rollback mmlu-pro/7199 True
+TASK rollback mmlu-pro/5199 True
+TASK rollback mmlu-pro/113 False
+TASK rollback mmlu-pro/3218 True
+TASK rollback mmlu-pro/6184 False
+TASK rollback mmlu-pro/6180 True
+TASK rollback mmlu-pro/5149 False
+TASK rollback mmlu-pro/1164 False
+TASK rollback humaneval/HumanEval/105 True
+TASK rollback structure/96 True
+TASK rollback mmlu-pro/5157 True
+TASK rollback mbpp/353 True
+TASK rollback mmlu-pro/7259 True
+TASK rollback mbpp/253 True
+TASK rollback mbpp/488 True
+TASK rollback mmlu-pro/6190 False
+TASK rollback mmlu-pro/2117 True
+TASK rollback mbpp/225 True
+TASK rollback humaneval/HumanEval/73 True
+TASK rollback mbpp/126 True
+TASK rollback mmlu-pro/2179 True
+TASK rollback mmlu-pro/101 False
+TASK rollback mbpp/243 True
+TASK rollback humaneval/HumanEval/63 True
+TASK rollback mmlu-pro/1124 True
+TASK rollback mbpp/432 True
+TASK rollback humaneval/HumanEval/20 True
+TASK rollback humaneval/HumanEval/90 True
+TASK rollback mmlu-pro/7176 True
+TASK rollback mmlu-pro/2139 True
+TASK rollback mmlu-pro/73 False
+TASK rollback mmlu-pro/8208 False
+TASK rollback mbpp/122 False
+TASK rollback mbpp/234 True
+TASK rollback structure/63 False
+TASK rollback mbpp/322 True
+TASK rollback mmlu-pro/3128 True
+TASK rollback mmlu-pro/2166 True
+TASK rollback humaneval/HumanEval/159 True
+TASK rollback mbpp/70 True
+TASK rollback mbpp/436 False
+TASK rollback mbpp/332 True
+TASK rollback mbpp/134 False
+TASK rollback mmlu-pro/8222 False
+TASK rollback mmlu-pro/8254 True
+TASK rollback mmlu-pro/11240 True
+TASK rollback humaneval/HumanEval/144 True
+TASK rollback mbpp/478 True
+TASK rollback mmlu-pro/6196 False
+TASK rollback mbpp/106 True
+TASK rollback mbpp/361 True
+TASK rollback mmlu-pro/3212 True
+TASK rollback mbpp/174 True
+TASK rollback mmlu-pro/8285 True
+TASK rollback mmlu-pro/80 True
+TASK rollback mmlu-pro/11304 False
+TASK rollback structure/16 False
+TASK rollback structure/21 True
+TASK rollback mbpp/192 True
+TASK rollback mmlu-pro/11234 True
+TASK rollback structure/44 True
+TASK rollback mmlu-pro/11270 True
+TASK rollback mbpp/235 False
+TASK rollback mmlu-pro/3148 True
+TASK rollback mmlu-pro/157 False
+TASK rollback mmlu-pro/3191 False
+TASK rollback mmlu-pro/8212 False
+TASK rollback structure/24 True
+TASK rollback mmlu-pro/2109 False
+TASK rollback structure/88 False
+TASK rollback humaneval/HumanEval/109 True
+TASK rollback mmlu-pro/6161 True
+TASK rollback mmlu-pro/3151 True
+TASK rollback mmlu-pro/6194 True
+TASK rollback mmlu-pro/7203 True
+TASK rollback mmlu-pro/1120 True
+TASK rollback mmlu-pro/2197 True
+TASK rollback mmlu-pro/2103 False
+TASK rollback humaneval/HumanEval/134 True
+TASK rollback structure/39 False
+TASK rollback humaneval/HumanEval/104 True
+TASK rollback mmlu-pro/142 False
+TASK rollback mmlu-pro/2159 True
+TASK rollback humaneval/HumanEval/1 True
+TASK rollback mmlu-pro/11317 False
+TASK rollback mmlu-pro/1113 False
+TASK rollback mmlu-pro/11301 False
+TASK rollback mmlu-pro/8216 False
+TASK rollback mmlu-pro/8255 False
+TASK rollback humaneval/HumanEval/34 True
+TASK rollback humaneval/HumanEval/14 True
+TASK rollback mmlu-pro/140 False
+TASK rollback mmlu-pro/2105 False
+TASK rollback mmlu-pro/7187 False
+TASK rollback humaneval/HumanEval/27 True
+TASK rollback structure/62 True
+TASK rollback mmlu-pro/3152 True
+TASK rollback mmlu-pro/125 False
+TASK rollback mmlu-pro/70 True
+TASK rollback humaneval/HumanEval/83 True
+TASK rollback mmlu-pro/7256 False
+TASK rollback mmlu-pro/7231 True
+TASK rollback mmlu-pro/11255 True
+TASK rollback mmlu-pro/8203 False
+TASK rollback mmlu-pro/3162 True
+TASK rollback humaneval/HumanEval/135 True
+TASK rollback mmlu-pro/1088 False
+TASK rollback mmlu-pro/7237 False
+TASK rollback mmlu-pro/11262 False
+TASK rollback mmlu-pro/3150 True
+TASK rollback structure/7 True
+TASK rollback mmlu-pro/7205 True
+TASK rollback humaneval/HumanEval/81 True
+TASK rollback mmlu-pro/7226 True
+TASK rollback structure/70 False
+TASK rollback humaneval/HumanEval/44 True
+TASK rollback mmlu-pro/8235 False
+TASK rollback mmlu-pro/1122 False
+TASK rollback mmlu-pro/8271 False
+TASK rollback mmlu-pro/8231 False
+TASK rollback mmlu-pro/7186 True
+TASK rollback mmlu-pro/3183 True
+TASK rollback humaneval/HumanEval/40 True
+TASK rollback humaneval/HumanEval/24 True
+TASK rollback mmlu-pro/8234 True
+TASK rollback mmlu-pro/1157 True
+TASK rollback mmlu-pro/2137 True
+TASK rollback mmlu-pro/1106 True
+TASK rollback humaneval/HumanEval/30 True
+TASK rollback mmlu-pro/2198 True
+TASK rollback structure/77 True
+TASK rollback mmlu-pro/3184 True
+TASK rollback mmlu-pro/1090 True
+TASK rollback structure/58 True
+TASK rollback mmlu-pro/2158 True
+TASK rollback mmlu-pro/8266 True
+TASK rollback structure/97 False
+TASK rollback mmlu-pro/1082 True
+TASK rollback humaneval/HumanEval/57 True
+TASK rollback humaneval/HumanEval/156 True
+TASK rollback mmlu-pro/7202 False
+TASK rollback mmlu-pro/11294 False
+TASK rollback humaneval/HumanEval/116 False
+TASK rollback mmlu-pro/11287 True
+TASK rollback humaneval/HumanEval/122 True
+TASK rollback humaneval/HumanEval/41 True
+TASK rollback mmlu-pro/1165 True
+TASK rollback mmlu-pro/8281 False
+TASK rollback mmlu-pro/7239 True
+TASK rollback structure/89 False
+TASK rollback mmlu-pro/2187 True
+TASK rollback mmlu-pro/7266 False
+TASK rollback mmlu-pro/7230 True
+TASK rollback mmlu-pro/2107 True
+TASK rollback mmlu-pro/2190 False
+TASK rollback mmlu-pro/11298 True
+TASK rollback mmlu-pro/2115 True
+TASK rollback mmlu-pro/11295 False
+TASK rollback mmlu-pro/11313 False
+TASK rollback mmlu-pro/11268 False
+TASK rollback structure/19 True
+TASK rollback mmlu-pro/1140 True
+TASK rollback structure/86 True
+TASK rollback humaneval/HumanEval/99 True
+TASK rollback mmlu-pro/11316 False
+TASK rollback mmlu-pro/11269 False
+TASK rollback mmlu-pro/11259 False
+TASK rollback humaneval/HumanEval/96 True
+TASK rollback mmlu-pro/7262 True
+TASK rollback mmlu-pro/7209 True
+TASK rollback mmlu-pro/11303 False
+TASK rollback mmlu-pro/7180 False
+TASK rollback mmlu-pro/1097 False
+TASK rollback structure/51 True
+TASK rollback humaneval/HumanEval/131 True
+TASK rollback structure/34 True
+TASK rollback mmlu-pro/1180 False
+TASK rollback mmlu-pro/1104 False
+TASK rollback mmlu-pro/1141 True
+TASK rollback mmlu-pro/7252 True
+TASK rollback humaneval/HumanEval/108 True
+TASK rollback structure/85 False
+TASK rollback mmlu-pro/1162 False
+TASK rollback mmlu-pro/11288 True
+TASK rollback humaneval/HumanEval/29 True
+TASK rollback humaneval/HumanEval/111 True
+TASK rollback humaneval/HumanEval/147 True
+TASK rollback structure/90 True
+TASK rollback humaneval/HumanEval/146 True
+TASK rollback humaneval/HumanEval/78 True
+TASK rollback structure/12 False
+TASK rollback humaneval/HumanEval/97 True
+TASK rollback structure/23 False
+TASK rollback structure/14 True
+TASK rollback mmlu-pro/11267 True
+TASK rollback humaneval/HumanEval/125 True
+TASK rollback humaneval/HumanEval/68 True
+TASK rollback humaneval/HumanEval/48 True
+TASK rollback humaneval/HumanEval/117 True
+TASK rollback structure/15 True
+TASK rollback mmlu-pro/11284 True
+TASK rollback humaneval/HumanEval/58 True
+Terminated
+RESTORE_PENDING_GUARDIAN_RETAINED

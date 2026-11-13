@@ -1,0 +1,85 @@
+{
+  "recorded_epoch": 1794569871.3007534,
+  "normal_unit_enabled": "enabled",
+  "unit_state": [
+    "ActiveState=active",
+    "SubState=exited"
+  ],
+  "observed_journal_markers": [
+    {
+      "timestamp_us": "1794564887008777",
+      "message": "ALREADY_HEALTHY"
+    }
+  ],
+  "device_plan": {
+    "timestamp_epoch": 1794564172.0849583,
+    "boot_id": "9ab7c974-5388-491d-b377-56e1fc5687f1",
+    "pci_indices": {
+      "0000:83:00.0": 3,
+      "0000:03:00.0": 5
+    },
+    "before": [
+      {
+        "PathOnHost": "/dev/davinci1",
+        "PathInContainer": "/dev/davinci1",
+        "CgroupPermissions": "rwm"
+      },
+      {
+        "PathOnHost": "/dev/davinci0",
+        "PathInContainer": "/dev/davinci0",
+        "CgroupPermissions": "rwm"
+      },
+      {
+        "PathOnHost": "/dev/davinci_manager",
+        "PathInContainer": "/dev/davinci_manager",
+        "CgroupPermissions": "rwm"
+      },
+      {
+        "PathOnHost": "/dev/devmm_svm",
+        "PathInContainer": "/dev/devmm_svm",
+        "CgroupPermissions": "rwm"
+      },
+      {
+        "PathOnHost": "/dev/hisi_hdc",
+        "PathInContainer": "/dev/hisi_hdc",
+        "CgroupPermissions": "rwm"
+      }
+    ],
+    "after": [
+      {
+        "PathOnHost": "/dev/davinci3",
+        "PathInContainer": "/dev/davinci3",
+        "CgroupPermissions": "rwm"
+      },
+      {
+        "PathOnHost": "/dev/davinci5",
+        "PathInContainer": "/dev/davinci5",
+        "CgroupPermissions": "rwm"
+      },
+      {
+        "PathOnHost": "/dev/davinci_manager",
+        "PathInContainer": "/dev/davinci_manager",
+        "CgroupPermissions": "rwm"
+      },
+      {
+        "PathOnHost": "/dev/devmm_svm",
+        "PathInContainer": "/dev/devmm_svm",
+        "CgroupPermissions": "rwm"
+      },
+      {
+        "PathOnHost": "/dev/hisi_hdc",
+        "PathInContainer": "/dev/hisi_hdc",
+        "CgroupPermissions": "rwm"
+      }
+    ],
+    "changed": true,
+    "container_recreated": false
+  },
+  "source_sha256": {
+    "boot_restore.sh": "bc0c5fcbb1bf5749ac3cde97e0726efda6f77a21b810efc01a7ffc050d78da3c",
+    "reconcile_devices.py": "ef4526fdc7ed398940e3e08d94725a8508627967b138bc11ee3a8468f00c4db2",
+    "test_reconcile.py": "cbfa5ab80a2b3b41fe6974bbd0d4a0dd16b1e4088c14f746659c6b4b17a4eb31",
+    "fnx-boot-restore.service": "4e46df478a68eff7dbf49e91fc6ad63f3906e54ba3b2d347871e7465e6319499"
+  },
+  "private_docker_config_excluded": true
+}

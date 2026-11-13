@@ -1,0 +1,34 @@
+{
+  "status": "frozen_not_evaluated",
+  "cases": 10,
+  "scored_targets": 1990,
+  "input_sha256": "af45c7e01b5aef3b1615dccae2724fe47c0f5cad55a12412f54b39113e4962d0",
+  "sources": [
+    {
+      "language": "en",
+      "ebook": 2600,
+      "url": "https://www.gutenberg.org/cache/epub/2600/pg2600.txt",
+      "sha256": "2d5bb2ad5f422765e714617e21fa31bbaf8958aa79682c86fca6660fcc5d1b2b",
+      "available_tokens": 783081
+    },
+    {
+      "language": "zh",
+      "ebook": 24264,
+      "url": "https://www.gutenberg.org/cache/epub/24264/pg24264.txt",
+      "sha256": "ff1526996bf4b81807651921a85e5c1c0f1d1d123c9fa4553057ba6a3ec72011",
+      "available_tokens": 734970
+    }
+  ],
+  "dedup_references": [
+    {
+      "file": "suite-inputs.json",
+      "sha256": "37865e186ca1d4561e7cc76c5d205a3427f3042dac8431c83a2eabcf653def5a"
+    },
+    {
+      "file": "calibration-inputs.json",
+      "sha256": "3edbf589605128d59a2e3cd3ef5f8701002c28d49ac789256e8d032f3b9ec505"
+    }
+  ],
+  "common_128_token_windows": 0,
+  "scope": "fresh bilingual literary natural text with true prefill at five lengths; not unseen-pretraining claim or comprehensive long-QA accuracy"
+}

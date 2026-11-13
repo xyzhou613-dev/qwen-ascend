@@ -1,0 +1,15 @@
+{
+  "started_epoch": 1794585560.4134467,
+  "clients": [
+    {
+      "pid": 92801,
+      "birth": "1784765"
+    }
+  ],
+  "lock_acquired": true,
+  "unit": "fnx-r157-run-resume",
+  "clients_stopped": true,
+  "unit_state_after_stop": "failed",
+  "code_judges_not_killed_until_clients_stopped": true,
+  "finished_epoch": 1794585560.533778
+}

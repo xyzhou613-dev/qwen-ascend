@@ -1,0 +1,2705 @@
+{
+  "parent": {
+    "pid": 1371,
+    "layers": [
+      {
+        "layer": 0,
+        "pid": 1371,
+        "visible": "0",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 1,
+        "pid": 1371,
+        "visible": "0",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 2,
+        "pid": 1371,
+        "visible": "0",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 3,
+        "pid": 1371,
+        "visible": "0",
+        "projections": {
+          "w_q": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  12288
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  12288
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_o": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 4,
+        "pid": 1371,
+        "visible": "0",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 5,
+        "pid": 1371,
+        "visible": "0",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 6,
+        "pid": 1371,
+        "visible": "0",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 7,
+        "pid": 1371,
+        "visible": "0",
+        "projections": {
+          "w_q": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  12288
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  12288
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_o": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 8,
+        "pid": 1371,
+        "visible": "0",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 9,
+        "pid": 1371,
+        "visible": "0",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 10,
+        "pid": 1371,
+        "visible": "0",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 11,
+        "pid": 1371,
+        "visible": "0",
+        "projections": {
+          "w_q": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  12288
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  12288
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_o": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 12,
+        "pid": 1371,
+        "visible": "0",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 13,
+        "pid": 1371,
+        "visible": "0",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 14,
+        "pid": 1371,
+        "visible": "0",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 15,
+        "pid": 1371,
+        "visible": "0",
+        "projections": {
+          "w_q": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  12288
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  12288
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_o": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 16,
+        "pid": 1371,
+        "visible": "0",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 17,
+        "pid": 1371,
+        "visible": "0",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 18,
+        "pid": 1371,
+        "visible": "0",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 19,
+        "pid": 1371,
+        "visible": "0",
+        "projections": {
+          "w_q": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  12288
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  12288
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_o": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 20,
+        "pid": 1371,
+        "visible": "0",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 21,
+        "pid": 1371,
+        "visible": "0",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 22,
+        "pid": 1371,
+        "visible": "0",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 23,
+        "pid": 1371,
+        "visible": "0",
+        "projections": {
+          "w_q": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  12288
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  12288
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_o": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "kmajor_hits": {
+      "0": 21,
+      "1": 21,
+      "2": 21,
+      "3": 21,
+      "4": 21,
+      "5": 21,
+      "6": 21,
+      "7": 21,
+      "8": 21,
+      "9": 21,
+      "10": 21,
+      "11": 21,
+      "12": 21,
+      "13": 21,
+      "14": 21,
+      "15": 21,
+      "16": 21,
+      "17": 21,
+      "18": 21,
+      "19": 21,
+      "20": 21,
+      "21": 21,
+      "22": 21,
+      "23": 21
+    }
+  },
+  "worker": {
+    "pid": 1390,
+    "layers": [
+      {
+        "layer": 24,
+        "pid": 1390,
+        "visible": "1",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 25,
+        "pid": 1390,
+        "visible": "1",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 26,
+        "pid": 1390,
+        "visible": "1",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 27,
+        "pid": 1390,
+        "visible": "1",
+        "projections": {
+          "w_q": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  12288
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  12288
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_o": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 28,
+        "pid": 1390,
+        "visible": "1",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 29,
+        "pid": 1390,
+        "visible": "1",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 30,
+        "pid": 1390,
+        "visible": "1",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 31,
+        "pid": 1390,
+        "visible": "1",
+        "projections": {
+          "w_q": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  12288
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  12288
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_o": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 32,
+        "pid": 1390,
+        "visible": "1",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 33,
+        "pid": 1390,
+        "visible": "1",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 34,
+        "pid": 1390,
+        "visible": "1",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 35,
+        "pid": 1390,
+        "visible": "1",
+        "projections": {
+          "w_q": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  12288
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  12288
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_o": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 36,
+        "pid": 1390,
+        "visible": "1",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 37,
+        "pid": 1390,
+        "visible": "1",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 38,
+        "pid": 1390,
+        "visible": "1",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 39,
+        "pid": 1390,
+        "visible": "1",
+        "projections": {
+          "w_q": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  12288
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  12288
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_o": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 40,
+        "pid": 1390,
+        "visible": "1",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 41,
+        "pid": 1390,
+        "visible": "1",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 42,
+        "pid": 1390,
+        "visible": "1",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 43,
+        "pid": 1390,
+        "visible": "1",
+        "projections": {
+          "w_q": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  12288
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  12288
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_o": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 44,
+        "pid": 1390,
+        "visible": "1",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 45,
+        "pid": 1390,
+        "visible": "1",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 46,
+        "pid": 1390,
+        "visible": "1",
+        "projections": {
+          "w_qkvz": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  16384
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  16384
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_out": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      },
+      {
+        "layer": 47,
+        "pid": 1390,
+        "visible": "1",
+        "projections": {
+          "w_q": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  2560,
+                  12288
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  12288
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          },
+          "w_o": {
+            "type": "SmoothW8A8",
+            "tensors": {
+              "input_scale": {
+                "shape": [
+                  6144
+                ],
+                "dtype": "torch.bfloat16"
+              },
+              "weight": {
+                "shape": [
+                  6144,
+                  2560
+                ],
+                "dtype": "torch.int8"
+              },
+              "scale": {
+                "shape": [
+                  2560
+                ],
+                "dtype": "torch.float32"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "kmajor_hits": {
+      "24": 21,
+      "25": 21,
+      "26": 21,
+      "27": 21,
+      "28": 21,
+      "29": 21,
+      "30": 21,
+      "31": 21,
+      "32": 21,
+      "33": 21,
+      "34": 21,
+      "35": 21,
+      "36": 21,
+      "37": 21,
+      "38": 21,
+      "39": 21,
+      "40": 21,
+      "41": 21,
+      "42": 21,
+      "43": 21,
+      "44": 21,
+      "45": 21,
+      "46": 21,
+      "47": 21
+    }
+  },
+  "variant": "combined"
+}

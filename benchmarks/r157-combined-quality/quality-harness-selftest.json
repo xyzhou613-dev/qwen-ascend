@@ -1,0 +1,26 @@
+[
+  {
+    "kind": "mcq",
+    "id": "cmmlu/construction_project_management/5",
+    "passed": true
+  },
+  {
+    "kind": "numeric",
+    "id": "gsm8k/test/802",
+    "passed": true
+  },
+  {
+    "kind": "json",
+    "id": "structure/54",
+    "passed": true
+  },
+  {
+    "kind": "code",
+    "id": "humaneval/HumanEval/65",
+    "passed": true
+  },
+  {
+    "kind": "incorrect_code_rejected",
+    "passed": true
+  }
+]

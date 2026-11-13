@@ -1,0 +1,53 @@
+[
+  {
+    "ttft_s": 3.828499689999262,
+    "end_to_end_s": 7.379097207999621,
+    "stats": {
+      "ttft_ms": 3789.64,
+      "tokens": 128,
+      "seconds": 7.34,
+      "tpot_ms": 27.96,
+      "tok_decode_ms": 3.6,
+      "prefill_ms": 3727.9,
+      "prefill_tok_s": 2162.07,
+      "n_prefill": 8060
+    },
+    "answer": "在昇腾处理器（Ascend）面向大规模深度学习训练与推理的场景中，性能优化往往被直觉误导，尤其是当我们将目光聚焦于混合专家模型（MoE）和量化技术时。要真正理解推理服务的性能瓶颈，必须将“首Token延迟”（Time to First Token, TTFT）、“Prefill吞吐”以及“Decode速度”这三个维度进行严格区分。这不仅是指标定义的差异，更是底层硬件资源竞争模式的根本不同。\n\n首先，我们需要理解推理过程的两个核心阶段：Prefill（预填充）和Decode（解码）。Prefill阶段负责处理用户输入的Prompt，",
+    "run": 1,
+    "payload_sha256": "eff266a0889777b1c0692eb27e98d51097f7815b4f72a63c2a672805089817be"
+  },
+  {
+    "ttft_s": 3.7423832820004463,
+    "end_to_end_s": 7.286632834000557,
+    "stats": {
+      "ttft_ms": 3709.05,
+      "tokens": 128,
+      "seconds": 7.253,
+      "tpot_ms": 27.91,
+      "tok_decode_ms": 3.62,
+      "prefill_ms": 3664.02,
+      "prefill_tok_s": 2199.77,
+      "n_prefill": 8060
+    },
+    "answer": "在昇腾处理器（Ascend）面向大规模深度学习训练与推理的场景中，性能优化往往被直觉误导，尤其是当我们将目光聚焦于混合专家模型（MoE）和量化技术时。要真正理解推理服务的性能瓶颈，必须首先打破“算力即一切”的迷思，转而深入剖析推理过程中的两个核心阶段：预填充（Prefill）与解码（Decode）。这两个阶段在计算特性、内存访问模式以及延迟构成上存在本质差异，因此必须严格区分首Token延迟、Prefill吞吐以及Decode速度这三个关键指标。\n\n首先，我们需要理解推理请求的生命周期。当",
+    "run": 2,
+    "payload_sha256": "9df3dc68f9ca0d0c3f9d8efef5ae081d0f83e0c5495a49af976a57bf1cf619cc"
+  },
+  {
+    "ttft_s": 3.742500992000714,
+    "end_to_end_s": 7.294334644000628,
+    "stats": {
+      "ttft_ms": 3709.48,
+      "tokens": 128,
+      "seconds": 7.261,
+      "tpot_ms": 27.97,
+      "tok_decode_ms": 3.66,
+      "prefill_ms": 3664.09,
+      "prefill_tok_s": 2199.73,
+      "n_prefill": 8060
+    },
+    "answer": "在昇腾处理器面向大规模深度学习训练与推理场景的软件栈中，以 CANN 为核心的架构设计深刻影响了性能优化的逻辑。在实际部署混合专家模型（MoE）时，工程师往往容易陷入一个误区，即凭直觉去优化最显眼的代码段，而忽略了数据搬运带来的固定开销。要真正提升推理服务的效率，必须将性能指标拆解为三个独立且相互制约的维度：首 Token 延迟（Time to First Token, TTFT）、Prefill 吞吐以及 Decode 速度。这三者分别对应了推理生命周期的不同阶段，其瓶颈来源截然不同，因此优化策略也",
+    "run": 3,
+    "payload_sha256": "dd961b459b132f60a0978105c4fa4ec34c59c12ec73bd2b73ecb7980cd01fd4e"
+  }
+]
