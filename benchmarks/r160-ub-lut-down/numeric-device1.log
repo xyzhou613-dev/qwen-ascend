@@ -1,0 +1,2 @@
+[W1113 17:35:17.264533685 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+LUT_RESULT numeric 1 {'status': 'numeric_pass', 'device': 1, 'layer': 24, 'experts_covered': 512, 'samples': 53, 'bitwise_equal_to_r158': True, 'fresh_graph_verified': {'lut128': True, 'lut256': True}, 'exclusive_timing': False, 'peak_allocated_bytes': 515901440, 'elapsed_s': 1.858069276000606}

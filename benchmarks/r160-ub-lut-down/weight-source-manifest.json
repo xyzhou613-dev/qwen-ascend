@@ -1,0 +1,25 @@
+{
+  "read_after_measurement": true,
+  "epoch": 1794589975.4824595,
+  "config_sha256": "198b63b8758ae474e612011376943b2396f9298da922ec1d63b14e0854df1eda",
+  "weights": [
+    {
+      "layer": 0,
+      "path": "/models/Qwen3.8-Flash-Next-LQP-w4a16-em/L00.w4.safetensors",
+      "bytes": 1301545592,
+      "mtime_epoch": 1793429966.9531891,
+      "sha256": "544309bb55ca509bbbf95010591936e4e69f47df0b604b9301d7b8e113ff12e4",
+      "tensor_prefix": "mlp.experts.down_proj"
+    },
+    {
+      "layer": 24,
+      "path": "/models/Qwen3.8-Flash-Next-LQP-w4a16-em/L24.w4.safetensors",
+      "bytes": 1301545592,
+      "mtime_epoch": 1793430033.4933786,
+      "sha256": "d937e89aa0523daf943f970f3b426353a2f8eccb8d0bce1344a230cace8e5bcf",
+      "tensor_prefix": "mlp.experts.down_proj"
+    }
+  ],
+  "previous_manifest_source": "/models/fnx-diagnostics/r159-bf16-down-validation-20261114/weight-source-manifest.json",
+  "current_size_and_mtime_match_previous": true
+}

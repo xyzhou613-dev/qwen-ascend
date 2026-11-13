@@ -1,0 +1,11 @@
+{
+  "start_epoch": 1794589124,
+  "restore_trigger_epoch": 1794591524,
+  "backup_trigger_epoch": 1794591704,
+  "hard_cap_epoch": 1794592724,
+  "absolute_timer": "2026-11-13 17:38:44 UTC",
+  "micro_started_epoch": 1794591341.8169143,
+  "scope": "two-card component timing only; no Engine constructed",
+  "approval_basis": "user continue instruction within previously approved <=60min hour",
+  "original_deadlines_retained": true
+}

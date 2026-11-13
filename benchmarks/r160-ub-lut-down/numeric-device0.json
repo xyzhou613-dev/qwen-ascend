@@ -1,0 +1,923 @@
+{
+  "status": "numeric_pass",
+  "device": 0,
+  "layer": 0,
+  "experts_covered": 512,
+  "samples": 53,
+  "bitwise_equal_to_r158": true,
+  "fresh_graph_verified": {
+    "lut128": true,
+    "lut256": true
+  },
+  "records": [
+    {
+      "sample": 0,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 1,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 2,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 3,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 4,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 5,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 6,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 7,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 8,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 9,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 10,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 11,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 12,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 13,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 14,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 15,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 16,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 17,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 18,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 19,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 20,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 21,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 22,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 23,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 24,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 25,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 26,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 27,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 28,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 29,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 30,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 31,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 32,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 33,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 34,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 35,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 36,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 37,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 38,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 39,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 40,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 41,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 42,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 43,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 44,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 45,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 46,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 47,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 48,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 49,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 50,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 51,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "sample": 52,
+      "lut": {
+        "lut128": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        },
+        "lut256": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "exact_fraction": 1.0,
+          "finite": true
+        }
+      }
+    }
+  ],
+  "exclusive_timing": false,
+  "peak_allocated_bytes": 515901440,
+  "elapsed_s": 1.8471872329973849,
+  "code_sha256": {
+    "lut_down.cpp": "8b9959c6a93f214a63df444fd13a1c4de52d2f56ea3f8b623ddd4c9abca44f88",
+    "libfnx_w4_lut.so": "a937d089c577bd80276ef299c4d1fcbfc4a7bb9ba2f71a89db4ab031819e30df",
+    "probe.py": "2a96604e5094761ea77f9fad05a26ccddaa00af9e7213634b8e54db47b173e56"
+  }
+}
