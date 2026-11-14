@@ -1,0 +1,44 @@
+{
+  "status": "passed",
+  "prefix_views_success_exception_b1_b4": true,
+  "prompts": [
+    {
+      "batch": 1,
+      "target": 8000,
+      "input_lengths": [
+        8043
+      ],
+      "common_prefix": 8011
+    },
+    {
+      "batch": 1,
+      "target": 261900,
+      "input_lengths": [
+        261943
+      ],
+      "common_prefix": 261911
+    },
+    {
+      "batch": 4,
+      "target": 8000,
+      "input_lengths": [
+        8043,
+        8043,
+        8043,
+        8043
+      ],
+      "common_prefix": 8007
+    },
+    {
+      "batch": 4,
+      "target": 261900,
+      "input_lengths": [
+        261943,
+        261943,
+        261943,
+        261943
+      ],
+      "common_prefix": 261907
+    }
+  ]
+}

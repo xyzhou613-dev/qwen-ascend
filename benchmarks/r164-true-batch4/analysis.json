@@ -1,0 +1,387 @@
+{
+  "initial_scatter": {
+    "label": "initial B4 scatter; chunk512",
+    "status": "partial",
+    "summary": {
+      "8000": {
+        "samples": 3,
+        "input_tokens": 8043,
+        "total_decode_tps_median": 30.444851788211007,
+        "total_decode_tps_range": [
+          30.426473314871494,
+          30.477518051736002
+        ],
+        "per_row_tps_median": 7.611212947052752,
+        "tpot_ms_median": 131.3851033937008,
+        "ttft_s_median": 29.379872932,
+        "end_to_end_output_tps_median": 11.11434938437803,
+        "records": [
+          {
+            "rep": 0,
+            "batch": 4,
+            "input_tokens": 8043,
+            "output_tokens": [
+              128,
+              128,
+              128,
+              128
+            ],
+            "total_decode_tps": 30.426473314871494,
+            "per_row_tps": 7.6066183287178735,
+            "tpot_ms": 131.46446381102365,
+            "step_tpot_p50_ms": 131.404642,
+            "step_tpot_p95_ms": 133.468309,
+            "ttft_s": 31.015240727,
+            "end_to_end_output_tps": 10.731030422690607,
+            "overlapping_row_pairs": 6,
+            "all_rows_emitted_steps": 128,
+            "all_rows_distinct_input_hidden": true,
+            "output_texts_distinct": true,
+            "allocated_gib": [
+              34.52164649963379,
+              35.08710050582886
+            ]
+          },
+          {
+            "rep": 1,
+            "batch": 4,
+            "input_tokens": 8043,
+            "output_tokens": [
+              128,
+              128,
+              128,
+              128
+            ],
+            "total_decode_tps": 30.444851788211007,
+            "per_row_tps": 7.611212947052752,
+            "tpot_ms": 131.3851033937008,
+            "step_tpot_p50_ms": 131.373912,
+            "step_tpot_p95_ms": 132.844266,
+            "ttft_s": 29.379872932,
+            "end_to_end_output_tps": 11.11434938437803,
+            "overlapping_row_pairs": 6,
+            "all_rows_emitted_steps": 128,
+            "all_rows_distinct_input_hidden": true,
+            "output_texts_distinct": true,
+            "allocated_gib": [
+              34.52164649963379,
+              35.08710050582886
+            ]
+          },
+          {
+            "rep": 2,
+            "batch": 4,
+            "input_tokens": 8043,
+            "output_tokens": [
+              128,
+              128,
+              128,
+              128
+            ],
+            "total_decode_tps": 30.477518051736002,
+            "per_row_tps": 7.6193795129340005,
+            "tpot_ms": 131.2442828582677,
+            "step_tpot_p50_ms": 131.295001,
+            "step_tpot_p95_ms": 132.292865,
+            "ttft_s": 29.22398616,
+            "end_to_end_output_tps": 11.156439437645641,
+            "overlapping_row_pairs": 6,
+            "all_rows_emitted_steps": 128,
+            "all_rows_distinct_input_hidden": true,
+            "output_texts_distinct": true,
+            "allocated_gib": [
+              34.52164649963379,
+              35.08710050582886
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "nd_batch4": {
+    "label": "ND B4; chunk2048",
+    "status": "completed",
+    "summary": {
+      "8000": {
+        "samples": 3,
+        "input_tokens": 8043,
+        "total_decode_tps_median": 33.224116364885504,
+        "total_decode_tps_range": [
+          33.2225831123193,
+          33.22895408705617
+        ],
+        "per_row_tps_median": 8.306029091221376,
+        "tpot_ms_median": 120.39447358267716,
+        "ttft_s_median": 14.45892391,
+        "end_to_end_output_tps_median": 17.21025122643152,
+        "records": [
+          {
+            "rep": 0,
+            "batch": 4,
+            "input_tokens": 8043,
+            "output_tokens": [
+              128,
+              128,
+              128,
+              128
+            ],
+            "total_decode_tps": 33.22895408705617,
+            "per_row_tps": 8.307238521764042,
+            "tpot_ms": 120.37694564566927,
+            "step_tpot_p50_ms": 120.542225,
+            "step_tpot_p95_ms": 121.449278,
+            "ttft_s": 15.821617176,
+            "end_to_end_output_tps": 16.45759956705116,
+            "overlapping_row_pairs": 6,
+            "all_rows_emitted_steps": 128,
+            "all_rows_distinct_input_hidden": true,
+            "output_texts_distinct": true,
+            "allocated_gib": [
+              34.55765724182129,
+              35.08710050582886
+            ]
+          },
+          {
+            "rep": 1,
+            "batch": 4,
+            "input_tokens": 8043,
+            "output_tokens": [
+              128,
+              128,
+              128,
+              128
+            ],
+            "total_decode_tps": 33.2225831123193,
+            "per_row_tps": 8.305645778079825,
+            "tpot_ms": 120.4000298976378,
+            "step_tpot_p50_ms": 120.582656,
+            "step_tpot_p95_ms": 121.530188,
+            "ttft_s": 14.454431095,
+            "end_to_end_output_tps": 17.212437529828897,
+            "overlapping_row_pairs": 6,
+            "all_rows_emitted_steps": 128,
+            "all_rows_distinct_input_hidden": true,
+            "output_texts_distinct": true,
+            "allocated_gib": [
+              34.55765724182129,
+              35.08710050582886
+            ]
+          },
+          {
+            "rep": 2,
+            "batch": 4,
+            "input_tokens": 8043,
+            "output_tokens": [
+              128,
+              128,
+              128,
+              128
+            ],
+            "total_decode_tps": 33.224116364885504,
+            "per_row_tps": 8.306029091221376,
+            "tpot_ms": 120.39447358267716,
+            "step_tpot_p50_ms": 120.572215,
+            "step_tpot_p95_ms": 121.511088,
+            "ttft_s": 14.45892391,
+            "end_to_end_output_tps": 17.21025122643152,
+            "overlapping_row_pairs": 6,
+            "all_rows_emitted_steps": 128,
+            "all_rows_distinct_input_hidden": true,
+            "output_texts_distinct": true,
+            "allocated_gib": [
+              34.55765724182129,
+              35.08710050582886
+            ]
+          }
+        ]
+      },
+      "261900": {
+        "samples": 1,
+        "input_tokens": 261943,
+        "total_decode_tps_median": 20.462037881738,
+        "total_decode_tps_range": [
+          20.462037881738,
+          20.462037881738
+        ],
+        "per_row_tps_median": 5.1155094704345,
+        "tpot_ms_median": 195.48395048031497,
+        "ttft_s_median": 336.640873157,
+        "end_to_end_output_tps_median": 1.4164461260348136,
+        "records": [
+          {
+            "rep": 0,
+            "batch": 4,
+            "input_tokens": 261943,
+            "output_tokens": [
+              128,
+              128,
+              128,
+              128
+            ],
+            "total_decode_tps": 20.462037881738,
+            "per_row_tps": 5.1155094704345,
+            "tpot_ms": 195.48395048031497,
+            "step_tpot_p50_ms": 195.626131,
+            "step_tpot_p95_ms": 196.381414,
+            "ttft_s": 336.640873157,
+            "end_to_end_output_tps": 1.4164461260348136,
+            "overlapping_row_pairs": 6,
+            "all_rows_emitted_steps": 128,
+            "all_rows_distinct_input_hidden": true,
+            "output_texts_distinct": true,
+            "allocated_gib": [
+              47.91604042053223,
+              48.44647550582886
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "nd_batch1": {
+    "label": "ND B1; chunk2048",
+    "status": "completed",
+    "summary": {
+      "8000": {
+        "samples": 3,
+        "input_tokens": 8043,
+        "total_decode_tps_median": 16.67507164242986,
+        "total_decode_tps_range": [
+          16.66824961883391,
+          16.68000827635743
+        ],
+        "per_row_tps_median": 16.67507164242986,
+        "tpot_ms_median": 59.96975733858268,
+        "ttft_s_median": 12.189928624,
+        "end_to_end_output_tps_median": 6.462563509600235,
+        "records": [
+          {
+            "rep": 0,
+            "batch": 1,
+            "input_tokens": 8043,
+            "output_tokens": [
+              128
+            ],
+            "total_decode_tps": 16.66824961883391,
+            "per_row_tps": 16.66824961883391,
+            "tpot_ms": 59.99430191338583,
+            "step_tpot_p50_ms": 59.984507,
+            "step_tpot_p95_ms": 60.037897,
+            "ttft_s": 13.562902724,
+            "end_to_end_output_tps": 6.042706448836155,
+            "overlapping_row_pairs": 0,
+            "all_rows_emitted_steps": 128,
+            "all_rows_distinct_input_hidden": true,
+            "output_texts_distinct": true,
+            "allocated_gib": [
+              33.720744609832764,
+              34.25372648239136
+            ]
+          },
+          {
+            "rep": 1,
+            "batch": 1,
+            "input_tokens": 8043,
+            "output_tokens": [
+              128
+            ],
+            "total_decode_tps": 16.67507164242986,
+            "per_row_tps": 16.67507164242986,
+            "tpot_ms": 59.96975733858268,
+            "step_tpot_p50_ms": 59.965377,
+            "step_tpot_p95_ms": 60.010126,
+            "ttft_s": 12.189928624,
+            "end_to_end_output_tps": 6.462563509600235,
+            "overlapping_row_pairs": 0,
+            "all_rows_emitted_steps": 128,
+            "all_rows_distinct_input_hidden": true,
+            "output_texts_distinct": true,
+            "allocated_gib": [
+              33.720744609832764,
+              34.25372648239136
+            ]
+          },
+          {
+            "rep": 2,
+            "batch": 1,
+            "input_tokens": 8043,
+            "output_tokens": [
+              128
+            ],
+            "total_decode_tps": 16.68000827635743,
+            "per_row_tps": 16.68000827635743,
+            "tpot_ms": 59.95200862204724,
+            "step_tpot_p50_ms": 59.945507,
+            "step_tpot_p95_ms": 59.980526,
+            "ttft_s": 12.168230752,
+            "end_to_end_output_tps": 6.470394786903859,
+            "overlapping_row_pairs": 0,
+            "all_rows_emitted_steps": 128,
+            "all_rows_distinct_input_hidden": true,
+            "output_texts_distinct": true,
+            "allocated_gib": [
+              33.720744609832764,
+              34.25372648239136
+            ]
+          }
+        ]
+      },
+      "261900": {
+        "samples": 1,
+        "input_tokens": 261943,
+        "total_decode_tps_median": 12.692000655899408,
+        "total_decode_tps_range": [
+          12.692000655899408,
+          12.692000655899408
+        ],
+        "per_row_tps_median": 12.692000655899408,
+        "tpot_ms_median": 78.78978477165354,
+        "ttft_s_median": 331.781253589,
+        "end_to_end_output_tps_median": 0.3745013319256697,
+        "records": [
+          {
+            "rep": 0,
+            "batch": 1,
+            "input_tokens": 261943,
+            "output_tokens": [
+              128
+            ],
+            "total_decode_tps": 12.692000655899408,
+            "per_row_tps": 12.692000655899408,
+            "tpot_ms": 78.78978477165354,
+            "step_tpot_p50_ms": 78.780678,
+            "step_tpot_p95_ms": 78.824469,
+            "ttft_s": 331.781253589,
+            "end_to_end_output_tps": 0.3745013319256697,
+            "overlapping_row_pairs": 0,
+            "all_rows_emitted_steps": 128,
+            "all_rows_distinct_input_hidden": true,
+            "output_texts_distinct": true,
+            "allocated_gib": [
+              37.055490493774414,
+              37.58716011047363
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "matched_path_comparisons": {
+    "8000": {
+      "total_throughput_gain_pct": 99.24421961910173,
+      "per_row_tpot_increase_pct": 100.75864723437707
+    },
+    "261900": {
+      "total_throughput_gain_pct": 61.21995606915587,
+      "per_row_tpot_increase_pct": 148.1082427713965
+    }
+  },
+  "caveats": [
+    "static full-model batch, not an HTTP continuous batching scheduler",
+    "shared document prefix, distinct suffixes, EOS respected",
+    "some B1-only fused operations disabled; unmodified BF16 head",
+    "experimental numerical path; full quality evaluation not completed",
+    "long context one group when present; no variance estimate",
+    "initial/ND comparison also changes prefill chunk, not a pure writer A/B"
+  ]
+}

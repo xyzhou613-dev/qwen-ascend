@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "small_scatter_reference_exact": true,
+  "fresh_graph_writes_exact": true,
+  "cache_gib": 2.375,
+  "allocated_gib": 2.3750157356262207,
+  "peak_gib": 2.390658378601074,
+  "additional_peak_mib": 16.01904296875,
+  "production_transfers_unchanged": {
+    "peer_transfers": 0,
+    "peer_bytes": 0,
+    "host_transfers": 3,
+    "host_bytes": 61440
+  }
+}

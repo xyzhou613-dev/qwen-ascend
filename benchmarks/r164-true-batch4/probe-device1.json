@@ -1,0 +1,96 @@
+{
+  "status": "passed",
+  "device": 1,
+  "elapsed_s": 4.381526547003887,
+  "records": [
+    {
+      "layer": 24,
+      "kind": "linear",
+      "batch_rows": 4,
+      "selected_gmm_groups": 40,
+      "batch_vs_independent": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "exact": true,
+        "finite": true
+      },
+      "batch_vs_original_b1": {
+        "relative_l2": 0.0006913028191775084,
+        "max_abs": 0.001953125,
+        "exact": false,
+        "finite": true
+      },
+      "other_rows_output_state_exact": true,
+      "permutation": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "exact": true,
+        "finite": true
+      },
+      "fresh_graph_seeds": [
+        16491,
+        16492
+      ],
+      "batch4_layer_median_ms": 2.049692392349243,
+      "samples_ms": [
+        2.0515899658203125,
+        2.051907539367676,
+        2.049692392349243,
+        2.0505099296569824,
+        2.046142578125,
+        2.0478174686431885,
+        2.046994924545288
+      ],
+      "matched_batch1_layer_median_ms": 1.0349700450897217,
+      "allocated_gib": 1.4194483757019043
+    },
+    {
+      "layer": 27,
+      "kind": "full",
+      "batch_rows": 4,
+      "selected_gmm_groups": 40,
+      "batch_vs_independent": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "exact": true,
+        "finite": true
+      },
+      "batch_vs_original_b1": {
+        "relative_l2": 0.00970288086682558,
+        "max_abs": 0.0126953125,
+        "exact": false,
+        "finite": true
+      },
+      "other_rows_output_state_exact": true,
+      "permutation": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "exact": true,
+        "finite": true
+      },
+      "fresh_graph_seeds": [
+        16491,
+        16492
+      ],
+      "batch4_layer_median_ms": 3.624467611312866,
+      "samples_ms": [
+        3.6332924365997314,
+        3.6237549781799316,
+        3.6189699172973633,
+        3.624467611312866,
+        3.624764919281006,
+        3.6267175674438477,
+        3.621507406234741
+      ],
+      "matched_batch1_layer_median_ms": 1.7482999563217163,
+      "allocated_gib": 1.5526704788208008
+    }
+  ],
+  "production_transfers_unchanged": {
+    "peer_transfers": 231,
+    "peer_bytes": 27805614080,
+    "host_transfers": 1422,
+    "host_bytes": 44236800
+  },
+  "scope": "real layer only; not full-model throughput"
+}

@@ -1,0 +1,6 @@
+{
+  "start_epoch": 1794641921,
+  "restore_trigger_epoch": 1794644321,
+  "independent_guard_epoch": 1794644381,
+  "hard_cap_epoch": 1794645521
+}

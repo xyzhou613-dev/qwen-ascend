@@ -1,0 +1,7 @@
+{
+  "explicit_user_permission": true,
+  "max_seconds": 3600,
+  "authorized_at": "2026-11-14T07:38:38.305529+00:00",
+  "user_answer": "允许本轮 ≤60 分钟停服实测",
+  "scope": "True B4 full-model 8k and ~256k performance; matched B1; restore at 40 minutes; no deployment"
+}

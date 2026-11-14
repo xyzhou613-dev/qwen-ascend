@@ -1,0 +1,94 @@
+{
+  "status": "passed",
+  "device": 0,
+  "elapsed_s": 3.95461356099986,
+  "records": [
+    {
+      "layer": 0,
+      "kind": "linear",
+      "batch_rows": 4,
+      "selected_gmm_groups": 40,
+      "batch_vs_independent": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "exact": true,
+        "finite": true
+      },
+      "batch_vs_original_b1": {
+        "relative_l2": 0.0011383277596905828,
+        "max_abs": 0.001953125,
+        "exact": false,
+        "finite": true
+      },
+      "other_rows_output_state_exact": true,
+      "permutation": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "exact": true,
+        "finite": true
+      },
+      "fresh_graph_seeds": [
+        16491,
+        16492
+      ],
+      "batch4_layer_median_ms": 2.0404300689697266,
+      "samples_ms": [
+        2.0404300689697266,
+        2.036512613296509,
+        2.0403850078582764,
+        2.041680097579956,
+        2.042370080947876,
+        2.0399625301361084,
+        2.0417799949645996
+      ],
+      "allocated_gib": 1.4164209365844727
+    },
+    {
+      "layer": 3,
+      "kind": "full",
+      "batch_rows": 4,
+      "selected_gmm_groups": 40,
+      "batch_vs_independent": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "exact": true,
+        "finite": true
+      },
+      "batch_vs_original_b1": {
+        "relative_l2": 0.004901291336864233,
+        "max_abs": 0.00390625,
+        "exact": false,
+        "finite": true
+      },
+      "other_rows_output_state_exact": true,
+      "permutation": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "exact": true,
+        "finite": true
+      },
+      "fresh_graph_seeds": [
+        16491,
+        16492
+      ],
+      "batch4_layer_median_ms": 3.6067824363708496,
+      "samples_ms": [
+        3.6067824363708496,
+        3.6061224937438965,
+        3.6094300746917725,
+        3.605375051498413,
+        3.6071999073028564,
+        3.605720043182373,
+        3.6103999614715576
+      ],
+      "allocated_gib": 1.5331201553344727
+    }
+  ],
+  "production_transfers_unchanged": {
+    "peer_transfers": 231,
+    "peer_bytes": 27805614080,
+    "host_transfers": 1422,
+    "host_bytes": 44236800
+  },
+  "scope": "real layer only; not full-model throughput"
+}

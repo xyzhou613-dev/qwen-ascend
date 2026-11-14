@@ -1,0 +1,3 @@
+{
+  "error": "OutOfMemoryError('NPU out of memory. Tried to allocate 1.03 GiB (NPU 1; 60.96 GiB total capacity; 48.45 GiB already allocated; 48.45 GiB current active; 930.20 MiB free; 59.46 GiB reserved in total by PyTorch).If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.')"
+}

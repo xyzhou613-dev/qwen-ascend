@@ -1,0 +1,13 @@
+{
+  "batch": 4,
+  "chunk": 2048,
+  "ctx": 262144,
+  "original_window": {
+    "start_epoch": 1794641921,
+    "restore_trigger_epoch": 1794644321,
+    "independent_guard_epoch": 1794644381,
+    "hard_cap_epoch": 1794645521
+  },
+  "timeout_s": 1200,
+  "pid": 7912
+}

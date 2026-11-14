@@ -1,0 +1,15 @@
+{
+  "epoch": 1794642654.006116,
+  "reason": "KV scatter workspace OOM; exact sparse write probe passed",
+  "original_window": {
+    "start_epoch": 1794641921,
+    "restore_trigger_epoch": 1794644321,
+    "independent_guard_epoch": 1794644381,
+    "hard_cap_epoch": 1794645521
+  },
+  "remaining_to_restore_s": 1670.1261150836945,
+  "original_deadlines_unchanged": true,
+  "prefill_chunk": 2048,
+  "short_repetitions": 3,
+  "long_repetitions": 1
+}

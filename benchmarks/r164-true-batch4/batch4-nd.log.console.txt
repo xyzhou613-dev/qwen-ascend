@@ -1,0 +1,227 @@
+[W1114 07:53:12.114352161 NPUCachingAllocator.cpp:202] Warning: The current CANN and HDK(driver) versions require processing for 32 padding size, with memory allocation. (function operator())
+[dense_w8] lm_head → int8 分 4 段，每段 N≤62080（算子上限 65535）
+nonlayer 完成 0.2s
+  layer  0 type=linear load    0.2s init   0.1s 累计    0.4s  hbm0= 2.15GiB hbm1= 1.36GiB
+  layer  1 type=ple   load    0.1s init   0.0s 累计    0.6s  hbm0= 3.59GiB hbm1= 1.36GiB
+  layer  2 type=linear load    0.2s init   0.0s 累计    0.7s  hbm0= 4.99GiB hbm1= 1.36GiB
+  layer  3 type=full  load    0.1s init   0.0s 累计    0.9s  hbm0= 6.37GiB hbm1= 1.36GiB
+  layer  4 type=linear load    0.1s init   0.0s 累计    1.0s  hbm0= 7.78GiB hbm1= 1.36GiB
+  layer  5 type=linear load    0.1s init   0.0s 累计    1.2s  hbm0= 9.18GiB hbm1= 1.36GiB
+  layer  6 type=linear load    0.2s init   0.0s 累计    1.3s  hbm0=10.58GiB hbm1= 1.36GiB
+  layer  7 type=full  load    0.1s init   0.0s 累计    1.5s  hbm0=11.97GiB hbm1= 1.36GiB
+  layer  8 type=linear load    0.1s init   0.0s 累计    1.6s  hbm0=13.37GiB hbm1= 1.36GiB
+  layer  9 type=linear load    0.2s init   0.0s 累计    1.8s  hbm0=14.77GiB hbm1= 1.36GiB
+  layer 10 type=linear load    0.1s init   0.0s 累计    1.9s  hbm0=16.18GiB hbm1= 1.36GiB
+  layer 11 type=full  load    0.1s init   0.0s 累计    2.1s  hbm0=17.56GiB hbm1= 1.36GiB
+  layer 12 type=linear load    0.1s init   0.0s 累计    2.2s  hbm0=18.96GiB hbm1= 1.36GiB
+  layer 13 type=linear load    0.1s init   0.0s 累计    2.4s  hbm0=20.36GiB hbm1= 1.36GiB
+  layer 14 type=linear load    0.1s init   0.0s 累计    2.5s  hbm0=21.77GiB hbm1= 1.36GiB
+  layer 15 type=full  load    0.2s init   0.0s 累计    2.7s  hbm0=23.15GiB hbm1= 1.36GiB
+  layer 16 type=linear load    0.1s init   0.0s 累计    2.8s  hbm0=24.55GiB hbm1= 1.36GiB
+  layer 17 type=linear load    0.1s init   0.0s 累计    2.9s  hbm0=25.96GiB hbm1= 1.36GiB
+  layer 18 type=linear load    0.1s init   0.0s 累计    3.1s  hbm0=27.36GiB hbm1= 1.36GiB
+  layer 19 type=full  load    0.1s init   0.0s 累计    3.3s  hbm0=28.74GiB hbm1= 1.36GiB
+  layer 20 type=linear load    0.1s init   0.0s 累计    3.4s  hbm0=30.15GiB hbm1= 1.36GiB
+  layer 21 type=linear load    0.2s init   0.0s 累计    3.6s  hbm0=31.55GiB hbm1= 1.36GiB
+  layer 22 type=linear load    0.1s init   0.0s 累计    3.7s  hbm0=32.95GiB hbm1= 1.36GiB
+  layer 23 type=full  load    0.1s init   0.0s 累计    3.8s  hbm0=34.33GiB hbm1= 1.36GiB
+  layer 24 type=linear load    0.1s init   0.0s 累计    4.0s  hbm0=34.33GiB hbm1= 2.76GiB
+  layer 25 type=linear load    0.2s init   0.0s 累计    4.2s  hbm0=34.33GiB hbm1= 4.16GiB
+  layer 26 type=linear load    0.1s init   0.0s 累计    4.3s  hbm0=34.33GiB hbm1= 5.57GiB
+  layer 27 type=full  load    0.1s init   0.0s 累计    4.5s  hbm0=34.33GiB hbm1= 6.95GiB
+  layer 28 type=linear load    0.2s init   0.0s 累计    4.7s  hbm0=34.33GiB hbm1= 8.35GiB
+  layer 29 type=linear load    0.1s init   0.0s 累计    4.8s  hbm0=34.33GiB hbm1= 9.75GiB
+  layer 30 type=linear load    0.1s init   0.0s 累计    5.0s  hbm0=34.33GiB hbm1=11.16GiB
+  layer 31 type=full  load    0.2s init   0.0s 累计    5.1s  hbm0=34.33GiB hbm1=12.54GiB
+  layer 32 type=linear load    0.1s init   0.0s 累计    5.3s  hbm0=34.33GiB hbm1=13.94GiB
+  layer 33 type=linear load    0.1s init   0.0s 累计    5.4s  hbm0=34.33GiB hbm1=15.35GiB
+  layer 34 type=linear load    0.2s init   0.0s 累计    5.6s  hbm0=34.33GiB hbm1=16.75GiB
+  layer 35 type=full  load    0.1s init   0.0s 累计    5.7s  hbm0=34.33GiB hbm1=18.13GiB
+  layer 36 type=linear load    0.1s init   0.0s 累计    5.9s  hbm0=34.33GiB hbm1=19.54GiB
+  layer 37 type=linear load    0.1s init   0.0s 累计    6.0s  hbm0=34.33GiB hbm1=20.94GiB
+  layer 38 type=linear load    0.2s init   0.0s 累计    6.2s  hbm0=34.33GiB hbm1=22.34GiB
+  layer 39 type=full  load    0.1s init   0.0s 累计    6.4s  hbm0=34.33GiB hbm1=23.72GiB
+  layer 40 type=linear load    0.2s init   0.0s 累计    6.5s  hbm0=34.33GiB hbm1=25.13GiB
+  layer 41 type=linear load    0.1s init   0.0s 累计    6.7s  hbm0=34.33GiB hbm1=26.53GiB
+  layer 42 type=linear load    0.1s init   0.0s 累计    6.8s  hbm0=34.33GiB hbm1=27.93GiB
+  layer 43 type=full  load    0.1s init   0.0s 累计    7.0s  hbm0=34.33GiB hbm1=29.32GiB
+  layer 44 type=linear load    0.1s init   0.0s 累计    7.1s  hbm0=34.33GiB hbm1=30.72GiB
+  layer 45 type=linear load    0.1s init   0.0s 累计    7.3s  hbm0=34.33GiB hbm1=32.12GiB
+  layer 46 type=linear load    0.1s init   0.0s 累计    7.4s  hbm0=34.33GiB hbm1=33.52GiB
+  layer 47 type=full  load    0.2s init   0.0s 累计    7.6s  hbm0=34.33GiB hbm1=34.91GiB
+装配完成 7.6s  hbm0=34.34GiB hbm1=34.91GiB
+[W1114 07:53:20.408757426 TensorFactories.cpp:423] Warning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (function operator())
+逐层图捕获 24 张（dev1）
+图捕获完成 body0
+batch4-graph-check.json {"seeds": [16403, 16407], "positions": [17, 23], "logits_hidden_states_exact": true}
+[W1114 07:54:56.295195822 NPUGraph.cpp:340] Warning: NPU warning, error code is 107004[Error]:
+[Error]: The model is not in the current context.
+        Check whether the loaded model is consistent with the current context.
+[PID: 7912] 2026-11-14-07:54:56.691.350 Execution_Error_Invalid_Context(EE1010): ModelDestroy execution failed because model does not belong to the current context. Extended information: model_id=49, model_ctx=0xaaab227aac20, cur_ctx=0xaaab0f563970.
+TraceBack (most recent call last):
+        rtModelDestroy execution failed, reason=model not in current ctx[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:69]
+ (function reset)
+[W1114 07:54:56.295532623 NPUGraph.cpp:340] Warning: NPU warning, error code is 107004[Error]:
+[Error]: The model is not in the current context.
+        Check whether the loaded model is consistent with the current context.
+[PID: 7912] 2026-11-14-07:54:56.692.762 Execution_Error_Invalid_Context(EE1010): ModelDestroy execution failed because model does not belong to the current context. Extended information: model_id=48, model_ctx=0xaaab227aac20, cur_ctx=0xaaab0f563970.
+TraceBack (most recent call last):
+        rtModelDestroy execution failed, reason=model not in current ctx[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:69]
+ (function reset)
+[W1114 07:54:56.295795144 NPUGraph.cpp:340] Warning: NPU warning, error code is 107004[Error]:
+[Error]: The model is not in the current context.
+        Check whether the loaded model is consistent with the current context.
+[PID: 7912] 2026-11-14-07:54:56.693.061 Execution_Error_Invalid_Context(EE1010): ModelDestroy execution failed because model does not belong to the current context. Extended information: model_id=47, model_ctx=0xaaab227aac20, cur_ctx=0xaaab0f563970.
+TraceBack (most recent call last):
+        rtModelDestroy execution failed, reason=model not in current ctx[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:69]
+ (function reset)
+[W1114 07:54:56.296062384 NPUGraph.cpp:340] Warning: NPU warning, error code is 107004[Error]:
+[Error]: The model is not in the current context.
+        Check whether the loaded model is consistent with the current context.
+[PID: 7912] 2026-11-14-07:54:56.693.321 Execution_Error_Invalid_Context(EE1010): ModelDestroy execution failed because model does not belong to the current context. Extended information: model_id=46, model_ctx=0xaaab227aac20, cur_ctx=0xaaab0f563970.
+TraceBack (most recent call last):
+        rtModelDestroy execution failed, reason=model not in current ctx[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:69]
+ (function reset)
+[W1114 07:54:56.296328255 NPUGraph.cpp:340] Warning: NPU warning, error code is 107004[Error]:
+[Error]: The model is not in the current context.
+        Check whether the loaded model is consistent with the current context.
+[PID: 7912] 2026-11-14-07:54:56.693.595 Execution_Error_Invalid_Context(EE1010): ModelDestroy execution failed because model does not belong to the current context. Extended information: model_id=45, model_ctx=0xaaab227aac20, cur_ctx=0xaaab0f563970.
+TraceBack (most recent call last):
+        rtModelDestroy execution failed, reason=model not in current ctx[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:69]
+ (function reset)
+[W1114 07:54:56.296597096 NPUGraph.cpp:340] Warning: NPU warning, error code is 107004[Error]:
+[Error]: The model is not in the current context.
+        Check whether the loaded model is consistent with the current context.
+[PID: 7912] 2026-11-14-07:54:56.693.857 Execution_Error_Invalid_Context(EE1010): ModelDestroy execution failed because model does not belong to the current context. Extended information: model_id=44, model_ctx=0xaaab227aac20, cur_ctx=0xaaab0f563970.
+TraceBack (most recent call last):
+        rtModelDestroy execution failed, reason=model not in current ctx[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:69]
+ (function reset)
+[W1114 07:54:56.296849087 NPUGraph.cpp:340] Warning: NPU warning, error code is 107004[Error]:
+[Error]: The model is not in the current context.
+        Check whether the loaded model is consistent with the current context.
+[PID: 7912] 2026-11-14-07:54:56.694.122 Execution_Error_Invalid_Context(EE1010): ModelDestroy execution failed because model does not belong to the current context. Extended information: model_id=43, model_ctx=0xaaab227aac20, cur_ctx=0xaaab0f563970.
+TraceBack (most recent call last):
+        rtModelDestroy execution failed, reason=model not in current ctx[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:69]
+ (function reset)
+[W1114 07:54:56.297111838 NPUGraph.cpp:340] Warning: NPU warning, error code is 107004[Error]:
+[Error]: The model is not in the current context.
+        Check whether the loaded model is consistent with the current context.
+[PID: 7912] 2026-11-14-07:54:56.694.383 Execution_Error_Invalid_Context(EE1010): ModelDestroy execution failed because model does not belong to the current context. Extended information: model_id=42, model_ctx=0xaaab227aac20, cur_ctx=0xaaab0f563970.
+TraceBack (most recent call last):
+        rtModelDestroy execution failed, reason=model not in current ctx[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:69]
+ (function reset)
+[W1114 07:54:56.297363969 NPUGraph.cpp:340] Warning: NPU warning, error code is 107004[Error]:
+[Error]: The model is not in the current context.
+        Check whether the loaded model is consistent with the current context.
+[PID: 7912] 2026-11-14-07:54:56.694.637 Execution_Error_Invalid_Context(EE1010): ModelDestroy execution failed because model does not belong to the current context. Extended information: model_id=41, model_ctx=0xaaab227aac20, cur_ctx=0xaaab0f563970.
+TraceBack (most recent call last):
+        rtModelDestroy execution failed, reason=model not in current ctx[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:69]
+ (function reset)
+[W1114 07:54:56.297621190 NPUGraph.cpp:340] Warning: NPU warning, error code is 107004[Error]:
+[Error]: The model is not in the current context.
+        Check whether the loaded model is consistent with the current context.
+[PID: 7912] 2026-11-14-07:54:56.694.892 Execution_Error_Invalid_Context(EE1010): ModelDestroy execution failed because model does not belong to the current context. Extended information: model_id=40, model_ctx=0xaaab227aac20, cur_ctx=0xaaab0f563970.
+TraceBack (most recent call last):
+        rtModelDestroy execution failed, reason=model not in current ctx[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:69]
+ (function reset)
+[W1114 07:54:56.297872220 NPUGraph.cpp:340] Warning: NPU warning, error code is 107004[Error]:
+[Error]: The model is not in the current context.
+        Check whether the loaded model is consistent with the current context.
+[PID: 7912] 2026-11-14-07:54:56.695.144 Execution_Error_Invalid_Context(EE1010): ModelDestroy execution failed because model does not belong to the current context. Extended information: model_id=39, model_ctx=0xaaab227aac20, cur_ctx=0xaaab0f563970.
+TraceBack (most recent call last):
+        rtModelDestroy execution failed, reason=model not in current ctx[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:69]
+ (function reset)
+[W1114 07:54:56.298133741 NPUGraph.cpp:340] Warning: NPU warning, error code is 107004[Error]:
+[Error]: The model is not in the current context.
+        Check whether the loaded model is consistent with the current context.
+[PID: 7912] 2026-11-14-07:54:56.695.396 Execution_Error_Invalid_Context(EE1010): ModelDestroy execution failed because model does not belong to the current context. Extended information: model_id=38, model_ctx=0xaaab227aac20, cur_ctx=0xaaab0f563970.
+TraceBack (most recent call last):
+        rtModelDestroy execution failed, reason=model not in current ctx[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:69]
+ (function reset)
+[W1114 07:54:56.298382912 NPUGraph.cpp:340] Warning: NPU warning, error code is 107004[Error]:
+[Error]: The model is not in the current context.
+        Check whether the loaded model is consistent with the current context.
+[PID: 7912] 2026-11-14-07:54:56.695.657 Execution_Error_Invalid_Context(EE1010): ModelDestroy execution failed because model does not belong to the current context. Extended information: model_id=37, model_ctx=0xaaab227aac20, cur_ctx=0xaaab0f563970.
+TraceBack (most recent call last):
+        rtModelDestroy execution failed, reason=model not in current ctx[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:69]
+ (function reset)
+[W1114 07:54:56.298644443 NPUGraph.cpp:340] Warning: NPU warning, error code is 107004[Error]:
+[Error]: The model is not in the current context.
+        Check whether the loaded model is consistent with the current context.
+[PID: 7912] 2026-11-14-07:54:56.695.916 Execution_Error_Invalid_Context(EE1010): ModelDestroy execution failed because model does not belong to the current context. Extended information: model_id=36, model_ctx=0xaaab227aac20, cur_ctx=0xaaab0f563970.
+TraceBack (most recent call last):
+        rtModelDestroy execution failed, reason=model not in current ctx[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:69]
+ (function reset)
+[W1114 07:54:56.298893214 NPUGraph.cpp:340] Warning: NPU warning, error code is 107004[Error]:
+[Error]: The model is not in the current context.
+        Check whether the loaded model is consistent with the current context.
+[PID: 7912] 2026-11-14-07:54:56.696.169 Execution_Error_Invalid_Context(EE1010): ModelDestroy execution failed because model does not belong to the current context. Extended information: model_id=35, model_ctx=0xaaab227aac20, cur_ctx=0xaaab0f563970.
+TraceBack (most recent call last):
+        rtModelDestroy execution failed, reason=model not in current ctx[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:69]
+ (function reset)
+[W1114 07:54:56.299144405 NPUGraph.cpp:340] Warning: NPU warning, error code is 107004[Error]:
+[Error]: The model is not in the current context.
+        Check whether the loaded model is consistent with the current context.
+[PID: 7912] 2026-11-14-07:54:56.696.416 Execution_Error_Invalid_Context(EE1010): ModelDestroy execution failed because model does not belong to the current context. Extended information: model_id=34, model_ctx=0xaaab227aac20, cur_ctx=0xaaab0f563970.
+TraceBack (most recent call last):
+        rtModelDestroy execution failed, reason=model not in current ctx[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:69]
+ (function reset)
+[W1114 07:54:56.299414955 NPUGraph.cpp:340] Warning: NPU warning, error code is 107004[Error]:
+[Error]: The model is not in the current context.
+        Check whether the loaded model is consistent with the current context.
+[PID: 7912] 2026-11-14-07:54:56.696.675 Execution_Error_Invalid_Context(EE1010): ModelDestroy execution failed because model does not belong to the current context. Extended information: model_id=33, model_ctx=0xaaab227aac20, cur_ctx=0xaaab0f563970.
+TraceBack (most recent call last):
+        rtModelDestroy execution failed, reason=model not in current ctx[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:69]
+ (function reset)
+[W1114 07:54:56.299669446 NPUGraph.cpp:340] Warning: NPU warning, error code is 107004[Error]:
+[Error]: The model is not in the current context.
+        Check whether the loaded model is consistent with the current context.
+[PID: 7912] 2026-11-14-07:54:56.696.942 Execution_Error_Invalid_Context(EE1010): ModelDestroy execution failed because model does not belong to the current context. Extended information: model_id=32, model_ctx=0xaaab227aac20, cur_ctx=0xaaab0f563970.
+TraceBack (most recent call last):
+        rtModelDestroy execution failed, reason=model not in current ctx[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:69]
+ (function reset)
+[W1114 07:54:56.299921107 NPUGraph.cpp:340] Warning: NPU warning, error code is 107004[Error]:
+[Error]: The model is not in the current context.
+        Check whether the loaded model is consistent with the current context.
+[PID: 7912] 2026-11-14-07:54:56.697.194 Execution_Error_Invalid_Context(EE1010): ModelDestroy execution failed because model does not belong to the current context. Extended information: model_id=31, model_ctx=0xaaab227aac20, cur_ctx=0xaaab0f563970.
+TraceBack (most recent call last):
+        rtModelDestroy execution failed, reason=model not in current ctx[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:69]
+ (function reset)
+[W1114 07:54:56.300195758 NPUGraph.cpp:340] Warning: NPU warning, error code is 107004[Error]:
+[Error]: The model is not in the current context.
+        Check whether the loaded model is consistent with the current context.
+[PID: 7912] 2026-11-14-07:54:56.697.455 Execution_Error_Invalid_Context(EE1010): ModelDestroy execution failed because model does not belong to the current context. Extended information: model_id=30, model_ctx=0xaaab227aac20, cur_ctx=0xaaab0f563970.
+TraceBack (most recent call last):
+        rtModelDestroy execution failed, reason=model not in current ctx[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:69]
+ (function reset)
+[W1114 07:54:56.300450379 NPUGraph.cpp:340] Warning: NPU warning, error code is 107004[Error]:
+[Error]: The model is not in the current context.
+        Check whether the loaded model is consistent with the current context.
+[PID: 7912] 2026-11-14-07:54:56.697.724 Execution_Error_Invalid_Context(EE1010): ModelDestroy execution failed because model does not belong to the current context. Extended information: model_id=29, model_ctx=0xaaab227aac20, cur_ctx=0xaaab0f563970.
+TraceBack (most recent call last):
+        rtModelDestroy execution failed, reason=model not in current ctx[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:69]
+ (function reset)
+[W1114 07:54:56.300702670 NPUGraph.cpp:340] Warning: NPU warning, error code is 107004[Error]:
+[Error]: The model is not in the current context.
+        Check whether the loaded model is consistent with the current context.
+[PID: 7912] 2026-11-14-07:54:56.697.977 Execution_Error_Invalid_Context(EE1010): ModelDestroy execution failed because model does not belong to the current context. Extended information: model_id=28, model_ctx=0xaaab227aac20, cur_ctx=0xaaab0f563970.
+TraceBack (most recent call last):
+        rtModelDestroy execution failed, reason=model not in current ctx[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:69]
+ (function reset)
+[W1114 07:54:56.300963661 NPUGraph.cpp:340] Warning: NPU warning, error code is 107004[Error]:
+[Error]: The model is not in the current context.
+        Check whether the loaded model is consistent with the current context.
+[PID: 7912] 2026-11-14-07:54:56.698.226 Execution_Error_Invalid_Context(EE1010): ModelDestroy execution failed because model does not belong to the current context. Extended information: model_id=27, model_ctx=0xaaab227aac20, cur_ctx=0xaaab0f563970.
+TraceBack (most recent call last):
+        rtModelDestroy execution failed, reason=model not in current ctx[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:69]
+ (function reset)
+[W1114 07:54:56.301211101 NPUGraph.cpp:340] Warning: NPU warning, error code is 107004[Error]:
+[Error]: The model is not in the current context.
+        Check whether the loaded model is consistent with the current context.
+[PID: 7912] 2026-11-14-07:54:56.698.488 Execution_Error_Invalid_Context(EE1010): ModelDestroy execution failed because model does not belong to the current context. Extended information: model_id=26, model_ctx=0xaaab227aac20, cur_ctx=0xaaab0f563970.
+TraceBack (most recent call last):
+        rtModelDestroy execution failed, reason=model not in current ctx[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:69]
+ (function reset)
+逐层图捕获 24 张（dev1）
+图捕获完成 body0
+batch4-long-graph-check.json {"seeds": [16403, 16407], "positions": [17, 23], "logits_hidden_states_exact": true}
