@@ -1,0 +1,107 @@
+"""Publish the accepted protocol repair, excluding captured process env."""
+import datetime,hashlib,json,shutil,subprocess,tarfile,time
+from pathlib import Path
+P=Path(__file__).resolve().parent;R=Path('/root/qwen-ascend');sha=lambda f:hashlib.sha256(f.read_bytes()).hexdigest()
+accepted=json.loads((P/'accepted.json').read_text());final=json.loads((P/'final-validation.json').read_text())
+live=json.loads((P/'live-acceptance.json').read_text());m=json.loads((P/'release-manifest.json').read_text())
+assert final['status']=='passed' and live['status']=='passed' and len(live['records'])==12
+assert json.loads((P/'roundtrip-probe.json').read_text())['status']=='passed'
+assert json.loads((P/'thinking-mode-probe.json').read_text())['status']=='passed'
+assert not (P/'original-private.json').exists() and not (P/'lease.active').exists()
+assert all(sha(P/n)==h for n,h in json.loads((P/'harness-manifest.json').read_text()).items())
+allowed={'fnx/server.py','fnx/request_validation.py','fnx/tool_protocol.py','tests/t_tool_protocol.py','tests/t_server_tool_protocol.py'}
+status=subprocess.check_output(['git','status','--porcelain','--untracked-files=all'],cwd=R,text=True)
+assert {s[3:] for s in status.splitlines()}==allowed,'PRESERVE_UNRELATED_WORK'
+for n,h in m['new_files'].items():assert sha(R/'fnx'/n)==sha(P/'runtime/fnx'/n)==h
+by={r['name']:r for r in live['records']}
+types=json.loads(by['typed_nonstream']['summary']['calls'][0]['function']['arguments'])
+usage=next(e['usage'] for e in by['typed_sse_usage']['events'] if e.get('choices')==[])
+def cst(epoch):return datetime.datetime.fromtimestamp(epoch,datetime.timezone(datetime.timedelta(hours=8))).strftime('%H:%M:%S')
+w=json.loads((P/'window.json').read_text())
+report=['# r165：FNX 工具调用协议修复与上线验收（2026-11-14）','',
+'**已上线 192.168.18.206:9002。推理版本保持 r152，HTTP 工具协议为 r165。** `/health.tool_protocol_revision` 返回 `r165`。本轮未修改模型权重、采样计算或推理内核。','',
+'此前核查发现当前实例仍把结构化参数当字符串、忽略 tool_choice、缺少流式 index/usage；另有输出预算双字段优先级和 null 回退问题。用户随后明确要求修复。本轮修复对象是当前206实例，不涉及文档中另一台16.11实例。','',
+'## 修复内容','',
+'| 项目 | 上线行为 |', '|---|---|',
+'| 参数类型 | 按对应工具的schema恢复整数、数字、布尔、数组、对象和null；字符串声明保留数字/true/null等文本 |',
+'| Python字面量 | JSON优先，兼容True/False/None及单引号对象；不执行表达式 |',
+'| schema引用和联合类型 | 支持本地$ref、基本anyOf/oneOf与嵌套类型检查；避免把bool当integer |',
+'| tool_choice | auto保留模型选择；none移除工具声明并按文本输出；required/指定函数使用Qwen续写前缀，单工具保持完整MCP名称；非法选择和未声明函数返回400 |',
+'| 流式调用 | delta.tool_calls补充连续index；include_usage=true时输出标准choices=[]的usage块，然后DONE |',
+'| 输出预算 | max_completion_tokens非null时优先；否则回退max_tokens；两者均无值才默认128，仍检查正整数和上下文容量 |',
+'| 已有行为回归 | 保留DecodeStream中文/emoji解码、length/stop/tool_calls结束原因、非流式usage及既有fnx_stats |','',
+'外层function.arguments仍为标准JSON字符串；其内部字段现在保留正确类型。实际返回内容示例：','',
+'```json',json.dumps(types,ensure_ascii=False,indent=2),'```','',
+'未声明schema的旧消息式XML用法继续保留字符串行为。无法按声明类型解析、未知函数、参数重复或不完整XML保留在文本中，不伪装成有效调用。强制工具选择使用续写前缀，仍需给足生成预算；本轮没有实现完整的JSON Schema约束解码。','',
+'## 验证结果','',
+'39项纯协议测试、28组实际请求处理函数测试全部通过。处理函数测试使用真实tokenizer和确定性生成器，禁止构造模型，NPU未初始化。另对修复前捕获的3份真实模型参数重放，数组/对象/数字/布尔转换及六项todos恢复均通过。','',
+'| 真实接口验收 | 结果 |','|---|---|',
+'| 非流式、流式结构化参数 | count=int、enabled=bool、tags=list、options=dict、label=str |',
+f"| 流式index/usage | index=0，completion_tokens={usage['completion_tokens']}，总计数=prompt+completion |",
+'| 单工具required | 完整mcp__audit__echo，中文及😀完整 |',
+'| 多工具required、指定函数 | 返回已注册函数；指定函数为准确完整名称 |',
+'| tool_choice=none | 文本响应，无结构化调用 |',
+'| 非法选择、不存在的函数 | 两项均为预期HTTP400 |',
+'| 现代字段、双字段、旧字段null | 三项长调用均生成162 token，返回六项todos数组 |',
+'| 32 token截断 | finish_reason=length |','',
+'上述共12项，全部通过。再补两项真实接口检查：按index拼装流式调用并回传带数组/对象的工具结果，下一轮正确返回“协议回传成功”；enable_thinking=true下的required完整MCP回声调用也通过。没有执行返回的外部工具，未运行真实C SDK程序；因此不把这些接口结果表述为C SDK端到端验收。','',
+f"普通生成回归：新鲜8k输入、128输出与原r152基线回答完全一致，单次TPOT {json.loads((P/'candidate-formal-smoke.json').read_text())['stats']['tpot_ms']:.2f}ms。该项用于回归，不作为新的性能提速结论。",'',
+'## 发布、备份与恢复','',
+f"本轮在空闲确认后，从 {cst(w['start_epoch'])} 启动维护，{cst(accepted['epoch'])} 验收完成，总耗时 {accepted['elapsed_s']:.1f} 秒（约{accepted['elapsed_s']/60:.2f}分钟）。根据本次修复指令和原任务必要短维护授权执行；20分钟为本轮自设保护上限，不沿用已结束的r164性能窗口。独立回滚定时为{cst(w['rollback_trigger_epoch'])}，第二守护晚15秒触发。",'',
+'只替换server.py、request_validation.py并新增tool_protocol.py。43个其他推理源文件、p275启动脚本和原容器身份均保持。先在临时目录执行了完整安装/回退字节校验；正式部署通过后没有触发回滚。原文件备份保存在诊断目录的backup/。','',
+'正常开机恢复保持启用；维护期间额外保护未验收源码在新boot前回退。验收后已清理该临时boot hook、回滚timer、guard、manager临时drop-in、lease和捕获的私有环境。manager、单watchdog及双进程worker正常。回滚程序刻意拒绝撤回已经accepted的发布；未来如需人工回退，应新建维护记录并使用备份，不重置本次窗口。','',
+'源码与证据：fnx/tool_protocol.py、fnx/server.py、fnx/request_validation.py；tests/t_tool_protocol.py、tests/t_server_tool_protocol.py；benchmarks/r165-tool-protocol保存原始请求/响应、测试和恢复证明，experiments/r165-tool-protocol保存本轮控制脚本。','']
+(P/'report.md').write_text('\n'.join(report))
+bench=R/'benchmarks/r165-tool-protocol';ops=R/'experiments/r165-tool-protocol';doc=R/'docs/r165-tool-protocol.md'
+assert not bench.exists() and not ops.exists() and not doc.exists();bench.mkdir();ops.mkdir()
+scripts=sorted(f.name for f in P.glob('*.py'))
+for n in scripts:shutil.copy2(P/n,ops/n)
+data=['accepted.json','final-validation.json','release-manifest.json','harness-manifest.json','rollback-dryrun.json','server-protocol-tests.json',
+      'unit-tests.log','live-output-replay.json','live-acceptance.json','live-before.json','candidate-health.json','candidate-formal-smoke.json',
+      'window.json','roundtrip-probe.json','thinking-mode-probe.json','armed-rollback-units.txt','backup/server.py','backup/request_validation.py']
+for n in data:
+    target=bench/n;target.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(P/n,target)
+for n in ('deployment.log','candidate-start.log','live-tests.log'):
+    (bench/(n+'.txt')).write_text('\n'.join(s.rstrip() for s in (P/n).read_text(errors='replace').splitlines())+'\n')
+readme='''# r165 tool protocol repair
+
+Accepted on 192.168.18.206:9002. Model/engine r152, protocol r165.
+No NPU/model math changes; only three HTTP protocol files changed/added.
+39 pure tests + 28 real-tokenizer handler cases + 12 live interface cases pass,
+plus typed tool-result roundtrip and enabled-thinking required-tool probes.
+
+Run `python3 tests/t_tool_protocol.py` from the repository for the pure tests.
+The actual-handler probe also needs the deployed Python dependencies and real
+tokenizer at /models/Qwen3.8-Flash-Next. Use `FNX_TEST_RUNTIME=<repo>` and optionally
+`FNX_TEST_OUTPUT=<output-dir>` with `python tests/t_server_tool_protocol.py`.
+The model constructor is forbidden by that test; it does not create an Engine.
+
+Controller paths here record this specific bounded rollout. Do not rerun the
+old start script or reuse/reset its window. New maintenance requires a fresh
+directory, current source ownership/hash checks and appropriate authorization.
+Backup and independent rollback are preserved; accepted releases are protected
+from accidental rollback. Raw logs/old source and hashes are in the archive;
+repository log copies only trim trailing whitespace. Captured process env is
+never published and was removed on acceptance.
+
+See ../../docs/r165-tool-protocol.md and ../../benchmarks/r165-tool-protocol/.
+'''
+(ops/'README.md').write_text(readme);shutil.copy2(P/'report.md',doc)
+root=R/'README.md';prior=root.read_bytes();marker=b'<!-- r165-tool-protocol -->';assert marker not in prior
+prefix=('<!-- r165-tool-protocol -->\n'
+'> 当前推理内核保持 **r152**，2026-11-14 已上线 **r165工具调用协议**：修复参数类型、tool_choice、流式index/usage及输出预算优先级/null回退。67项CPU回归、12项真实接口及多轮回传/思考模式补测通过，新鲜8k回答与原基线一致。[修复与上线验收](docs/r165-tool-protocol.md)。\n'
+'> 下方保留历史实验及版本记录。\n<!-- /r165-tool-protocol -->\n\n').encode()
+root.write_bytes(prefix+prior);assert root.read_bytes()[len(prefix):]==prior
+public=sorted(set(scripts+data+['report.md','deployment.log','candidate-start.log','live-tests.log']+
+    ['runtime/fnx/'+n for n in m['new_files']]))
+assert all('original-private' not in n and 'lease.active' not in n for n in public)
+receipt=dict(epoch=time.time(),status='accepted',engine_revision='r152',tool_protocol_revision='r165',base_git_commit=m['base_git_commit'],
+    new_source_hashes=m['new_files'],files={n:sha(P/n) for n in public},private_environment_excluded=True,
+    old_readme_sha256=hashlib.sha256(prior).hexdigest(),readme_history_preserved=True)
+(P/'PUBLICATION.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2));shutil.copy2(P/'PUBLICATION.json',bench/'PUBLICATION.json')
+with tarfile.open(P/'evidence.tgz','w:gz') as tar:
+    for n in public+['PUBLICATION.json']:tar.add(P/n,arcname=n,recursive=False)
+(P/'evidence.sha256').write_text(sha(P/'evidence.tgz')+'  evidence.tgz\n')
+files=sorted(f for top in (bench,ops) for f in top.rglob('*') if f.is_file())
+(bench/'SHA256SUMS').write_text(''.join(f'{sha(f)}  {f.relative_to(R)}\n' for f in files))
+print('R165_PUBLICATION_READY',len(public)+1,'archive files',sha(P/'evidence.tgz'))

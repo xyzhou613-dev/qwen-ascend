@@ -1,0 +1,15 @@
+# /run/systemd/system/fnx-r165-rollback.service
+[Unit]
+Description=Rollback unaccepted FNX tool protocol repair
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /models/fnx-diagnostics/r165-tool-protocol-20261114/recover.py
+TimeoutStartSec=580
+Restart=on-failure
+RestartSec=5
+
+# /run/systemd/system/fnx-r165-rollback.timer
+[Timer]
+OnCalendar=2026-11-14 09:27:00 UTC
+AccuracySec=1s
+Unit=fnx-r165-rollback.service

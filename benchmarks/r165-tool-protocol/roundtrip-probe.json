@@ -1,0 +1,112 @@
+{
+  "status": "passed",
+  "elapsed_s": 0.7805539180117194,
+  "streamed_call_assembled_by_index": true,
+  "typed_arguments_preserved": true,
+  "assistant_null_content_accepted": true,
+  "tool_result_roundtrip": true,
+  "real_external_tool_executed": false,
+  "request": {
+    "model": "qwen3.8-flash-next-w4",
+    "messages": [
+      {
+        "role": "user",
+        "content": "请调用audit_types：count为整数3，enabled为布尔true，tags为数组[\"甲\",\"乙\"]，options为对象{\"mode\":\"fast\"}，label为字符串123。只输出调用。"
+      },
+      {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "id": "call_276f4fe795134104",
+            "type": "function",
+            "function": {
+              "name": "audit_types",
+              "arguments": "{\"count\": 3, \"enabled\": true, \"tags\": [\"甲\", \"乙\"], \"options\": {\"mode\": \"fast\"}, \"label\": \"123\"}"
+            }
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_276f4fe795134104",
+        "content": "{\"ok\": true, \"received\": {\"count\": 3, \"enabled\": true, \"tags\": [\"甲\", \"乙\"], \"options\": {\"mode\": \"fast\"}, \"label\": \"123\"}}"
+      },
+      {
+        "role": "user",
+        "content": "以上工具结果已经确认。请只回复协议回传成功，不要再调用工具。"
+      }
+    ],
+    "tools": [
+      {
+        "type": "function",
+        "function": {
+          "name": "audit_types",
+          "description": "只回显诊断参数，不执行任何操作。",
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "count": {
+                "type": "integer"
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "options": {
+                "type": "object"
+              },
+              "label": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "count",
+              "enabled",
+              "tags",
+              "options",
+              "label"
+            ]
+          }
+        }
+      }
+    ],
+    "tool_choice": "none",
+    "max_completion_tokens": 64,
+    "temperature": 0
+  },
+  "response": {
+    "id": "chatcmpl-e29f824b2c7441d59bd64021",
+    "object": "chat.completion",
+    "created": 1794648405,
+    "model": "qwen3.8-flash-next-w4",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "协议回传成功"
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 225,
+      "completion_tokens": 5,
+      "total_tokens": 230
+    },
+    "fnx_stats": {
+      "ttft_ms": 637.82,
+      "seconds": 0.772,
+      "tpot_ms": 33.48,
+      "n_prefill": 221,
+      "prefill_ms": 589.82,
+      "prefill_tok_s": 374.69
+    }
+  }
+}

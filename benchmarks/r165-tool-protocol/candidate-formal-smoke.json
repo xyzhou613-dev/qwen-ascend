@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "stats": {
+    "ttft_ms": 3821.32,
+    "tokens": 128,
+    "seconds": 8.023,
+    "tpot_ms": 33.09,
+    "tok_decode_ms": 3.5,
+    "prefill_ms": 3764.79,
+    "prefill_tok_s": 2140.89,
+    "n_prefill": 8060
+  },
+  "answer_matches_r152_baseline": true,
+  "answer_sha256": "05898df0f3b91fb22d76ceaa0452bc2b0754d5de7e6135f5127f94592bf170a7",
+  "ttft_s": 3.8576547950069653,
+  "wall_s": 8.059818474008352
+}

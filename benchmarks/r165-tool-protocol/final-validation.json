@@ -1,0 +1,91 @@
+{
+  "status": "passed",
+  "epoch": 1794648230.3863406,
+  "health": {
+    "status": "ok",
+    "engine_loaded": true,
+    "ctx": 262144,
+    "service_revision": "r152",
+    "tool_protocol_revision": "r165",
+    "norm_post": true,
+    "state_update": true,
+    "prefill_output": true,
+    "norm_ordered": true,
+    "delta_reuse": true,
+    "moe_epilogue": true,
+    "post_native": true,
+    "decode_down_gmm": false,
+    "expert_gather": true,
+    "inject_native": true,
+    "conv_prefill": true,
+    "raw_compact": true,
+    "cpu_threads": 16,
+    "short_prefill_chunk": 2048,
+    "short_prefill_tokens": 16384,
+    "pipeline_stages": 2,
+    "worker_alive": true,
+    "prefill_chunk": 8192,
+    "pipeline_transport": "hybrid",
+    "delta_compact": true,
+    "index_post": true,
+    "index_score": true,
+    "conv_native": true,
+    "index_expand": true,
+    "mix_reduce": true,
+    "moe_reduce": true,
+    "dual_write": true,
+    "pipeline_transfers": {
+      "peer_transfers": 13,
+      "peer_bytes": 193986560,
+      "host_transfers": 931,
+      "host_bytes": 27750400
+    },
+    "index_caps": [
+      16384,
+      32768,
+      65536,
+      98304,
+      131072,
+      196608,
+      262144
+    ],
+    "native_sparse": true,
+    "native_dual": true,
+    "index_unique": true,
+    "moe_inverse": true,
+    "moe_inverse_sort": true,
+    "state_dual_slim": true,
+    "conversation_state_bytes": 351691808,
+    "rope_cache": true,
+    "delta_window": 2048,
+    "delta_native": true,
+    "chunk_graph": true,
+    "qsa_indexer": true,
+    "qsa_sparse": true
+  },
+  "engines": [
+    {
+      "pid": 318906,
+      "cwd": "/root/ascend-dev/fnx"
+    },
+    {
+      "pid": 318925,
+      "cwd": "/root/ascend-dev/fnx"
+    }
+  ],
+  "watchdog_pids": [
+    320216
+  ],
+  "unchanged_core_files": 43,
+  "p275_unchanged": true,
+  "container_preserved": true,
+  "temporary_controls_removed": true,
+  "normal_boot_restore_enabled": true,
+  "frozen_harness_verified": true,
+  "private_environment_removed": true,
+  "live_acceptance_cases": 12,
+  "formal_8k_answer_exact": true,
+  "tool_protocol_revision": "r165",
+  "engine_revision": "r152",
+  "elapsed_s": 331.0783357620239
+}

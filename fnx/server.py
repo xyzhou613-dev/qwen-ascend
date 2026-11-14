@@ -12,6 +12,8 @@ import json
 from jinja2 import TemplateError
 from tokenizers.decoders import DecodeStream
 from .request_validation import RequestError, object_body, positive_int, chat_parameters
+from .tool_protocol import (parse_tool_calls as _parse_tool_calls, select_tools,
+                            completion_text, finish_reason as _finish_reason)
 import os
 import re
 import threading
@@ -45,40 +47,6 @@ _TAIL_RE = re.compile(
 
 def clean_text(text):
     return _TAIL_RE.sub("", text) if text else text
-
-# ★ 工具调用（OpenAI function calling）
-#   Qwen3 的 chat template 要求模型这样回答：
-#     <tool_call>
-#     <function=NAME>
-#     <parameter=KEY>value</parameter>
-#     </function>
-#     </tool_call>
-#   这里把它转成 OpenAI 的 tool_calls；正文与标记分离。
-_TOOL_CALL_RE = re.compile(r"<tool_call>\s*<function=([^>]+)>(.*?)</function>\s*</tool_call>", re.S)
-_TOOL_PARAM_RE = re.compile(r"<parameter=([^>]+)>(.*?)</parameter>", re.S)
-
-
-def _parse_tool_calls(text):
-    """返回 (正文, tool_calls 或 None)。"""
-    if not text or "<tool_call>" not in text:
-        return text, None
-    calls, spans = [], []
-    for m in _TOOL_CALL_RE.finditer(text):
-        name = m.group(1).strip()
-        args = {k.strip(): v.strip() for k, v in _TOOL_PARAM_RE.findall(m.group(2))}
-        calls.append({"id": "call_" + uuid.uuid4().hex[:16], "type": "function",
-                      "function": {"name": name,
-                                   "arguments": json.dumps(args, ensure_ascii=False)}})
-        spans.append(m.span())
-    if not calls:                     # 有 <tool_call> 但没闭合：原样返回，避免吞内容
-        return text, None
-    out, last = [], 0
-    for a, b in spans:
-        out.append(text[last:a])
-        last = b
-    out.append(text[last:])
-    return "".join(out).strip(), calls
-
 
 # ★ 服务指标（第30轮）：现在所有请求走一把全局锁、且只有 /fnx/prof 的"最后一次"快照，
 #   排队情况、累积吞吐、命中率都看不见。这里补一份累积计数器 + GET /metrics。
@@ -545,6 +513,7 @@ def health():
     if worker is not None and worker.poll() is not None:
         return JSONResponse(status_code=503,content={"status":"worker_unavailable","ctx":P})
     return {"status": "ok", "engine_loaded": "e" in STATE, "ctx": P, "service_revision": "r152",
+            "tool_protocol_revision": "r165",
             "norm_post": os.environ.get("FNX_NORM_POST", "0") == "1",
             "state_update": os.environ.get("FNX_STATE_UPDATE", "0") == "1",
             "prefill_output": os.environ.get("FNX_PREFILL_OUTPUT", "0") == "1",
@@ -613,9 +582,17 @@ async def chat(req: Request):
     try:
         body = await json_body(req)
         msgs, max_new, temp, stream = chat_parameters(body, MODEL_ID)
-        tools = body.get("tools")
-        if tools is not None and not isinstance(tools, list):
-            raise RequestError("tools must be a list", "tools")
+        tools, tool_prefix, parse_tools = select_tools(body.get("tools"), body.get("tool_choice"))
+        stream_options = body.get("stream_options")
+        if stream_options is None:
+            stream_options = {}
+        if not isinstance(stream_options, dict):
+            raise RequestError("stream_options must be an object", "stream_options")
+        include_usage = stream_options.get("include_usage", False)
+        if include_usage is None:
+            include_usage = False
+        if not isinstance(include_usage, bool):
+            raise RequestError("include_usage must be a boolean", "stream_options.include_usage")
     except RequestError as exc:
         return request_error(exc)
     eng = get_engine()
@@ -630,6 +607,7 @@ async def chat(req: Request):
             text = eng.tok.apply_chat_template(_normalize_tool_messages(msgs), tokenize=False,
                                                add_generation_prompt=True,
                                                **extra)
+            text += tool_prefix
             t_tk = time.perf_counter()
             ids = eng.tok(text, return_tensors="pt").input_ids[0].tolist()
             timings = {"chat_template_ms": round((t_tk - t_t0) * 1e3, 2),
@@ -665,7 +643,7 @@ async def chat(req: Request):
                 for ev in eng.generate(ids, max_new, temp, tpl_kw):
                     if ev[0] == "t":
                         toks_.append(ev[1])
-                txt_ = clean_text(decode_text(eng, toks_))
+                txt_ = completion_text(tool_prefix, clean_text(decode_text(eng, toks_)))
                 return toks_, txt_, qms, (eng.last_prof or {})
 
         async with REQUEST_LOCK:
@@ -676,13 +654,11 @@ async def chat(req: Request):
                     prefill_tokens=max(0, p.get("n_prefill", 0)),
                     ttft_ms_sum=p.get("ttft_ms", 0),
                     tpot_ms_sum=p.get("tpot_ms", 0), tpot_n=1)
-        clean_txt, tool_calls = _parse_tool_calls(txt)
+        clean_txt, tool_calls = _parse_tool_calls(txt, tools) if parse_tools else (txt, None)
         message = {"role": "assistant", "content": clean_txt if (clean_txt or not tool_calls) else None}
         if tool_calls:
             message["tool_calls"] = tool_calls
-            finish = "tool_calls"
-        else:
-            finish = "stop" if (toks and toks[-1] in eng.stop_ids) else "length"
+        finish = _finish_reason(toks, eng.stop_ids, tool_calls)
         return {
             "id": cid, "object": "chat.completion", "created": created,
             "model": MODEL_ID,
@@ -702,14 +678,16 @@ async def chat(req: Request):
         t_dc = 0.0
         token_ids, emitted = [], []
         decoder = DecodeStream(skip_special_tokens=True)
-        held = ""            # 仅当请求带 tools：用于检测 <tool_call 的尾部缓冲
-        tool_mode = False
+        held = tool_prefix
+        tool_mode = bool(tool_prefix)
         calls = None
 
         def chunk(delta, finish=None):
             d = {"id": cid, "object": "chat.completion.chunk", "created": created,
                  "model": MODEL_ID,
                  "choices": [{"index": 0, "delta": delta, "finish_reason": finish}]}
+            if include_usage:
+                d["usage"] = None
             return "data: " + json.dumps(d, ensure_ascii=False) + "\n\n"
 
         LOCK.acquire()
@@ -732,7 +710,9 @@ async def chat(req: Request):
                 # ── 始终开启：保留可能属于 <tool_call> 的尾巴，其余照常流式发出 ──
                 out = ""
                 if piece:
-                    if not tool_mode:
+                    if not parse_tools:
+                        out = piece
+                    elif not tool_mode:
                         held += piece
                         k = held.find("<tool_call")
                         if k >= 0:
@@ -750,11 +730,13 @@ async def chat(req: Request):
                 t_dc += time.perf_counter() - a
                 if out:
                     yield chunk({"content": out})
-            tail, calls = _parse_tool_calls(held) if tool_mode else (held, None)
+            if tool_prefix:
+                held = completion_text(tool_prefix, held[len(tool_prefix):])
+            tail, calls = _parse_tool_calls(held, tools) if tool_mode and parse_tools else (held, None)
             if tail:
                 yield chunk({"content": tail})
             if calls:
-                yield chunk({"tool_calls": calls})
+                yield chunk({"tool_calls": [dict(call, index=i) for i, call in enumerate(calls)]})
             if not tool_mode and not held:
                 # A length limit can split a character. Match the tokenizer's
                 # ordinary decode for the final incomplete suffix as well.
@@ -767,10 +749,7 @@ async def chat(req: Request):
             dt = time.perf_counter() - t0
             # Capture request statistics before releasing the shared engine.
             p = dict(eng.last_prof or {})
-            if calls:
-                reason = "tool_calls"
-            else:
-                reason = "stop" if token_ids and token_ids[-1] in eng.stop_ids else "length"
+            reason = _finish_reason(token_ids, eng.stop_ids, calls)
             done = {"id": cid, "object": "chat.completion.chunk", "created": created,
                     "model": MODEL_ID,
                     "choices": [{"index": 0, "delta": {}, "finish_reason": reason}],
@@ -782,6 +761,8 @@ async def chat(req: Request):
                                   "prefill_tok_s": p.get("prefill_tok_s", 0),
                                   "n_prefill": p.get("n_prefill", 0)}}
             eng.last_sse = done["fnx_stats"]
+            if include_usage:
+                done["usage"] = None
             _metric_add(tokens_out=n, prefix_hit_tokens=p.get("prefix_hit", 0),
                         prefill_tokens=max(0, p.get("n_prefill", 0)),
                         ttft_ms_sum=(first or 0) * 1e3,
@@ -789,6 +770,12 @@ async def chat(req: Request):
         finally:
             LOCK.release()
         yield "data: " + json.dumps(done, ensure_ascii=False) + "\n\n"
+        if include_usage:
+            usage = {"id": cid, "object": "chat.completion.chunk", "created": created,
+                     "model": MODEL_ID, "choices": [],
+                     "usage": {"prompt_tokens": len(ids), "completion_tokens": n,
+                               "total_tokens": len(ids) + n}}
+            yield "data: " + json.dumps(usage, ensure_ascii=False) + "\n\n"
         yield "data: [DONE]\n\n"
 
     async def response_events():

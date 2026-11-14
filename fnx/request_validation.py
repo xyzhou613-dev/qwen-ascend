@@ -32,7 +32,8 @@ def chat_parameters(body, model_id):
     stream = body.get('stream', False)
     if not isinstance(stream, bool):
         raise RequestError('stream must be a boolean', 'stream')
-    max_new = positive_int(body.get('max_tokens', body.get('max_completion_tokens')), 'max_tokens', 128)
+    limit_name = 'max_completion_tokens' if body.get('max_completion_tokens') is not None else 'max_tokens'
+    max_new = positive_int(body.get(limit_name), limit_name, 128)
     temperature = body.get('temperature', 0)
     if temperature is None:
         temperature = 0

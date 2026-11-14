@@ -1,0 +1,18 @@
+{
+  "status": "accepted",
+  "epoch": 1794648151.0783353,
+  "elapsed_s": 331.0783357620239,
+  "engine_revision": "r152",
+  "tool_protocol_revision": "r165",
+  "unit_tests": 39,
+  "handler_tests": 28,
+  "live_cases": 12,
+  "unchanged_core_files": 43,
+  "p275_unchanged": true,
+  "candidate_source_hashes": {
+    "server.py": "173872b542283967ce04ba0a108574d1663c8c779a2d50de270b080a44fa6373",
+    "tool_protocol.py": "f9130d0e4b24fc90f3972ec4eae428b898258ed1561a54b7f55560b475903ae7",
+    "request_validation.py": "394b7f6ea62a23ab05878508dd537b23561a9ee707b8d50a5026d78b3f15b35d"
+  },
+  "formal_8k_exact": true
+}

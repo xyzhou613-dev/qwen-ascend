@@ -1,0 +1,10 @@
+{
+  "start_epoch": 1794647820,
+  "rollback_trigger_epoch": 1794648420,
+  "backup_trigger_epoch": 1794648435,
+  "boot_id": "9ab7c974-5388-491d-b377-56e1fc5687f1",
+  "operator_cap_epoch": 1794649020,
+  "cap_seconds": 1200,
+  "user_instruction": "请帮我修复他",
+  "scope": "protocol repair, necessary idle restart, live validation, rollback on failure"
+}

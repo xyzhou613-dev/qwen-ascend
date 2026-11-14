@@ -1,0 +1,79 @@
+{
+  "health": {
+    "status": "ok",
+    "engine_loaded": true,
+    "ctx": 262144,
+    "service_revision": "r152",
+    "tool_protocol_revision": "r165",
+    "norm_post": true,
+    "state_update": true,
+    "prefill_output": true,
+    "norm_ordered": true,
+    "delta_reuse": true,
+    "moe_epilogue": true,
+    "post_native": true,
+    "decode_down_gmm": false,
+    "expert_gather": true,
+    "inject_native": true,
+    "conv_prefill": true,
+    "raw_compact": true,
+    "cpu_threads": 16,
+    "short_prefill_chunk": 2048,
+    "short_prefill_tokens": 16384,
+    "pipeline_stages": 2,
+    "worker_alive": true,
+    "prefill_chunk": 8192,
+    "pipeline_transport": "hybrid",
+    "delta_compact": true,
+    "index_post": true,
+    "index_score": true,
+    "conv_native": true,
+    "index_expand": true,
+    "mix_reduce": true,
+    "moe_reduce": true,
+    "dual_write": true,
+    "pipeline_transfers": {
+      "peer_transfers": 0,
+      "peer_bytes": 0,
+      "host_transfers": 3,
+      "host_bytes": 61440
+    },
+    "index_caps": [
+      16384,
+      32768,
+      65536,
+      98304,
+      131072,
+      196608,
+      262144
+    ],
+    "native_sparse": true,
+    "native_dual": true,
+    "index_unique": true,
+    "moe_inverse": true,
+    "moe_inverse_sort": true,
+    "state_dual_slim": true,
+    "conversation_state_bytes": 0,
+    "rope_cache": true,
+    "delta_window": 2048,
+    "delta_native": true,
+    "chunk_graph": true,
+    "qsa_indexer": true,
+    "qsa_sparse": true
+  },
+  "processes": [
+    {
+      "pid": 318906,
+      "birth": "8419039"
+    },
+    {
+      "pid": 318925,
+      "birth": "8419833"
+    }
+  ],
+  "hashes": {
+    "/root/ascend-dev/fnx/fnx/server.py": "173872b542283967ce04ba0a108574d1663c8c779a2d50de270b080a44fa6373",
+    "/root/ascend-dev/fnx/fnx/request_validation.py": "394b7f6ea62a23ab05878508dd537b23561a9ee707b8d50a5026d78b3f15b35d",
+    "/root/ascend-dev/fnx/fnx/tool_protocol.py": "f9130d0e4b24fc90f3972ec4eae428b898258ed1561a54b7f55560b475903ae7"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "status": "passed",
+  "records": [
+    {
+      "case": "typed_nonstream",
+      "before_types": [
+        {
+          "count": "str",
+          "enabled": "str",
+          "tags": "str",
+          "options": "str",
+          "label": "str"
+        }
+      ],
+      "after_types": [
+        {
+          "count": "int",
+          "enabled": "bool",
+          "tags": "list",
+          "options": "dict",
+          "label": "str"
+        }
+      ]
+    },
+    {
+      "case": "unicode_sse_usage",
+      "before_types": [
+        {
+          "text": "str"
+        }
+      ],
+      "after_types": [
+        {
+          "text": "str"
+        }
+      ]
+    },
+    {
+      "case": "long_modern_limit",
+      "before_types": [
+        {
+          "todos": "str"
+        }
+      ],
+      "after_types": [
+        {
+          "todos": "list"
+        }
+      ]
+    }
+  ],
+  "scope": "captured arguments, no inference",
+  "source_sha256": "f9130d0e4b24fc90f3972ec4eae428b898258ed1561a54b7f55560b475903ae7"
+}

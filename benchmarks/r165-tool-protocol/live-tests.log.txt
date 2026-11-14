@@ -1,0 +1,13 @@
+LIVE_COMPLETE typed_nonstream 200 3.55 84 tool_calls
+LIVE_COMPLETE typed_sse_usage 200 2.83 84 tool_calls
+LIVE_COMPLETE required_single 200 1.36 20 tool_calls
+LIVE_COMPLETE required_multi 200 1.78 27 tool_calls
+LIVE_COMPLETE specific_echo 200 1.35 20 tool_calls
+LIVE_COMPLETE none_policy 200 1.76 40 stop
+LIVE_COMPLETE unknown_named_choice 400 0.0 None None
+LIVE_COMPLETE invalid_choice 400 0.0 None None
+LIVE_COMPLETE long_modern_limit 200 6.3 162 tool_calls
+LIVE_COMPLETE both_limits 200 5.43 162 tool_calls
+LIVE_COMPLETE null_legacy_limit 200 5.42 162 tool_calls
+LIVE_COMPLETE truncated_sse 200 1.08 32 length
+LIVE_PROTOCOL_ACCEPTANCE_PASS 12

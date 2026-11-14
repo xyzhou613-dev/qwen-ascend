@@ -1,0 +1,1729 @@
+{
+  "status": "passed",
+  "cases": 28,
+  "npu_initialized": false,
+  "real_model_construction_forbidden": true,
+  "sources": {
+    "server.py": "173872b542283967ce04ba0a108574d1663c8c779a2d50de270b080a44fa6373",
+    "tool_protocol.py": "f9130d0e4b24fc90f3972ec4eae428b898258ed1561a54b7f55560b475903ae7",
+    "request_validation.py": "394b7f6ea62a23ab05878508dd537b23561a9ee707b8d50a5026d78b3f15b35d"
+  },
+  "records": [
+    {
+      "name": "typed_False",
+      "status": 200,
+      "response": {
+        "id": "chatcmpl-19ada4ae9fd74f2b8df53abb",
+        "object": "chat.completion",
+        "created": 1794647636,
+        "model": "qwen3.8-flash-next-w4",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": null,
+              "tool_calls": [
+                {
+                  "id": "call_3a2a4d60cd10417a",
+                  "type": "function",
+                  "function": {
+                    "name": "audit_types",
+                    "arguments": "{\"count\": 3, \"enabled\": true, \"tags\": [\"甲\", \"乙\"], \"options\": {\"mode\": \"fast\"}, \"label\": \"123\"}"
+                  }
+                }
+              ]
+            },
+            "finish_reason": "tool_calls"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 310,
+          "completion_tokens": 70,
+          "total_tokens": 380
+        },
+        "fnx_stats": {
+          "ttft_ms": 0.1,
+          "seconds": 0.001,
+          "tpot_ms": 0,
+          "n_prefill": 310,
+          "prefill_ms": 0,
+          "prefill_tok_s": 0
+        }
+      },
+      "engine_call": {
+        "limit": 1024,
+        "prompt_tokens": 310,
+        "completion_tokens": 70,
+        "prompt_suffix": "there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\n</IMPORTANT><|im_end|>\n<|im_start|>user\n协议回归。<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "tools": [
+          "audit_types"
+        ]
+      }
+    },
+    {
+      "name": "typed_True",
+      "status": 200,
+      "events": [
+        {
+          "id": "chatcmpl-6d103a7118cd49b9b43aaa63",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "tool_calls": [
+                  {
+                    "id": "call_82087b1067034651",
+                    "type": "function",
+                    "function": {
+                      "name": "audit_types",
+                      "arguments": "{\"count\": 3, \"enabled\": true, \"tags\": [\"甲\", \"乙\"], \"options\": {\"mode\": \"fast\"}, \"label\": \"123\"}"
+                    },
+                    "index": 0
+                  }
+                ]
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-6d103a7118cd49b9b43aaa63",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {},
+              "finish_reason": "tool_calls"
+            }
+          ],
+          "fnx_stats": {
+            "ttft_ms": 18.83,
+            "tokens": 70,
+            "seconds": 0.02,
+            "tpot_ms": 0.01,
+            "tok_decode_ms": 0.32,
+            "prefill_ms": 0,
+            "prefill_tok_s": 0,
+            "n_prefill": 310
+          }
+        }
+      ],
+      "done": true,
+      "engine_call": {
+        "limit": 1024,
+        "prompt_tokens": 310,
+        "completion_tokens": 70,
+        "prompt_suffix": "there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\n</IMPORTANT><|im_end|>\n<|im_start|>user\n协议回归。<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "tools": [
+          "audit_types"
+        ]
+      }
+    },
+    {
+      "name": "python_literals",
+      "status": 200,
+      "response": {
+        "id": "chatcmpl-eba53e35f31942fd8f8a86fd",
+        "object": "chat.completion",
+        "created": 1794647636,
+        "model": "qwen3.8-flash-next-w4",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": null,
+              "tool_calls": [
+                {
+                  "id": "call_eecfd095b75f40a7",
+                  "type": "function",
+                  "function": {
+                    "name": "audit_types",
+                    "arguments": "{\"count\": 3, \"enabled\": true, \"tags\": [\"甲\", \"乙\"], \"options\": {\"mode\": \"fast\"}, \"label\": \"123\"}"
+                  }
+                }
+              ]
+            },
+            "finish_reason": "tool_calls"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 310,
+          "completion_tokens": 72,
+          "total_tokens": 382
+        },
+        "fnx_stats": {
+          "ttft_ms": 0.06,
+          "seconds": 0.001,
+          "tpot_ms": 0,
+          "n_prefill": 310,
+          "prefill_ms": 0,
+          "prefill_tok_s": 0
+        }
+      },
+      "engine_call": {
+        "limit": 1024,
+        "prompt_tokens": 310,
+        "completion_tokens": 72,
+        "prompt_suffix": "there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\n</IMPORTANT><|im_end|>\n<|im_start|>user\n协议回归。<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "tools": [
+          "audit_types"
+        ]
+      }
+    },
+    {
+      "name": "none_False",
+      "status": 200,
+      "response": {
+        "id": "chatcmpl-4f1a58dee24a4f80bf07ed5f",
+        "object": "chat.completion",
+        "created": 1794647636,
+        "model": "qwen3.8-flash-next-w4",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "<tool_call>\n<function=mcp__audit__echo>\n<parameter=text>你好，世界😀</parameter>\n</function>\n</tool_call>"
+            },
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 15,
+          "completion_tokens": 30,
+          "total_tokens": 45
+        },
+        "fnx_stats": {
+          "ttft_ms": 0.05,
+          "seconds": 0.0,
+          "tpot_ms": 0,
+          "n_prefill": 15,
+          "prefill_ms": 0,
+          "prefill_tok_s": 0
+        }
+      },
+      "engine_call": {
+        "limit": 1024,
+        "prompt_tokens": 15,
+        "completion_tokens": 30,
+        "prompt_suffix": "<|im_start|>user\n协议回归。<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "tools": []
+      }
+    },
+    {
+      "name": "none_True",
+      "status": 200,
+      "events": [
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "<tool_call>"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "\n"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "<"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "function"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "=m"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "cp"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "__"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "audit"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "__"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "echo"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": ">"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "\n"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "<"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "parameter"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "=text"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": ">"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "你好"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "，"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "世界"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "😀"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "</"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "parameter"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": ">"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "\n"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "</"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "function"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": ">"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "\n"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "</tool_call>"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-4a3351fd88e546b0b2a7f660",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {},
+              "finish_reason": "stop"
+            }
+          ],
+          "fnx_stats": {
+            "ttft_ms": 0.43,
+            "tokens": 30,
+            "seconds": 0.006,
+            "tpot_ms": 0.18,
+            "tok_decode_ms": 0.24,
+            "prefill_ms": 0,
+            "prefill_tok_s": 0,
+            "n_prefill": 15
+          }
+        }
+      ],
+      "done": true,
+      "engine_call": {
+        "limit": 1024,
+        "prompt_tokens": 15,
+        "completion_tokens": 30,
+        "prompt_suffix": "<|im_start|>user\n协议回归。<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "tools": []
+      }
+    },
+    {
+      "name": "required_single_False",
+      "status": 200,
+      "response": {
+        "id": "chatcmpl-f65374c514324565838b267c",
+        "object": "chat.completion",
+        "created": 1794647636,
+        "model": "qwen3.8-flash-next-w4",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": null,
+              "tool_calls": [
+                {
+                  "id": "call_7cf6523e9b2f4173",
+                  "type": "function",
+                  "function": {
+                    "name": "mcp__audit__echo",
+                    "arguments": "{\"text\": \"你好，世界😀\"}"
+                  }
+                }
+              ]
+            },
+            "finish_reason": "tool_calls"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 278,
+          "completion_tokens": 18,
+          "total_tokens": 296
+        },
+        "fnx_stats": {
+          "ttft_ms": 0.06,
+          "seconds": 0.001,
+          "tpot_ms": 0,
+          "n_prefill": 278,
+          "prefill_ms": 0,
+          "prefill_tok_s": 0
+        }
+      },
+      "engine_call": {
+        "limit": 1024,
+        "prompt_tokens": 278,
+        "completion_tokens": 18,
+        "prompt_suffix": "wer the question like normal with your current knowledge and do not tell the user about function calls\n</IMPORTANT><|im_end|>\n<|im_start|>user\n协议回归。<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n<tool_call>\n<function=mcp__audit__echo>\n",
+        "tools": [
+          "mcp__audit__echo"
+        ]
+      }
+    },
+    {
+      "name": "required_single_True",
+      "status": 200,
+      "events": [
+        {
+          "id": "chatcmpl-7b20df8a342d46ef8e86dc5d",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "tool_calls": [
+                  {
+                    "id": "call_79237cc6066c47ca",
+                    "type": "function",
+                    "function": {
+                      "name": "mcp__audit__echo",
+                      "arguments": "{\"text\": \"你好，世界😀\"}"
+                    },
+                    "index": 0
+                  }
+                ]
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-7b20df8a342d46ef8e86dc5d",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {},
+              "finish_reason": "tool_calls"
+            }
+          ],
+          "fnx_stats": {
+            "ttft_ms": 0.57,
+            "tokens": 18,
+            "seconds": 0.001,
+            "tpot_ms": 0.02,
+            "tok_decode_ms": 0.09,
+            "prefill_ms": 0,
+            "prefill_tok_s": 0,
+            "n_prefill": 278
+          }
+        }
+      ],
+      "done": true,
+      "engine_call": {
+        "limit": 1024,
+        "prompt_tokens": 278,
+        "completion_tokens": 18,
+        "prompt_suffix": "wer the question like normal with your current knowledge and do not tell the user about function calls\n</IMPORTANT><|im_end|>\n<|im_start|>user\n协议回归。<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n<tool_call>\n<function=mcp__audit__echo>\n",
+        "tools": [
+          "mcp__audit__echo"
+        ]
+      }
+    },
+    {
+      "name": "required_multi",
+      "status": 200,
+      "response": {
+        "id": "chatcmpl-a9c02f0dbc5e476ea300e48f",
+        "object": "chat.completion",
+        "created": 1794647636,
+        "model": "qwen3.8-flash-next-w4",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": null,
+              "tool_calls": [
+                {
+                  "id": "call_e0ead2e5e9cf45d3",
+                  "type": "function",
+                  "function": {
+                    "name": "mcp__audit__echo",
+                    "arguments": "{\"text\": \"你好，世界😀\"}"
+                  }
+                }
+              ]
+            },
+            "finish_reason": "tool_calls"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 362,
+          "completion_tokens": 28,
+          "total_tokens": 390
+        },
+        "fnx_stats": {
+          "ttft_ms": 0.08,
+          "seconds": 0.001,
+          "tpot_ms": 0,
+          "n_prefill": 362,
+          "prefill_ms": 0,
+          "prefill_tok_s": 0
+        }
+      },
+      "engine_call": {
+        "limit": 1024,
+        "prompt_tokens": 362,
+        "completion_tokens": 28,
+        "prompt_suffix": "function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\n</IMPORTANT><|im_end|>\n<|im_start|>user\n协议回归。<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n<tool_call>\n",
+        "tools": [
+          "audit_types",
+          "mcp__audit__echo"
+        ]
+      }
+    },
+    {
+      "name": "specific",
+      "status": 200,
+      "response": {
+        "id": "chatcmpl-fab8be05b9b44fbbb3032468",
+        "object": "chat.completion",
+        "created": 1794647636,
+        "model": "qwen3.8-flash-next-w4",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": null,
+              "tool_calls": [
+                {
+                  "id": "call_e12b93bfce334531",
+                  "type": "function",
+                  "function": {
+                    "name": "mcp__audit__echo",
+                    "arguments": "{\"text\": \"你好，世界😀\"}"
+                  }
+                }
+              ]
+            },
+            "finish_reason": "tool_calls"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 278,
+          "completion_tokens": 18,
+          "total_tokens": 296
+        },
+        "fnx_stats": {
+          "ttft_ms": 0.05,
+          "seconds": 0.001,
+          "tpot_ms": 0,
+          "n_prefill": 278,
+          "prefill_ms": 0,
+          "prefill_tok_s": 0
+        }
+      },
+      "engine_call": {
+        "limit": 1024,
+        "prompt_tokens": 278,
+        "completion_tokens": 18,
+        "prompt_suffix": "wer the question like normal with your current knowledge and do not tell the user about function calls\n</IMPORTANT><|im_end|>\n<|im_start|>user\n协议回归。<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n<tool_call>\n<function=mcp__audit__echo>\n",
+        "tools": [
+          "mcp__audit__echo"
+        ]
+      }
+    },
+    {
+      "name": "forced_model_restarted_envelope",
+      "status": 200,
+      "events": [
+        {
+          "id": "chatcmpl-be65ba070f394ba5a02c3ba2",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "tool_calls": [
+                  {
+                    "id": "call_206a8d87d36645a1",
+                    "type": "function",
+                    "function": {
+                      "name": "mcp__audit__echo",
+                      "arguments": "{\"text\": \"你好，世界😀\"}"
+                    },
+                    "index": 0
+                  }
+                ]
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-be65ba070f394ba5a02c3ba2",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {},
+              "finish_reason": "tool_calls"
+            }
+          ],
+          "fnx_stats": {
+            "ttft_ms": 0.57,
+            "tokens": 30,
+            "seconds": 0.001,
+            "tpot_ms": 0.02,
+            "tok_decode_ms": 0.14,
+            "prefill_ms": 0,
+            "prefill_tok_s": 0,
+            "n_prefill": 278
+          }
+        }
+      ],
+      "done": true,
+      "engine_call": {
+        "limit": 1024,
+        "prompt_tokens": 278,
+        "completion_tokens": 30,
+        "prompt_suffix": "wer the question like normal with your current knowledge and do not tell the user about function calls\n</IMPORTANT><|im_end|>\n<|im_start|>user\n协议回归。<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n<tool_call>\n<function=mcp__audit__echo>\n",
+        "tools": [
+          "mcp__audit__echo"
+        ]
+      }
+    },
+    {
+      "name": "specific_wrong_output_not_renamed",
+      "status": 200,
+      "response": {
+        "id": "chatcmpl-097b43506606477695503ed7",
+        "object": "chat.completion",
+        "created": 1794647636,
+        "model": "qwen3.8-flash-next-w4",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "<tool_call>\n<function=audit_types>\n<parameter=count>3</parameter>\n<parameter=enabled>true</parameter>\n<parameter=tags>[\"甲\",\"乙\"]</parameter>\n<parameter=options>{\"mode\":\"fast\"}</parameter>\n<parameter=label>123</parameter>\n</function>\n</tool_call>"
+            },
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 278,
+          "completion_tokens": 70,
+          "total_tokens": 348
+        },
+        "fnx_stats": {
+          "ttft_ms": 0.05,
+          "seconds": 0.001,
+          "tpot_ms": 0,
+          "n_prefill": 278,
+          "prefill_ms": 0,
+          "prefill_tok_s": 0
+        }
+      },
+      "engine_call": {
+        "limit": 1024,
+        "prompt_tokens": 278,
+        "completion_tokens": 70,
+        "prompt_suffix": "wer the question like normal with your current knowledge and do not tell the user about function calls\n</IMPORTANT><|im_end|>\n<|im_start|>user\n协议回归。<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n<tool_call>\n<function=mcp__audit__echo>\n",
+        "tools": [
+          "mcp__audit__echo"
+        ]
+      }
+    },
+    {
+      "name": "unknown_function",
+      "status": 400,
+      "response": {
+        "error": {
+          "message": "tool_choice must name a declared function",
+          "type": "invalid_request_error",
+          "param": "tool_choice"
+        }
+      },
+      "engine_call": null
+    },
+    {
+      "name": "invalid_choice",
+      "status": 400,
+      "response": {
+        "error": {
+          "message": "invalid tool_choice",
+          "type": "invalid_request_error",
+          "param": "tool_choice"
+        }
+      },
+      "engine_call": null
+    },
+    {
+      "name": "required_no_tools",
+      "status": 400,
+      "response": {
+        "error": {
+          "message": "tool_choice=required needs at least one tool",
+          "type": "invalid_request_error",
+          "param": "tool_choice"
+        }
+      },
+      "engine_call": null
+    },
+    {
+      "name": "invalid_tools",
+      "status": 400,
+      "response": {
+        "error": {
+          "message": "tools must be a list",
+          "type": "invalid_request_error",
+          "param": "tools"
+        }
+      },
+      "engine_call": null
+    },
+    {
+      "name": "invalid_stream_options",
+      "status": 400,
+      "response": {
+        "error": {
+          "message": "stream_options must be an object",
+          "type": "invalid_request_error",
+          "param": "stream_options"
+        }
+      },
+      "engine_call": null
+    },
+    {
+      "name": "invalid_usage_option",
+      "status": 400,
+      "response": {
+        "error": {
+          "message": "include_usage must be a boolean",
+          "type": "invalid_request_error",
+          "param": "stream_options.include_usage"
+        }
+      },
+      "engine_call": null
+    },
+    {
+      "name": "invalid_modern_limit",
+      "status": 400,
+      "response": {
+        "error": {
+          "message": "max_completion_tokens must be a positive integer",
+          "type": "invalid_request_error",
+          "param": "max_completion_tokens"
+        }
+      },
+      "engine_call": null
+    },
+    {
+      "name": "usage_and_indices",
+      "status": 200,
+      "events": [
+        {
+          "id": "chatcmpl-d216b3e52e674d1daacd8a9d",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "tool_calls": [
+                  {
+                    "id": "call_b1eeb051105c4b60",
+                    "type": "function",
+                    "function": {
+                      "name": "audit_types",
+                      "arguments": "{\"count\": 3, \"enabled\": true, \"tags\": [\"甲\", \"乙\"], \"options\": {\"mode\": \"fast\"}, \"label\": \"123\"}"
+                    },
+                    "index": 0
+                  },
+                  {
+                    "id": "call_c8d355424de94179",
+                    "type": "function",
+                    "function": {
+                      "name": "mcp__audit__echo",
+                      "arguments": "{\"text\": \"你好，世界😀\"}"
+                    },
+                    "index": 1
+                  }
+                ]
+              },
+              "finish_reason": null
+            }
+          ],
+          "usage": null
+        },
+        {
+          "id": "chatcmpl-d216b3e52e674d1daacd8a9d",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {},
+              "finish_reason": "tool_calls"
+            }
+          ],
+          "fnx_stats": {
+            "ttft_ms": 0.78,
+            "tokens": 100,
+            "seconds": 0.002,
+            "tpot_ms": 0.01,
+            "tok_decode_ms": 0.43,
+            "prefill_ms": 0,
+            "prefill_tok_s": 0,
+            "n_prefill": 360
+          },
+          "usage": null
+        },
+        {
+          "id": "chatcmpl-d216b3e52e674d1daacd8a9d",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [],
+          "usage": {
+            "prompt_tokens": 360,
+            "completion_tokens": 100,
+            "total_tokens": 460
+          }
+        }
+      ],
+      "done": true,
+      "engine_call": {
+        "limit": 1024,
+        "prompt_tokens": 360,
+        "completion_tokens": 100,
+        "prompt_suffix": "there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\n</IMPORTANT><|im_end|>\n<|im_start|>user\n协议回归。<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "tools": [
+          "audit_types",
+          "mcp__audit__echo"
+        ]
+      }
+    },
+    {
+      "name": "default_usage_unchanged",
+      "status": 200,
+      "events": [
+        {
+          "id": "chatcmpl-770a172ec0484117b1736db8",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "plain"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-770a172ec0484117b1736db8",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {},
+              "finish_reason": "stop"
+            }
+          ],
+          "fnx_stats": {
+            "ttft_ms": 0.31,
+            "tokens": 2,
+            "seconds": 0.001,
+            "tpot_ms": 0.25,
+            "tok_decode_ms": 0.03,
+            "prefill_ms": 0,
+            "prefill_tok_s": 0,
+            "n_prefill": 15
+          }
+        }
+      ],
+      "done": true,
+      "engine_call": {
+        "limit": 1024,
+        "prompt_tokens": 15,
+        "completion_tokens": 2,
+        "prompt_suffix": "<|im_start|>user\n协议回归。<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "tools": []
+      }
+    },
+    {
+      "name": "truncation_False",
+      "status": 200,
+      "response": {
+        "id": "chatcmpl-34792f5c49f541f3b5b2afbc",
+        "object": "chat.completion",
+        "created": 1794647636,
+        "model": "qwen3.8-flash-next-w4",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "<tool_call>\n<function=audit_types>\n<parameter=count>3</parameter>\n<parameter=enabled>true</parameter>\n<parameter=tags>"
+            },
+            "finish_reason": "length"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 310,
+          "completion_tokens": 32,
+          "total_tokens": 342
+        },
+        "fnx_stats": {
+          "ttft_ms": 0.05,
+          "seconds": 0.001,
+          "tpot_ms": 0,
+          "n_prefill": 310,
+          "prefill_ms": 0,
+          "prefill_tok_s": 0
+        }
+      },
+      "engine_call": {
+        "limit": 32,
+        "prompt_tokens": 310,
+        "completion_tokens": 32,
+        "prompt_suffix": "there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\n</IMPORTANT><|im_end|>\n<|im_start|>user\n协议回归。<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "tools": [
+          "audit_types"
+        ]
+      }
+    },
+    {
+      "name": "truncation_True",
+      "status": 200,
+      "events": [
+        {
+          "id": "chatcmpl-8fa36e39c55c4774afc8dde5",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "<tool_call>\n<function=audit_types>\n<parameter=count>3</parameter>\n<parameter=enabled>true</parameter>\n<parameter=tags>"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-8fa36e39c55c4774afc8dde5",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {},
+              "finish_reason": "length"
+            }
+          ],
+          "fnx_stats": {
+            "ttft_ms": 0.68,
+            "tokens": 32,
+            "seconds": 0.001,
+            "tpot_ms": 0.01,
+            "tok_decode_ms": 0.15,
+            "prefill_ms": 0,
+            "prefill_tok_s": 0,
+            "n_prefill": 310
+          }
+        }
+      ],
+      "done": true,
+      "engine_call": {
+        "limit": 32,
+        "prompt_tokens": 310,
+        "completion_tokens": 32,
+        "prompt_suffix": "there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\n</IMPORTANT><|im_end|>\n<|im_start|>user\n协议回归。<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "tools": [
+          "audit_types"
+        ]
+      }
+    },
+    {
+      "name": "modern_only_large",
+      "status": 200,
+      "response": {
+        "id": "chatcmpl-f50ac776d5ec4b098481e358",
+        "object": "chat.completion",
+        "created": 1794647636,
+        "model": "qwen3.8-flash-next-w4",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。测试。"
+            },
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 15,
+          "completion_tokens": 601,
+          "total_tokens": 616
+        },
+        "fnx_stats": {
+          "ttft_ms": 0.05,
+          "seconds": 0.002,
+          "tpot_ms": 0,
+          "n_prefill": 15,
+          "prefill_ms": 0,
+          "prefill_tok_s": 0
+        }
+      },
+      "engine_call": {
+        "limit": 1024,
+        "prompt_tokens": 15,
+        "completion_tokens": 601,
+        "prompt_suffix": "<|im_start|>user\n协议回归。<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "tools": []
+      }
+    },
+    {
+      "name": "modern_precedence",
+      "status": 200,
+      "response": {
+        "id": "chatcmpl-b2517b64afca476e8d2c1022",
+        "object": "chat.completion",
+        "created": 1794647636,
+        "model": "qwen3.8-flash-next-w4",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "ok"
+            },
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 15,
+          "completion_tokens": 2,
+          "total_tokens": 17
+        },
+        "fnx_stats": {
+          "ttft_ms": 0.06,
+          "seconds": 0.0,
+          "tpot_ms": 0,
+          "n_prefill": 15,
+          "prefill_ms": 0,
+          "prefill_tok_s": 0
+        }
+      },
+      "engine_call": {
+        "limit": 512,
+        "prompt_tokens": 15,
+        "completion_tokens": 2,
+        "prompt_suffix": "<|im_start|>user\n协议回归。<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "tools": []
+      }
+    },
+    {
+      "name": "null_legacy",
+      "status": 200,
+      "response": {
+        "id": "chatcmpl-ebf7d40a507c4112a2036ef3",
+        "object": "chat.completion",
+        "created": 1794647636,
+        "model": "qwen3.8-flash-next-w4",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "ok"
+            },
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 15,
+          "completion_tokens": 2,
+          "total_tokens": 17
+        },
+        "fnx_stats": {
+          "ttft_ms": 0.05,
+          "seconds": 0.0,
+          "tpot_ms": 0,
+          "n_prefill": 15,
+          "prefill_ms": 0,
+          "prefill_tok_s": 0
+        }
+      },
+      "engine_call": {
+        "limit": 512,
+        "prompt_tokens": 15,
+        "completion_tokens": 2,
+        "prompt_suffix": "<|im_start|>user\n协议回归。<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "tools": []
+      }
+    },
+    {
+      "name": "unicode_False",
+      "status": 200,
+      "response": {
+        "id": "chatcmpl-df6c13da80c4417694f11eb0",
+        "object": "chat.completion",
+        "created": 1794647636,
+        "model": "qwen3.8-flash-next-w4",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "你好，世界😀，普通聊天回归通过。"
+            },
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 15,
+          "completion_tokens": 11,
+          "total_tokens": 26
+        },
+        "fnx_stats": {
+          "ttft_ms": 0.05,
+          "seconds": 0.0,
+          "tpot_ms": 0,
+          "n_prefill": 15,
+          "prefill_ms": 0,
+          "prefill_tok_s": 0
+        }
+      },
+      "engine_call": {
+        "limit": 1024,
+        "prompt_tokens": 15,
+        "completion_tokens": 11,
+        "prompt_suffix": "<|im_start|>user\n协议回归。<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "tools": []
+      }
+    },
+    {
+      "name": "unicode_True",
+      "status": 200,
+      "events": [
+        {
+          "id": "chatcmpl-33017f76ee8d4ac5a40e79ed",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "你好"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-33017f76ee8d4ac5a40e79ed",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "，"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-33017f76ee8d4ac5a40e79ed",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "世界"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-33017f76ee8d4ac5a40e79ed",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "😀"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-33017f76ee8d4ac5a40e79ed",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "，"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-33017f76ee8d4ac5a40e79ed",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "普通"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-33017f76ee8d4ac5a40e79ed",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "聊天"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-33017f76ee8d4ac5a40e79ed",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "回归"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-33017f76ee8d4ac5a40e79ed",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "通过"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-33017f76ee8d4ac5a40e79ed",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "。"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-33017f76ee8d4ac5a40e79ed",
+          "object": "chat.completion.chunk",
+          "created": 1794647636,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {},
+              "finish_reason": "stop"
+            }
+          ],
+          "fnx_stats": {
+            "ttft_ms": 0.37,
+            "tokens": 11,
+            "seconds": 0.002,
+            "tpot_ms": 0.2,
+            "tok_decode_ms": 0.16,
+            "prefill_ms": 0,
+            "prefill_tok_s": 0,
+            "n_prefill": 15
+          }
+        }
+      ],
+      "done": true,
+      "engine_call": {
+        "limit": 1024,
+        "prompt_tokens": 15,
+        "completion_tokens": 11,
+        "prompt_suffix": "<|im_start|>user\n协议回归。<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "tools": []
+      }
+    },
+    {
+      "name": "tool_result_roundtrip",
+      "status": 200,
+      "response": {
+        "id": "chatcmpl-0d2312336ff54eadb6421094",
+        "object": "chat.completion",
+        "created": 1794647636,
+        "model": "qwen3.8-flash-next-w4",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "收到。"
+            },
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 320,
+          "completion_tokens": 3,
+          "total_tokens": 323
+        },
+        "fnx_stats": {
+          "ttft_ms": 0.05,
+          "seconds": 0.001,
+          "tpot_ms": 0,
+          "n_prefill": 320,
+          "prefill_ms": 0,
+          "prefill_tok_s": 0
+        }
+      },
+      "engine_call": {
+        "limit": 1024,
+        "prompt_tokens": 320,
+        "completion_tokens": 3,
+        "prompt_suffix": "ol_call>\n<function=mcp__audit__echo>\n<parameter=text>\n你好\n</parameter>\n</function>\n</tool_call><|im_end|>\n<|im_start|>user\n<tool_response>\n你好\n</tool_response><|im_end|>\n<|im_start|>user\n继续。<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "tools": [
+          "mcp__audit__echo"
+        ]
+      }
+    }
+  ]
+}

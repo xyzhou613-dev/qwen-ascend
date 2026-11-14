@@ -1,0 +1,1353 @@
+{
+  "status": "passed",
+  "scope": "r152 engine with r165 protocol live HTTP; no returned tool is executed",
+  "records": [
+    {
+      "name": "typed_nonstream",
+      "status": "completed",
+      "http_status": 200,
+      "wall_s": 3.551300617007655,
+      "request": {
+        "model": "qwen3.8-flash-next-w4",
+        "messages": [
+          {
+            "role": "user",
+            "content": "请调用audit_types：count为整数3，enabled为布尔true，tags为数组[\"甲\",\"乙\"]，options为对象{\"mode\":\"fast\"}，label为字符串123。只输出调用。"
+          }
+        ],
+        "temperature": 0,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "audit_types",
+              "description": "只回显诊断参数，不执行任何操作。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "count": {
+                    "type": "integer"
+                  },
+                  "enabled": {
+                    "type": "boolean"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "options": {
+                    "type": "object"
+                  },
+                  "label": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "count",
+                  "enabled",
+                  "tags",
+                  "options",
+                  "label"
+                ]
+              }
+            }
+          }
+        ],
+        "max_completion_tokens": 512
+      },
+      "response": {
+        "id": "chatcmpl-26e592e84869402299b867ca",
+        "object": "chat.completion",
+        "created": 1794648111,
+        "model": "qwen3.8-flash-next-w4",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": null,
+              "tool_calls": [
+                {
+                  "id": "call_f903ccc270b64fd2",
+                  "type": "function",
+                  "function": {
+                    "name": "audit_types",
+                    "arguments": "{\"count\": 3, \"enabled\": true, \"tags\": [\"甲\", \"乙\"], \"options\": {\"mode\": \"fast\"}, \"label\": \"123\"}"
+                  }
+                }
+              ]
+            },
+            "finish_reason": "tool_calls"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 377,
+          "completion_tokens": 84,
+          "total_tokens": 461
+        },
+        "fnx_stats": {
+          "ttft_ms": 767.24,
+          "seconds": 3.544,
+          "tpot_ms": 33.44,
+          "n_prefill": 376,
+          "prefill_ms": 701.1,
+          "prefill_tok_s": 536.3
+        }
+      },
+      "events": [],
+      "done": false,
+      "request_counter_delta": 1.0,
+      "summary": {
+        "calls": [
+          {
+            "id": "call_f903ccc270b64fd2",
+            "type": "function",
+            "function": {
+              "name": "audit_types",
+              "arguments": "{\"count\": 3, \"enabled\": true, \"tags\": [\"甲\", \"乙\"], \"options\": {\"mode\": \"fast\"}, \"label\": \"123\"}"
+            }
+          }
+        ],
+        "content": null,
+        "finish_reason": "tool_calls",
+        "output_tokens": 84
+      }
+    },
+    {
+      "name": "typed_sse_usage",
+      "status": "completed",
+      "http_status": 200,
+      "wall_s": 2.8336017149995314,
+      "request": {
+        "model": "qwen3.8-flash-next-w4",
+        "messages": [
+          {
+            "role": "user",
+            "content": "请调用audit_types：count为整数3，enabled为布尔true，tags为数组[\"甲\",\"乙\"]，options为对象{\"mode\":\"fast\"}，label为字符串123。只输出调用。"
+          }
+        ],
+        "temperature": 0,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "audit_types",
+              "description": "只回显诊断参数，不执行任何操作。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "count": {
+                    "type": "integer"
+                  },
+                  "enabled": {
+                    "type": "boolean"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "options": {
+                    "type": "object"
+                  },
+                  "label": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "count",
+                  "enabled",
+                  "tags",
+                  "options",
+                  "label"
+                ]
+              }
+            }
+          }
+        ],
+        "stream": true,
+        "stream_options": {
+          "include_usage": true
+        },
+        "max_completion_tokens": 512
+      },
+      "response": null,
+      "events": [
+        {
+          "id": "chatcmpl-d97b46c3453641829852511f",
+          "object": "chat.completion.chunk",
+          "created": 1794648115,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "tool_calls": [
+                  {
+                    "id": "call_276f4fe795134104",
+                    "type": "function",
+                    "function": {
+                      "name": "audit_types",
+                      "arguments": "{\"count\": 3, \"enabled\": true, \"tags\": [\"甲\", \"乙\"], \"options\": {\"mode\": \"fast\"}, \"label\": \"123\"}"
+                    },
+                    "index": 0
+                  }
+                ]
+              },
+              "finish_reason": null
+            }
+          ],
+          "usage": null
+        },
+        {
+          "id": "chatcmpl-d97b46c3453641829852511f",
+          "object": "chat.completion.chunk",
+          "created": 1794648115,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {},
+              "finish_reason": "tool_calls"
+            }
+          ],
+          "fnx_stats": {
+            "ttft_ms": 48.73,
+            "tokens": 84,
+            "seconds": 2.829,
+            "tpot_ms": 33.5,
+            "tok_decode_ms": 1.54,
+            "prefill_ms": 0.11,
+            "prefill_tok_s": 0.0,
+            "n_prefill": 0
+          },
+          "usage": null
+        },
+        {
+          "id": "chatcmpl-d97b46c3453641829852511f",
+          "object": "chat.completion.chunk",
+          "created": 1794648115,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [],
+          "usage": {
+            "prompt_tokens": 377,
+            "completion_tokens": 84,
+            "total_tokens": 461
+          }
+        }
+      ],
+      "done": true,
+      "request_counter_delta": 1.0,
+      "summary": {
+        "calls": [
+          {
+            "id": "call_276f4fe795134104",
+            "type": "function",
+            "function": {
+              "name": "audit_types",
+              "arguments": "{\"count\": 3, \"enabled\": true, \"tags\": [\"甲\", \"乙\"], \"options\": {\"mode\": \"fast\"}, \"label\": \"123\"}"
+            },
+            "index": 0
+          }
+        ],
+        "call_indices": [
+          0
+        ],
+        "content": "",
+        "finish_reason": "tool_calls",
+        "usage_chunk": true,
+        "output_tokens": 84
+      }
+    },
+    {
+      "name": "required_single",
+      "status": "completed",
+      "http_status": 200,
+      "wall_s": 1.356526194998878,
+      "request": {
+        "model": "qwen3.8-flash-next-w4",
+        "messages": [
+          {
+            "role": "user",
+            "content": "请把这段文字交给回声工具原样返回：你好，世界😀"
+          }
+        ],
+        "temperature": 0,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "mcp__audit__echo",
+              "description": "只回显诊断参数，不执行任何操作。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            }
+          }
+        ],
+        "tool_choice": "required",
+        "stream": true,
+        "stream_options": {
+          "include_usage": true
+        },
+        "max_completion_tokens": 256
+      },
+      "response": null,
+      "events": [
+        {
+          "id": "chatcmpl-cb8c822dfbb74ee8bc2bad1b",
+          "object": "chat.completion.chunk",
+          "created": 1794648117,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "tool_calls": [
+                  {
+                    "id": "call_612be13b9a994d22",
+                    "type": "function",
+                    "function": {
+                      "name": "mcp__audit__echo",
+                      "arguments": "{\"text\": \"你好，世界😀\"}"
+                    },
+                    "index": 0
+                  }
+                ]
+              },
+              "finish_reason": null
+            }
+          ],
+          "usage": null
+        },
+        {
+          "id": "chatcmpl-cb8c822dfbb74ee8bc2bad1b",
+          "object": "chat.completion.chunk",
+          "created": 1794648117,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {},
+              "finish_reason": "tool_calls"
+            }
+          ],
+          "fnx_stats": {
+            "ttft_ms": 715.4,
+            "tokens": 20,
+            "seconds": 1.352,
+            "tpot_ms": 33.52,
+            "tok_decode_ms": 0.38,
+            "prefill_ms": 658.52,
+            "prefill_tok_s": 461.64,
+            "n_prefill": 304
+          },
+          "usage": null
+        },
+        {
+          "id": "chatcmpl-cb8c822dfbb74ee8bc2bad1b",
+          "object": "chat.completion.chunk",
+          "created": 1794648117,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [],
+          "usage": {
+            "prompt_tokens": 305,
+            "completion_tokens": 20,
+            "total_tokens": 325
+          }
+        }
+      ],
+      "done": true,
+      "request_counter_delta": 1.0,
+      "summary": {
+        "calls": [
+          {
+            "id": "call_612be13b9a994d22",
+            "type": "function",
+            "function": {
+              "name": "mcp__audit__echo",
+              "arguments": "{\"text\": \"你好，世界😀\"}"
+            },
+            "index": 0
+          }
+        ],
+        "call_indices": [
+          0
+        ],
+        "content": "",
+        "finish_reason": "tool_calls",
+        "usage_chunk": true,
+        "output_tokens": 20
+      }
+    },
+    {
+      "name": "required_multi",
+      "status": "completed",
+      "http_status": 200,
+      "wall_s": 1.7846171730052447,
+      "request": {
+        "model": "qwen3.8-flash-next-w4",
+        "messages": [
+          {
+            "role": "user",
+            "content": "请把文字你好交给回声工具回显。"
+          }
+        ],
+        "temperature": 0,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "audit_types",
+              "description": "只回显诊断参数，不执行任何操作。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "count": {
+                    "type": "integer"
+                  },
+                  "enabled": {
+                    "type": "boolean"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "options": {
+                    "type": "object"
+                  },
+                  "label": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "count",
+                  "enabled",
+                  "tags",
+                  "options",
+                  "label"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "mcp__audit__echo",
+              "description": "只回显诊断参数，不执行任何操作。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            }
+          }
+        ],
+        "tool_choice": "required",
+        "max_completion_tokens": 256
+      },
+      "response": {
+        "id": "chatcmpl-7f7912fdcf45478bb84059db",
+        "object": "chat.completion",
+        "created": 1794648119,
+        "model": "qwen3.8-flash-next-w4",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": null,
+              "tool_calls": [
+                {
+                  "id": "call_2a686fa8bde14e76",
+                  "type": "function",
+                  "function": {
+                    "name": "mcp__audit__echo",
+                    "arguments": "{\"text\": \"你好\"}"
+                  }
+                }
+              ]
+            },
+            "finish_reason": "tool_calls"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 410,
+          "completion_tokens": 27,
+          "total_tokens": 437
+        },
+        "fnx_stats": {
+          "ttft_ms": 908.79,
+          "seconds": 1.779,
+          "tpot_ms": 33.45,
+          "n_prefill": 409,
+          "prefill_ms": 853.33,
+          "prefill_tok_s": 479.3
+        }
+      },
+      "events": [],
+      "done": false,
+      "request_counter_delta": 1.0,
+      "summary": {
+        "calls": [
+          {
+            "id": "call_2a686fa8bde14e76",
+            "type": "function",
+            "function": {
+              "name": "mcp__audit__echo",
+              "arguments": "{\"text\": \"你好\"}"
+            }
+          }
+        ],
+        "content": null,
+        "finish_reason": "tool_calls",
+        "output_tokens": 27
+      }
+    },
+    {
+      "name": "specific_echo",
+      "status": "completed",
+      "http_status": 200,
+      "wall_s": 1.3524930309940828,
+      "request": {
+        "model": "qwen3.8-flash-next-w4",
+        "messages": [
+          {
+            "role": "user",
+            "content": "请原样回显这段文字：你好，世界😀"
+          }
+        ],
+        "temperature": 0,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "audit_types",
+              "description": "只回显诊断参数，不执行任何操作。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "count": {
+                    "type": "integer"
+                  },
+                  "enabled": {
+                    "type": "boolean"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "options": {
+                    "type": "object"
+                  },
+                  "label": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "count",
+                  "enabled",
+                  "tags",
+                  "options",
+                  "label"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "mcp__audit__echo",
+              "description": "只回显诊断参数，不执行任何操作。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            }
+          }
+        ],
+        "tool_choice": {
+          "type": "function",
+          "function": {
+            "name": "mcp__audit__echo"
+          }
+        },
+        "max_completion_tokens": 256
+      },
+      "response": {
+        "id": "chatcmpl-cbc9ab5753bd4b1e9054f744",
+        "object": "chat.completion",
+        "created": 1794648121,
+        "model": "qwen3.8-flash-next-w4",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": null,
+              "tool_calls": [
+                {
+                  "id": "call_826d6e480b2540bc",
+                  "type": "function",
+                  "function": {
+                    "name": "mcp__audit__echo",
+                    "arguments": "{\"text\": \"你好，世界😀\"}"
+                  }
+                }
+              ]
+            },
+            "finish_reason": "tool_calls"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 303,
+          "completion_tokens": 20,
+          "total_tokens": 323
+        },
+        "fnx_stats": {
+          "ttft_ms": 711.28,
+          "seconds": 1.347,
+          "tpot_ms": 33.45,
+          "n_prefill": 302,
+          "prefill_ms": 655.79,
+          "prefill_tok_s": 460.51
+        }
+      },
+      "events": [],
+      "done": false,
+      "request_counter_delta": 1.0,
+      "summary": {
+        "calls": [
+          {
+            "id": "call_826d6e480b2540bc",
+            "type": "function",
+            "function": {
+              "name": "mcp__audit__echo",
+              "arguments": "{\"text\": \"你好，世界😀\"}"
+            }
+          }
+        ],
+        "content": null,
+        "finish_reason": "tool_calls",
+        "output_tokens": 20
+      }
+    },
+    {
+      "name": "none_policy",
+      "status": "completed",
+      "http_status": 200,
+      "wall_s": 1.757705284995609,
+      "request": {
+        "model": "qwen3.8-flash-next-w4",
+        "messages": [
+          {
+            "role": "user",
+            "content": "请调用mcp__audit__echo，text参数为诊断回声。只输出调用。"
+          }
+        ],
+        "temperature": 0,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "mcp__audit__echo",
+              "description": "只回显诊断参数，不执行任何操作。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            }
+          }
+        ],
+        "tool_choice": "none",
+        "max_completion_tokens": 128
+      },
+      "response": {
+        "id": "chatcmpl-1d00a55b73ab43aba2562043",
+        "object": "chat.completion",
+        "created": 1794648122,
+        "model": "qwen3.8-flash-next-w4",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "```json\n{\n  \"name\": \"mcp__audit__echo\",\n  \"arguments\": {\n    \"text\": \"诊断回声\"\n  }\n}\n```"
+            },
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 31,
+          "completion_tokens": 40,
+          "total_tokens": 71
+        },
+        "fnx_stats": {
+          "ttft_ms": 449.06,
+          "seconds": 1.754,
+          "tpot_ms": 33.46,
+          "n_prefill": 27,
+          "prefill_ms": 401.34,
+          "prefill_tok_s": 67.27
+        }
+      },
+      "events": [],
+      "done": false,
+      "request_counter_delta": 1.0,
+      "summary": {
+        "calls": [],
+        "content": "```json\n{\n  \"name\": \"mcp__audit__echo\",\n  \"arguments\": {\n    \"text\": \"诊断回声\"\n  }\n}\n```",
+        "finish_reason": "stop",
+        "output_tokens": 40
+      }
+    },
+    {
+      "name": "unknown_named_choice",
+      "status": "completed",
+      "http_status": 400,
+      "wall_s": 0.001477555008023046,
+      "request": {
+        "model": "qwen3.8-flash-next-w4",
+        "messages": [
+          {
+            "role": "user",
+            "content": "只回复OK。"
+          }
+        ],
+        "temperature": 0,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "mcp__audit__echo",
+              "description": "只回显诊断参数，不执行任何操作。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            }
+          }
+        ],
+        "tool_choice": {
+          "type": "function",
+          "function": {
+            "name": "does_not_exist"
+          }
+        },
+        "max_completion_tokens": 32
+      },
+      "response": {
+        "error": {
+          "message": "tool_choice must name a declared function",
+          "type": "invalid_request_error",
+          "param": "tool_choice"
+        }
+      },
+      "events": [],
+      "done": false,
+      "request_counter_delta": 0.0
+    },
+    {
+      "name": "invalid_choice",
+      "status": "completed",
+      "http_status": 400,
+      "wall_s": 0.0013842439948348328,
+      "request": {
+        "model": "qwen3.8-flash-next-w4",
+        "messages": [
+          {
+            "role": "user",
+            "content": "只回复OK。"
+          }
+        ],
+        "temperature": 0,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "mcp__audit__echo",
+              "description": "只回显诊断参数，不执行任何操作。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            }
+          }
+        ],
+        "tool_choice": "not_a_choice",
+        "max_completion_tokens": 32
+      },
+      "response": {
+        "error": {
+          "message": "invalid tool_choice",
+          "type": "invalid_request_error",
+          "param": "tool_choice"
+        }
+      },
+      "events": [],
+      "done": false,
+      "request_counter_delta": 0.0
+    },
+    {
+      "name": "long_modern_limit",
+      "status": "completed",
+      "http_status": 200,
+      "wall_s": 6.302440241997829,
+      "request": {
+        "model": "qwen3.8-flash-next-w4",
+        "messages": [
+          {
+            "role": "user",
+            "content": "请使用audit_plan回显以下六项待办，不执行任务，每项status为pending，content保留完整句子：1.确认两张NPU的型号、设备编号和PCI地址。2.检查推理服务版本、启动参数与模型权重目录。3.核对工具声明、参数schema和流式接口字段。4.分别验证整数、布尔、数组和对象参数的类型。5.检查长参数是否完整以及停止原因是否正确。6.汇总所有检查结果并保存详细的诊断报告。只输出工具调用。"
+          }
+        ],
+        "temperature": 0,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "audit_plan",
+              "description": "只回显诊断参数，不执行任何操作。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "todos": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "content": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "content",
+                        "status"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "todos"
+                ]
+              }
+            }
+          }
+        ],
+        "max_completion_tokens": 1024
+      },
+      "response": {
+        "id": "chatcmpl-10a17cd522ae4a2195fc9125",
+        "object": "chat.completion",
+        "created": 1794648124,
+        "model": "qwen3.8-flash-next-w4",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": null,
+              "tool_calls": [
+                {
+                  "id": "call_48dc44e8c79a4ece",
+                  "type": "function",
+                  "function": {
+                    "name": "audit_plan",
+                    "arguments": "{\"todos\": [{\"content\": \"确认两张NPU的型号、设备编号和PCI地址。\", \"status\": \"pending\"}, {\"content\": \"检查推理服务版本、启动参数与模型权重目录。\", \"status\": \"pending\"}, {\"content\": \"核对工具声明、参数schema和流式接口字段。\", \"status\": \"pending\"}, {\"content\": \"分别验证整数、布尔、数组和对象参数的类型。\", \"status\": \"pending\"}, {\"content\": \"检查长参数是否完整以及停止原因是否正确。\", \"status\": \"pending\"}, {\"content\": \"汇总所有检查结果并保存详细的诊断报告。\", \"status\": \"pending\"}]}"
+                  }
+                }
+              ]
+            },
+            "finish_reason": "tool_calls"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 426,
+          "completion_tokens": 162,
+          "total_tokens": 588
+        },
+        "fnx_stats": {
+          "ttft_ms": 910.92,
+          "seconds": 6.297,
+          "tpot_ms": 33.45,
+          "n_prefill": 425,
+          "prefill_ms": 855.47,
+          "prefill_tok_s": 496.8
+        }
+      },
+      "events": [],
+      "done": false,
+      "request_counter_delta": 1.0,
+      "summary": {
+        "calls": [
+          {
+            "id": "call_48dc44e8c79a4ece",
+            "type": "function",
+            "function": {
+              "name": "audit_plan",
+              "arguments": "{\"todos\": [{\"content\": \"确认两张NPU的型号、设备编号和PCI地址。\", \"status\": \"pending\"}, {\"content\": \"检查推理服务版本、启动参数与模型权重目录。\", \"status\": \"pending\"}, {\"content\": \"核对工具声明、参数schema和流式接口字段。\", \"status\": \"pending\"}, {\"content\": \"分别验证整数、布尔、数组和对象参数的类型。\", \"status\": \"pending\"}, {\"content\": \"检查长参数是否完整以及停止原因是否正确。\", \"status\": \"pending\"}, {\"content\": \"汇总所有检查结果并保存详细的诊断报告。\", \"status\": \"pending\"}]}"
+            }
+          }
+        ],
+        "content": null,
+        "finish_reason": "tool_calls",
+        "output_tokens": 162
+      }
+    },
+    {
+      "name": "both_limits",
+      "status": "completed",
+      "http_status": 200,
+      "wall_s": 5.425874576991191,
+      "request": {
+        "model": "qwen3.8-flash-next-w4",
+        "messages": [
+          {
+            "role": "user",
+            "content": "请使用audit_plan回显以下六项待办，不执行任务，每项status为pending，content保留完整句子：1.确认两张NPU的型号、设备编号和PCI地址。2.检查推理服务版本、启动参数与模型权重目录。3.核对工具声明、参数schema和流式接口字段。4.分别验证整数、布尔、数组和对象参数的类型。5.检查长参数是否完整以及停止原因是否正确。6.汇总所有检查结果并保存详细的诊断报告。只输出工具调用。"
+          }
+        ],
+        "temperature": 0,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "audit_plan",
+              "description": "只回显诊断参数，不执行任何操作。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "todos": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "content": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "content",
+                        "status"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "todos"
+                ]
+              }
+            }
+          }
+        ],
+        "max_tokens": 32,
+        "max_completion_tokens": 1024
+      },
+      "response": {
+        "id": "chatcmpl-36ebb357c5bf4ca19e140020",
+        "object": "chat.completion",
+        "created": 1794648130,
+        "model": "qwen3.8-flash-next-w4",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": null,
+              "tool_calls": [
+                {
+                  "id": "call_59b2db706c9a4669",
+                  "type": "function",
+                  "function": {
+                    "name": "audit_plan",
+                    "arguments": "{\"todos\": [{\"content\": \"确认两张NPU的型号、设备编号和PCI地址。\", \"status\": \"pending\"}, {\"content\": \"检查推理服务版本、启动参数与模型权重目录。\", \"status\": \"pending\"}, {\"content\": \"核对工具声明、参数schema和流式接口字段。\", \"status\": \"pending\"}, {\"content\": \"分别验证整数、布尔、数组和对象参数的类型。\", \"status\": \"pending\"}, {\"content\": \"检查长参数是否完整以及停止原因是否正确。\", \"status\": \"pending\"}, {\"content\": \"汇总所有检查结果并保存详细的诊断报告。\", \"status\": \"pending\"}]}"
+                  }
+                }
+              ]
+            },
+            "finish_reason": "tool_calls"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 426,
+          "completion_tokens": 162,
+          "total_tokens": 588
+        },
+        "fnx_stats": {
+          "ttft_ms": 38.49,
+          "seconds": 5.42,
+          "tpot_ms": 33.42,
+          "n_prefill": 0,
+          "prefill_ms": 0.1,
+          "prefill_tok_s": 0.0
+        }
+      },
+      "events": [],
+      "done": false,
+      "request_counter_delta": 1.0,
+      "summary": {
+        "calls": [
+          {
+            "id": "call_59b2db706c9a4669",
+            "type": "function",
+            "function": {
+              "name": "audit_plan",
+              "arguments": "{\"todos\": [{\"content\": \"确认两张NPU的型号、设备编号和PCI地址。\", \"status\": \"pending\"}, {\"content\": \"检查推理服务版本、启动参数与模型权重目录。\", \"status\": \"pending\"}, {\"content\": \"核对工具声明、参数schema和流式接口字段。\", \"status\": \"pending\"}, {\"content\": \"分别验证整数、布尔、数组和对象参数的类型。\", \"status\": \"pending\"}, {\"content\": \"检查长参数是否完整以及停止原因是否正确。\", \"status\": \"pending\"}, {\"content\": \"汇总所有检查结果并保存详细的诊断报告。\", \"status\": \"pending\"}]}"
+            }
+          }
+        ],
+        "content": null,
+        "finish_reason": "tool_calls",
+        "output_tokens": 162
+      }
+    },
+    {
+      "name": "null_legacy_limit",
+      "status": "completed",
+      "http_status": 200,
+      "wall_s": 5.423202517005848,
+      "request": {
+        "model": "qwen3.8-flash-next-w4",
+        "messages": [
+          {
+            "role": "user",
+            "content": "请使用audit_plan回显以下六项待办，不执行任务，每项status为pending，content保留完整句子：1.确认两张NPU的型号、设备编号和PCI地址。2.检查推理服务版本、启动参数与模型权重目录。3.核对工具声明、参数schema和流式接口字段。4.分别验证整数、布尔、数组和对象参数的类型。5.检查长参数是否完整以及停止原因是否正确。6.汇总所有检查结果并保存详细的诊断报告。只输出工具调用。"
+          }
+        ],
+        "temperature": 0,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "audit_plan",
+              "description": "只回显诊断参数，不执行任何操作。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "todos": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "content": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "content",
+                        "status"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "todos"
+                ]
+              }
+            }
+          }
+        ],
+        "max_tokens": null,
+        "max_completion_tokens": 1024
+      },
+      "response": {
+        "id": "chatcmpl-2ae7bb3e19f049ce8f518a64",
+        "object": "chat.completion",
+        "created": 1794648135,
+        "model": "qwen3.8-flash-next-w4",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": null,
+              "tool_calls": [
+                {
+                  "id": "call_16d061e1c75b4191",
+                  "type": "function",
+                  "function": {
+                    "name": "audit_plan",
+                    "arguments": "{\"todos\": [{\"content\": \"确认两张NPU的型号、设备编号和PCI地址。\", \"status\": \"pending\"}, {\"content\": \"检查推理服务版本、启动参数与模型权重目录。\", \"status\": \"pending\"}, {\"content\": \"核对工具声明、参数schema和流式接口字段。\", \"status\": \"pending\"}, {\"content\": \"分别验证整数、布尔、数组和对象参数的类型。\", \"status\": \"pending\"}, {\"content\": \"检查长参数是否完整以及停止原因是否正确。\", \"status\": \"pending\"}, {\"content\": \"汇总所有检查结果并保存详细的诊断报告。\", \"status\": \"pending\"}]}"
+                  }
+                }
+              ]
+            },
+            "finish_reason": "tool_calls"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 426,
+          "completion_tokens": 162,
+          "total_tokens": 588
+        },
+        "fnx_stats": {
+          "ttft_ms": 37.69,
+          "seconds": 5.418,
+          "tpot_ms": 33.41,
+          "n_prefill": 0,
+          "prefill_ms": 0.1,
+          "prefill_tok_s": 0.0
+        }
+      },
+      "events": [],
+      "done": false,
+      "request_counter_delta": 1.0,
+      "summary": {
+        "calls": [
+          {
+            "id": "call_16d061e1c75b4191",
+            "type": "function",
+            "function": {
+              "name": "audit_plan",
+              "arguments": "{\"todos\": [{\"content\": \"确认两张NPU的型号、设备编号和PCI地址。\", \"status\": \"pending\"}, {\"content\": \"检查推理服务版本、启动参数与模型权重目录。\", \"status\": \"pending\"}, {\"content\": \"核对工具声明、参数schema和流式接口字段。\", \"status\": \"pending\"}, {\"content\": \"分别验证整数、布尔、数组和对象参数的类型。\", \"status\": \"pending\"}, {\"content\": \"检查长参数是否完整以及停止原因是否正确。\", \"status\": \"pending\"}, {\"content\": \"汇总所有检查结果并保存详细的诊断报告。\", \"status\": \"pending\"}]}"
+            }
+          }
+        ],
+        "content": null,
+        "finish_reason": "tool_calls",
+        "output_tokens": 162
+      }
+    },
+    {
+      "name": "truncated_sse",
+      "status": "completed",
+      "http_status": 200,
+      "wall_s": 1.0817710300034378,
+      "request": {
+        "model": "qwen3.8-flash-next-w4",
+        "messages": [
+          {
+            "role": "user",
+            "content": "请使用audit_plan回显以下六项待办，不执行任务，每项status为pending，content保留完整句子：1.确认两张NPU的型号、设备编号和PCI地址。2.检查推理服务版本、启动参数与模型权重目录。3.核对工具声明、参数schema和流式接口字段。4.分别验证整数、布尔、数组和对象参数的类型。5.检查长参数是否完整以及停止原因是否正确。6.汇总所有检查结果并保存详细的诊断报告。只输出工具调用。"
+          }
+        ],
+        "temperature": 0,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "audit_plan",
+              "description": "只回显诊断参数，不执行任何操作。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "todos": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "content": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "content",
+                        "status"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "todos"
+                ]
+              }
+            }
+          }
+        ],
+        "stream": true,
+        "max_completion_tokens": 32
+      },
+      "response": null,
+      "events": [
+        {
+          "id": "chatcmpl-05d42fe763bd4225a871554d",
+          "object": "chat.completion.chunk",
+          "created": 1794648141,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": "<tool_call>\n<function=audit_plan>\n<parameter=todos>\n[{\"content\": \"确认两张NPU的型号、设备编号和PCI地址"
+              },
+              "finish_reason": null
+            }
+          ]
+        },
+        {
+          "id": "chatcmpl-05d42fe763bd4225a871554d",
+          "object": "chat.completion.chunk",
+          "created": 1794648141,
+          "model": "qwen3.8-flash-next-w4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {},
+              "finish_reason": "length"
+            }
+          ],
+          "fnx_stats": {
+            "ttft_ms": 38.98,
+            "tokens": 32,
+            "seconds": 1.077,
+            "tpot_ms": 33.5,
+            "tok_decode_ms": 0.61,
+            "prefill_ms": 0.09,
+            "prefill_tok_s": 0.0,
+            "n_prefill": 0
+          }
+        }
+      ],
+      "done": true,
+      "request_counter_delta": 1.0,
+      "summary": {
+        "calls": [],
+        "call_indices": [],
+        "content": "<tool_call>\n<function=audit_plan>\n<parameter=todos>\n[{\"content\": \"确认两张NPU的型号、设备编号和PCI地址",
+        "finish_reason": "length",
+        "usage_chunk": false,
+        "output_tokens": 32
+      }
+    }
+  ],
+  "production_processes_unchanged": true,
+  "production_sources_unchanged": true,
+  "processes": [
+    {
+      "pid": 318906,
+      "birth": "8419039"
+    },
+    {
+      "pid": 318925,
+      "birth": "8419833"
+    }
+  ],
+  "source_hashes": {
+    "/root/ascend-dev/fnx/fnx/server.py": "173872b542283967ce04ba0a108574d1663c8c779a2d50de270b080a44fa6373",
+    "/root/ascend-dev/fnx/fnx/request_validation.py": "394b7f6ea62a23ab05878508dd537b23561a9ee707b8d50a5026d78b3f15b35d",
+    "/root/ascend-dev/fnx/fnx/tool_protocol.py": "f9130d0e4b24fc90f3972ec4eae428b898258ed1561a54b7f55560b475903ae7"
+  },
+  "final_health": {
+    "status": "ok",
+    "engine_loaded": true,
+    "ctx": 262144,
+    "service_revision": "r152",
+    "tool_protocol_revision": "r165",
+    "norm_post": true,
+    "state_update": true,
+    "prefill_output": true,
+    "norm_ordered": true,
+    "delta_reuse": true,
+    "moe_epilogue": true,
+    "post_native": true,
+    "decode_down_gmm": false,
+    "expert_gather": true,
+    "inject_native": true,
+    "conv_prefill": true,
+    "raw_compact": true,
+    "cpu_threads": 16,
+    "short_prefill_chunk": 2048,
+    "short_prefill_tokens": 16384,
+    "pipeline_stages": 2,
+    "worker_alive": true,
+    "prefill_chunk": 8192,
+    "pipeline_transport": "hybrid",
+    "delta_compact": true,
+    "index_post": true,
+    "index_score": true,
+    "conv_native": true,
+    "index_expand": true,
+    "mix_reduce": true,
+    "moe_reduce": true,
+    "dual_write": true,
+    "pipeline_transfers": {
+      "peer_transfers": 7,
+      "peer_bytes": 31457280,
+      "host_transfers": 802,
+      "host_bytes": 22589440
+    },
+    "index_caps": [
+      16384,
+      32768,
+      65536,
+      98304,
+      131072,
+      196608,
+      262144
+    ],
+    "native_sparse": true,
+    "native_dual": true,
+    "index_unique": true,
+    "moe_inverse": true,
+    "moe_inverse_sort": true,
+    "state_dual_slim": true,
+    "conversation_state_bytes": 128787488,
+    "rope_cache": true,
+    "delta_window": 2048,
+    "delta_native": true,
+    "chunk_graph": true,
+    "qsa_indexer": true,
+    "qsa_sparse": true
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "status": "passed",
+  "request": {
+    "model": "qwen3.8-flash-next-w4",
+    "messages": [
+      {
+        "role": "user",
+        "content": "请用回声工具原样返回：你好，世界😀"
+      }
+    ],
+    "tools": [
+      {
+        "type": "function",
+        "function": {
+          "name": "mcp__audit__echo",
+          "description": "原样回显文本，不执行操作。",
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "text"
+            ]
+          }
+        }
+      }
+    ],
+    "tool_choice": "required",
+    "enable_thinking": true,
+    "max_completion_tokens": 256,
+    "temperature": 0
+  },
+  "response": {
+    "id": "chatcmpl-75cad869b2924e3c9deecc13",
+    "object": "chat.completion",
+    "created": 1794648572,
+    "model": "qwen3.8-flash-next-w4",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": null,
+          "tool_calls": [
+            {
+              "id": "call_a51e6d127448424c",
+              "type": "function",
+              "function": {
+                "name": "mcp__audit__echo",
+                "arguments": "{\"text\": \"你好，世界😀\"}"
+              }
+            }
+          ]
+        },
+        "finish_reason": "tool_calls"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 337,
+      "completion_tokens": 20,
+      "total_tokens": 357
+    },
+    "fnx_stats": {
+      "ttft_ms": 2279.83,
+      "seconds": 2.916,
+      "tpot_ms": 33.44,
+      "n_prefill": 336,
+      "prefill_ms": 679.62,
+      "prefill_tok_s": 494.39
+    }
+  },
+  "elapsed_s": 2.9241400830069324
+}
