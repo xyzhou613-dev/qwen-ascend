@@ -1,0 +1,313 @@
+{
+  "status": "passed_head_component",
+  "device": 1,
+  "records": [
+    {
+      "T": 1,
+      "median_ms": {
+        "production": 1.8323187828063965,
+        "a8w8": 0.7093743681907654
+      },
+      "samples_ms": {
+        "production": [
+          1.8406349420547485,
+          1.8309425115585327,
+          1.8323800563812256,
+          1.8314274549484253,
+          1.8328649997711182,
+          1.8324213027954102,
+          1.8332912921905518,
+          1.8319549560546875,
+          1.8305100202560425,
+          1.8322575092315674,
+          1.8336575031280518,
+          1.8321112394332886
+        ],
+        "a8w8": [
+          0.7100837230682373,
+          0.7078924775123596,
+          0.7092487215995789,
+          0.7090499997138977,
+          0.7096024751663208,
+          0.7085412740707397,
+          0.7095000147819519,
+          0.7086437344551086,
+          0.7115600109100342,
+          0.7101075053215027,
+          0.7100024819374084,
+          0.7084149718284607
+        ]
+      },
+      "output_errors": [
+        {
+          "amplitude": 0.003,
+          "logit_error": {
+            "relative_l2": 0.013628372922539711,
+            "max_abs": 0.09765625,
+            "finite": true
+          },
+          "argmax_equal_rows": 1,
+          "rows": 1
+        },
+        {
+          "amplitude": 0.03,
+          "logit_error": {
+            "relative_l2": 0.019780922681093216,
+            "max_abs": 0.0546875,
+            "finite": true
+          },
+          "argmax_equal_rows": 1,
+          "rows": 1
+        },
+        {
+          "amplitude": 0.3,
+          "logit_error": {
+            "relative_l2": 0.019575541839003563,
+            "max_abs": 0.05078125,
+            "finite": true
+          },
+          "argmax_equal_rows": 1,
+          "rows": 1
+        },
+        {
+          "amplitude": 1.0,
+          "logit_error": {
+            "relative_l2": 0.017146959900856018,
+            "max_abs": 0.1015625,
+            "finite": true
+          },
+          "argmax_equal_rows": 1,
+          "rows": 1
+        }
+      ],
+      "production_batch_vs_serial_logits": [],
+      "fresh_graph_verified": {
+        "production": true,
+        "a8w8": true
+      }
+    },
+    {
+      "T": 2,
+      "median_ms": {
+        "production": 1.887072503566742,
+        "a8w8": 0.7436043620109558
+      },
+      "samples_ms": {
+        "production": [
+          1.8865699768066406,
+          1.887357473373413,
+          1.8867050409317017,
+          1.8867050409317017,
+          1.8874037265777588,
+          1.8859736919403076,
+          1.8879437446594238,
+          1.8878161907196045,
+          1.8871924877166748,
+          1.886952519416809,
+          1.8865412473678589,
+          1.8873738050460815
+        ],
+        "a8w8": [
+          0.7438575029373169,
+          0.7424662709236145,
+          0.7448549866676331,
+          0.7435824871063232,
+          0.7446075081825256,
+          0.7436262369155884,
+          0.7446387410163879,
+          0.743215024471283,
+          0.7458062767982483,
+          0.7428849935531616,
+          0.7434874773025513,
+          0.7435500025749207
+        ]
+      },
+      "output_errors": [
+        {
+          "amplitude": 0.003,
+          "logit_error": {
+            "relative_l2": 0.014799157157540321,
+            "max_abs": 0.1328125,
+            "finite": true
+          },
+          "argmax_equal_rows": 2,
+          "rows": 2
+        },
+        {
+          "amplitude": 0.03,
+          "logit_error": {
+            "relative_l2": 0.015340596437454224,
+            "max_abs": 0.109375,
+            "finite": true
+          },
+          "argmax_equal_rows": 2,
+          "rows": 2
+        },
+        {
+          "amplitude": 0.3,
+          "logit_error": {
+            "relative_l2": 0.011574744246900082,
+            "max_abs": 0.140625,
+            "finite": true
+          },
+          "argmax_equal_rows": 2,
+          "rows": 2
+        },
+        {
+          "amplitude": 1.0,
+          "logit_error": {
+            "relative_l2": 0.015361567959189415,
+            "max_abs": 0.0859375,
+            "finite": true
+          },
+          "argmax_equal_rows": 2,
+          "rows": 2
+        }
+      ],
+      "production_batch_vs_serial_logits": [
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        }
+      ],
+      "fresh_graph_verified": {
+        "production": true,
+        "a8w8": true
+      }
+    },
+    {
+      "T": 4,
+      "median_ms": {
+        "production": 1.9051331281661987,
+        "a8w8": 0.7587893605232239
+      },
+      "samples_ms": {
+        "production": [
+          1.9133750200271606,
+          1.9050612449645996,
+          1.9051125049591064,
+          1.903901219367981,
+          1.9066087007522583,
+          1.904099941253662,
+          1.905153751373291,
+          1.9061875343322754,
+          1.90516996383667,
+          1.9038912057876587,
+          1.9049675464630127,
+          1.9059312343597412
+        ],
+        "a8w8": [
+          0.7586737275123596,
+          0.7583737373352051,
+          0.7611512541770935,
+          0.7592250108718872,
+          0.7599675059318542,
+          0.7589049935340881,
+          0.7585137486457825,
+          0.7593125104904175,
+          0.7584949731826782,
+          0.7570250034332275,
+          0.759440004825592,
+          0.7575200200080872
+        ]
+      },
+      "output_errors": [
+        {
+          "amplitude": 0.003,
+          "logit_error": {
+            "relative_l2": 0.016448549926280975,
+            "max_abs": 0.09375,
+            "finite": true
+          },
+          "argmax_equal_rows": 4,
+          "rows": 4
+        },
+        {
+          "amplitude": 0.03,
+          "logit_error": {
+            "relative_l2": 0.01573057845234871,
+            "max_abs": 0.11669921875,
+            "finite": true
+          },
+          "argmax_equal_rows": 3,
+          "rows": 4
+        },
+        {
+          "amplitude": 0.3,
+          "logit_error": {
+            "relative_l2": 0.017437709495425224,
+            "max_abs": 0.109375,
+            "finite": true
+          },
+          "argmax_equal_rows": 4,
+          "rows": 4
+        },
+        {
+          "amplitude": 1.0,
+          "logit_error": {
+            "relative_l2": 0.013636751100420952,
+            "max_abs": 0.15625,
+            "finite": true
+          },
+          "argmax_equal_rows": 4,
+          "rows": 4
+        }
+      ],
+      "production_batch_vs_serial_logits": [
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        }
+      ],
+      "fresh_graph_verified": {
+        "production": true,
+        "a8w8": true
+      }
+    }
+  ],
+  "current_head_type": "DenseW8",
+  "current_head_chunks": 4,
+  "vocab": 248320,
+  "K": 2560,
+  "new_quantization": "original grouped W8 reconstructed BF16 then per-output-channel W8; dynamic per-token A8; no calibration",
+  "weight_fit_relative_l2": 0.0092347152531147,
+  "new_weight_storage_bytes": 636692480,
+  "peak_allocated_bytes": 1388573696,
+  "elapsed_s": 5.71230210000067,
+  "allocator_fraction": 0.03125,
+  "exclusive": false,
+  "production_traffic_stable": true,
+  "scope": "mixer+head+per-row argmax only; synthetic HC hidden; no NLL/task acceptance or full cycle"
+}

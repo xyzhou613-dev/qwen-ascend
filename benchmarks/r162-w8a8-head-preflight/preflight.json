@@ -1,0 +1,10 @@
+{
+  "production_files_unchanged": 45,
+  "source_compile_pass": true,
+  "judge_image_unchanged": true,
+  "task_inputs_sha256": "3362acf6e696bedcd58c97b2f2714bf96d71088dbc200a06c5f638fa466b06c2",
+  "head_module_matches_component_test": true,
+  "baseline_checkpoint_rows": 999,
+  "service_interrupted": false,
+  "engine_started": false
+}

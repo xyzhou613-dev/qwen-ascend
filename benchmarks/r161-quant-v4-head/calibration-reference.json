@@ -1,0 +1,10 @@
+{
+  "fixed_alpha": 0.5,
+  "recalibrated": false,
+  "files": {
+    "L00.safetensors": "fbe6593f9a6ba763130d245d0c6fa6f45cd30a34eeae34be30b3a3abfc67de50",
+    "L03.safetensors": "569555d5ba3c8c631d3f5ab9cc48e8396a4456b09fe0cfdd8acd1fcd2ef1a98b",
+    "L24.safetensors": "13d09414430e5cb19ab6f11472b9990d38c2a244bfbf8eeba8342c50d13003d5",
+    "L27.safetensors": "f9d9c6da043a69c19df70709129a449a33fc78ca0271a614bdb114bf3ae60759"
+  }
+}

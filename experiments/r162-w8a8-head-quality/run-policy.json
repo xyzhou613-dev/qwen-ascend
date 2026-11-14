@@ -1,0 +1,25 @@
+{
+  "max_seconds": 21600,
+  "restore_after_seconds": 20100,
+  "backup_after_seconds": 20280,
+  "baseline_reuse_requires_unchanged_production": true,
+  "baseline_nll_repeat_tolerance": 5e-05,
+  "stage_order": [
+    "rollback r152 + remaining201 tasks",
+    "smooth W8A8 control",
+    "combined W8A8+headA8W8"
+  ],
+  "head_incremental_min_saved_ms": 0.5,
+  "minimum_output_speed_gain_fraction": 0.14,
+  "performance_gate_scenarios": [
+    "fresh8k",
+    "fresh262016"
+  ],
+  "short_prefill_slice_nll_limit": 0.05,
+  "full_quality_policy_sha256": "9609349671d339addbe2683bda0746ef3273d314d275ef0d32912b6177a7a400",
+  "complete_pairs_required": true,
+  "deployment_requires_complete_quality_and_safe_rollback": true,
+  "rollout_not_part_of_controller": true,
+  "stop_on_failed_short_gate": true,
+  "timeout_restore_with_checkpoints": true
+}

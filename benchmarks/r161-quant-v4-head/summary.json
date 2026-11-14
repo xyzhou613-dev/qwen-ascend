@@ -1,0 +1,170 @@
+{
+  "status": "online_components_only_head_candidate_positive_verifier_cycle_unproven",
+  "exclusive": false,
+  "weighted_48layer_proxy_ms": {
+    "1": {
+      "bf16": 33.17587047815323,
+      "w8a8": 28.822735726833344
+    },
+    "2": {
+      "bf16": 67.1858139038086,
+      "w8a8": 62.44356393814087
+    },
+    "4": {
+      "bf16": 96.49740386009216,
+      "w8a8": 92.19902086257935
+    }
+  },
+  "weighted_v4_journal_ablation_ms": {
+    "bf16/legacy": 94.62522339820862,
+    "bf16/loop": 96.33653175830841,
+    "bf16/packed": 98.19696378707886,
+    "w8a8/legacy": 90.76435804367065,
+    "w8a8/loop": 92.28579390048981,
+    "w8a8/packed": 94.34329605102539
+  },
+  "weighted_cached_restore_proxy_ms": {
+    "bf16": {
+      "0": 4.656416170299053,
+      "1": 5.459915651008487,
+      "2": 5.784588810056448,
+      "3": 5.558219980448484,
+      "4": 0
+    },
+    "w8a8": {
+      "0": 4.605511827394366,
+      "1": 5.453538766130805,
+      "2": 5.774551955983043,
+      "3": 5.558040037751198,
+      "4": 0
+    }
+  },
+  "estimated_v4_prefix_storage_bytes": 577523712,
+  "head_components": [
+    {
+      "device": 0,
+      "T": 1,
+      "production_ms": 1.8203187584877014,
+      "a8w8_ms": 0.7126343548297882,
+      "saved_ms": 1.1076844036579132,
+      "latency_reduction": 0.6085112283181457,
+      "argmax_equal_rows": 4,
+      "rows": 4
+    },
+    {
+      "device": 0,
+      "T": 2,
+      "production_ms": 1.8746262788772583,
+      "a8w8_ms": 0.7468374967575073,
+      "saved_ms": 1.127788782119751,
+      "latency_reduction": 0.6016072615791989,
+      "argmax_equal_rows": 8,
+      "rows": 8
+    },
+    {
+      "device": 0,
+      "T": 4,
+      "production_ms": 1.8939343690872192,
+      "a8w8_ms": 0.7607531249523163,
+      "saved_ms": 1.133181244134903,
+      "latency_reduction": 0.5983212843225603,
+      "argmax_equal_rows": 13,
+      "rows": 16
+    },
+    {
+      "device": 1,
+      "T": 1,
+      "production_ms": 1.8323187828063965,
+      "a8w8_ms": 0.7093743681907654,
+      "saved_ms": 1.122944414615631,
+      "latency_reduction": 0.6128542834100729,
+      "argmax_equal_rows": 4,
+      "rows": 4
+    },
+    {
+      "device": 1,
+      "T": 2,
+      "production_ms": 1.887072503566742,
+      "a8w8_ms": 0.7436043620109558,
+      "saved_ms": 1.1434681415557861,
+      "latency_reduction": 0.6059481760210725,
+      "argmax_equal_rows": 8,
+      "rows": 8
+    },
+    {
+      "device": 1,
+      "T": 4,
+      "production_ms": 1.9051331281661987,
+      "a8w8_ms": 0.7587893605232239,
+      "saved_ms": 1.1463437676429749,
+      "latency_reduction": 0.6017132087490376,
+      "argmax_equal_rows": 15,
+      "rows": 16
+    }
+  ],
+  "head_argmax_equal_rows": 52,
+  "head_rows": 56,
+  "max_head_logit_relative_l2": 0.022073598578572273,
+  "batch_vs_serial_max_output_relative_l2": {
+    "linear": 0.0,
+    "full": 0.0027936906553804874
+  },
+  "prefix_state_checks": 256,
+  "continuation_checks": 240,
+  "boundary_continuations_skipped": 16,
+  "conditional_mtp_budget": [
+    {
+      "assumed_acceptance": 0.5,
+      "assumed_expected_tokens": 1.875,
+      "cycle_budget_ms_for_20percent_speed": 51.578125,
+      "four_layer_proxy_plus_new_head_ms": 92.95879210531712,
+      "remaining_ms_before_drafter_IPC_restore": -41.380667105317116
+    },
+    {
+      "assumed_acceptance": 0.7,
+      "assumed_expected_tokens": 2.533,
+      "cycle_budget_ms_for_20percent_speed": 69.67860833333333,
+      "four_layer_proxy_plus_new_head_ms": 92.95879210531712,
+      "remaining_ms_before_drafter_IPC_restore": -23.280183771983786
+    },
+    {
+      "assumed_acceptance": 0.8,
+      "assumed_expected_tokens": 2.9520000000000004,
+      "cycle_budget_ms_for_20percent_speed": 81.2046,
+      "four_layer_proxy_plus_new_head_ms": 92.95879210531712,
+      "remaining_ms_before_drafter_IPC_restore": -11.754192105317117
+    },
+    {
+      "assumed_acceptance": 0.9,
+      "assumed_expected_tokens": 3.439,
+      "cycle_budget_ms_for_20percent_speed": 94.60115833333333,
+      "four_layer_proxy_plus_new_head_ms": 92.95879210531712,
+      "remaining_ms_before_drafter_IPC_restore": 1.6423662280162148
+    },
+    {
+      "assumed_acceptance": 0.95,
+      "assumed_expected_tokens": 3.709875,
+      "cycle_budget_ms_for_20percent_speed": 102.052478125,
+      "four_layer_proxy_plus_new_head_ms": 92.95879210531712,
+      "remaining_ms_before_drafter_IPC_restore": 9.093686019682877
+    },
+    {
+      "assumed_acceptance": 1.0,
+      "assumed_expected_tokens": 4.0,
+      "cycle_budget_ms_for_20percent_speed": 110.03333333333333,
+      "four_layer_proxy_plus_new_head_ms": 92.95879210531712,
+      "remaining_ms_before_drafter_IPC_restore": 17.074541228016216
+    }
+  ],
+  "packed_conv_adopted": false,
+  "head_deployed": false,
+  "full_model_quality_passed": false,
+  "new_http_tpot_measured": false,
+  "caveats": [
+    "Only L00/L03/L24/L27 with synthetic hidden and zero 8k KV; not 48 actual layers or full cycle.",
+    "Event medians include graph execution gaps; nonexclusive parked production shares device.",
+    "Restore uses repeatedly hot state; excludes CPU decision, RPC and full-model synchronization.",
+    "Conditional acceptance model and historical r157 33.01ms are planning assumptions, not measurements.",
+    "Head numerics changed; synthetic argmax is not task quality; complete frozen evaluation required."
+  ]
+}

@@ -1,0 +1,1784 @@
+{
+  "status": "passed_component_proxy",
+  "device": 1,
+  "records": [
+    {
+      "layer": 24,
+      "kind": "linear",
+      "projections": {
+        "w_qkvz": {
+          "type": "SmoothW8A8",
+          "weight_dtype": "torch.int8",
+          "shape": [
+            2560,
+            16384
+          ],
+          "layout": "nd"
+        },
+        "w_out": {
+          "type": "SmoothW8A8",
+          "weight_dtype": "torch.int8",
+          "shape": [
+            6144,
+            2560
+          ],
+          "layout": "nd"
+        }
+      },
+      "validation": {
+        "bf16/T2": {
+          "T": 2,
+          "mode": "bf16",
+          "samples": [
+            {
+              "start": 4093,
+              "amplitude": 0.003,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4096,
+              "amplitude": 0.03,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4097,
+              "amplitude": 0.3,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 8190,
+              "amplitude": 1.0,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": null
+                }
+              ]
+            }
+          ],
+          "fresh_graph_positions": [
+            4093,
+            4097
+          ],
+          "prefix_storage_bytes": 9621504
+        },
+        "w8a8/T2": {
+          "T": 2,
+          "mode": "w8a8",
+          "samples": [
+            {
+              "start": 4093,
+              "amplitude": 0.003,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4096,
+              "amplitude": 0.03,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4097,
+              "amplitude": 0.3,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 8190,
+              "amplitude": 1.0,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": null
+                }
+              ]
+            }
+          ],
+          "fresh_graph_positions": [
+            4093,
+            4097
+          ],
+          "prefix_storage_bytes": 9621504
+        },
+        "bf16/T4": {
+          "T": 4,
+          "mode": "bf16",
+          "samples": [
+            {
+              "start": 4093,
+              "amplitude": 0.003,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4096,
+              "amplitude": 0.03,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4097,
+              "amplitude": 0.3,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 8188,
+              "amplitude": 1.0,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": null
+                }
+              ]
+            }
+          ],
+          "fresh_graph_positions": [
+            4093,
+            4097
+          ],
+          "prefix_storage_bytes": 16035840
+        },
+        "w8a8/T4": {
+          "T": 4,
+          "mode": "w8a8",
+          "samples": [
+            {
+              "start": 4093,
+              "amplitude": 0.003,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4096,
+              "amplitude": 0.03,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4097,
+              "amplitude": 0.3,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 8188,
+              "amplitude": 1.0,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": null
+                }
+              ]
+            }
+          ],
+          "fresh_graph_positions": [
+            4093,
+            4097
+          ],
+          "prefix_storage_bytes": 16035840
+        }
+      },
+      "timing": [
+        {
+          "T": 1,
+          "median_ms": {
+            "bf16": 0.6378743648529053,
+            "w8a8": 0.5333212316036224
+          },
+          "samples_ms": {
+            "bf16": [
+              0.6358150243759155,
+              0.6208875179290771,
+              0.6339700222015381,
+              0.6332887411117554,
+              0.6344975233078003,
+              0.6487112641334534,
+              0.6466599702835083,
+              0.6463637351989746,
+              0.6426037549972534,
+              0.6378549933433533,
+              0.6378937363624573,
+              0.6385737657546997
+            ],
+            "w8a8": [
+              0.5525087714195251,
+              0.5373037457466125,
+              0.5321999788284302,
+              0.5331212282180786,
+              0.524706244468689,
+              0.5148712396621704,
+              0.5156875252723694,
+              0.517261266708374,
+              0.5340837240219116,
+              0.5343074798583984,
+              0.53373122215271,
+              0.5335212349891663
+            ]
+          },
+          "journal_in_forward": false,
+          "storage_bytes": {
+            "bf16": 0,
+            "w8a8": 0
+          }
+        },
+        {
+          "T": 2,
+          "median_ms": {
+            "bf16": 1.360941231250763,
+            "w8a8": 1.2724531292915344
+          },
+          "samples_ms": {
+            "bf16": [
+              1.369863748550415,
+              1.3598612546920776,
+              1.3594499826431274,
+              1.3722025156021118,
+              1.3629237413406372,
+              1.3579374551773071,
+              1.3599013090133667,
+              1.3636537790298462,
+              1.3611562252044678,
+              1.3639249801635742,
+              1.360726237297058,
+              1.3414562940597534
+            ],
+            "w8a8": [
+              1.2753287553787231,
+              1.2658838033676147,
+              1.2731225490570068,
+              1.2883875370025635,
+              1.2912474870681763,
+              1.2781212329864502,
+              1.278073787689209,
+              1.2639787197113037,
+              1.271783709526062,
+              1.2691537141799927,
+              1.2572212219238281,
+              1.2560237646102905
+            ]
+          },
+          "journal_in_forward": true,
+          "storage_bytes": {
+            "bf16": 9621504,
+            "w8a8": 9621504
+          }
+        },
+        {
+          "T": 4,
+          "median_ms": {
+            "bf16": 2.0089513063430786,
+            "w8a8": 1.9122743606567383
+          },
+          "samples_ms": {
+            "bf16": [
+              2.0088300704956055,
+              1.979356288909912,
+              1.9863574504852295,
+              2.023405075073242,
+              2.0384838581085205,
+              2.0223212242126465,
+              2.0229787826538086,
+              2.019197463989258,
+              2.0004687309265137,
+              2.0090725421905518,
+              2.004847526550293,
+              2.0022637844085693
+            ],
+            "w8a8": [
+              1.9003762006759644,
+              1.8791149854660034,
+              1.894418716430664,
+              1.9276549816131592,
+              1.9422924518585205,
+              1.9186724424362183,
+              1.9253512620925903,
+              1.926703691482544,
+              1.921085000038147,
+              1.9058762788772583,
+              1.9019712209701538,
+              1.8928712606430054
+            ]
+          },
+          "journal_in_forward": true,
+          "storage_bytes": {
+            "bf16": 16035840,
+            "w8a8": 16035840
+          }
+        }
+      ]
+    },
+    {
+      "layer": 27,
+      "kind": "full",
+      "projections": {
+        "w_q": {
+          "type": "SmoothW8A8",
+          "weight_dtype": "torch.int8",
+          "shape": [
+            2560,
+            12288
+          ],
+          "layout": "nd"
+        },
+        "w_o": {
+          "type": "SmoothW8A8",
+          "weight_dtype": "torch.int8",
+          "shape": [
+            6144,
+            2560
+          ],
+          "layout": "nd"
+        }
+      },
+      "validation": {
+        "bf16/T2": {
+          "T": 2,
+          "mode": "bf16",
+          "samples": [
+            {
+              "start": 4093,
+              "amplitude": 0.003,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0008344374946318567,
+                "max_abs": 0.00390625,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4096,
+              "amplitude": 0.03,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0006257999339140952,
+                "max_abs": 0.001953125,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4097,
+              "amplitude": 0.3,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.00031384354224428535,
+                "max_abs": 0.00390625,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 8190,
+              "amplitude": 1.0,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.00015749594604130834,
+                "max_abs": 0.0078125,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": null
+                }
+              ]
+            }
+          ],
+          "fresh_graph_positions": [
+            4093,
+            4097
+          ],
+          "prefix_storage_bytes": 10240
+        },
+        "w8a8/T2": {
+          "T": 2,
+          "mode": "w8a8",
+          "samples": [
+            {
+              "start": 4093,
+              "amplitude": 0.003,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4096,
+              "amplitude": 0.03,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4097,
+              "amplitude": 0.3,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 8190,
+              "amplitude": 1.0,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": null
+                }
+              ]
+            }
+          ],
+          "fresh_graph_positions": [
+            4093,
+            4097
+          ],
+          "prefix_storage_bytes": 10240
+        },
+        "bf16/T4": {
+          "T": 4,
+          "mode": "bf16",
+          "samples": [
+            {
+              "start": 4093,
+              "amplitude": 0.003,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0011505124857649207,
+                "max_abs": 0.00390625,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4096,
+              "amplitude": 0.03,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.001134991180151701,
+                "max_abs": 0.00390625,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4097,
+              "amplitude": 0.3,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0004000356129836291,
+                "max_abs": 0.00390625,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 8188,
+              "amplitude": 1.0,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.00012533387052826583,
+                "max_abs": 0.0078125,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": null
+                }
+              ]
+            }
+          ],
+          "fresh_graph_positions": [
+            4093,
+            4097
+          ],
+          "prefix_storage_bytes": 19456
+        },
+        "w8a8/T4": {
+          "T": 4,
+          "mode": "w8a8",
+          "samples": [
+            {
+              "start": 4093,
+              "amplitude": 0.003,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4096,
+              "amplitude": 0.03,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4097,
+              "amplitude": 0.3,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.001070172991603613,
+                "max_abs": 0.0078125,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 8188,
+              "amplitude": 1.0,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.00028666836442425847,
+                "max_abs": 0.015625,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": null
+                }
+              ]
+            }
+          ],
+          "fresh_graph_positions": [
+            4093,
+            4097
+          ],
+          "prefix_storage_bytes": 19456
+        }
+      },
+      "timing": [
+        {
+          "T": 1,
+          "median_ms": {
+            "bf16": 0.8404337465763092,
+            "w8a8": 0.774495005607605
+          },
+          "samples_ms": {
+            "bf16": [
+              0.8435662388801575,
+              0.8414649963378906,
+              0.839460015296936,
+              0.8406774997711182,
+              0.8399112224578857,
+              0.840987503528595,
+              0.8413712382316589,
+              0.8414287567138672,
+              0.8401899933815002,
+              0.8395749926567078,
+              0.8400712609291077,
+              0.8400599956512451
+            ],
+            "w8a8": [
+              0.7770812511444092,
+              0.7726687788963318,
+              0.776256263256073,
+              0.7729150056838989,
+              0.7766712307929993,
+              0.7725112438201904,
+              0.7758237719535828,
+              0.7720837593078613,
+              0.7765974998474121,
+              0.7731662392616272,
+              0.7762399911880493,
+              0.7726274728775024
+            ]
+          },
+          "journal_in_forward": false,
+          "storage_bytes": {
+            "bf16": 0,
+            "w8a8": 0
+          }
+        },
+        {
+          "T": 2,
+          "median_ms": {
+            "bf16": 1.5175443887710571,
+            "w8a8": 1.4396505951881409
+          },
+          "samples_ms": {
+            "bf16": [
+              1.5279662609100342,
+              1.5164375305175781,
+              1.51631498336792,
+              1.5174212455749512,
+              1.518491268157959,
+              1.5165350437164307,
+              1.517456293106079,
+              1.5187687873840332,
+              1.5173900127410889,
+              1.5182349681854248,
+              1.5176324844360352,
+              1.5176949501037598
+            ],
+            "w8a8": [
+              1.4486949443817139,
+              1.4393787384033203,
+              1.4414937496185303,
+              1.438094973564148,
+              1.441290020942688,
+              1.4385900497436523,
+              1.4399224519729614,
+              1.4374812841415405,
+              1.4409337043762207,
+              1.4381425380706787,
+              1.4425687789916992,
+              1.4393675327301025
+            ]
+          },
+          "journal_in_forward": true,
+          "storage_bytes": {
+            "bf16": 10240,
+            "w8a8": 10240
+          }
+        },
+        {
+          "T": 4,
+          "median_ms": {
+            "bf16": 2.106958746910095,
+            "w8a8": 2.018294334411621
+          },
+          "samples_ms": {
+            "bf16": [
+              2.1070876121520996,
+              2.107396364212036,
+              2.107113838195801,
+              2.105516195297241,
+              2.107663631439209,
+              2.106588840484619,
+              2.107455015182495,
+              2.106829881668091,
+              2.106147527694702,
+              2.1071412563323975,
+              2.1053688526153564,
+              2.105799913406372
+            ],
+            "w8a8": [
+              2.0183498859405518,
+              2.0196638107299805,
+              2.0176587104797363,
+              2.0153775215148926,
+              2.018002510070801,
+              2.016341209411621,
+              2.020268678665161,
+              2.017057418823242,
+              2.01881742477417,
+              2.0182387828826904,
+              2.019226312637329,
+              2.019274950027466
+            ]
+          },
+          "journal_in_forward": true,
+          "storage_bytes": {
+            "bf16": 19456,
+            "w8a8": 19456
+          }
+        }
+      ]
+    }
+  ],
+  "independent_recurrence": [
+    {
+      "T": 2,
+      "seed": 0,
+      "max_prefix_state_abs": 0.0,
+      "max_output_abs": 0.0
+    },
+    {
+      "T": 2,
+      "seed": 1,
+      "max_prefix_state_abs": 0.0,
+      "max_output_abs": 0.0
+    },
+    {
+      "T": 2,
+      "seed": 2,
+      "max_prefix_state_abs": 0.0,
+      "max_output_abs": 0.0
+    },
+    {
+      "T": 2,
+      "seed": 3,
+      "max_prefix_state_abs": 0.0,
+      "max_output_abs": 0.0
+    },
+    {
+      "T": 4,
+      "seed": 0,
+      "max_prefix_state_abs": 0.0,
+      "max_output_abs": 0.0
+    },
+    {
+      "T": 4,
+      "seed": 1,
+      "max_prefix_state_abs": 0.0,
+      "max_output_abs": 0.0
+    },
+    {
+      "T": 4,
+      "seed": 2,
+      "max_prefix_state_abs": 0.0,
+      "max_output_abs": 0.0
+    },
+    {
+      "T": 4,
+      "seed": 3,
+      "max_prefix_state_abs": 0.0,
+      "max_output_abs": 0.0
+    }
+  ],
+  "smooth_projection_call_rows": {
+    "L24/w_qkvz": {
+      "1": 93,
+      "2": 17,
+      "4": 17
+    },
+    "L24/w_out": {
+      "1": 93,
+      "2": 17,
+      "4": 17
+    },
+    "L27/w_q": {
+      "1": 93,
+      "2": 17,
+      "4": 17
+    },
+    "L27/w_o": {
+      "1": 93,
+      "2": 17,
+      "4": 17
+    }
+  },
+  "exclusive": false,
+  "production_traffic_stable": true,
+  "production_transfers": {
+    "peer_transfers": 6,
+    "peer_bytes": 162529280,
+    "host_transfers": 132,
+    "host_bytes": 5222400
+  },
+  "allocator_fraction": 0.041666666666666664,
+  "peak_allocated_bytes": 1915134464,
+  "elapsed_s": 25.047430371996597,
+  "context_capacity": 8192,
+  "synthetic_hidden": true,
+  "scope": "4-layer weighted proxy only; includes prefix journals, excludes drafter/head/IPC/full quality"
+}

@@ -1,0 +1,24 @@
+{
+  "created_epoch": 1794566030.2888374,
+  "base_tasks": 1100,
+  "extra_structure_tasks": 100,
+  "total_tasks": 1200,
+  "extra_input_sha256": "d4ad4483b31d008c27bbc7f0752ebdd6987765f81abdc4fc13d0cdd0adc44cb4",
+  "reason": "JSON domain has 200 cases; avoid declaring a 2pp noninferiority margin from only 100 zero-discordance cases",
+  "mean_nll_limit": 0.02,
+  "slice_nll_limit": 0.05,
+  "nll_slices": "28 prespecified slices: each domain split into 7 consecutive groups of 7 frozen cases",
+  "task_margin": 0.02,
+  "task_confidence": 0.95,
+  "task_lower_bound": "conservative paired improvement lower CP minus worsening upper CP; split alpha when both bounds estimated",
+  "task_domains": [
+    "cmmlu",
+    "mmlu_pro",
+    "math",
+    "code",
+    "json"
+  ],
+  "subbenchmark_point_regression_review_threshold": 0.02,
+  "natural_prefill_slice_nll_limit": 0.05,
+  "quality_gate_requires_complete_pairs": true
+}

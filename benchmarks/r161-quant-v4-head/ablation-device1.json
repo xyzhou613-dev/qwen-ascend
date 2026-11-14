@@ -1,0 +1,1717 @@
+{
+  "status": "passed_packed_journal_component",
+  "device": 1,
+  "records": [
+    {
+      "layer": 24,
+      "kind": "linear",
+      "packed_conv_equivalence": {
+        "bf16": [
+          {
+            "T": 2,
+            "amplitude": 0.003,
+            "bitwise_equal": true
+          },
+          {
+            "T": 2,
+            "amplitude": 0.03,
+            "bitwise_equal": true
+          },
+          {
+            "T": 2,
+            "amplitude": 0.3,
+            "bitwise_equal": true
+          },
+          {
+            "T": 2,
+            "amplitude": 1.0,
+            "bitwise_equal": true
+          },
+          {
+            "T": 4,
+            "amplitude": 0.003,
+            "bitwise_equal": true
+          },
+          {
+            "T": 4,
+            "amplitude": 0.03,
+            "bitwise_equal": true
+          },
+          {
+            "T": 4,
+            "amplitude": 0.3,
+            "bitwise_equal": true
+          },
+          {
+            "T": 4,
+            "amplitude": 1.0,
+            "bitwise_equal": true
+          }
+        ],
+        "w8a8": [
+          {
+            "T": 2,
+            "amplitude": 0.003,
+            "bitwise_equal": true
+          },
+          {
+            "T": 2,
+            "amplitude": 0.03,
+            "bitwise_equal": true
+          },
+          {
+            "T": 2,
+            "amplitude": 0.3,
+            "bitwise_equal": true
+          },
+          {
+            "T": 2,
+            "amplitude": 1.0,
+            "bitwise_equal": true
+          },
+          {
+            "T": 4,
+            "amplitude": 0.003,
+            "bitwise_equal": true
+          },
+          {
+            "T": 4,
+            "amplitude": 0.03,
+            "bitwise_equal": true
+          },
+          {
+            "T": 4,
+            "amplitude": 0.3,
+            "bitwise_equal": true
+          },
+          {
+            "T": 4,
+            "amplitude": 1.0,
+            "bitwise_equal": true
+          }
+        ]
+      },
+      "validation": {
+        "bf16/T2": {
+          "T": 2,
+          "mode": "bf16",
+          "samples": [
+            {
+              "start": 4093,
+              "amplitude": 0.003,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4096,
+              "amplitude": 0.03,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4097,
+              "amplitude": 0.3,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 8190,
+              "amplitude": 1.0,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": null
+                }
+              ]
+            }
+          ],
+          "fresh_graph_positions": [
+            4093,
+            4097
+          ],
+          "prefix_storage_bytes": 9621504
+        },
+        "w8a8/T2": {
+          "T": 2,
+          "mode": "w8a8",
+          "samples": [
+            {
+              "start": 4093,
+              "amplitude": 0.003,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4096,
+              "amplitude": 0.03,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4097,
+              "amplitude": 0.3,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 8190,
+              "amplitude": 1.0,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": null
+                }
+              ]
+            }
+          ],
+          "fresh_graph_positions": [
+            4093,
+            4097
+          ],
+          "prefix_storage_bytes": 9621504
+        },
+        "bf16/T4": {
+          "T": 4,
+          "mode": "bf16",
+          "samples": [
+            {
+              "start": 4093,
+              "amplitude": 0.003,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4096,
+              "amplitude": 0.03,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4097,
+              "amplitude": 0.3,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 8188,
+              "amplitude": 1.0,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": null
+                }
+              ]
+            }
+          ],
+          "fresh_graph_positions": [
+            4093,
+            4097
+          ],
+          "prefix_storage_bytes": 16035840
+        },
+        "w8a8/T4": {
+          "T": 4,
+          "mode": "w8a8",
+          "samples": [
+            {
+              "start": 4093,
+              "amplitude": 0.003,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4096,
+              "amplitude": 0.03,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4097,
+              "amplitude": 0.3,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 8188,
+              "amplitude": 1.0,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                },
+                "S": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": null
+                }
+              ]
+            }
+          ],
+          "fresh_graph_positions": [
+            4093,
+            4097
+          ],
+          "prefix_storage_bytes": 16035840
+        }
+      },
+      "timing": {
+        "T": 4,
+        "median_ms": {
+          "bf16/legacy": 1.9606818556785583,
+          "bf16/loop": 1.9739693403244019,
+          "bf16/packed": 2.0232919454574585,
+          "w8a8/legacy": 1.8560624718666077,
+          "w8a8/loop": 1.873653769493103,
+          "w8a8/packed": 1.9366344213485718
+        },
+        "samples_ms": {
+          "bf16/legacy": [
+            1.9756850004196167,
+            1.972346305847168,
+            1.9644650220870972,
+            1.9511061906814575,
+            1.9482587575912476,
+            1.9505788087844849,
+            1.9518013000488281,
+            1.9649837017059326,
+            1.9620537757873535,
+            1.9612337350845337,
+            1.960129976272583,
+            1.9548225402832031
+          ],
+          "bf16/loop": [
+            1.997151255607605,
+            1.9897874593734741,
+            1.9752224683761597,
+            1.9607787132263184,
+            1.9657337665557861,
+            1.963492512702942,
+            1.9633913040161133,
+            1.9729712009429932,
+            1.9749674797058105,
+            1.9763412475585938,
+            1.9650212526321411,
+            1.9772975444793701
+          ],
+          "bf16/packed": [
+            2.0611462593078613,
+            2.044503688812256,
+            2.0266213417053223,
+            2.0120086669921875,
+            2.010782480239868,
+            2.0093088150024414,
+            2.011590003967285,
+            2.015828847885132,
+            2.0245838165283203,
+            2.026357412338257,
+            2.026643753051758,
+            2.0220000743865967
+          ],
+          "w8a8/legacy": [
+            1.8537812232971191,
+            1.8421512842178345,
+            1.842460036277771,
+            1.8583437204360962,
+            1.8585424423217773,
+            1.8669012784957886,
+            1.8657300472259521,
+            1.8584799766540527,
+            1.8749362230300903,
+            1.8505899906158447,
+            1.853487491607666,
+            1.838402509689331
+          ],
+          "w8a8/loop": [
+            1.8739099502563477,
+            1.8557437658309937,
+            1.8585788011550903,
+            1.8735549449920654,
+            1.8737225532531738,
+            1.887524962425232,
+            1.8839586973190308,
+            1.8810513019561768,
+            1.8889374732971191,
+            1.8735849857330322,
+            1.8693087100982666,
+            1.8590224981307983
+          ],
+          "w8a8/packed": [
+            1.9319075345993042,
+            1.9201138019561768,
+            1.9228737354278564,
+            1.9281975030899048,
+            1.941272497177124,
+            1.940211296081543,
+            1.945847511291504,
+            1.9456787109375,
+            1.9582200050354004,
+            1.94268000125885,
+            1.9330575466156006,
+            1.9217849969863892
+          ]
+        },
+        "legacy": "FP32 S prefix only; incomplete rollback",
+        "loop": "S+loop conv prefix or KV/index tails",
+        "packed": "S+single-copy conv prefix or KV/index tails"
+      }
+    },
+    {
+      "layer": 27,
+      "kind": "full",
+      "packed_conv_equivalence": {},
+      "validation": {
+        "bf16/T2": {
+          "T": 2,
+          "mode": "bf16",
+          "samples": [
+            {
+              "start": 4093,
+              "amplitude": 0.003,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0008344374946318567,
+                "max_abs": 0.00390625,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4096,
+              "amplitude": 0.03,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0006257999339140952,
+                "max_abs": 0.001953125,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4097,
+              "amplitude": 0.3,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.00031384354224428535,
+                "max_abs": 0.00390625,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 8190,
+              "amplitude": 1.0,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.00015749594604130834,
+                "max_abs": 0.0078125,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": null
+                }
+              ]
+            }
+          ],
+          "fresh_graph_positions": [
+            4093,
+            4097
+          ],
+          "prefix_storage_bytes": 10240
+        },
+        "w8a8/T2": {
+          "T": 2,
+          "mode": "w8a8",
+          "samples": [
+            {
+              "start": 4093,
+              "amplitude": 0.003,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4096,
+              "amplitude": 0.03,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4097,
+              "amplitude": 0.3,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 8190,
+              "amplitude": 1.0,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": null
+                }
+              ]
+            }
+          ],
+          "fresh_graph_positions": [
+            4093,
+            4097
+          ],
+          "prefix_storage_bytes": 10240
+        },
+        "bf16/T4": {
+          "T": 4,
+          "mode": "bf16",
+          "samples": [
+            {
+              "start": 4093,
+              "amplitude": 0.003,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0011505124857649207,
+                "max_abs": 0.00390625,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4096,
+              "amplitude": 0.03,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.001134991180151701,
+                "max_abs": 0.00390625,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4097,
+              "amplitude": 0.3,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0004000356129836291,
+                "max_abs": 0.00390625,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 8188,
+              "amplitude": 1.0,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.00012533387052826583,
+                "max_abs": 0.0078125,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": null
+                }
+              ]
+            }
+          ],
+          "fresh_graph_positions": [
+            4093,
+            4097
+          ],
+          "prefix_storage_bytes": 19456
+        },
+        "w8a8/T4": {
+          "T": 4,
+          "mode": "w8a8",
+          "samples": [
+            {
+              "start": 4093,
+              "amplitude": 0.003,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4096,
+              "amplitude": 0.03,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.0,
+                "max_abs": 0.0,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 4097,
+              "amplitude": 0.3,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.001070172991603613,
+                "max_abs": 0.0078125,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": true
+                }
+              ]
+            },
+            {
+              "start": 8188,
+              "amplitude": 1.0,
+              "batch_vs_serial_output": {
+                "relative_l2": 0.00028666836442425847,
+                "max_abs": 0.015625,
+                "finite": true
+              },
+              "batch_vs_serial_state": {
+                "conv": {
+                  "relative_l2": 0.0,
+                  "max_abs": 0.0,
+                  "finite": true
+                }
+              },
+              "prefix_cuts": [
+                {
+                  "cut": 0,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 1,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 2,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 3,
+                  "state_exact": true,
+                  "continuation_exact": true
+                },
+                {
+                  "cut": 4,
+                  "state_exact": true,
+                  "continuation_exact": null
+                }
+              ]
+            }
+          ],
+          "fresh_graph_positions": [
+            4093,
+            4097
+          ],
+          "prefix_storage_bytes": 19456
+        }
+      },
+      "timing": {
+        "T": 4,
+        "median_ms": {
+          "bf16/legacy": 2.001469373703003,
+          "bf16/loop": 2.1026363372802734,
+          "bf16/packed": 2.1046087741851807,
+          "w8a8/legacy": 1.9577037692070007,
+          "w8a8/loop": 2.035193681716919,
+          "w8a8/packed": 2.0385475158691406
+        },
+        "samples_ms": {
+          "bf16/legacy": [
+            2.0016112327575684,
+            2.0000975131988525,
+            2.0026512145996094,
+            1.9992212057113647,
+            2.0016651153564453,
+            2.0003411769866943,
+            2.0037600994110107,
+            2.0023386478424072,
+            2.0013275146484375,
+            2.0001649856567383,
+            2.0037238597869873,
+            2.0000500679016113
+          ],
+          "bf16/loop": [
+            2.102672576904297,
+            2.101637601852417,
+            2.1015400886535645,
+            2.10260009765625,
+            2.1030774116516113,
+            2.1037425994873047,
+            2.1032912731170654,
+            2.1018800735473633,
+            2.1025338172912598,
+            2.103738784790039,
+            2.1022863388061523,
+            2.1043150424957275
+          ],
+          "bf16/packed": [
+            2.1037824153900146,
+            2.1046388149261475,
+            2.1036899089813232,
+            2.1033074855804443,
+            2.1050899028778076,
+            2.104886293411255,
+            2.104578733444214,
+            2.104335069656372,
+            2.1052987575531006,
+            2.10302996635437,
+            2.10477614402771,
+            2.1050775051116943
+          ],
+          "w8a8/legacy": [
+            1.9577000141143799,
+            1.9567675590515137,
+            1.9591387510299683,
+            1.9564449787139893,
+            1.9580800533294678,
+            1.9573537111282349,
+            1.9586561918258667,
+            1.9576774835586548,
+            1.9578187465667725,
+            1.9577075242996216,
+            1.958050012588501,
+            1.956417441368103
+          ],
+          "w8a8/loop": [
+            2.0351412296295166,
+            2.035747528076172,
+            2.035642385482788,
+            2.0360474586486816,
+            2.0352461338043213,
+            2.036634922027588,
+            2.0338099002838135,
+            2.035036325454712,
+            2.0351099967956543,
+            2.0350987911224365,
+            2.0358150005340576,
+            2.0349373817443848
+          ],
+          "w8a8/packed": [
+            2.0385074615478516,
+            2.0380699634552,
+            2.037426233291626,
+            2.038937568664551,
+            2.0382823944091797,
+            2.041118860244751,
+            2.0394363403320312,
+            2.0394937992095947,
+            2.039201259613037,
+            2.0385875701904297,
+            2.037597417831421,
+            2.037853717803955
+          ]
+        },
+        "legacy": "FP32 S prefix only; incomplete rollback",
+        "loop": "S+loop conv prefix or KV/index tails",
+        "packed": "S+single-copy conv prefix or KV/index tails"
+      }
+    }
+  ],
+  "exclusive": false,
+  "production_traffic_stable": true,
+  "smooth_projection_call_rows": {
+    "L24/w_qkvz": {
+      "1": 84,
+      "2": 8,
+      "4": 35
+    },
+    "L24/w_out": {
+      "1": 84,
+      "2": 8,
+      "4": 35
+    },
+    "L27/w_q": {
+      "1": 84,
+      "2": 8,
+      "4": 35
+    },
+    "L27/w_o": {
+      "1": 84,
+      "2": 8,
+      "4": 35
+    }
+  },
+  "elapsed_s": 26.19128959000227,
+  "peak_allocated_bytes": 1916344832,
+  "allocator_fraction": 0.041666666666666664,
+  "scope": "same-run four-layer proxy; no drafter/head/IPC/full quality"
+}

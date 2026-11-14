@@ -1,0 +1,313 @@
+{
+  "status": "passed_head_component",
+  "device": 0,
+  "records": [
+    {
+      "T": 1,
+      "median_ms": {
+        "production": 1.8203187584877014,
+        "a8w8": 0.7126343548297882
+      },
+      "samples_ms": {
+        "production": [
+          1.8289562463760376,
+          1.8177512884140015,
+          1.8203225135803223,
+          1.8185187578201294,
+          1.8208600282669067,
+          1.8184399604797363,
+          1.821987509727478,
+          1.8188261985778809,
+          1.8203762769699097,
+          1.8207000494003296,
+          1.8203150033950806,
+          1.8197011947631836
+        ],
+        "a8w8": [
+          0.7139387726783752,
+          0.7125837206840515,
+          0.7128074765205383,
+          0.7118962407112122,
+          0.7130287289619446,
+          0.7122349739074707,
+          0.7121362686157227,
+          0.7126849889755249,
+          0.7136662602424622,
+          0.7121725082397461,
+          0.7127400040626526,
+          0.7116249799728394
+        ]
+      },
+      "output_errors": [
+        {
+          "amplitude": 0.003,
+          "logit_error": {
+            "relative_l2": 0.022073598578572273,
+            "max_abs": 0.134765625,
+            "finite": true
+          },
+          "argmax_equal_rows": 1,
+          "rows": 1
+        },
+        {
+          "amplitude": 0.03,
+          "logit_error": {
+            "relative_l2": 0.017636846750974655,
+            "max_abs": 0.125,
+            "finite": true
+          },
+          "argmax_equal_rows": 1,
+          "rows": 1
+        },
+        {
+          "amplitude": 0.3,
+          "logit_error": {
+            "relative_l2": 0.014519068412482738,
+            "max_abs": 0.139984130859375,
+            "finite": true
+          },
+          "argmax_equal_rows": 1,
+          "rows": 1
+        },
+        {
+          "amplitude": 1.0,
+          "logit_error": {
+            "relative_l2": 0.02087133377790451,
+            "max_abs": 0.061767578125,
+            "finite": true
+          },
+          "argmax_equal_rows": 1,
+          "rows": 1
+        }
+      ],
+      "production_batch_vs_serial_logits": [],
+      "fresh_graph_verified": {
+        "production": true,
+        "a8w8": true
+      }
+    },
+    {
+      "T": 2,
+      "median_ms": {
+        "production": 1.8746262788772583,
+        "a8w8": 0.7468374967575073
+      },
+      "samples_ms": {
+        "production": [
+          1.873868703842163,
+          1.8729562759399414,
+          1.8757487535476685,
+          1.8738837242126465,
+          1.8751775026321411,
+          1.8736987113952637,
+          1.8746337890625,
+          1.8746187686920166,
+          1.8755849599838257,
+          1.8745750188827515,
+          1.8751975297927856,
+          1.8747450113296509
+        ],
+        "a8w8": [
+          0.7469737529754639,
+          0.7463237643241882,
+          0.7471250295639038,
+          0.7464137673377991,
+          0.7468475103378296,
+          0.7468274831771851,
+          0.7474300265312195,
+          0.7464724779129028,
+          0.7471200227737427,
+          0.7463237643241882,
+          0.7469674944877625,
+          0.7463175058364868
+        ]
+      },
+      "output_errors": [
+        {
+          "amplitude": 0.003,
+          "logit_error": {
+            "relative_l2": 0.014434444718062878,
+            "max_abs": 0.140625,
+            "finite": true
+          },
+          "argmax_equal_rows": 2,
+          "rows": 2
+        },
+        {
+          "amplitude": 0.03,
+          "logit_error": {
+            "relative_l2": 0.018641918897628784,
+            "max_abs": 0.1015625,
+            "finite": true
+          },
+          "argmax_equal_rows": 2,
+          "rows": 2
+        },
+        {
+          "amplitude": 0.3,
+          "logit_error": {
+            "relative_l2": 0.01739482209086418,
+            "max_abs": 0.0859375,
+            "finite": true
+          },
+          "argmax_equal_rows": 2,
+          "rows": 2
+        },
+        {
+          "amplitude": 1.0,
+          "logit_error": {
+            "relative_l2": 0.018883133307099342,
+            "max_abs": 0.134765625,
+            "finite": true
+          },
+          "argmax_equal_rows": 2,
+          "rows": 2
+        }
+      ],
+      "production_batch_vs_serial_logits": [
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        }
+      ],
+      "fresh_graph_verified": {
+        "production": true,
+        "a8w8": true
+      }
+    },
+    {
+      "T": 4,
+      "median_ms": {
+        "production": 1.8939343690872192,
+        "a8w8": 0.7607531249523163
+      },
+      "samples_ms": {
+        "production": [
+          1.909250020980835,
+          1.8921500444412231,
+          1.8943012952804565,
+          1.8925424814224243,
+          1.8947937488555908,
+          1.892775058746338,
+          1.8947750329971313,
+          1.89224374294281,
+          1.893784999847412,
+          1.8940837383270264,
+          1.8946950435638428,
+          1.8934074640274048
+        ],
+        "a8w8": [
+          0.7619674801826477,
+          0.7606012225151062,
+          0.762565016746521,
+          0.7607812285423279,
+          0.761326253414154,
+          0.7595662474632263,
+          0.7607250213623047,
+          0.7601274847984314,
+          0.760670006275177,
+          0.7601037621498108,
+          0.762431263923645,
+          0.7608100175857544
+        ]
+      },
+      "output_errors": [
+        {
+          "amplitude": 0.003,
+          "logit_error": {
+            "relative_l2": 0.012371696531772614,
+            "max_abs": 0.12890625,
+            "finite": true
+          },
+          "argmax_equal_rows": 4,
+          "rows": 4
+        },
+        {
+          "amplitude": 0.03,
+          "logit_error": {
+            "relative_l2": 0.01978636533021927,
+            "max_abs": 0.1087646484375,
+            "finite": true
+          },
+          "argmax_equal_rows": 3,
+          "rows": 4
+        },
+        {
+          "amplitude": 0.3,
+          "logit_error": {
+            "relative_l2": 0.02071809582412243,
+            "max_abs": 0.13671875,
+            "finite": true
+          },
+          "argmax_equal_rows": 4,
+          "rows": 4
+        },
+        {
+          "amplitude": 1.0,
+          "logit_error": {
+            "relative_l2": 0.012338967993855476,
+            "max_abs": 0.21875,
+            "finite": true
+          },
+          "argmax_equal_rows": 2,
+          "rows": 4
+        }
+      ],
+      "production_batch_vs_serial_logits": [
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        }
+      ],
+      "fresh_graph_verified": {
+        "production": true,
+        "a8w8": true
+      }
+    }
+  ],
+  "current_head_type": "DenseW8",
+  "current_head_chunks": 4,
+  "vocab": 248320,
+  "K": 2560,
+  "new_quantization": "original grouped W8 reconstructed BF16 then per-output-channel W8; dynamic per-token A8; no calibration",
+  "weight_fit_relative_l2": 0.0092347152531147,
+  "new_weight_storage_bytes": 636692480,
+  "peak_allocated_bytes": 1388573696,
+  "elapsed_s": 5.609046099001716,
+  "allocator_fraction": 0.03125,
+  "exclusive": false,
+  "production_traffic_stable": true,
+  "scope": "mixer+head+per-row argmax only; synthetic HC hidden; no NLL/task acceptance or full cycle"
+}
