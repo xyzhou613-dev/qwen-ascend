@@ -1,0 +1,8 @@
+{
+  "status": "task_execution_complete",
+  "selected": 1200,
+  "completed": 1200,
+  "correct": 880,
+  "input_sha256": "3362acf6e696bedcd58c97b2f2714bf96d71088dbc200a06c5f638fa466b06c2",
+  "quality_acceptance_complete": false
+}

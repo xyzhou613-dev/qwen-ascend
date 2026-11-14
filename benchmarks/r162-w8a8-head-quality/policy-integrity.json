@@ -1,0 +1,8 @@
+{
+  "epoch": 1794622145.253712,
+  "acceptance_policy_sha256": "9609349671d339addbe2683bda0746ef3273d314d275ef0d32912b6177a7a400",
+  "run_policy_sha256": "cecf1ff8f928d1901b81dde3eb3ff7d899d0457f0ad154495c346f30676bc59b",
+  "same_as_frozen_r157": true,
+  "policy_changed": false,
+  "scope": "recorded before full candidate quality begins; existing short gates unchanged"
+}

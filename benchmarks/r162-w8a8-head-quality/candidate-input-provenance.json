@@ -1,0 +1,9 @@
+{
+  "epoch": 1794619574.065654,
+  "calibration_files_verified": 48,
+  "alpha": 0.5,
+  "calibration_manifest_sha256": "4fe1f86a226b0f5dcc6c687064b97b1d3ff02ba1fd6a8370eb9a71214619457a",
+  "http_input_files_verified": 6,
+  "http_input_manifest_sha256": "8d2c0abb8e83c3a3de6daba58841b14854fd01b43e249fa7c77aefa2cd070bdf",
+  "no_calibration_vectors_or_raw_inputs_published": true
+}

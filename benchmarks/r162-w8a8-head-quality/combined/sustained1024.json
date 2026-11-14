@@ -1,0 +1,16 @@
+{
+  "ttft_s": 3.741993955001817,
+  "end_to_end_s": 22.440803753997898,
+  "stats": {
+    "ttft_ms": 3709.95,
+    "tokens": 666,
+    "seconds": 22.409,
+    "tpot_ms": 28.12,
+    "tok_decode_ms": 18.63,
+    "prefill_ms": 3656.85,
+    "prefill_tok_s": 2204.09,
+    "n_prefill": 8060
+  },
+  "answer_sha256": "6f83454c18fd99b0e645bb108b3479d704efec57fdc85346c9003851a74b0a6c",
+  "answer_characters": 1249
+}

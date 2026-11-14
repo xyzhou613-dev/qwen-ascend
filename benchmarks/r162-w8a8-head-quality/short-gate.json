@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "performance": {
+    "median_8k_tpot_ms": {
+      "output_speed_gain": 0.17578125,
+      "head_incremental_saved_ms": 1.3500000000000014
+    },
+    "median_256k_tpot_ms": {
+      "output_speed_gain": 0.171468240194377,
+      "head_incremental_saved_ms": 1.4299999999999997
+    }
+  },
+  "legacy_prefill_deltas": {
+    "natural6000": -0.013756036999342802,
+    "service12000": 0.001119419325133739,
+    "technical24000": -0.0029960454546604787,
+    "natural18000": 0.014751056378564442,
+    "natural36000": 0.022103994268685145
+  },
+  "full_quality_acceptance": false
+}

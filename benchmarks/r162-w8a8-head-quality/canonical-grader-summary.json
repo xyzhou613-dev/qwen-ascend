@@ -1,0 +1,11 @@
+{
+  "completed": 1200,
+  "expected": 1200,
+  "input_sha256": "3362acf6e696bedcd58c97b2f2714bf96d71088dbc200a06c5f638fa466b06c2",
+  "code_references": 200,
+  "failed_ids": [],
+  "all_references_passed": true,
+  "negative_format_checks_passed": true,
+  "elapsed_s": 83.41324758529663,
+  "no_model_inference": true
+}

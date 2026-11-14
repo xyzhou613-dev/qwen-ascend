@@ -1,0 +1,11 @@
+{
+  "source": "/models/fnx-diagnostics/r157-combined-quality-20261113/analyze.py",
+  "source_sha256": "49eb794325e58cda367dbc345aa382da31310a8265939cf62726421bda5ff2de",
+  "adapted_sha256": "5805109f1a197e786601df76d5e7ccf46e9a1c68ff2691633a71c08116ebedac",
+  "changes": [
+    "r152 same-run reference named rollback",
+    "no nonexistent AA rerun claim",
+    "provenance points at frozen r162 harness"
+  ],
+  "quality_policy_changed": false
+}

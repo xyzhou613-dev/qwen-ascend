@@ -1,0 +1,59 @@
+[
+  {
+    "ttft_s": 67.25108475799789,
+    "end_to_end_s": 71.09197232400038,
+    "stats": {
+      "ttft_ms": 66136.35,
+      "tokens": 128,
+      "seconds": 69.977,
+      "tpot_ms": 30.24,
+      "tok_decode_ms": 3.71,
+      "prefill_ms": 66003.15,
+      "prefill_tok_s": 3969.69,
+      "n_prefill": 262012
+    },
+    "run": 1,
+    "payload_sha256": "93e50093ed19e86ab263daed0d816a097ef7b310f3aa9e67165fcfc74242fbd6",
+    "recall_hits": 3,
+    "answer_sha256": "15450e4148b163bd930db1fc96ea2c77cb77882863c8de8cc82fccbe0888837a",
+    "answer_characters": 214
+  },
+  {
+    "ttft_s": 66.7734547479995,
+    "end_to_end_s": 70.61188628599484,
+    "stats": {
+      "ttft_ms": 65687.05,
+      "tokens": 128,
+      "seconds": 69.525,
+      "tpot_ms": 30.22,
+      "tok_decode_ms": 3.55,
+      "prefill_ms": 65562.1,
+      "prefill_tok_s": 3996.39,
+      "n_prefill": 262012
+    },
+    "run": 2,
+    "payload_sha256": "45cf58726a5bf5e1fcfc1316316b96b3d81af207e8b15a7ef1fe4a083a77d013",
+    "recall_hits": 3,
+    "answer_sha256": "f63ee2bb8474d884e9ad5be11a6d188a3ef0c1508a260b0389b2db47a378a0d7",
+    "answer_characters": 207
+  },
+  {
+    "ttft_s": 66.7819967960022,
+    "end_to_end_s": 70.62348382399796,
+    "stats": {
+      "ttft_ms": 65691.44,
+      "tokens": 128,
+      "seconds": 69.533,
+      "tpot_ms": 30.25,
+      "tok_decode_ms": 3.82,
+      "prefill_ms": 65566.63,
+      "prefill_tok_s": 3996.12,
+      "n_prefill": 262012
+    },
+    "run": 3,
+    "payload_sha256": "473a96f503c06d9584cce9faa59b75d43722b5b5cc64d7e85bf8054f519f7902",
+    "recall_hits": 3,
+    "answer_sha256": "20e6574c37b2c5eef67de8f199d025421dc95b4efcaf274dbf8ce322b5d77e67",
+    "answer_characters": 243
+  }
+]

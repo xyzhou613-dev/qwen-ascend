@@ -1,0 +1,88 @@
+{
+  "epoch": 1794632839.1775615,
+  "production_files_unchanged": 45,
+  "p275_unchanged": true,
+  "health": {
+    "status": "ok",
+    "engine_loaded": true,
+    "ctx": 262144,
+    "service_revision": "r152",
+    "norm_post": true,
+    "state_update": true,
+    "prefill_output": true,
+    "norm_ordered": true,
+    "delta_reuse": true,
+    "moe_epilogue": true,
+    "post_native": true,
+    "decode_down_gmm": false,
+    "expert_gather": true,
+    "inject_native": true,
+    "conv_prefill": true,
+    "raw_compact": true,
+    "cpu_threads": 16,
+    "short_prefill_chunk": 2048,
+    "short_prefill_tokens": 16384,
+    "pipeline_stages": 2,
+    "worker_alive": true,
+    "prefill_chunk": 8192,
+    "pipeline_transport": "hybrid",
+    "delta_compact": true,
+    "index_post": true,
+    "index_score": true,
+    "conv_native": true,
+    "index_expand": true,
+    "mix_reduce": true,
+    "moe_reduce": true,
+    "dual_write": true,
+    "pipeline_transfers": {
+      "peer_transfers": 0,
+      "peer_bytes": 0,
+      "host_transfers": 3,
+      "host_bytes": 61440
+    },
+    "index_caps": [
+      16384,
+      32768,
+      65536,
+      98304,
+      131072,
+      196608,
+      262144
+    ],
+    "native_sparse": true,
+    "native_dual": true,
+    "index_unique": true,
+    "moe_inverse": true,
+    "moe_inverse_sort": true,
+    "state_dual_slim": true,
+    "conversation_state_bytes": 0,
+    "rope_cache": true,
+    "delta_window": 2048,
+    "delta_native": true,
+    "chunk_graph": true,
+    "qsa_indexer": true,
+    "qsa_sparse": true
+  },
+  "engines": [
+    {
+      "pid": 267897,
+      "cwd": "/root/ascend-dev/fnx"
+    },
+    {
+      "pid": 267916,
+      "cwd": "/root/ascend-dev/fnx"
+    }
+  ],
+  "watchdog_pids": [
+    269122
+  ],
+  "manager_active": true,
+  "temporary_controls_removed": true,
+  "private_env_removed": true,
+  "experimental_processes_absent": true,
+  "runtime_and_harness_unchanged": true,
+  "original_container_preserved": true,
+  "formal_fresh8k_answer_identical": true,
+  "within_six_hour_cap": true,
+  "restore_elapsed_s": 12135.13874077797
+}

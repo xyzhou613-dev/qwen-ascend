@@ -1,0 +1,22 @@
+[
+  {
+    "case": 0,
+    "max_abs_delta": 0.0,
+    "ids_sha256": "78e7cad27cc7d3f080c4cbdc54d912a55c9f00bd457e6ae61bf44e20e2962756"
+  },
+  {
+    "case": 49,
+    "max_abs_delta": 0.0,
+    "ids_sha256": "1bd8e7435676d805cfaf581c255e95e432f1e89797ffe620b0252f7fc64f8e55"
+  },
+  {
+    "case": 98,
+    "max_abs_delta": 0.0,
+    "ids_sha256": "57fb399ad15d80aec70b08d0db47cbcf4ac4448f39bab8e7c0dd44bfe22bb094"
+  },
+  {
+    "case": 147,
+    "max_abs_delta": 0.0,
+    "ids_sha256": "03a24934e2a0fe2d21ae2756ea68deb967fb79614821e9a3ca64b86e888cfef4"
+  }
+]

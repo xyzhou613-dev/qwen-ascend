@@ -1,0 +1,10 @@
+[Unit]
+Description=Optional W8A8 same-slice control after all r162 tasks
+[Service]
+Type=simple
+WorkingDirectory=/models/fnx-diagnostics/r162-w8a8-head-quality-20261114
+ExecStart=/bin/bash -c "exec /usr/bin/python3 /models/fnx-diagnostics/r162-w8a8-head-quality-20261114/attribution.py >> /models/fnx-diagnostics/r162-w8a8-head-quality-20261114/attribution.log 2>&1"
+ExecStopPost=/usr/bin/python3 /models/fnx-diagnostics/r162-w8a8-head-quality-20261114/recover_after_attribution.py
+RuntimeMaxSec=9353
+TimeoutStopSec=10
+KillMode=control-group

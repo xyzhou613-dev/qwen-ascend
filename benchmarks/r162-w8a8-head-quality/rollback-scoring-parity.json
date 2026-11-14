@@ -1,0 +1,23 @@
+{
+  "fast": {
+    "mean_nll": 5.178334286050813,
+    "scored": 16,
+    "warm": 0,
+    "mode": "decode",
+    "legacy": false,
+    "name": "pilot16",
+    "ids_sha256": "87b42ead225ed1707e7675ec4ded21a743fac561139bd7c2a450f1e660831b1b",
+    "variant": "rollback"
+  },
+  "legacy": {
+    "mean_nll": 5.178334286050813,
+    "scored": 16,
+    "warm": 0,
+    "mode": "decode",
+    "legacy": true,
+    "name": "pilot16",
+    "ids_sha256": "87b42ead225ed1707e7675ec4ded21a743fac561139bd7c2a450f1e660831b1b",
+    "variant": "rollback"
+  },
+  "max_abs_delta": 0.0
+}

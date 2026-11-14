@@ -1,0 +1,270 @@
+{
+  "status": "rejected_complete_quality_r152_restored",
+  "quality_status": "paired_quality_fail",
+  "quality_complete": true,
+  "quality_passed": false,
+  "short_gate": {
+    "passed": true,
+    "performance": {
+      "median_8k_tpot_ms": {
+        "output_speed_gain": 0.17578125,
+        "head_incremental_saved_ms": 1.3500000000000014
+      },
+      "median_256k_tpot_ms": {
+        "output_speed_gain": 0.171468240194377,
+        "head_incremental_saved_ms": 1.4299999999999997
+      }
+    },
+    "legacy_prefill_deltas": {
+      "natural6000": -0.013756036999342802,
+      "service12000": 0.001119419325133739,
+      "technical24000": -0.0029960454546604787,
+      "natural18000": 0.014751056378564442,
+      "natural36000": 0.022103994268685145
+    },
+    "full_quality_acceptance": false
+  },
+  "performance": {
+    "rollback": {
+      "phase": "rollback",
+      "base_url": "http://127.0.0.1:19002",
+      "median_8k_ttft_s": 3.7866568180033937,
+      "median_8k_tpot_ms": 33.11,
+      "median_256k_ttft_s": 67.66385260099923,
+      "median_256k_tpot_ms": 33.75,
+      "cached_256k_tpot_ms": 33.38,
+      "sustained1024_tpot_ms": 33.08,
+      "sustained_actual_tokens": 754,
+      "short_tpot_ms": [
+        33.2,
+        33.11,
+        33.1
+      ],
+      "long_tpot_ms": [
+        33.74,
+        33.77,
+        33.75
+      ],
+      "long_recall_hits": [
+        3,
+        3,
+        3
+      ]
+    },
+    "smooth": {
+      "phase": "smooth",
+      "base_url": "http://127.0.0.1:19002",
+      "median_8k_ttft_s": 3.7392402960031177,
+      "median_8k_tpot_ms": 29.51,
+      "median_256k_ttft_s": 66.7819967960022,
+      "median_256k_tpot_ms": 30.24,
+      "cached_256k_tpot_ms": 29.89,
+      "sustained1024_tpot_ms": 29.53,
+      "sustained_actual_tokens": 655,
+      "short_tpot_ms": [
+        29.54,
+        29.51,
+        29.48
+      ],
+      "long_tpot_ms": [
+        30.24,
+        30.22,
+        30.25
+      ],
+      "long_recall_hits": [
+        3,
+        3,
+        3
+      ]
+    },
+    "combined": {
+      "phase": "combined",
+      "base_url": "http://127.0.0.1:19002",
+      "median_8k_ttft_s": 3.7371179980036686,
+      "median_8k_tpot_ms": 28.16,
+      "median_256k_ttft_s": 66.8036799160036,
+      "median_256k_tpot_ms": 28.81,
+      "cached_256k_tpot_ms": 28.5,
+      "sustained1024_tpot_ms": 28.12,
+      "sustained_actual_tokens": 666,
+      "short_tpot_ms": [
+        28.19,
+        28.13,
+        28.16
+      ],
+      "long_tpot_ms": [
+        28.96,
+        28.81,
+        28.77
+      ],
+      "long_recall_hits": [
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  "candidate_deployed": false,
+  "full_http_protocol_verified": true,
+  "long_fresh_and_cache_recall_passed": true,
+  "acceptance_all_gates_passed": false,
+  "final_validation": {
+    "epoch": 1794632839.1775615,
+    "production_files_unchanged": 45,
+    "p275_unchanged": true,
+    "health": {
+      "status": "ok",
+      "engine_loaded": true,
+      "ctx": 262144,
+      "service_revision": "r152",
+      "norm_post": true,
+      "state_update": true,
+      "prefill_output": true,
+      "norm_ordered": true,
+      "delta_reuse": true,
+      "moe_epilogue": true,
+      "post_native": true,
+      "decode_down_gmm": false,
+      "expert_gather": true,
+      "inject_native": true,
+      "conv_prefill": true,
+      "raw_compact": true,
+      "cpu_threads": 16,
+      "short_prefill_chunk": 2048,
+      "short_prefill_tokens": 16384,
+      "pipeline_stages": 2,
+      "worker_alive": true,
+      "prefill_chunk": 8192,
+      "pipeline_transport": "hybrid",
+      "delta_compact": true,
+      "index_post": true,
+      "index_score": true,
+      "conv_native": true,
+      "index_expand": true,
+      "mix_reduce": true,
+      "moe_reduce": true,
+      "dual_write": true,
+      "pipeline_transfers": {
+        "peer_transfers": 0,
+        "peer_bytes": 0,
+        "host_transfers": 3,
+        "host_bytes": 61440
+      },
+      "index_caps": [
+        16384,
+        32768,
+        65536,
+        98304,
+        131072,
+        196608,
+        262144
+      ],
+      "native_sparse": true,
+      "native_dual": true,
+      "index_unique": true,
+      "moe_inverse": true,
+      "moe_inverse_sort": true,
+      "state_dual_slim": true,
+      "conversation_state_bytes": 0,
+      "rope_cache": true,
+      "delta_window": 2048,
+      "delta_native": true,
+      "chunk_graph": true,
+      "qsa_indexer": true,
+      "qsa_sparse": true
+    },
+    "engines": [
+      {
+        "pid": 267897,
+        "cwd": "/root/ascend-dev/fnx"
+      },
+      {
+        "pid": 267916,
+        "cwd": "/root/ascend-dev/fnx"
+      }
+    ],
+    "watchdog_pids": [
+      269122
+    ],
+    "manager_active": true,
+    "temporary_controls_removed": true,
+    "private_env_removed": true,
+    "experimental_processes_absent": true,
+    "runtime_and_harness_unchanged": true,
+    "original_container_preserved": true,
+    "formal_fresh8k_answer_identical": true,
+    "within_six_hour_cap": true,
+    "restore_elapsed_s": 12135.13874077797
+  },
+  "attribution": {
+    "epoch": 1794630784.7193055,
+    "case": 7,
+    "name": "zh/65536",
+    "input_sha256": "69187f5049c4d547a47d12d3a56d5e1721543c18a2874471858f9a2ff3254188",
+    "scored": 199,
+    "baseline_nll": 2.761176790535177,
+    "w8a8_only_nll": 2.7999393211469674,
+    "combined_nll": 2.8265615698305737,
+    "w8a8_projection_delta": 0.03876253061179025,
+    "head_incremental_delta": 0.026622248683606298,
+    "combined_delta": 0.06538477929539654,
+    "repeated_combined_max_abs_token_delta": null,
+    "posthoc_attribution_only": true,
+    "original_quality_failure_not_reclassified": true,
+    "original_window_unchanged": true
+  },
+  "attribution_final_validation": {
+    "epoch": 1794632830.3530102,
+    "own_unit_removed": true,
+    "helper_processes_absent": true,
+    "source_harness_unchanged": true,
+    "original_deadline_unchanged": true,
+    "r152_already_restored": true
+  },
+  "baseline_reuse_provenance": {
+    "rollback-nll.jsonl": {
+      "source": "/models/fnx-diagnostics/r157-combined-quality-20261113/rollback-nll.jsonl",
+      "source_sha256": "7e79fc1ad1dc98212792da05900b9d9aba7d8e9130268d621b9a6d49b7772603",
+      "copied_sha256": "7e79fc1ad1dc98212792da05900b9d9aba7d8e9130268d621b9a6d49b7772603",
+      "omitted_interrupted_tail_bytes": 0,
+      "source_untouched": true
+    },
+    "rollback-natural.jsonl": {
+      "source": "/models/fnx-diagnostics/r157-combined-quality-20261113/rollback-natural.jsonl",
+      "source_sha256": "8a57e2af8660aedcbdfc78a54fd9cbb60f817e147b58d5daf048bf2681d82aca",
+      "copied_sha256": "8a57e2af8660aedcbdfc78a54fd9cbb60f817e147b58d5daf048bf2681d82aca",
+      "omitted_interrupted_tail_bytes": 0,
+      "source_untouched": true
+    },
+    "rollback-prefill-quality.json": {
+      "source": "/models/fnx-diagnostics/r157-combined-quality-20261113/rollback-prefill-quality.json",
+      "source_sha256": "668c9d6157086b08700b850c5e487a3cfb2d9921b47509c86a5fc83ba0a3817f",
+      "copied_sha256": "668c9d6157086b08700b850c5e487a3cfb2d9921b47509c86a5fc83ba0a3817f",
+      "omitted_interrupted_tail_bytes": 0,
+      "source_untouched": true
+    },
+    "quality-rollback.jsonl": {
+      "source": "/models/fnx-diagnostics/r157-combined-quality-20261113/quality-rollback.jsonl",
+      "source_sha256": "64596df9ed56377d2bc839e0c102fab6e079a6fa748742f3f4c2b8745b08aca1",
+      "copied_sha256": "64596df9ed56377d2bc839e0c102fab6e079a6fa748742f3f4c2b8745b08aca1",
+      "omitted_interrupted_tail_bytes": 0,
+      "source_untouched": true
+    },
+    "quality-rollback-meta.json": {
+      "source": "/models/fnx-diagnostics/r157-combined-quality-20261113/quality-rollback-meta.json",
+      "source_sha256": "f71c12d22f3d472da8c602891589290639e05f4ffdc2ad3aa760ee5d28cb5fc6",
+      "copied_sha256": "f71c12d22f3d472da8c602891589290639e05f4ffdc2ad3aa760ee5d28cb5fc6",
+      "omitted_interrupted_tail_bytes": 0,
+      "source_untouched": true
+    }
+  },
+  "candidate_input_provenance": {
+    "epoch": 1794619574.065654,
+    "calibration_files_verified": 48,
+    "alpha": 0.5,
+    "calibration_manifest_sha256": "4fe1f86a226b0f5dcc6c687064b97b1d3ff02ba1fd6a8370eb9a71214619457a",
+    "http_input_files_verified": 6,
+    "http_input_manifest_sha256": "8d2c0abb8e83c3a3de6daba58841b14854fd01b43e249fa7c77aefa2cd070bdf",
+    "no_calibration_vectors_or_raw_inputs_published": true
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "mean_nll": 2.7999393211469674,
+  "scored": 199,
+  "warm": 65336,
+  "mode": "prefill",
+  "legacy": false,
+  "name": "zh/65536",
+  "ids_sha256": "69187f5049c4d547a47d12d3a56d5e1721543c18a2874471858f9a2ff3254188",
+  "variant": "smooth"
+}

@@ -1,0 +1,26 @@
+{
+  "phase": "combined",
+  "base_url": "http://127.0.0.1:19002",
+  "median_8k_ttft_s": 3.7371179980036686,
+  "median_8k_tpot_ms": 28.16,
+  "median_256k_ttft_s": 66.8036799160036,
+  "median_256k_tpot_ms": 28.81,
+  "cached_256k_tpot_ms": 28.5,
+  "sustained1024_tpot_ms": 28.12,
+  "sustained_actual_tokens": 666,
+  "short_tpot_ms": [
+    28.19,
+    28.13,
+    28.16
+  ],
+  "long_tpot_ms": [
+    28.96,
+    28.81,
+    28.77
+  ],
+  "long_recall_hits": [
+    3,
+    3,
+    3
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "end_to_end_s": 5.065577130000747,
+  "stats": {
+    "ttft_ms": 138.22,
+    "seconds": 3.934,
+    "tpot_ms": 29.89,
+    "n_prefill": 0,
+    "prefill_ms": 0.13,
+    "prefill_tok_s": 0.0
+  },
+  "usage": {
+    "prompt_tokens": 262016,
+    "completion_tokens": 128,
+    "total_tokens": 262144
+  },
+  "recall_hits": 3,
+  "answer_sha256": "15450e4148b163bd930db1fc96ea2c77cb77882863c8de8cc82fccbe0888837a",
+  "answer_characters": 214
+}
